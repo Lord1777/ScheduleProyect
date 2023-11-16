@@ -1,0 +1,12 @@
+body{
+    background-color: aquamarine;
+}
+
+/* .background-image-login{
+    background-image: url();
+} */
+
+.form-login{
+    display: flex;
+    flex-direction: column;
+}

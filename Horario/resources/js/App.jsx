@@ -1,10 +1,9 @@
 import React from 'react';
-import { Login } from './pages/Login';
 
 function App() {
   return (
     <>
-      <Login/>
+      <h1>Soy el principal app.jsx</h1>
     </>
   );
 }

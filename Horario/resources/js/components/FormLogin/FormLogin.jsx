@@ -4,10 +4,14 @@ import LogoSena from '../../assets/img/LogoSena.png'
 import CloseEye from '../../assets/icons/close-eye.png'
 import OpenEye from '../../assets/icons/open-eye.png'
 import usePasswordToggle from '../../hooks/usePasswordToggle'
+import useDropdown from '../../hooks/useDropdown'
+import { TooltipHorario } from '../Tooltips/TooltipHorario'
 
 export const FormLogin = () => {
 
-    const { password, showPassword, setPassword, handleTogglePassword } = usePasswordToggle()
+    const { password, showPassword, setPassword, handleTogglePassword } = usePasswordToggle();
+    const { isDropdown, selectedOption, handleDropdown, handleOptionClick} = useDropdown();
+
 
     return (
         <>
@@ -20,15 +24,18 @@ export const FormLogin = () => {
 
                     <form method='POST'>
 
-                        <div className="dropdown">
-                            <input type="text" className='textBox'
-                            placeholder='Tipo de Documneto' readOnly/>
-                            <div className="options">
-                                <div>Cédula</div>
-                                <div>Targeta de Identidad</div>
+                        <div className={`dropdown ${isDropdown ? 'open' : ''}`}>
+                            <input type="text" 
+                            className='textBox'
+                            placeholder='Tipo de Documento' readOnly
+                            onClick={handleDropdown}
+                            value={selectedOption}
+                            />
+                            <div className={`options ${isDropdown ? 'open' : ''}`}>
+                                <div onClick={() => handleOptionClick('Cedula')}>Cédula</div>
+                                <div onClick={() => handleOptionClick('Targeta de Identidad')}>Targeta de Identidad</div>
                             </div>
                         </div>
-
 
                         <input type="number" name="N_Documento" placeholder='Número Documento' />
 
@@ -51,17 +58,8 @@ export const FormLogin = () => {
                     </form>
 
                 </div>
+                <TooltipHorario></TooltipHorario>
             </main>
         </>
     )
 }
-
-                        {/* <div className="select_TDocumento">
-                            <select name="T_Documento" id="T_Documento">
-                                <option value="" selected disabled >
-                                    Tipo de Documento
-                                </option>
-                                <option value="Cédula">Cédula</option>
-                                <option value="Targeta de Indentidad">Targeta de Idetidad</option>
-                            </select>
-                        </div> */}

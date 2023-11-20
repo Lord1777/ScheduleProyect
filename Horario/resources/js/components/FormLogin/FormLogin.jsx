@@ -20,15 +20,15 @@ export const FormLogin = () => {
 
                     <form method='POST'>
 
-                        <div className="select_TDocumento">
-                            <select name="T_Documento" id="T_Documento">
-                                <option value="" selected disabled >
-                                    Tipo de Documento
-                                </option>
-                                <option value="Cédula">Cédula</option>
-                                <option value="Targeta de Indentidad">Targeta de Idetidad</option>
-                            </select>
+                        <div className="dropdown">
+                            <input type="text" className='textBox'
+                            placeholder='Tipo de Documneto' readOnly/>
+                            <div className="options">
+                                <div>Cédula</div>
+                                <div>Targeta de Identidad</div>
+                            </div>
                         </div>
+
 
                         <input type="number" name="N_Documento" placeholder='Número Documento' />
 
@@ -55,3 +55,13 @@ export const FormLogin = () => {
         </>
     )
 }
+
+                        {/* <div className="select_TDocumento">
+                            <select name="T_Documento" id="T_Documento">
+                                <option value="" selected disabled >
+                                    Tipo de Documento
+                                </option>
+                                <option value="Cédula">Cédula</option>
+                                <option value="Targeta de Indentidad">Targeta de Idetidad</option>
+                            </select>
+                        </div> */}

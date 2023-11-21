@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::enableForeignKeyConstraints();
         Schema::create('fichas', function (Blueprint $table) {
-            $table->integer('idFicha')->unique();
+            $table->unsignedBigInteger('idFicha')->unique();
             $table->date('fechaInicio');
             $table->date('fechaFinal');
             $table->integer('limiteHoras');

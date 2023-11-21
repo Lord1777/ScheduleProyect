@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tematicas', function (Blueprint $table) {
-            $table->id('idTematica');
+            $table->id('idTematica')->unique();
             $table->unsignedBigInteger('idUsuario');
             $table->unsignedBigInteger('idArea');
 

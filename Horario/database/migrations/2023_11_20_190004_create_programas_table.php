@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::enableForeignKeyConstraints();
         Schema::create('programas', function (Blueprint $table) {
-            $table->integer('idPrograma')->primary()->unique()->index();
+            $table->unsignedBigInteger('idPrograma')->unique();
             $table->string('nombre');
             $table->integer('duracion');
             $table->string('estado');

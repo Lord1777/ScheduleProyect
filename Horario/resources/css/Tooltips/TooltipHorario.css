@@ -11,3 +11,23 @@
     align-items: center;
     cursor: pointer;
 }
+
+/*responsive*/
+
+@media (max-width:800px){
+
+    .container-logo-caledario {
+        position: fixed;
+        width: 5rem;
+        height: 5rem;
+        top: 1rem;
+        right: 1rem;
+        background-color: #5CB85C;
+        border-radius: 50% 0% 50% 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+}

@@ -5,6 +5,7 @@
 }
 
 .cardPanelControl{
+    position: absolute;
     width: 18rem;
     height: 13rem;
     user-select: none;
@@ -26,21 +27,20 @@
 }
 
 .cardPanelControl .container-text-card {
-    position: relative;
+    position: absolute;
     background-color: #262626;
-    top: -2rem;
-    bottom: 2rem;
+    bottom: 0rem;
     border-radius: 0rem 0rem 1rem 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 15%;
+    z-index: 1;
 }
 
 .cardPanelControl:hover .container-text-card {
     height: 100%;
     border-radius: 1rem;
     transition: ease-in-out 0.5s;
-    top: -100%;
 }

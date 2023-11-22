@@ -1,0 +1,46 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.cardPanelControl{
+    width: 18rem;
+    height: 13rem;
+    user-select: none;
+    margin: 10rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.cardPanelControl img{
+    max-width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+}
+
+.cardPanelControl .container-text-card h3{
+    color: #fff;
+    text-align: center;
+}
+
+.cardPanelControl .container-text-card {
+    position: relative;
+    background-color: #262626;
+    top: -2rem;
+    bottom: 2rem;
+    border-radius: 0rem 0rem 1rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 15%;
+}
+
+.cardPanelControl:hover .container-text-card {
+    height: 100%;
+    border-radius: 1rem;
+    transition: ease-in-out 0.5s;
+    top: -100%;
+}

@@ -6,18 +6,19 @@ import { Tooltip } from 'react-tooltip';
 export const TooltipHorario = () => {
     return (
         <>
-            <a href="#">
-                <div className="container-logo-caledario">
+            <div className="container-logo-caledario">
+                <a href="#">
                     <FaCalendarCheck style={{ color: 'white', fontSize: '2rem' }} />
-
-                </div>
-            </a>
+                </a>
+            </div>
             <Tooltip
-            anchorSelect='.container-logo-caledario'
-            content='Consultar Horario Aprendiz'
-            style={{backgroundColor: '#5CB85C',
-            width: '10rem',
-            textAlign: 'center'}}
+                anchorSelect='.container-logo-caledario'
+                content='Consultar Horario Aprendiz'
+                style={{
+                    backgroundColor: '#5CB85C',
+                    width: '10rem',
+                    textAlign: 'center'
+                }}
             />
         </>
     )

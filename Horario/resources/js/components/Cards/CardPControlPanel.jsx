@@ -1,19 +1,20 @@
-import React from 'react'
-import '../../../css/Cards/CardPControlPanel.css'
-import Fondo from '../../assets/img/Fondo-login.jpg'
+import React from 'react';
+import '../../../css/Cards/CardPControlPanel.css';
 
-export const CardPControlPanel = ({ background, texto }) => {
+export const CardPControlPanel = ({img, text}) => {
+
+    const cardStyle = {
+        '--fondo': `url(${img})`,
+    };
+
     return (
         <>
-
-            <div className="cardPanelControl">
-                <img src={Fondo} />
-
+            <div className="cardPanelControl" id='instructores' style={cardStyle}>
                 <div className="container-text-card">
-                    <h3>hola</h3>
+                    <h3>{text}</h3>
                 </div>
             </div>
 
         </>
-    )
-}
+    );
+};

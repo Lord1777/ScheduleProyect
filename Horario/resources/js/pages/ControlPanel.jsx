@@ -1,14 +1,41 @@
 import React from 'react'
 import { CardPControlPanel } from '../components/Cards/CardPControlPanel'
-import Fondo from '../assets/img/Fondo-login.jpg'
+import Instructores from '../assets/img/Instructores.jpg'
+import Fichas from '../assets/img/Fichas.jpg'
+import Coordinadores from '../assets/img/Coordinadores.jpg'
+import Ambientes from '../assets/img/Ambiente.jpg'
+import Tiempo from '../assets/img/Tiempo.jpg'
 
 export const ControlPanel = () => {
-  return (
-    <>
-        <CardPControlPanel
-        texto="Hola"
-        background={Fondo}
-        />
-    </>
-  )
+    return (
+        <>
+            <div className="container-all-panel">
+                <h2>Panel de Control</h2>
+                <div className="container-cardsPanel">
+                    <CardPControlPanel
+                    img={Instructores}
+                    text="Instructores"
+                    />
+                    <CardPControlPanel
+                    img={Fichas}
+                    text="Fichas"
+                    />
+                    <CardPControlPanel
+                    img={Coordinadores}
+                    text="Coordinadores"
+                    />
+                    <CardPControlPanel
+                    img={Ambientes}
+                    text="Ambientes"
+                    />
+                    <CardPControlPanel
+                    img={Tiempo}
+                    text="Trimestres"
+                    />
+                </div>
+            </div>
+
+
+        </>
+    )
 }

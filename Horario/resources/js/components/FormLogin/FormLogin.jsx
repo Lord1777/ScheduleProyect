@@ -33,7 +33,7 @@ export const FormLogin = () => {
                             />
                             <div className={`options ${isDropdown ? 'open' : ''}`}>
                                 <div onClick={() => handleOptionClick('Cedula')}>Cédula</div>
-                                <div onClick={() => handleOptionClick('Targeta de Identidad')}>Targeta de Identidad</div>
+                                <div onClick={() => handleOptionClick('Tarjeta de Identidad')}>Tarjeta de Identidad</div>
                             </div>
                         </div>
 
@@ -46,7 +46,7 @@ export const FormLogin = () => {
                                 name="password"
                                 placeholder='Contraseña'
                                 autoComplete='false' />
-                            <img src={showPassword ? OpenEye : CloseEye} alt="" onClick={handleTogglePassword} />
+                            <img src={showPassword ? OpenEye : CloseEye} onClick={handleTogglePassword} />
                         </div>
                         <div className="container-p">
                             <h3>Olvide mi Contraseña</h3>

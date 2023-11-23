@@ -13,6 +13,7 @@
 
 .container-all-panel h2{
     margin-top: 2rem;
+    user-select: none;
 }
 
 .container-cardsPanel {
@@ -21,6 +22,8 @@
     justify-content: center;
     align-items: center;
     margin: 3rem;
+    max-width: 60rem;
+    transition: all 1s ease; 
 }
 
 .cardPanelControl {

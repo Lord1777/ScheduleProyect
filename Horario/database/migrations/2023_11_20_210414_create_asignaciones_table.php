@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreign('idFicha')->references('idFicha')->on('fichas');
             $table->foreign('idAmbiente')->references('idAmbientes')->on('ambientes');
             $table->foreign('idUsuario')->references('documento')->on('usuarios');
+            $table->foreign('idTrimestre')->references('idTrimestres')->on('trimestres');
         });
     }
 

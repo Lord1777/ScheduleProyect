@@ -1,5 +1,74 @@
+.header-nav{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 999;
+    flex-direction: column;
+    justify-content: flex-start;
+    user-select: none;
+}
+
 .nav-bar{
     width: 100%;
     height: 4rem;
-    background-color: var(--prmary-color);
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+}
+
+.nav-bar .name-proyect-toggle{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 2rem;
+    color: var(--color-text-white);
+    gap: 5rem;
+}
+
+.nav-bar .name-proyect-toggle button{
+    border: none;
+    background-color: var(--primary-color);
+    cursor: pointer;
+}
+
+.nav-bar .name-proyect-toggle button img{
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.header-nav .options-nav{
+    width: 0rem;
+    height: 100%;
+    background-color: var(--primary-color);
+    transition: all 1.3s ease;
+}
+
+.options-nav .options-list{
+    list-style: none;
+    color: var(--color-text-white);
+    font-weight: 600;
+    letter-spacing: 1px;
+    opacity: 0;
+    display: none;
+}
+
+.options-nav .options-list li{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 2rem;
+    transition: all 1s ease-out;
+    cursor: pointer;
+}
+
+.header-nav .options-nav.open{
+    width: 25rem;
+}
+
+.options-nav .options-list.open{
+    opacity: 1;
+    transition: all 1s ease-out;
+    display: flex;
+    flex-direction: column;
 }

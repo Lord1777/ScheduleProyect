@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../../css/FormLogin/FormLogin.css'
+import '../../../css/Form/FormLogin.css'
 import LogoSena from '../../assets/img/LogoSena.png'
 import CloseEye from '../../assets/icons/close-eye.png'
 import OpenEye from '../../assets/icons/open-eye.png'

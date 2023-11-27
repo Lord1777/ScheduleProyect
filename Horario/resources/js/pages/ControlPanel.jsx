@@ -1,5 +1,6 @@
 import React from 'react'
 import { CardPControlPanel } from '../components/Cards/CardPControlPanel'
+import { NavBar } from '../components/NavBar/NavBar'
 import Instructores from '../assets/img/Instructores.jpg'
 import Fichas from '../assets/img/Fichas.jpg'
 import Coordinadores from '../assets/img/Coordinadores.jpg'
@@ -9,28 +10,29 @@ import Tiempo from '../assets/img/Tiempo.jpg'
 export const ControlPanel = () => {
     return (
         <>
+            <NavBar />
             <div className="container-all-panel">
                 <h2>Panel de Control</h2>
                 <div className="container-cardsPanel">
                     <CardPControlPanel
-                    img={Instructores}
-                    text="Instructores"
+                        img={Instructores}
+                        text="Instructores"
                     />
                     <CardPControlPanel
-                    img={Fichas}
-                    text="Fichas"
+                        img={Fichas}
+                        text="Fichas"
                     />
                     <CardPControlPanel
-                    img={Coordinadores}
-                    text="Coordinadores"
+                        img={Coordinadores}
+                        text="Coordinadores"
                     />
                     <CardPControlPanel
-                    img={Ambientes}
-                    text="Ambientes"
+                        img={Ambientes}
+                        text="Ambientes"
                     />
                     <CardPControlPanel
-                    img={Tiempo}
-                    text="Trimestres"
+                        img={Tiempo}
+                        text="Trimestres"
                     />
                 </div>
             </div>

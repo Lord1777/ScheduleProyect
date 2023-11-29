@@ -178,8 +178,8 @@ form .container_info_product input::placeholder {
 }
 
 .dropdown .options div:hover {
-    background-color: #62baea;
-    color: #FFF;
+    background-color: var(--color-hover-option-select);
+    color: var(--color-text-hover-option);
 }
 
 /*responsive*/

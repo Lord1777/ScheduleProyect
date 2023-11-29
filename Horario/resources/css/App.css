@@ -3,6 +3,8 @@
 :root{
     --primary-color: #5CB85C;
     --color-text-white: #fff;
+    --color-hover-option-select: #62baea;
+    --color-text-hover-option: #fff;
 }
 
 * {

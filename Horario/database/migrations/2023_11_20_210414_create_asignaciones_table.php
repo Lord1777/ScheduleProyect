@@ -12,19 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('asignaciones', function (Blueprint $table) {
-            $table->id('idAsignacion');
-            $table->string('lunes');
+            $table->id('idAsignacion')->unique();
+            $table->string('dia',30);
             $table->integer('horaInicio');
             $table->integer('horaFinal');
-            $table->string('estado');
+            $table->string('estado',30);
             $table->unsignedBigInteger('idFicha');
             $table->unsignedBigInteger('idAmbiente');
             $table->unsignedBigInteger('idUsuario');
             $table->unsignedBigInteger('idTrimestre');
 
-            $table->foreign('idFicha')->references('idFicha')->on('fichas');
+            $table->foreign('idFicha')->references('idFichas')->on('fichas');
             $table->foreign('idAmbiente')->references('idAmbientes')->on('ambientes');
-            $table->foreign('idUsuario')->references('documento')->on('usuarios');
+            $table->foreign('idUsuario')->references('idUsuarios')->on('usuarios');
             $table->foreign('idTrimestre')->references('idTrimestres')->on('trimestres');
         });
     }

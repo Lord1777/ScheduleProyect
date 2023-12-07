@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('niveles_de_formacion', function (Blueprint $table) {
-            $table->id('idNivelFormacion');
-            $table->string('nivel');
-            $table->string('estado');
+            $table->id('idNivelFormacion')->unique();
+            $table->string('nivel',30);
+            $table->string('estado',30);
         });
     }
 

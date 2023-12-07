@@ -12,15 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('fichas', function (Blueprint $table) {
-            $table->unsignedBigInteger('idFicha')->unique();
-            $table->date('fechaInicio');
-            $table->date('fechaFinal');
+            $table->id('idFichas')->unique();
+            $table->unsignedBigInteger('Ficha')->unique();
             $table->integer('limiteHoras');
             $table->integer('horasAsignadas');
             $table->unsignedBigInteger('idPrograma');
             // $table->engine = 'InnoDB';
 
-            $table->foreign('idPrograma')->references('idPrograma')->on('programas');
+            $table->foreign('idPrograma')->references('idProgramas')->on('programas');
         });
     }
 

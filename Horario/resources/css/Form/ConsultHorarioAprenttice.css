@@ -81,6 +81,10 @@
     pointer-events: none;
 }
 
+.select-ficha.open::before{
+    transform: rotate(-45deg);
+}
+
 .select-ficha::after{
     width: 1rem;
     height: 3.5rem;
@@ -107,18 +111,37 @@
     caret-color: transparent;
 }
 
-.select-ficha .options{
-    margin-top: 5rem;
-    height: 12rem;
-    overflow-y: auto;
+.container-options{
+    margin-top: 4rem;
+    transition: all 0.1s ease;
+    display: none;
 }
 
-.select-ficha .options div{
+.container-options.open{
+    display: block;
+    transition: all 0.1s ease;
+}
+
+.container-options .options{
+    height: 10rem;
+    overflow-y: auto;
+    margin-top: 8rem;
+}
+
+.options .option{
     padding: 12px 20px;
     cursor: pointer;
 }
 
-.select-ficha .options div:hover{
+.options .option:hover{
     background-color: #62baea;
     color: #FFF;
+}
+
+/*Search*/
+
+.container-options .container-search #search{
+    width: 20rem;
+    height: 2.5rem;
+    margin-top: 5rem;
 }

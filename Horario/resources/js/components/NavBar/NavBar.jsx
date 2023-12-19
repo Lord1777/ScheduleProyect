@@ -20,10 +20,11 @@ export const NavBar = () => {
         <>
             <nav className='nav-bar'>
                 <div className="name-proyect-toggle">
-                    <h2>Nombre del Proyecto</h2>
+                    <h2 className='Title'>ASPS - CBI</h2>
                     <button className='toggle-nav' onClick={showToggleNav}>
                         <img src={toggle} alt="toggle" />
                     </button>
+                    <h2 className='name-Coordinator'>Nombre del Coordinador</h2>
                 </div>
             </nav>
             <div className={`options-nav ${isNavOpen ? 'open' : ''}`}>

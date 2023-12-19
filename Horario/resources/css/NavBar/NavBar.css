@@ -1,14 +1,3 @@
-.header-nav{
-    display: flex;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    z-index: 999;
-    flex-direction: column;
-    justify-content: flex-start;
-    user-select: none;
-}
-
 .nav-bar{
     position: fixed;
     width: 100%;
@@ -25,8 +14,13 @@
     justify-content: space-between;
     align-items: center;
     padding-left: 2rem;
+    padding-right: 2rem;
     color: var(--color-text-white);
     gap: 5rem;
+}
+
+.name-proyect-toggle .name-Coordinator{
+    margin-left: 40rem;
 }
 
 .nav-bar .name-proyect-toggle button{

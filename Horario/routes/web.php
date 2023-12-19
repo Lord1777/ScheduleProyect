@@ -21,6 +21,11 @@ Route::get('/Panel', function(){
     return view('welcome');
 });
 
+Route::get('/ConsultaAprendiz', function(){
+    return view('welcome');
+});
+
+
 Route::get('/Ambientes', function(){
     return view('welcome');
 });

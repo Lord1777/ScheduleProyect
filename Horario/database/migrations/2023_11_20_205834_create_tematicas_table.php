@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tematicas', function (Blueprint $table) {
-            $table->id('idTematica')->unique();
+            $table->id('idTematicas')->unique();
             $table->unsignedBigInteger('idUsuario');
             $table->unsignedBigInteger('idArea');
 
-            $table->foreign('idUsuario')->references('documento')->on('usuarios');
+            $table->foreign('idUsuario')->references('idUsuarios')->on('usuarios');
             $table->foreign('idArea')->references('idArea')->on('areas_tematicas');
         });
     }

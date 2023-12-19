@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ambientes', function (Blueprint $table) {
-            $table->unsignedBigInteger('idAmbientes')->unique();
+            $table->id('idAmbientes')->unique();
+            $table->unsignedBigInteger('ambiente')->unique();
             $table->integer('capacidad');
             $table->integer('cantidadMesas');
             $table->boolean('aireAcondicionado');
@@ -21,7 +22,7 @@ return new class extends Migration
             $table->integer('cantidadComputadores');
             $table->integer('limiteHoras');
             $table->integer('horasAsignadas');
-            $table->string('estado');
+            $table->string('estado',30);
             $table->unsignedBigInteger('idSede');
 
             $table->foreign('idSede')->references('idSede')->on('sedes');

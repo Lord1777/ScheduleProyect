@@ -1,5 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
 :root{
     --primary-color: #5CB85C;
     --color-text-white: #fff;
+    --color-hover-option-select: #62baea;
+    --color-text-hover-option: #fff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
 

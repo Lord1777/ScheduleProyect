@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('areas_tematicas', function (Blueprint $table) {
-            $table->id('idArea');
-            $table->string('areaTematica');
+            $table->id('idArea')->unique();
+            $table->string('areaTematica',30);
         });
     }
 

@@ -24,3 +24,19 @@ Route::get('/Panel', function(){
 Route::get('/ConsultaAprendiz', function(){
     return view('welcome');
 });
+
+Route::get('/CrudInstructor', function(){
+    return view('welcome');
+});
+
+Route::get('/CrudCoordinadores', function(){
+    return view('welcome');
+});
+
+Route::get('/CrudAmbientes', function(){
+    return view('welcome');
+});
+
+Route::get('/CrudFichas', function(){
+    return view('welcome');
+});

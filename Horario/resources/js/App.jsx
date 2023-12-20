@@ -9,6 +9,7 @@ import { CrudEnvironments } from './pages/CrudEnvironments';
 import { CrudRecords } from './pages/CrudRecords';
 import '../css/App.css'
 import { Crud_Ambientes } from './pages/Crud_Ambientes';
+import { WachtSchedules } from './pages/WachtSchedules';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
                     <Route path='/CrudAmbientes' element={<CrudEnvironments/>}/>
                     <Route path='/CrudFichas' element={<CrudRecords/>}/>
                     <Route path='/Ambientes' element={<Crud_Ambientes/>}/>
+                    <Route path='/HorariosFichas' element={<WachtSchedules/>}/>
                 </Routes>
             </Router>
         </>

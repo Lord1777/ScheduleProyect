@@ -1,0 +1,105 @@
+.container_table_crud {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.content_table {
+    width: 80rem;
+    border-collapse: collapse;
+    text-align: center;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    left: 0;
+}
+
+.content_table thead tr {
+    background-color: #262626;
+    color: #ffffff;
+    text-align: middle;
+}
+
+.content_table thead tr th {
+    font-weight: normal;
+    padding: 1.3rem 1rem;
+    font-size: 1.1rem;
+}
+
+.content_table tbody tr:nth-child(odd) {
+    background-color: #D9D9D9;
+}
+
+.content_table tbody tr td {
+    margin: 1rem;
+    overflow: hidden;
+}
+
+.container_btns_tabla{
+    display: flex;
+    justify-content: space-around;
+}
+
+#root>main>div.container_table_crud>table>tbody>tr td:nth-child(2) {
+    text-align: justify;
+}
+
+.content_table tbody tr:nth-child(even) {
+    background-color: #FFFFFF;
+}
+
+.content_table tbody tr td{
+    border: none;
+    background-color: #ffffff00;
+    padding: 0.8rem;
+    transition: .5ms;
+}
+
+.content_table tbody tr td button{
+    border: none;
+    background: transparent;
+    height: auto;
+    width: auto;
+    cursor: pointer;
+}
+
+.content_table tbody tr td button .iconEdit{
+    font-size: 1.5rem;
+}
+
+.content_table tbody tr td button .iconInhabilitar{
+    font-size: 1.5rem;
+    color: red;
+}
+
+/*Responsive*/
+@media(max-width:980px){
+    .container_table_crud{
+        display: flex;
+        justify-content: flex-start;
+        overflow: hidden;
+        overflow-x: auto;
+        
+    }
+
+    .content_table {
+        max-width: 80rem;
+        min-width: 70rem;
+        margin-left: 1rem;
+        border-collapse: collapse;
+        text-align: center;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        overflow: auto;
+    }
+
+    .content_table tbody tr td {
+        margin: 1rem;
+        overflow: hidden;
+        font-size: 0.9rem;
+    }
+
+    .container_btns_tabla {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+}

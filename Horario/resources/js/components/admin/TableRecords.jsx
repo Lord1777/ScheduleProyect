@@ -1,0 +1,125 @@
+import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch, faPenToSquare, faCircle } from '@fortawesome/free-solid-svg-icons';
+
+export const TableRecords = () => {
+    return (
+        <>
+            <h2 className='title'>Administrar Fichas</h2>
+            <div className="container-search-buttons">
+                <div className="search-input">
+                    <input type="search" name="search" id="search" placeholder="Buscar" />
+                    <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                </div>
+
+                <div className="buttons">
+                    <button type="button">Inhabilitados</button>
+                    <button type="button">Añadir Ficha</button>
+                </div>
+            </div>
+
+            <div className="container_table_crud">
+                    <table className='content_table'>
+                        <thead>
+                            <tr>
+                                <th>Ficha</th>
+                                <th>Programa</th>
+                                <th>Nivel de Formación</th>
+                                <th>Jornada</th>
+                                <th>Modalidad</th>
+                                <th>Editar</th>
+                                <th>Inhabilitar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                    <td>2560354</td>
+                                    <td>Analisis y desarrollo de software</td>
+                                    <td>Tecnologo</td>
+                                    <td>Diurna</td>
+                                    <td>Presencial</td>
+                                    <td>
+                                        <button>
+                                            <FontAwesomeIcon icon={faPenToSquare} className='iconEdit'/>
+                                        </button>  
+                                    </td>
+                                    <td>
+                                        <button>
+                                            <FontAwesomeIcon icon={faCircle} className='iconInhabilitar' />
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2560354</td>
+                                    <td>Analisis y desarrollo de software</td>
+                                    <td>Tecnologo</td>
+                                    <td>Diurna</td>
+                                    <td>Presencial</td>
+                                    <td>
+                                        <button>
+                                            <FontAwesomeIcon icon={faPenToSquare} className='iconEdit'/>
+                                        </button>  
+                                    </td>
+                                    <td>
+                                        <button>
+                                            <FontAwesomeIcon icon={faCircle} className='iconInhabilitar' />
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2560354</td>
+                                    <td>Analisis y desarrollo de software</td>
+                                    <td>Tecnologo</td>
+                                    <td>Diurna</td>
+                                    <td>Presencial</td>
+                                    <td>
+                                        <button>
+                                            <FontAwesomeIcon icon={faPenToSquare} className='iconEdit'/>
+                                        </button>  
+                                    </td>
+                                    <td>
+                                        <button>
+                                            <FontAwesomeIcon icon={faCircle} className='iconInhabilitar' />
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2560354</td>
+                                    <td>Analisis y desarrollo de software</td>
+                                    <td>Tecnologo</td>
+                                    <td>Diurna</td>
+                                    <td>Presencial</td>
+                                    <td>
+                                        <button>
+                                            <FontAwesomeIcon icon={faPenToSquare} className='iconEdit'/>
+                                        </button>  
+                                    </td>
+                                    <td>
+                                        <button>
+                                            <FontAwesomeIcon icon={faCircle} className='iconInhabilitar' />
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2560354</td>
+                                    <td>Analisis y desarrollo de software</td>
+                                    <td>Tecnologo</td>
+                                    <td>Diurna</td>
+                                    <td>Presencial</td>
+                                    <td>
+                                        <button>
+                                            <FontAwesomeIcon icon={faPenToSquare} className='iconEdit'/>
+                                        </button>  
+                                    </td>
+                                    <td>
+                                        <button>
+                                            <FontAwesomeIcon icon={faCircle} className='iconInhabilitar' />
+                                        </button>
+                                    </td>
+                                </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </>
+    )
+}

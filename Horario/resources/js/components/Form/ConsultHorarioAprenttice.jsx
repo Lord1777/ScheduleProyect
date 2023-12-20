@@ -21,20 +21,21 @@ export const ConsultHorarioAprenttice = () => {
                                 placeholder='Seleccionar Ficha'
                                 onClick={handleDropdown}
                                 value={selectedOption}
+                                id='select-ficha'
                             />
                             <div className={`container-options ${isDropdown ? 'open' : ''}`}>
                                 <div className="container-search">
                                     <input type="search" placeholder='Buscar' id='search' />
                                 </div>
                                 <div className="options">
-                                    <div className='option'>2560354 - Analis y desarrollo de software</div>
-                                    <div className='option'>6821632 - Contabilidad</div>
-                                    <div className='option'>2783190 - Gestión bancaria</div>
-                                    <div className='option'>2132163 - Recursos Humanos</div>
-                                    <div className='option'>2560354 - Analis y desarrollo de software</div>
-                                    <div className='option'>6821632 - Contabilidad</div>
-                                    <div className='option'>2783190 - Gestión bancaria</div>
-                                    <div className='option'>2132163 - Recursos Humanos</div>
+                                    <div className='option' onClick={() => handleOptionClick('2560354 - Analisis y desarrollo de software')}>2560354 - Analisis y desarrollo de software</div>
+                                    <div className='option' onClick={() => handleOptionClick('6821632 - Contabilidad')}>6821632 - Contabilidad</div>
+                                    <div className='option' onClick={() => handleOptionClick('6821632 - Contabilidad')}>2783190 - Gestión bancaria</div>
+                                    <div className='option' onClick={() => handleOptionClick('6821632 - Contabilidad')}>2132163 - Recursos Humanos</div>
+                                    <div className='option' onClick={() => handleOptionClick('6821632 - Contabilidad')}>2560354 - Analis y desarrollo de software</div>
+                                    <div className='option' onClick={() => handleOptionClick('6821632 - Contabilidad')}>6821632 - Contabilidad</div>
+                                    <div className='option' onClick={() => handleOptionClick('6821632 - Contabilidad')}>2783190 - Gestión bancaria</div>
+                                    <div className='option' onClick={() => handleOptionClick('6821632 - Contabilidad')}>2132163 - Recursos Humanos</div>
                                 </div>
                             </div>
                         </div>

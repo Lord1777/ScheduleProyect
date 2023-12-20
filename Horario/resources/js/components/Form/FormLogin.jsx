@@ -34,6 +34,7 @@ export const FormLogin = () => {
                             <div className={`options ${isDropdown ? 'open' : ''}`}>
                                 <div onClick={() => handleOptionClick('Cedula')}>Cédula</div>
                                 <div onClick={() => handleOptionClick('Tarjeta de Identidad')}>Tarjeta de Identidad</div>
+                                <div onClick={() => handleOptionClick('Cedula de Extranjeria')}>Cédula de Extranjería</div>
                             </div>
                         </div>
 

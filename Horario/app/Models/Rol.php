@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Rol extends Model
 {
     use HasFactory;
+
+    public $timestamps = false; //desactiva las marcas de tiempo
+    protected $table = 'roles'; //desactiva la convencion de nombre por defecto: 'rols'
 }

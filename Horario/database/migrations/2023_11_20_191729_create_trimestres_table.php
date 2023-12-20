@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('trimestres', function (Blueprint $table) {
             $table->id('idTrimestres')->unique();
+            $table->integer('trimestre');
             $table->date('fechaInicio');
             $table->date('fechaFinal');
-            $table->integer('año');
         });
     }
 

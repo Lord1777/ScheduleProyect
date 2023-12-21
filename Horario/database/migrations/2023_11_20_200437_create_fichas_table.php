@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('limiteHoras');
             $table->integer('horasAsignadas');
             $table->unsignedBigInteger('idPrograma');
+            $table->string('estado',30);
             // $table->engine = 'InnoDB';
 
             $table->foreign('idPrograma')->references('idProgramas')->on('programas');

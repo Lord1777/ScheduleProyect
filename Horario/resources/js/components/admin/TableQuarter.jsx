@@ -27,7 +27,7 @@ export const TableQuarter = () => {
                             <tr>
                                 <th>N° Trimestre</th>
                                 <th>Fecha de Inicio</th>
-                                <th>Fecha  de Finalización</th>
+                                <th>Fecha de Finalización</th>
                                 <th>Editar</th>
                                 <th>Inhabilitar</th>
                             </tr>

@@ -40,3 +40,19 @@ Route::get('/CrudAmbientes', function(){
 Route::get('/CrudFichas', function(){
     return view('welcome');
 });
+
+Route::get('/AddFicha', function(){
+    return view('welcome');
+});
+
+Route::get('/AddAmbiente', function(){
+    return view('welcome');
+});
+
+Route::get('/CrudTrimestres', function(){
+    return view('welcome');
+});
+
+Route::get('/AddTrimestre', function(){
+    return view('welcome');
+});

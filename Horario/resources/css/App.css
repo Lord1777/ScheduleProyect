@@ -6,6 +6,10 @@
     --color-hover-option-select: #62baea;
     --color-text-hover-option: #fff;
     --color-icons: #fff;
+    --sencundary-color-underline-title: #F26828;
+    --color-btn-guardar: #5CB85C;
+    --color-btn-cancelar: #E74C3C;
+    --color-text-btn: #fff;
 }
 
 * {

@@ -1,6 +1,9 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faPenToSquare, faCircle } from '@fortawesome/free-solid-svg-icons';
+import '../../../css/admin/TableInstructors.css';
+import '../../../css/admin/SearchButtons.css'
+import '../../../css/admin/Board.css'
 
 export const TableRecords = () => {
     return (

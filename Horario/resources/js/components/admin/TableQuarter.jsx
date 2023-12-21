@@ -5,10 +5,10 @@ import '../../../css/admin/TableInstructors.css';
 import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
 
-export const TableEnvironments = () => {
+export const TableQuarter = () => {
   return (
     <>
-        <h2 className='title'>Administrar Ambientes</h2>
+        <h2 className='title'>Administrar Trimestres</h2>
             <div className="container-search-buttons">
                 <div className="search-input">
                     <input type="search" name="search" id="search" placeholder="Buscar" />
@@ -17,7 +17,7 @@ export const TableEnvironments = () => {
 
                 <div className="buttons">
                     <button type="button">Inhabilitados</button>
-                    <button type="button">Añadir Ambiente</button>
+                    <button type="button">Añadir Trimestre</button>
                 </div>
             </div>
 
@@ -25,20 +25,18 @@ export const TableEnvironments = () => {
                     <table className='content_table'>
                         <thead>
                             <tr>
-                                <th>Ambiente</th>
-                                <th>Tipo de Ambiente</th>
-                                <th>Capacidad</th>
-                                <th>Lugar de Ambiente</th>
+                                <th>N° Trimestre</th>
+                                <th>Fecha de Inicio</th>
+                                <th>Fecha  de Finalización</th>
                                 <th>Editar</th>
                                 <th>Inhabilitar</th>
                             </tr>
                         </thead>
                         <tbody>
                                 <tr>
-                                    <td>115</td>
-                                    <td>Sistemas</td>
-                                    <td>30</td>
-                                    <td>CBI</td>
+                                    <td>1</td>
+                                    <td>20/01/2023</td>
+                                    <td>29/04/2023</td>
                                     <td>
                                         <button>
                                             <FontAwesomeIcon icon={faPenToSquare} className='iconEdit'/>
@@ -46,15 +44,14 @@ export const TableEnvironments = () => {
                                     </td>
                                     <td>
                                         <button>
-                                            <FontAwesomeIcon icon={faCircle} className='iconInhabilitar' />
+                                            <FontAwesomeIcon icon={faCircle} className='iconInhabilitar'/>
                                         </button>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>115</td>
-                                    <td>Sistemas</td>
-                                    <td>30</td>
-                                    <td>CBI</td>
+                                    <td>1</td>
+                                    <td>20/01/2023</td>
+                                    <td>29/04/2023</td>
                                     <td>
                                         <button>
                                             <FontAwesomeIcon icon={faPenToSquare} className='iconEdit'/>
@@ -62,15 +59,14 @@ export const TableEnvironments = () => {
                                     </td>
                                     <td>
                                         <button>
-                                            <FontAwesomeIcon icon={faCircle} className='iconInhabilitar' />
+                                            <FontAwesomeIcon icon={faCircle} className='iconInhabilitar'/>
                                         </button>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>115</td>
-                                    <td>Sistemas</td>
-                                    <td>30</td>
-                                    <td>CBI</td>
+                                    <td>1</td>
+                                    <td>20/01/2023</td>
+                                    <td>29/04/2023</td>
                                     <td>
                                         <button>
                                             <FontAwesomeIcon icon={faPenToSquare} className='iconEdit'/>
@@ -78,15 +74,14 @@ export const TableEnvironments = () => {
                                     </td>
                                     <td>
                                         <button>
-                                            <FontAwesomeIcon icon={faCircle} className='iconInhabilitar' />
+                                            <FontAwesomeIcon icon={faCircle} className='iconInhabilitar'/>
                                         </button>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>115</td>
-                                    <td>Sistemas</td>
-                                    <td>30</td>
-                                    <td>CBI</td>
+                                    <td>1</td>
+                                    <td>20/01/2023</td>
+                                    <td>29/04/2023</td>
                                     <td>
                                         <button>
                                             <FontAwesomeIcon icon={faPenToSquare} className='iconEdit'/>
@@ -94,13 +89,14 @@ export const TableEnvironments = () => {
                                     </td>
                                     <td>
                                         <button>
-                                            <FontAwesomeIcon icon={faCircle} className='iconInhabilitar' />
+                                            <FontAwesomeIcon icon={faCircle} className='iconInhabilitar'/>
                                         </button>
                                     </td>
                                 </tr>
                         </tbody>
                     </table>
             </div>
+
     </>
   )
 }

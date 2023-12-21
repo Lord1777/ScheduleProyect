@@ -5,7 +5,11 @@ import '../../../css/admin/TableInstructors.css';
 import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
 
+
 export const TableInstructors = () => {
+
+    const { dataInstructor, fetchDataInstructor } = FetchGetInstructor;
+
     return (
         <>
             <h2 className='title'>Administrar Instructores</h2>

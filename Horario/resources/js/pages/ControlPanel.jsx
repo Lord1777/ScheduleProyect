@@ -6,6 +6,7 @@ import Fichas from '../assets/img/Fichas.jpg'
 import Coordinadores from '../assets/img/Coordinadores.jpg'
 import Ambientes from '../assets/img/Ambiente.jpg'
 import Tiempo from '../assets/img/Tiempo.jpg'
+import { Link } from 'react-router-dom'
 
 export const ControlPanel = () => {
     return (
@@ -14,10 +15,14 @@ export const ControlPanel = () => {
             <div className="container-all-panel">
                 <h2>Panel de Control</h2>
                 <div className="container-cardsPanel">
-                    <CardPControlPanel
-                        img={Instructores}
-                        text="Instructores"
-                    />
+                    
+                    <Link to='/CrudInstructor' >
+                        <CardPControlPanel
+                            img={Instructores}
+                            text="Instructores"
+                        />
+                    </Link>
+
                     <CardPControlPanel
                         img={Fichas}
                         text="Fichas"

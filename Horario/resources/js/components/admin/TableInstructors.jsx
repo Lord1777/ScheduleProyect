@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faUserPen, faUserSlash } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/admin/TableInstructors.css';
 import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
+import useFetchGetInstructor from '../../hooks/useFetchGetInstructor';
 
 
 export const TableInstructors = () => {
 
-    const { dataInstructor, fetchDataInstructor } = FetchGetInstructor;
+    const { dataInstructor, fetchDataInstructor } = useFetchGetInstructor();
+
+    useEffect(() => {
+        fetchDataInstructor();
+        if (dataInstructor) {
+            console.log(dataInstructor)
+        } else {
+            console.log('jajaja')
+        }
+
+    }, [!dataInstructor]);
+
 
     return (
         <>
@@ -24,167 +36,44 @@ export const TableInstructors = () => {
                     <button type="button">Añadir Instructor</button>
                 </div>
             </div>
-            
+
             <div className="container_table_crud">
-                    <table className='content_table'>
-                        <thead>
-                            <tr>
-                                <th>Documento</th>
-                                <th>Nombre</th>
-                                <th>Tipo</th>
-                                <th>Profesión</th>
-                                <th>Editar</th>
-                                <th>Inhabilitar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                <table className='content_table'>
+                    <thead>
+                        <tr>
+                            <th>Documento</th>
+                            <th>Nombre</th>
+                            <th>Contrato</th>
+                            <th>Profesión</th>
+                            <th>Editar</th>
+                            <th>Inhabilitar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {dataInstructor.map((instructor) => {
+
+                            return (
                                 <tr>
-                                    <td>1016713467</td>
-                                    <td>Ricardo Polania Rubiano</td>
-                                    <td>Contratatista</td>
-                                    <td>Desarrollador de software</td>
+                                    <td>{instructor.documento}</td>
+                                    <td>{instructor.nombreCompleto}</td>
+                                    <td>{instructor.idContrato}</td>
+                                    <td>{instructor.profesion}</td>
                                     <td>
                                         <button>
-                                            <FontAwesomeIcon icon={faUserPen} className='iconEdit'/>
-                                        </button>  
+                                            <FontAwesomeIcon icon={faUserPen} className='iconEdit' />
+                                        </button>
                                     </td>
                                     <td>
                                         <button>
-                                            <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar'/>
+                                            <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar' />
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>1016713467</td>
-                                    <td>Ricardo Polania Rubiano</td>
-                                    <td>Contratatista</td>
-                                    <td>Desarrollador de software</td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserPen} className='iconEdit'/>
-                                        </button>  
-                                    </td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar'/>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1016713467</td>
-                                    <td>Ricardo Polania Rubiano</td>
-                                    <td>Contratatista</td>
-                                    <td>Desarrollador de software</td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserPen} className='iconEdit'/>
-                                        </button>  
-                                    </td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar'/>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1016713467</td>
-                                    <td>Ricardo Polania Rubiano</td>
-                                    <td>Contratatista</td>
-                                    <td>Desarrollador de software</td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserPen} className='iconEdit'/>
-                                        </button>  
-                                    </td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar'/>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1016713467</td>
-                                    <td>Ricardo Polania Rubiano</td>
-                                    <td>Contratatista</td>
-                                    <td>Desarrollador de software</td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserPen} className='iconEdit'/>
-                                        </button>  
-                                    </td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar'/>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1016713467</td>
-                                    <td>Ricardo Polania Rubiano</td>
-                                    <td>Contratatista</td>
-                                    <td>Desarrollador de software</td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserPen} className='iconEdit'/>
-                                        </button>  
-                                    </td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar'/>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1016713467</td>
-                                    <td>Ricardo Polania Rubiano</td>
-                                    <td>Contratatista</td>
-                                    <td>Desarrollador de software</td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserPen} className='iconEdit'/>
-                                        </button>  
-                                    </td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar'/>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1016713467</td>
-                                    <td>Ricardo Polania Rubiano</td>
-                                    <td>Contratatista</td>
-                                    <td>Desarrollador de software</td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserPen} className='iconEdit'/>
-                                        </button>  
-                                    </td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar'/>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1016713467</td>
-                                    <td>Ricardo Polania Rubiano</td>
-                                    <td>Contratatista</td>
-                                    <td>Desarrollador de software</td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserPen} className='iconEdit'/>
-                                        </button>  
-                                    </td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar'/>
-                                        </button>
-                                    </td>
-                                </tr>
-                        </tbody>
-                    </table>
-                </div>
+                            )
+                        })}
+                    </tbody>
+                </table>
+            </div>
         </>
     );
 };

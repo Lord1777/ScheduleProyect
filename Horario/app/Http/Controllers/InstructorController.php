@@ -9,8 +9,15 @@ class InstructorController extends Controller
 {
     public function index()
     {
-        $instructores = Usuario::where('idRol', 2)->get();
-        return $instructores;
+        try 
+        {
+            $instructors = Usuario::where('idRol', 2)->get();
+            return response()->json($instructors);
+
+        } catch (\Exception $e) 
+        {
+            return response()->json(['error' => 'Request instructors error', $e], 500);
+        }
     }
 
     public function store()

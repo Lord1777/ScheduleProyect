@@ -1,11 +1,20 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faPenToSquare, faCircle } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/admin/TableInstructors.css';
 import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
+import useFetchGetRecord from '../../hooks/useFetchGetRecord';
 
 export const TableRecords = () => {
+
+    const { dataRecord, fetchDataRecord } = useFetchGetRecord();
+
+    useEffect(() => {
+        fetchDataRecord();
+    }, [!dataRecord])
+
+
     return (
         <>
             <h2 className='title'>Administrar Fichas</h2>
@@ -22,29 +31,32 @@ export const TableRecords = () => {
             </div>
 
             <div className="container_table_crud">
-                    <table className='content_table'>
-                        <thead>
-                            <tr>
-                                <th>Ficha</th>
-                                <th>Programa</th>
-                                <th>Nivel de Formación</th>
-                                <th>Jornada</th>
-                                <th>Modalidad</th>
-                                <th>Editar</th>
-                                <th>Inhabilitar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                <table className='content_table'>
+                    <thead>
+                        <tr>
+                            <th>Ficha</th>
+                            <th>Programa</th>
+                            <th>Nivel de Formación</th>
+                            <th>Jornada</th>
+                            <th>Modalidad</th>
+                            <th>Editar</th>
+                            <th>Inhabilitar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {dataRecord.map((record) => {
+
+                            return (
                                 <tr>
-                                    <td>2560354</td>
-                                    <td>Analisis y desarrollo de software</td>
-                                    <td>Tecnologo</td>
-                                    <td>Diurna</td>
-                                    <td>Presencial</td>
+                                    <td>{record.ficha}</td>
+                                    <td>{record.idPrograma}</td>
+                                    <td>nivel</td>
+                                    <td>Jornada</td>
+                                    <td>Modalidad</td>
                                     <td>
                                         <button>
-                                            <FontAwesomeIcon icon={faPenToSquare} className='iconEdit'/>
-                                        </button>  
+                                            <FontAwesomeIcon icon={faPenToSquare} className='iconEdit' />
+                                        </button>
                                     </td>
                                     <td>
                                         <button>
@@ -52,76 +64,10 @@ export const TableRecords = () => {
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>2560354</td>
-                                    <td>Analisis y desarrollo de software</td>
-                                    <td>Tecnologo</td>
-                                    <td>Diurna</td>
-                                    <td>Presencial</td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faPenToSquare} className='iconEdit'/>
-                                        </button>  
-                                    </td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faCircle} className='iconInhabilitar' />
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2560354</td>
-                                    <td>Analisis y desarrollo de software</td>
-                                    <td>Tecnologo</td>
-                                    <td>Diurna</td>
-                                    <td>Presencial</td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faPenToSquare} className='iconEdit'/>
-                                        </button>  
-                                    </td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faCircle} className='iconInhabilitar' />
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2560354</td>
-                                    <td>Analisis y desarrollo de software</td>
-                                    <td>Tecnologo</td>
-                                    <td>Diurna</td>
-                                    <td>Presencial</td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faPenToSquare} className='iconEdit'/>
-                                        </button>  
-                                    </td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faCircle} className='iconInhabilitar' />
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2560354</td>
-                                    <td>Analisis y desarrollo de software</td>
-                                    <td>Tecnologo</td>
-                                    <td>Diurna</td>
-                                    <td>Presencial</td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faPenToSquare} className='iconEdit'/>
-                                        </button>  
-                                    </td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faCircle} className='iconInhabilitar' />
-                                        </button>
-                                    </td>
-                                </tr>
-                        </tbody>
-                    </table>
+                            )
+                        })}
+                    </tbody>
+                </table>
             </div>
         </>
     )

@@ -11,12 +11,12 @@ class InstructorController extends Controller
     {
         try 
         {
-            $instructors = Usuario::where('idRol', 2)->get();
-            return response()->json($instructors);
+            $instructors = Usuario::where('idRol', 2)->where('estado', 'habilitado')->get();
+            return response()->json($instructors, 200);
 
         } catch (\Exception $e) 
         {
-            return response()->json(['error' => 'Request instructors error', $e], 500);
+            return response()->json(['error' => "Request instructors error: $e"], 500);
         }
     }
 

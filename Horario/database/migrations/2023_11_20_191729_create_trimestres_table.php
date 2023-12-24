@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('trimestre');
             $table->date('fechaInicio');
             $table->date('fechaFinal');
+            $table->string('estado', 30);
         });
     }
 

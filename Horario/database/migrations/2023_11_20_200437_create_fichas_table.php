@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('fichas', function (Blueprint $table) {
             $table->id('idFichas')->unique();
-            $table->unsignedBigInteger('Ficha')->unique();
+            $table->unsignedBigInteger('ficha')->unique();
             $table->integer('limiteHoras');
             $table->integer('horasAsignadas');
             $table->unsignedBigInteger('idPrograma');

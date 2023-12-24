@@ -13,12 +13,6 @@ export const TableInstructors = () => {
 
     useEffect(() => {
         fetchDataInstructor();
-        if (dataInstructor) {
-            console.log(dataInstructor)
-        } else {
-            console.log('jajaja')
-        }
-
     }, [!dataInstructor]);
 
 

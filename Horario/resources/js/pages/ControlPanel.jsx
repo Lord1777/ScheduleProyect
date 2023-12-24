@@ -15,7 +15,7 @@ export const ControlPanel = () => {
             <div className="container-all-panel">
                 <h2>Panel de Control</h2>
                 <div className="container-cardsPanel">
-                    
+
                     <Link to='/CrudInstructor' >
                         <CardPControlPanel
                             img={Instructores}
@@ -23,22 +23,35 @@ export const ControlPanel = () => {
                         />
                     </Link>
 
-                    <CardPControlPanel
-                        img={Fichas}
-                        text="Fichas"
-                    />
-                    <CardPControlPanel
-                        img={Coordinadores}
-                        text="Coordinadores"
-                    />
-                    <CardPControlPanel
-                        img={Ambientes}
-                        text="Ambientes"
-                    />
-                    <CardPControlPanel
-                        img={Tiempo}
-                        text="Trimestres"
-                    />
+                    <Link to={'/CrudCoordinadores'} >
+                        <CardPControlPanel
+                            img={Coordinadores}
+                            text="Coordinadores"
+                        />
+                    </Link>
+
+                    <Link to={'/CrudAmbientes'} >
+                        <CardPControlPanel
+                            img={Ambientes}
+                            text="Ambientes"
+                        />
+                    </Link>
+
+                    <Link to={'/CrudFichas'} >
+                        <CardPControlPanel
+                            img={Fichas}
+                            text="Fichas"
+                        />
+                    </Link>
+
+                    <Link to={'/CrudTrimestres'} >
+                        <CardPControlPanel
+                            img={Tiempo}
+                            text="Trimestres"
+                        />
+                    </Link>
+
+
                 </div>
             </div>
 

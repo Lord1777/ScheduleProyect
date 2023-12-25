@@ -31,8 +31,9 @@
     gap: 5rem;
 }
 
-.name-proyect-toggle .name-Coordinator{
-    margin-left: 40rem;
+.name-coordinator{
+    padding-right: 2rem;
+    color: var(--color-text-white);
 }
 
 .nav-bar .name-proyect-toggle button{

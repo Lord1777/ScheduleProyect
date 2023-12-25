@@ -91,3 +91,7 @@ Route::get('/CrudFichas', function(){
 Route::get('/Ambientes', function(){
     return view('welcome');
 });
+
+Route::get('/HorariosFichas', function(){
+    return view('welcome');
+});

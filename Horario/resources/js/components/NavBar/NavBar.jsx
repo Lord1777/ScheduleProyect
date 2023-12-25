@@ -24,7 +24,6 @@ export const NavBar = () => {
                     <button className='toggle-nav' onClick={showToggleNav}>
                         <img src={toggle} alt="toggle" />
                     </button>
-                    <h2 className='name-Coordinator'>Nombre del Coordinador</h2>
                 </div>
                 <div>
                     nombre

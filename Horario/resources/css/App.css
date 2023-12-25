@@ -10,6 +10,7 @@
     --color-btn-guardar: #5CB85C;
     --color-btn-cancelar: #E74C3C;
     --color-text-btn: #fff;
+    --color-error: red;
 }
 
 * {
@@ -17,5 +18,10 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Inter', sans-serif;
+}
+
+.errors_forms{
+    font-size: 0.75rem;
+    color: var(--color-error);
 }
 

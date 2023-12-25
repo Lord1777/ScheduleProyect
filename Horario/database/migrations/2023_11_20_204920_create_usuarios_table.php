@@ -16,12 +16,11 @@ return new class extends Migration
             $table->unsignedBigInteger('documento')->unique();
             $table->string('nombreCompleto',50);
             $table->string('ciudad',30);
-            $table->string('departamento',30);
             $table->string('telefono',30);
             $table->string('profesion',100);
             $table->string('email',100);
             $table->text('experiencia');
-            $table->string('contraseña',30);
+            $table->string('contraseña',300);
             $table->integer('limiteHoras');
             $table->integer('horasAsignadas');
             $table->string('estado',30);

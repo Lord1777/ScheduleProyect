@@ -6,6 +6,7 @@ import Fichas from '../assets/img/Fichas.jpg'
 import Coordinadores from '../assets/img/Coordinadores.jpg'
 import Ambientes from '../assets/img/Ambiente.jpg'
 import Tiempo from '../assets/img/Tiempo.jpg'
+import { Link } from 'react-router-dom'
 
 export const ControlPanel = () => {
     return (
@@ -14,26 +15,43 @@ export const ControlPanel = () => {
             <div className="container-all-panel">
                 <h2>Panel de Control</h2>
                 <div className="container-cardsPanel">
-                    <CardPControlPanel
-                        img={Instructores}
-                        text="Instructores"
-                    />
-                    <CardPControlPanel
-                        img={Fichas}
-                        text="Fichas"
-                    />
-                    <CardPControlPanel
-                        img={Coordinadores}
-                        text="Coordinadores"
-                    />
-                    <CardPControlPanel
-                        img={Ambientes}
-                        text="Ambientes"
-                    />
-                    <CardPControlPanel
-                        img={Tiempo}
-                        text="Trimestres"
-                    />
+
+                    <Link to='/CrudInstructor' >
+                        <CardPControlPanel
+                            img={Instructores}
+                            text="Instructores"
+                        />
+                    </Link>
+
+                    <Link to={'/CrudCoordinadores'} >
+                        <CardPControlPanel
+                            img={Coordinadores}
+                            text="Coordinadores"
+                        />
+                    </Link>
+
+                    <Link to={'/CrudAmbientes'} >
+                        <CardPControlPanel
+                            img={Ambientes}
+                            text="Ambientes"
+                        />
+                    </Link>
+
+                    <Link to={'/CrudFichas'} >
+                        <CardPControlPanel
+                            img={Fichas}
+                            text="Fichas"
+                        />
+                    </Link>
+
+                    <Link to={'/CrudTrimestres'} >
+                        <CardPControlPanel
+                            img={Tiempo}
+                            text="Trimestres"
+                        />
+                    </Link>
+
+
                 </div>
             </div>
 

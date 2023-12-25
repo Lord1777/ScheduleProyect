@@ -18,6 +18,7 @@
     align-items: center;
     user-select: none;
     z-index: 100;
+    justify-content: space-between;
 }
 
 .nav-bar .name-proyect-toggle{

@@ -5,7 +5,7 @@ import useDropdown from '../../hooks/useDropdown'
 
 export const ConsultHorarioAprenttice = () => {
 
-    const { isDropdown, selectedOption, handleDropdown, handleOptionClick} = useDropdown();
+    const { isDropdown, selectedOption, handleDropdown, handleOptionClick } = useDropdown();
 
     return (
         <>

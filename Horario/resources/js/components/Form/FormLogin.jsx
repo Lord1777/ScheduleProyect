@@ -6,11 +6,12 @@ import OpenEye from '../../assets/icons/open-eye.png'
 import usePasswordToggle from '../../hooks/usePasswordToggle'
 import useDropdown from '../../hooks/useDropdown'
 import { TooltipHorario } from '../Tooltips/TooltipHorario'
+import { Link } from 'react-router-dom'
 
 export const FormLogin = () => {
 
     const { password, showPassword, setPassword, handleTogglePassword } = usePasswordToggle();
-    const { isDropdown, selectedOption, handleDropdown, handleOptionClick} = useDropdown();
+    const { isDropdown, selectedOption, handleDropdown, handleOptionClick } = useDropdown();
 
 
     return (
@@ -22,14 +23,14 @@ export const FormLogin = () => {
                     </div>
                     <h2>Ingreso Usuarios Registrados</h2>
 
-                    <form method='POST'>
+                    <form> {/*Falta especificar el metodo */}
 
                         <div className={`dropdown ${isDropdown ? 'open' : ''}`}>
-                            <input type="text" 
-                            className='textBox'
-                            placeholder='Tipo de Documento' readOnly
-                            onClick={handleDropdown}
-                            value={selectedOption}
+                            <input type="text"
+                                className='textBox'
+                                placeholder='Tipo de Documento' readOnly
+                                onClick={handleDropdown}
+                                value={selectedOption}
                             />
                             <div className={`options ${isDropdown ? 'open' : ''}`}>
                                 <div onClick={() => handleOptionClick('Cedula')}>Cédula</div>
@@ -53,7 +54,9 @@ export const FormLogin = () => {
                             <h3>Olvide mi Contraseña</h3>
                         </div>
 
-                        <button>Ingresar</button>
+                        <Link to='Panel'>
+                            <button>Ingresar</button>
+                        </Link>
 
                         <h3>Crear Cuenta</h3>
                     </form>

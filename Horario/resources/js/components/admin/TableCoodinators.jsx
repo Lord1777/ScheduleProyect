@@ -1,11 +1,24 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faUserPen, faUserSlash } from '@fortawesome/free-solid-svg-icons';
+import '../../../css/admin/TableInstructors.css';
+import '../../../css/admin/SearchButtons.css'
+import '../../../css/admin/Board.css'
+import useFetchGetCoordinator from "../../hooks/useFetchGetCoordinator";
+
 
 export const TableCoodinators = () => {
-  return (
-    <>
-        <h2 className='title'>Administrar Coordinadores</h2>
+
+    const { dataCoordinator, fetchDataCoordinator } = useFetchGetCoordinator();
+
+    useEffect(() => {
+        fetchDataCoordinator();
+    }, [!dataCoordinator])
+
+
+    return (
+        <>
+            <h2 className='title'>Administrar Coordinadores</h2>
             <div className="container-search-buttons">
                 <div className="search-input">
                     <input type="search" name="search" id="search" placeholder="Buscar" />
@@ -19,85 +32,42 @@ export const TableCoodinators = () => {
             </div>
 
             <div className="container_table_crud">
-                    <table className='content_table'>
-                        <thead>
-                            <tr>
-                                <th>Documento</th>
-                                <th>Nombre</th>
-                                <th>Telefono</th>
-                                <th>Email</th>
-                                <th>Editar</th>
-                                <th>Inhabilitar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                <table className='content_table'>
+                    <thead>
+                        <tr>
+                            <th>Documento</th>
+                            <th>Nombre</th>
+                            <th>Telefono</th>
+                            <th>Email</th>
+                            <th>Editar</th>
+                            <th>Inhabilitar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {dataCoordinator.map((coordinator) => {
+
+                            return (
                                 <tr>
-                                    <td>101583409</td>
-                                    <td>Andrea Potes Perez</td>
-                                    <td>3127393809</td>
-                                    <td>andreapotes24@soy.sena.com</td>
+                                    <td>{coordinator.documento}</td>
+                                    <td>{coordinator.nombreCompleto}</td>
+                                    <td>{coordinator.telefono}</td>
+                                    <td>{coordinator.email}</td>
                                     <td>
                                         <button>
-                                            <FontAwesomeIcon icon={faUserPen} className='iconEdit'/>
-                                        </button>  
+                                            <FontAwesomeIcon icon={faUserPen} className='iconEdit' />
+                                        </button>
                                     </td>
                                     <td>
                                         <button>
-                                            <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar'/>
+                                            <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar' />
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>102854659</td>
-                                    <td>Jorge Olivares</td>
-                                    <td>3127873809</td>
-                                    <td>TheOlivares17@soy.sena.com</td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserPen} className='iconEdit'/>
-                                        </button>  
-                                    </td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar'/>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1518253748</td>
-                                    <td>Brayan</td>
-                                    <td>3120093809</td>
-                                    <td>b4yans07@soy.sena.com</td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserPen} className='iconEdit'/>
-                                        </button>  
-                                    </td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar'/>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>103983401</td>
-                                    <td>Aldemar Bermudez</td>
-                                    <td>3108568843</td>
-                                    <td>elaldobermudez19@soy.sena.com</td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserPen} className='iconEdit'/>
-                                        </button>  
-                                    </td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar'/>
-                                        </button>
-                                    </td>
-                                </tr>
-                        </tbody>
-                    </table>
+                            )
+                        })}
+                    </tbody>
+                </table>
             </div>
-    </>
-  )
+        </>
+    )
 }

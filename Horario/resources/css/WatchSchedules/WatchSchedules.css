@@ -1,0 +1,55 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.Space{
+    height: 5rem;
+}
+
+.main-container{
+    background-color:darkgray;
+    width: 80rem;
+    height: 100vh;
+    border-radius: 1rem;
+    margin-left: 2.5rem;
+}
+
+.title-and-search{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title-and-search h2{
+    margin-left: 1rem;
+}
+
+.title-and-search .search-input{
+    margin-right: 1rem;
+}
+
+.container-schedules{
+    /* background-color: cadetblue; */
+    width: 75rem;
+    height: 40vh;
+    margin-top: 2rem;
+    margin-left: 2.5rem;
+    border-radius: 1rem;
+}
+
+.schedule1{
+    background-color:azure;
+    width: 15rem;
+    height: 10vh;
+    margin-top: 4rem;
+    padding-top: 7rem;
+    margin-left: 2.5rem;
+    border-radius: 1rem;
+}
+
+.schedule1 .icon-schedule{
+    
+}

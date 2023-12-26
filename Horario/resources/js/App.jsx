@@ -13,7 +13,7 @@ import { CrudQuarters } from './pages/CrudQuarters';
 import { AddQuarter } from './pages/AddQuarter';
 import '../css/App.css'
 import { Crud_Ambientes } from './pages/Crud_Ambientes';
-import { WachtSchedules } from './pages/WachtSchedules';
+import { WatchSchedules } from '../../resources/js/pages/WatchSchedules.jsx';
 
 
 function App() {
@@ -21,19 +21,19 @@ function App() {
         <>
             <Router>
                 <Routes>
-                    <Route path='/' element={<Login/>}/>
-                    <Route path='/Panel' element={<ControlPanel/>}/>
-                    <Route path='/ConsultaAprendiz' element={<ConsultAprenttice/>}/>
-                    <Route path='/CrudInstructor' element={<CrudInstructor/>}/>
-                    <Route path='/CrudCoordinadores' element={<CrudCoordinators/>}/>
-                    <Route path='/CrudAmbientes' element={<CrudEnvironments/>}/>
-                    <Route path='/CrudFichas' element={<CrudRecords/>}/>
-                    <Route path='/AddFicha' element={<AddRecords/>}/>
-                    <Route path='/AddAmbiente' element={<AddEnvironments/>}/>
-                    <Route path='/CrudTrimestres' element={<CrudQuarters/>}/>
-                    <Route path='/AddTrimestre' element={<AddQuarter/>}/>
-                    <Route path='/Ambientes' element={<Crud_Ambientes/>}/>
-                    <Route path='/HorariosFichas' element={<WachtSchedules/>}/>
+                    <Route path='/' element={<Login />} />
+                    <Route path='/Panel' element={<ControlPanel />} />
+                    <Route path='/ConsultaAprendiz' element={<ConsultAprenttice />} />
+                    <Route path='/CrudInstructor' element={<CrudInstructor />} />
+                    <Route path='/CrudCoordinadores' element={<CrudCoordinators />} />
+                    <Route path='/CrudAmbientes' element={<CrudEnvironments />} />
+                    <Route path='/CrudFichas' element={<CrudRecords />} />
+                    <Route path='/AddFicha' element={<AddRecords />} />
+                    <Route path='/AddAmbiente' element={<AddEnvironments />} />
+                    <Route path='/CrudTrimestres' element={<CrudQuarters />} />
+                    <Route path='/AddTrimestre' element={<AddQuarter />} />
+                    <Route path='/Ambientes' element={<Crud_Ambientes />} />
+                    <Route path='/HorariosFichas' element={<WatchSchedules />} />
                 </Routes>
             </Router>
         </>

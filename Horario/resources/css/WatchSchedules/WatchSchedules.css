@@ -5,33 +5,37 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-.Space{
+/*Espaciador*/
+.Space {
     height: 5rem;
 }
 
-.main-container{
-    background-color:darkgray;
+/*Contenerdor principal*/
+.main-container {
+    /* background-color:darkgray; */
     width: 80rem;
     height: 100vh;
     border-radius: 1rem;
     margin-left: 2.5rem;
 }
 
-.title-and-search{
+/*Título y buscador*/
+.title-and-search {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.title-and-search h2{
+.title-and-search h2 {
     margin-left: 1rem;
 }
 
-.title-and-search .search-input{
+.title-and-search .search-input {
     margin-right: 1rem;
 }
 
-.container-schedules{
+/*Contenedor de horarios*/
+.container-schedules {
     /* background-color: cadetblue; */
     width: 75rem;
     height: 40vh;
@@ -40,16 +44,115 @@
     border-radius: 1rem;
 }
 
-.schedule1{
-    background-color:azure;
+/*Contenedores de los horarios de las fichas*/
+.schedule1 {
+    background-color: var(--primary-color);
     width: 15rem;
-    height: 10vh;
-    margin-top: 4rem;
+    height: 19vh;
+    margin-top: 1rem;
     padding-top: 7rem;
-    margin-left: 2.5rem;
+    margin-left: 1.5rem;
     border-radius: 1rem;
+    position: absolute;
+    border: none;
+    cursor: pointer;
 }
 
-.schedule1 .icon-schedule{
-    
+.schedule2 {
+    background-color: var(--primary-color);
+    width: 15rem;
+    height: 19vh;
+    margin-top: 1rem;
+    padding-top: 7rem;
+    margin-left: 20rem;
+    border-radius: 1rem;
+    position: absolute;
+    border: none;
+    cursor: pointer;
 }
+
+.schedule3 {
+    background-color: var(--primary-color);
+    width: 15rem;
+    height: 19vh;
+    margin-top: 1rem;
+    padding-top: 7rem;
+    margin-left: 38.5rem;
+    border-radius: 1rem;
+    position: absolute;
+    border: none;
+    cursor: pointer;
+}
+
+.schedule4 {
+    background-color: var(--primary-color);
+    width: 15rem;
+    height: 19vh;
+    margin-top: 1rem;
+    padding-top: 7rem;
+    margin-left: 57rem;
+    border-radius: 1rem;
+    position: absolute;
+    border: none;
+    cursor: pointer;
+}
+
+/*Iconos de calendarios*/
+.schedule1 .calendar-icon {
+    width: 6rem;
+    height: 12vh;
+    margin-right: 7rem;
+    top: -5.5rem;
+    right: 0;
+    position: relative;
+    color: var(--color-text-white);
+}
+
+.schedule2 .calendar-icon {
+    width: 6rem;
+    height: 12vh;
+    margin-right: 7rem;
+    top: -5.5rem;
+    right: 0;
+    position: relative;
+    color: var(--color-text-white);
+}
+
+.schedule3 .calendar-icon {
+    width: 6rem;
+    height: 12vh;
+    margin-right: 7rem;
+    top: -5.5rem;
+    right: 0;
+    position: relative;
+    color: var(--color-text-white);
+}
+
+.schedule4 .calendar-icon {
+    width: 6rem;
+    height: 12vh;
+    margin-right: 7rem;
+    top: -5.5rem;
+    right: 0;
+    position: relative;
+    color: var(--color-text-white);
+}
+ /*Número de la ficha*/
+.ficha-and-number {
+    position: relative;
+    top: -10rem;
+    margin-left: 5.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-white);
+    font-size: 15px;
+}
+
+.ficha-and-number h2{
+    font-weight: 500;
+}
+
+/*Responsive*/
+

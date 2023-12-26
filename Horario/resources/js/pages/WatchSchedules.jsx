@@ -2,10 +2,16 @@ import React from "react";
 import { NavBar } from "../components/NavBar/NavBar";
 import "../../css/WatchSchedules/WatchSchedules.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faUserPen, faUserSlash } from '@fortawesome/free-solid-svg-icons';
-import IconSchedule from '../assets/img/IconSchedule.png'
+import { faSearch, faCalendar } from '@fortawesome/free-solid-svg-icons';
+
+
 
 export const WatchSchedules = () => {
+
+  const handleClick = (fichaNumber) => {
+    console.log(`Botón de ficha ${fichaNumber} clickeado`);
+  };
+
   return (
     <>
       <NavBar></NavBar>
@@ -27,10 +33,35 @@ export const WatchSchedules = () => {
           </div>
         </div>{/*Titulo y buscador*/}
         <div className="container-schedules">
-          <div className="schedule1">
-              <img src={IconSchedule} alt="Icono de horario" />
-          </div>
-        </div> {/*Contenedor de los horarios*/}
+          <button className="schedule1" onClick={() => handleClick(1)}>
+            <FontAwesomeIcon icon={faCalendar} className="calendar-icon" />
+            <div className="ficha-and-number">
+              <h2>Ficha</h2>
+              <h2>2560354</h2>
+            </div>
+          </button>{/*Contenedor de prueba*/}
+          <button className="schedule2" onClick={() => handleClick(2)}>
+            <FontAwesomeIcon icon={faCalendar} className="calendar-icon" />
+            <div className="ficha-and-number">
+              <h2>Ficha</h2>
+              <h2>2560354</h2>
+            </div>
+          </button>
+          <button className="schedule3" onClick={() => handleClick(3)}>
+            <FontAwesomeIcon icon={faCalendar} className="calendar-icon" />
+            <div className="ficha-and-number">
+              <h2>Ficha</h2>
+              <h2>2560354</h2>
+            </div>
+          </button>
+          <button className="schedule4" onClick={() => handleClick(4)}>
+            <FontAwesomeIcon icon={faCalendar} className="calendar-icon" />
+            <div className="ficha-and-number">
+              <h2>Ficha</h2>
+              <h2>2560354</h2>
+            </div>
+          </button>
+        </div> {/*Contenedor de los horarios de la fichas*/}
       </div>{/*Contenedor principal*/}
     </>
   );

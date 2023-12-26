@@ -96,9 +96,28 @@
     flex-direction: column;
 }
 
+/*Responsive*/
+
 @media (max-width:420px){
     .nav-bar .name-proyect-toggle h2{
-        font-size: 1.2rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width:375px){
+
+    .nav-bar .name-proyect-toggle h2{
+        margin-left: -1rem;
+        font-size: 0.8rem;
+    }
+
+    .nav-bar .name-proyect-toggle button img{
+        margin-left: -3.7rem;
+    }
+
+    .name-coordinator h2{
+        font-size: 0.9rem;
+        margin-right: 57.4rem;
     }
 }
 

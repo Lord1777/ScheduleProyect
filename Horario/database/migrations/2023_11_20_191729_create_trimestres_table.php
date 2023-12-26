@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('trimestres', function (Blueprint $table) {
-            $table->id('idTrimestres')->unique();
+            $table->id('idTrimestre')->unique();
             $table->integer('trimestre');
             $table->date('fechaInicio');
             $table->date('fechaFinal');

@@ -10,8 +10,18 @@ class EnvironmentsController extends Controller
     public function index()
     {
         try{
-            $environment = Ambiente::where('estado', 'habilitado')->get();
+
+            $environment = Ambiente::join('sedes', 'ambientes.idSede', '=', 'sedes.idSede')
+            ->select(
+                'ambientes.ambiente',
+                'ambientes.capacidad',
+                'sedes.sede',
+            )
+            ->where('ambientes.estado', 'habilitado')
+            ->get();
+            
             return response()->json($environment, 200);
+
         }catch(\Exception $e){
             return response()->json(['error' => "Request environment error: $e"], 500);
         }

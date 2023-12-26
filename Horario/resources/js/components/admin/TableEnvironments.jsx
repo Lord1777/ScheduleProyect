@@ -4,7 +4,7 @@ import { faSearch, faPenToSquare, faCircle } from '@fortawesome/free-solid-svg-i
 import '../../../css/admin/TableInstructors.css';
 import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
-import useFetchGetEnvironment from '../../hooks/useFetchGetEnvironment';
+import useFetchGetEnvironment from '../../hooks/FetchGET/useFetchGetEnvironment';
 
 export const TableEnvironments = () => {
 
@@ -47,7 +47,7 @@ export const TableEnvironments = () => {
                                 <tr>
                                     <td>{environment.ambiente}</td>
                                     <td>{environment.capacidad}</td>
-                                    <td>{environment.idSede}</td>
+                                    <td>{environment.sede}</td>
                                     <td>
                                         <button>
                                             <FontAwesomeIcon icon={faPenToSquare} className='iconEdit' />

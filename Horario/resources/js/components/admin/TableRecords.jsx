@@ -4,7 +4,7 @@ import { faSearch, faPenToSquare, faCircle } from '@fortawesome/free-solid-svg-i
 import '../../../css/admin/TableInstructors.css';
 import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
-import useFetchGetRecord from '../../hooks/useFetchGetRecord';
+import useFetchGetRecord from '../../hooks/FetchGET/useFetchGetRecord';
 
 export const TableRecords = () => {
 
@@ -49,10 +49,10 @@ export const TableRecords = () => {
                             return (
                                 <tr>
                                     <td>{record.ficha}</td>
-                                    <td>{record.idPrograma}</td>
-                                    <td>nivel</td>
-                                    <td>Jornada</td>
-                                    <td>Modalidad</td>
+                                    <td>{record.programa.nombre}</td>
+                                    <td>{record.programa.nivel.nivel}</td>
+                                    <td>{record.programa.jornada.jornada}</td>
+                                    <td>{record.programa.modalidad.modalidad}</td>
                                     <td>
                                         <button>
                                             <FontAwesomeIcon icon={faPenToSquare} className='iconEdit' />

@@ -22,10 +22,10 @@ return new class extends Migration
             $table->unsignedBigInteger('idUsuario');
             $table->unsignedBigInteger('idTrimestre');
 
-            $table->foreign('idFicha')->references('idFichas')->on('fichas');
-            $table->foreign('idAmbiente')->references('idAmbientes')->on('ambientes');
-            $table->foreign('idUsuario')->references('idUsuarios')->on('usuarios');
-            $table->foreign('idTrimestre')->references('idTrimestres')->on('trimestres');
+            $table->foreign('idFicha')->references('idFicha')->on('fichas');
+            $table->foreign('idAmbiente')->references('idAmbiente')->on('ambientes');
+            $table->foreign('idUsuario')->references('idUsuario')->on('usuarios');
+            $table->foreign('idTrimestre')->references('idTrimestre')->on('trimestres');
         });
     }
 

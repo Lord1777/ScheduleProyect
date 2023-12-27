@@ -13,10 +13,6 @@ import { CrudQuarters } from './pages/CrudQuarters';
 import { AddQuarter } from './pages/AddQuarter';
 import { Crud_Ambientes } from './pages/Crud_Ambientes';
 import { WachtSchedules } from './pages/WachtSchedules';
-import { Modal } from './components/Modals/Modal';
-import { Probarmoda } from './pages/probarmoda';
-import '../css/App.css'
-
 
 
 function App() {
@@ -31,11 +27,10 @@ function App() {
                     <Route path='/CrudCoordinadores' element={<CrudCoordinators/>}/>
                     <Route path='/CrudAmbientes' element={<CrudEnvironments/>}/>
                     <Route path='/CrudFichas' element={<CrudRecords/>}/>
+                    <Route path='/CrudTrimestres' element={<CrudQuarters/>}/>
                     <Route path='/AddFicha' element={<AddRecords/>}/>
                     <Route path='/AddAmbiente' element={<AddEnvironments/>}/>
-                    <Route path='/CrudTrimestres' element={<CrudQuarters/>}/>
                     <Route path='/AddTrimestre' element={<AddQuarter/>}/>
-                    <Route path='/Ambientes' element={<Crud_Ambientes/>}/>
                     <Route path='/HorariosFichas' element={<WachtSchedules/>}/>
                     <Route path='/modal' element={<Modal/>}/>
                     <Route path='/pruebam' element={<Probarmoda/>}/>

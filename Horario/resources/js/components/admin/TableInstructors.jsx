@@ -4,7 +4,7 @@ import { faSearch, faUserPen, faUserSlash } from '@fortawesome/free-solid-svg-ic
 import '../../../css/admin/TableInstructors.css';
 import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
-import useFetchGetInstructor from '../../hooks/useFetchGetInstructor';
+import useFetchGetInstructor from '../../hooks/FetchGET/useFetchGetInstructor';
 
 
 export const TableInstructors = () => {
@@ -50,7 +50,7 @@ export const TableInstructors = () => {
                                 <tr>
                                     <td>{instructor.documento}</td>
                                     <td>{instructor.nombreCompleto}</td>
-                                    <td>{instructor.idContrato}</td>
+                                    <td>{instructor.tipoContrato}</td>
                                     <td>{instructor.profesion}</td>
                                     <td>
                                         <button>

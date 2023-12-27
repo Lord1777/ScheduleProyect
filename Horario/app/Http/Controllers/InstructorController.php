@@ -11,7 +11,16 @@ class InstructorController extends Controller
     {
         try 
         {
-            $instructors = Usuario::where('idRol', 2)->where('estado', 'habilitado')->get();
+            $instructors = Usuario::join('contratos', 'usuarios.idContrato', '=', 'contratos.idContrato')
+            ->select(
+                'usuarios.documento',
+                'usuarios.nombreCompleto',
+                'contratos.tipoContrato',
+                'usuarios.profesion',
+                )
+            ->where('usuarios.estado', 'habilitado')
+            ->where('usuarios.idRol', 2)
+            ->get();
             return response()->json($instructors, 200);
 
         } catch (\Exception $e) 
@@ -28,7 +37,9 @@ class InstructorController extends Controller
     {
     }
 
-    public function destroy()
+    public function destroy(string $id)
     {
+        $instructor = Usuario::destroy($id);
+        return response()->json($instructor, 200);
     }
 }

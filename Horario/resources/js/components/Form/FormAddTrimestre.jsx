@@ -5,12 +5,29 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import useDropdown from '../../hooks/useDropdown';
 import '../../../css/Form/FormAddTrimestre.css';
+import useFetchPostQuarter from '../../hooks/FetchDELETE/useFetchPostQuarter';
 
 function FormAddTrimestre() {
+
     const dropdown1 = useDropdown();
     const dropdown2 = useDropdown();
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+    const [trimestre, setTrimestre] = useState(null);
+
+    console.log(startDate);
+    console.log(endDate);
+    console.log(trimestre);
+
+    const { fetchSubmitQuarter } = useFetchPostQuarter({ trimestre, fechaInicio: startDate, fechaFinal: endDate });
+
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+        fetchSubmitQuarter();
+    }
+
+
+
 
     return (
         <>
@@ -18,9 +35,9 @@ function FormAddTrimestre() {
                 <div className='box_form_trimestre'>
                     <h2 className='title_underline'>Registro de Trimestre</h2>
                     <div className='container_form_add'>
-                        <form method='POST'>
+                        <form method='POST' onSubmit={handleSubmit} >
                             <div className='grid-column'>
-                                <input type="number" name="NTrimestre" placeholder='N° Trimestre' />
+                                <input type="number" name="trimestre" placeholder='N° Trimestre' onChange={(e) => setTrimestre(e.target.value)}/>
 
                                 <div className="DatePicker">
                                     <DatePicker

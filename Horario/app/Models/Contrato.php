@@ -9,5 +9,6 @@ class Contrato extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'idContrato';
     public $timestamps = false;
 }

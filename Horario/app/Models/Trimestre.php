@@ -9,5 +9,6 @@ class Trimestre extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'idTrimestre';
     public $timestamps = false;
 }

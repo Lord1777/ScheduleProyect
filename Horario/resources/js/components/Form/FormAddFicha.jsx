@@ -49,7 +49,6 @@ export const FormAddFicha = () => {
                                     <div className={`options ${dropdown2.isDropdown ? 'open' : ''}`}>
                                         <div onClick={() => dropdown2.handleOptionClick('Tecnico')}>Técnico</div>
                                         <div onClick={() => dropdown2.handleOptionClick('Tecnologo')}>Tecnólogo</div>
-                                        <div onClick={() => dropdown2.handleOptionClick('Complemetario')}>Complemetario</div>
                                     </div>
                                 </div>
 

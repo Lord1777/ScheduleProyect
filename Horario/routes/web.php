@@ -22,6 +22,8 @@ Route::get('/CrudTrimestres', fn() => view('welcome'));
 Route::get('/AddTrimestre', fn() => view('welcome'));
 Route::get('/Ambientes', fn() => view('welcome'));
 Route::get('/HorariosFichas', fn() => view('welcome'));
+Route::get('/modal', fn() => view('welcome'));
+Route::get('/pruebam', fn() => view('welcome'));
 
 
 Route::group(['middleware' => ['cors']], function(){

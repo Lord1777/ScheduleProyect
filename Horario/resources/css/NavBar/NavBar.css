@@ -31,6 +31,14 @@
     gap: 5rem;
 }
 
+.nav-bar .username{
+    padding-left: 2rem;
+}
+
+.nav-bar .username h2{
+    color: var(--color-text-white);
+}
+
 .name-proyect-toggle .name-Coordinator{
     margin-left: 40rem;
 }
@@ -95,9 +103,26 @@
     flex-direction: column;
 }
 
+@media (max-width:465px){
+    .nav-bar .name-proyect-toggle {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        color: var(--color-text-white);
+        gap: 5rem;
+    }
+
+    .nav-bar .username {
+        padding-left: 2rem;
+        display: none;
+    }
+}
+
 @media (max-width:420px){
     .nav-bar .name-proyect-toggle h2{
-        font-size: 1.2rem;
+        font-size: 1.5rem;
     }
 }
 
@@ -108,7 +133,7 @@
         align-items: center;
         padding-left: 1rem;
         color: var(--color-text-white);
-        gap: 1rem;
+        gap: 3rem;
     }
 
     .nav-bar .name-proyect-toggle button img {

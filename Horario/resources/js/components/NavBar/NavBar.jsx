@@ -25,8 +25,8 @@ export const NavBar = () => {
                         <img src={toggle} alt="toggle" />
                     </button>
                 </div>
-                <div>
-                    nombre
+                <div className='username'>
+                    <h2>Nombre</h2>
                 </div>
             </nav>
             <div className={`options-nav ${isNavOpen ? 'open' : ''}`}>

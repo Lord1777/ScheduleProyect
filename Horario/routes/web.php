@@ -19,30 +19,34 @@ Route::get('/HorariosFichas', fn() => view('welcome'));
 Route::get('/modal', fn() => view('welcome'));
 Route::get('/pruebam', fn() => view('welcome'));
 
-
+//Instructores
 Route::group(['middleware' => ['cors']], function(){
     Route::get('/CrudInstructor', fn() =>view('welcome'));
     Route::get('/getInstructors', [InstructorController::class, 'index']);
 });
 
-
+//Coordinadores
 Route::group(['middleware' => ['cors']], function(){
     Route::get('/CrudCoordinadores', fn() => view('welcome'));
     Route::get('/getCoordinators', [CoordinatorsController::class, 'index']);
 });
 
-
+//Ambientes
 Route::group(['middleware' => ['cors']], function(){
     Route::get('/CrudAmbientes', fn() => view('welcome'));
     Route::get('/getEnvironments', [EnvironmentsController::class, 'index']);
+
+    Route::match(['get', 'post'], '/AddAmbiente', fn() => view('welcome'));
+    Route::post('/createEnvironments', [EnvironmentsController::class, 'store']);
 });
 
-
+//Fichas
 Route::group(['middleware' => ['cors']], function(){
     Route::get('/CrudFichas', fn() => view('welcome'));
     Route::get('/getRecords', [RecordsController::class, 'index']);
 });
 
+//Trimestres
 Route::group(['middleware' => ['cors']], function(){
     Route::get('/CrudTrimestres', fn() => view('welcome'));
     Route::get('/getQuarters', [QuartersController::class, 'index']);

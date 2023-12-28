@@ -11,4 +11,10 @@ class Sede extends Model
 
     protected $primaryKey = 'idSede';
     public $timestamps = false;
+
+
+    public function ambientes()
+    {
+        return $this->hasMany(Ambiente::class, 'idSede');
+    }
 }

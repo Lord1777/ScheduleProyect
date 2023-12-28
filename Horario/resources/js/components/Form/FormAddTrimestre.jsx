@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import useDropdown from '../../hooks/useDropdown';
 import '../../../css/Form/FormAddTrimestre.css';
-import useFetchPostQuarter from '../../hooks/FetchDELETE/useFetchPostQuarter';
+import useFetchPostQuarter from '../../hooks/FetchPOST/useFetchPostQuarter';
 
 function FormAddTrimestre() {
 
@@ -14,10 +14,6 @@ function FormAddTrimestre() {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [trimestre, setTrimestre] = useState(null);
-
-    console.log(startDate);
-    console.log(endDate);
-    console.log(trimestre);
 
     const { fetchSubmitQuarter } = useFetchPostQuarter({ trimestre, fechaInicio: startDate, fechaFinal: endDate });
 

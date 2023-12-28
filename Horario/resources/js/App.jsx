@@ -11,7 +11,6 @@ import { AddRecords } from './pages/AddRecords';
 import { AddEnvironments } from './pages/AddEnvironments';
 import { CrudQuarters } from './pages/CrudQuarters';
 import { AddQuarter } from './pages/AddQuarter';
-import { Crud_Ambientes } from './pages/Crud_Ambientes';
 import { WachtSchedules } from './pages/WachtSchedules';
 
 
@@ -32,8 +31,6 @@ function App() {
                     <Route path='/AddAmbiente' element={<AddEnvironments/>}/>
                     <Route path='/AddTrimestre' element={<AddQuarter/>}/>
                     <Route path='/HorariosFichas' element={<WachtSchedules/>}/>
-                    <Route path='/modal' element={<Modal/>}/>
-                    <Route path='/pruebam' element={<Probarmoda/>}/>
                 </Routes>
             </Router>
         </>

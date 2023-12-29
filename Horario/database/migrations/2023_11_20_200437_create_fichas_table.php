@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('fichas', function (Blueprint $table) {
-            $table->id('idFichas')->unique();
+            $table->id('idFicha')->unique();
             $table->unsignedBigInteger('ficha')->unique();
             $table->integer('limiteHoras');
             $table->integer('horasAsignadas');
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('estado',30);
             // $table->engine = 'InnoDB';
 
-            $table->foreign('idPrograma')->references('idProgramas')->on('programas');
+            $table->foreign('idPrograma')->references('idPrograma')->on('programas');
         });
     }
 

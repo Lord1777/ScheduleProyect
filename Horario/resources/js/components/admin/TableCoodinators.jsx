@@ -4,7 +4,7 @@ import { faSearch, faUserPen, faUserSlash } from '@fortawesome/free-solid-svg-ic
 import '../../../css/admin/TableInstructors.css';
 import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
-import useFetchGetCoordinator from "../../hooks/useFetchGetCoordinator";
+import useFetchGetCoordinator from "../../hooks/FetchGET/useFetchGetCoordinator";
 
 
 export const TableCoodinators = () => {

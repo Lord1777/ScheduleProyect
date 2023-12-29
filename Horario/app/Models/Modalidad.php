@@ -9,6 +9,7 @@ class Modalidad extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'idModalidad';
     protected $table = 'modalidades'; //desactiva la convencion de nombre por defecto: 'modalidas'
     public $timestamps = false; //desactiva las marcas de tiempo
 }

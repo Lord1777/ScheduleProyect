@@ -9,5 +9,6 @@ class Jornada extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'idJornada';
     public $timestamps = false;
 }

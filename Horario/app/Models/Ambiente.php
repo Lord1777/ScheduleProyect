@@ -9,6 +9,7 @@ class Ambiente extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'idAmbiente';
     public $timestamps = false; //desactiva las marcas de tiempo
     // protected $table = 'ambientes';
 }

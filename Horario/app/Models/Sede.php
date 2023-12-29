@@ -9,5 +9,12 @@ class Sede extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'idSede';
     public $timestamps = false;
+
+
+    public function ambientes()
+    {
+        return $this->hasMany(Ambiente::class, 'idSede');
+    }
 }

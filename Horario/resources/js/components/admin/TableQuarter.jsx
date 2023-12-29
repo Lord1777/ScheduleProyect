@@ -4,7 +4,7 @@ import { faSearch, faPenToSquare, faCircle } from '@fortawesome/free-solid-svg-i
 import '../../../css/admin/TableInstructors.css';
 import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
-import useFetchGetQuarter from '../../hooks/useFetchGetQuarter';
+import useFetchGetQuarter from '../../hooks/FetchGET/useFetchGetQuarter';
 
 
 export const TableQuarter = () => {

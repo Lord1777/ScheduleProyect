@@ -11,9 +11,7 @@ import { AddRecords } from './pages/AddRecords';
 import { AddEnvironments } from './pages/AddEnvironments';
 import { CrudQuarters } from './pages/CrudQuarters';
 import { AddQuarter } from './pages/AddQuarter';
-import { WachtSchedules } from './pages/WachtSchedules';
 import '../css/App.css'
-import { Crud_Ambientes } from './pages/Crud_Ambientes';
 import { WatchSchedules } from '../../resources/js/pages/WatchSchedules.jsx';
 
 
@@ -33,20 +31,7 @@ function App() {
                     <Route path='/AddAmbiente' element={<AddEnvironments />} />
                     <Route path='/CrudTrimestres' element={<CrudQuarters />} />
                     <Route path='/AddTrimestre' element={<AddQuarter />} />
-                    <Route path='/Ambientes' element={<Crud_Ambientes />} />
                     <Route path='/HorariosFichas' element={<WatchSchedules />} />
-                    <Route path='/' element={<Login/>}/>
-                    <Route path='/Panel' element={<ControlPanel/>}/>
-                    <Route path='/ConsultaAprendiz' element={<ConsultAprenttice/>}/>
-                    <Route path='/CrudInstructor' element={<CrudInstructor/>}/>
-                    <Route path='/CrudCoordinadores' element={<CrudCoordinators/>}/>
-                    <Route path='/CrudAmbientes' element={<CrudEnvironments/>}/>
-                    <Route path='/CrudFichas' element={<CrudRecords/>}/>
-                    <Route path='/CrudTrimestres' element={<CrudQuarters/>}/>
-                    <Route path='/AddFicha' element={<AddRecords/>}/>
-                    <Route path='/AddAmbiente' element={<AddEnvironments/>}/>
-                    <Route path='/AddTrimestre' element={<AddQuarter/>}/>
-                    <Route path='/HorariosFichas' element={<WachtSchedules/>}/>
                 </Routes>
             </Router>
         </>

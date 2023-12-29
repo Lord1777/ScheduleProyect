@@ -33,6 +33,7 @@
 
 .nav-bar .username{
     padding-left: 2rem;
+    margin-right: 2rem;
 }
 
 .nav-bar .username h2{
@@ -103,6 +104,8 @@
     flex-direction: column;
 }
 
+/*Responsive*/
+
 @media (max-width:465px){
     .nav-bar .name-proyect-toggle {
         display: flex;
@@ -120,8 +123,6 @@
     }
 }
 
-/*Responsive*/
-
 @media (max-width:420px){
     .nav-bar .name-proyect-toggle h2{
         font-size: 1.5rem;
@@ -138,11 +139,6 @@
 
     .nav-bar .name-proyect-toggle button img{
         margin-left: -3.7rem;
-    }
-
-    .name-coordinator h2{
-        font-size: 0.9rem;
-        margin-right: 57.4rem;
     }
 }
 

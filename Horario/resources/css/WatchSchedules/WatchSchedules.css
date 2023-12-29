@@ -12,7 +12,8 @@
 
 /*Contenerdor principal*/
 .main-container {
-    /* background-color:darkgray; */
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
     width: 80rem;
     height: 100vh;
     border-radius: 1rem;
@@ -36,9 +37,11 @@
 
 /*Contenedor de horarios*/
 .container-schedules {
-    /* background-color: cadetblue; */
+    background-color: aquamarine;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     width: 75rem;
-    height: 40vh;
+    height: 30vh;
     margin-top: 2rem;
     margin-left: 2.5rem;
     border-radius: 1rem;
@@ -137,7 +140,8 @@
     position: relative;
     color: var(--color-text-white);
 }
- /*Número de la ficha*/
+
+/*Número de la ficha*/
 .ficha-and-number {
     position: relative;
     top: -10rem;
@@ -150,9 +154,33 @@
     font-size: 15px;
 }
 
-.ficha-and-number h2{
+.ficha-and-number h2 {
     font-weight: 500;
 }
 
 /*Responsive*/
 
+@media (max-width:465px) {
+
+    .title-and-search h2 {
+        font-size: 1.4rem;
+    }
+
+    .title-and-search .search-input {
+        margin-right: -1rem;
+    }
+
+    .main-container {
+        margin-left: 1rem;
+        grid-template-columns: 1fr;
+    }
+
+    .main-container .title-and-search {
+        display: flex;
+        flex-direction: column;
+        margin-right: 59rem;
+        margin-top: 1rem;
+    }
+
+
+}

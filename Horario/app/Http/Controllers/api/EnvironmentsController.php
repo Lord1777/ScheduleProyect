@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api;
 
 use App\Models\Ambiente;
 use App\Models\Sede;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class EnvironmentsController extends Controller
 {

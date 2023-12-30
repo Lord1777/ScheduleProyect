@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api;
 
 use App\Models\Ficha;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class RecordsController extends Controller
 {

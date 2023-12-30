@@ -10,7 +10,7 @@ const useFetchGetInstructor = () => {
   const fetchDataInstructor = async () => {
 
     try {
-      await fetch(`http://localhost:8000/getInstructors`, requestOptionsGet)
+      await fetch(`http://localhost:8000/api/getInstructors`, requestOptionsGet)
         .then((response) => response.json())
         .then((result) => setDataInstructor(result));
 

@@ -11,7 +11,7 @@ export const useFetchPostQuarter = ({ trimestre, fechaInicio, fechaFinal }) => {
     const fetchSubmitQuarter = async () => {
 
         try {
-            const response = await fetch(`http://localhost:8000/createQuarters`, requestOptionsPost);
+            const response = await fetch(`http://localhost:8000/api/createQuarters`, requestOptionsPost);
     
             if (response.ok) {
                 const data = await response.json();

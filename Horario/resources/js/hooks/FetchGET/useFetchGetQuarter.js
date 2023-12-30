@@ -10,7 +10,7 @@ export const useFetchGetQuarter = () => {
     const fetchDataQuarter = async() =>{
 
         try{
-            await fetch(`http://localhost:8000/getQuarters`, requestOptionsGet)
+            await fetch(`http://localhost:8000/api/getQuarters`, requestOptionsGet)
                 .then((response) => response.json())
                 .then((result) => setDataQuarter(result))
         }catch(err){

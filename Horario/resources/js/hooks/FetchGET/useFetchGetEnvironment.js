@@ -10,7 +10,7 @@ const useFetchGetEnvironment = () => {
     const fetchDataEnvironment = async() =>{
 
         try{
-            await fetch(`http://localhost:8000/getEnvironments`, requestOptionsGet)
+            await fetch(`http://localhost:8000/api/getEnvironments`, requestOptionsGet)
                 .then((response) => response.json())
                 .then((result) => setDataEnvironment(result))
         } catch(err){

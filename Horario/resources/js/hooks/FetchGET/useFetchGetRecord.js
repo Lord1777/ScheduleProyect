@@ -9,7 +9,7 @@ const useFetchGetRecord = () => {
     const fetchDataRecord = async() =>{
 
         try{
-            await fetch(`http://localhost:8000/getRecords`, requestOptionsGet)
+            await fetch(`http://localhost:8000/api/getRecords`, requestOptionsGet)
                 .then((response) => response.json())
                 .then((result) => setDataRecord(result))
         } catch(err){

@@ -19,11 +19,13 @@ return new class extends Migration
             $table->string('telefono',30);
             $table->string('profesion',100);
             $table->string('email',100);
+            $table->timestamp('email_verified_at')->nullable();
             $table->text('experiencia');
-            $table->string('contraseña',300);
+            $table->string('contraseña');
             $table->integer('limiteHoras');
             $table->integer('horasAsignadas');
             $table->string('estado',30);
+            $table->rememberToken();
             $table->unsignedBigInteger('idContrato');
             $table->unsignedBigInteger('idSede');
             $table->unsignedBigInteger('idRol');

@@ -10,7 +10,7 @@ const useFetchGetCoordinator = () => {
     const fetchDataCoordinator = async () => {
 
         try {
-            await fetch(`http://localhost:8000/getCoordinators`, requestOptionsGet)
+            await fetch(`http://localhost:8000/api/getCoordinators`, requestOptionsGet)
                 .then((response) => response.json())
                 .then((result) => setDataCooordinator(result));
         } catch (err) {

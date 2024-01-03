@@ -12,12 +12,22 @@
 
 /*Contenerdor principal*/
 .main-container {
-    display: grid;
-    grid-template-rows: repeat(4, 1fr);
     width: 80rem;
     height: 100vh;
     border-radius: 1rem;
     margin-left: 2.5rem;
+    margin-top: 1rem;
+}
+
+/*Contenedor de horarios*/
+.container-schedules {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin-top: 3rem;
+    margin-left: 3rem;
+    border-radius: 1rem;
+    height: 100%;
+    width: 100%;
 }
 
 /*Título y buscador*/
@@ -35,107 +45,73 @@
     margin-right: 1rem;
 }
 
-/*Contenedor de horarios*/
-.container-schedules {
-    background-color: aquamarine;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    width: 75rem;
-    height: 30vh;
-    margin-top: 2rem;
-    margin-left: 2.5rem;
-    border-radius: 1rem;
-}
-
 /*Contenedores de los horarios de las fichas*/
 .schedule1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: var(--primary-color);
     width: 15rem;
-    height: 19vh;
+    height: 18.5vh;
     margin-top: 1rem;
     padding-top: 7rem;
     margin-left: 1.5rem;
     border-radius: 1rem;
     position: absolute;
-    border: none;
     cursor: pointer;
 }
 
 .schedule2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: var(--primary-color);
     width: 15rem;
-    height: 19vh;
+    height: 18.5vh;
     margin-top: 1rem;
     padding-top: 7rem;
     margin-left: 20rem;
     border-radius: 1rem;
     position: absolute;
-    border: none;
     cursor: pointer;
 }
 
 .schedule3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: var(--primary-color);
     width: 15rem;
-    height: 19vh;
+    height: 18.5vh;
     margin-top: 1rem;
     padding-top: 7rem;
     margin-left: 38.5rem;
     border-radius: 1rem;
     position: absolute;
-    border: none;
     cursor: pointer;
 }
 
 .schedule4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: var(--primary-color);
     width: 15rem;
-    height: 19vh;
+    height: 18.5vh;
     margin-top: 1rem;
     padding-top: 7rem;
     margin-left: 57rem;
     border-radius: 1rem;
     position: absolute;
-    border: none;
     cursor: pointer;
 }
 
 /*Iconos de calendarios*/
-.schedule1 .calendar-icon {
+.calendar-icon {
     width: 6rem;
     height: 12vh;
     margin-right: 7rem;
-    top: -5.5rem;
-    right: 0;
-    position: relative;
-    color: var(--color-text-white);
-}
-
-.schedule2 .calendar-icon {
-    width: 6rem;
-    height: 12vh;
-    margin-right: 7rem;
-    top: -5.5rem;
-    right: 0;
-    position: relative;
-    color: var(--color-text-white);
-}
-
-.schedule3 .calendar-icon {
-    width: 6rem;
-    height: 12vh;
-    margin-right: 7rem;
-    top: -5.5rem;
-    right: 0;
-    position: relative;
-    color: var(--color-text-white);
-}
-
-.schedule4 .calendar-icon {
-    width: 6rem;
-    height: 12vh;
-    margin-right: 7rem;
-    top: -5.5rem;
+    top: -5.8rem;
     right: 0;
     position: relative;
     color: var(--color-text-white);
@@ -160,27 +136,34 @@
 
 /*Responsive*/
 
-@media (max-width:465px) {
+@media screen and (max-width:375px) {
 
     .title-and-search h2 {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
     }
 
     .title-and-search .search-input {
-        margin-right: -1rem;
+        margin-top: 1rem;
+        margin-right: -1.5rem;
+        width: 15rem;
     }
 
     .main-container {
-        margin-left: 1rem;
+        margin-left: -1rem;
+    }
+
+    .container-schedules{
+        display: grid;
         grid-template-columns: 1fr;
+        margin-top: 1.5rem;
+        margin-left: 2.2rem;
+        width:fit-content;
     }
 
     .main-container .title-and-search {
         display: flex;
         flex-direction: column;
         margin-right: 59rem;
-        margin-top: 1rem;
+        margin-top: -0.5rem;
     }
-
-
 }

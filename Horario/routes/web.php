@@ -4,7 +4,6 @@
 use Illuminate\Support\Facades\Route;
 
 
-
 //Vista welcome siempre se retorna porque ahí es donde se está renderizando React JS
 Route::get('/', fn() => view('welcome'));
 Route::get('/ConsultaAprendiz', fn() => view('welcome'));

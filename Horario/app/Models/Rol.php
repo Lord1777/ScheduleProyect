@@ -9,7 +9,20 @@ class Rol extends Model
 {
     use HasFactory;
 
+    //Especifica la llave primaria
     protected $primaryKey = 'idRol';
-    public $timestamps = false; //desactiva las marcas de tiempo
-    protected $table = 'roles'; //desactiva la convencion de nombre por defecto: 'rols'
+
+    //desactiva las marcas de tiempo
+    public $timestamps = false;
+
+
+     //desactiva la convencion de nombre por defecto: 'rols'
+    protected $table = 'roles';
+
+
+    // Relación inversa: un rol puede tener muchos usuarios
+    public function users()
+    {
+        return $this->hasMany(Usuario::class, 'idRol');
+    }
 }

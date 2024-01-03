@@ -74,6 +74,8 @@ return [
     |
     */
 
+    'model' => App\Models\Usuario::class,
+
     'middleware' => [
         'authenticate_session' => Laravel\Sanctum\Http\Middleware\AuthenticateSession::class,
         'encrypt_cookies' => App\Http\Middleware\EncryptCookies::class,

@@ -12,6 +12,7 @@ import { AddEnvironments } from './pages/AddEnvironments';
 import { CrudQuarters } from './pages/CrudQuarters';
 import { AddQuarter } from './pages/AddQuarter';
 import { WachtSchedules } from './pages/WachtSchedules';
+import "../css/App.css";
 
 
 function App() {

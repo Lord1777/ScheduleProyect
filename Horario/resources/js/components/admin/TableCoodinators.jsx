@@ -9,12 +9,7 @@ import useFetchGetCoordinator from "../../hooks/FetchGET/useFetchGetCoordinator"
 
 export const TableCoodinators = () => {
 
-    const { dataCoordinator, fetchDataCoordinator } = useFetchGetCoordinator();
-
-    useEffect(() => {
-        fetchDataCoordinator();
-    }, [!dataCoordinator])
-
+    const { dataCoordinator} = useFetchGetCoordinator();
 
     return (
         <>

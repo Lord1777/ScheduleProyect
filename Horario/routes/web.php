@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', fn() => view('welcome'));
 Route::get('/ConsultaAprendiz', fn() => view('welcome'));
 Route::get('/AddFicha', fn() => view('welcome'));
+Route::get('/AddInstructor', fn() => view('welcome'));
 Route::get('/Ambientes', fn() => view('welcome'));
 Route::get('/HorariosFichas', fn() => view('welcome'));
 Route::get('/CrudInstructor', fn() =>view('welcome'));

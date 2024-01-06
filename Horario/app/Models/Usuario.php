@@ -20,7 +20,7 @@ class Usuario extends Authenticatable
 
     //Columnas que se ocultaran cuando el modelo se convierta en un array o se serialize a JSON
     protected $hidden = [
-        'password',
+        'contraseña',
         'remember_token',
         'estado',
     ];
@@ -28,7 +28,6 @@ class Usuario extends Authenticatable
     //Especifica como debe ser convertidos o interpretados estas columnas
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];   
     
     // Campos que se pueden asignar masivamente

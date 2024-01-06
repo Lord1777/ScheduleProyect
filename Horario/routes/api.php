@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 
 //Autenticacion
 Route::group(['middleware' => ['cors']], function(){
-    Route::post('register', [AuthController::class, 'register']);
+    Route::post('/register', [AuthController::class, 'register']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

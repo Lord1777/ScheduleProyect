@@ -32,6 +32,7 @@ class Usuario extends Authenticatable
     
     // Campos que se pueden asignar masivamente
     protected $fillable = [
+        'tipoDeDocumento',
         'documento',
         'nombreCompleto',
         'ciudad',

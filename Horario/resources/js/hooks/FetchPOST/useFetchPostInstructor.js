@@ -26,20 +26,6 @@ const useFetchPostInstructor = ({nombreCompleto, tipoDeDocumento, documento, ema
         idRol
     })
 
-    console.log(
-        nombreCompleto,
-        tipoDeDocumento,
-        documento,
-        email,
-        telefono,
-        idContrato,
-        ciudad,
-        profesion,
-        experiencia,
-        limiteHoras,
-        idSede,
-        idRol
-    )
 
     const fetchSubmitInstructor = async() =>{
         try {

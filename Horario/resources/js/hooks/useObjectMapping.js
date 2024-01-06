@@ -2,6 +2,7 @@ export const getSedeByName = (name) =>{
     const sedes = {
         industrial: 1,
         cbi: 2,
+        ambos: 3,
     }
     return sedes[name]
 }

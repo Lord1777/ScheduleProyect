@@ -1,27 +1,24 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import useRequestOptionsGet from './useRequestOptionsGet';
+import { API_URL } from '../../const/api';
 
 
-export const useFetchGetQuarter = () => {
+export const useFetchGetQuarter = (route) => {
 
     const { requestOptionsGet } = useRequestOptionsGet();
     const [dataQuarter, setDataQuarter] = useState([]);
 
-    const fetchDataQuarter = async() =>{
+    useEffect(()=>{
+        fetch(`${API_URL}${route}`, requestOptionsGet)
+        .then((response) => response.json())
+        .then((result) => setDataQuarter(result))
+        .catch((err) => console.log(err));
+    },[])
 
-        try{
-            await fetch(`http://localhost:8000/api/getQuarters`, requestOptionsGet)
-                .then((response) => response.json())
-                .then((result) => setDataQuarter(result))
-        }catch(err){
-            console.error(`Request Error: ${err}`);
-        }
-    }
 
   return (
     {
         dataQuarter,
-        fetchDataQuarter,
     }
   )
 }

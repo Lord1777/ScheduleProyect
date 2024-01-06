@@ -1,20 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faUserPen, faUserSlash } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/admin/TableInstructors.css';
 import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
 import useFetchGetInstructor from '../../hooks/FetchGET/useFetchGetInstructor';
+import { Link } from 'react-router-dom';
 
 
 export const TableInstructors = () => {
 
-    const { dataInstructor, fetchDataInstructor } = useFetchGetInstructor();
-
-    useEffect(() => {
-        fetchDataInstructor();
-    }, [!dataInstructor]);
-
+    const { dataInstructor } = useFetchGetInstructor('/getInstructors');
 
     return (
         <>
@@ -27,7 +23,7 @@ export const TableInstructors = () => {
 
                 <div className="buttons">
                     <button type="button">Inhabilitados</button>
-                    <button type="button">Añadir Instructor</button>
+                    <Link to={'/AddInstructor'}><button type="button">Añadir Instructor</button></Link>
                 </div>
             </div>
 

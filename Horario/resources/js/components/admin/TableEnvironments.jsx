@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faPenToSquare, faCircle } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/admin/TableInstructors.css';
@@ -8,11 +8,7 @@ import useFetchGetEnvironment from '../../hooks/FetchGET/useFetchGetEnvironment'
 
 export const TableEnvironments = () => {
 
-    const { dataEnvironment, fetchDataEnvironment } = useFetchGetEnvironment();
-
-    useEffect(() =>{
-        fetchDataEnvironment()
-    }, [!dataEnvironment])
+    const { dataEnvironment} = useFetchGetEnvironment('/getEnvironments');
 
     return (
         <>

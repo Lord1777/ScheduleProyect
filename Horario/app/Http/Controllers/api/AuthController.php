@@ -47,7 +47,7 @@ class AuthController extends Controller
                 'idRol' => $request->idRol,
             ]);
 
-            return response()->json(['message' => 'Instructor Created Successfully'], Response::HTTP_CREATED);
+            return response()->json(['message' => 'User Created Successfully'], Response::HTTP_CREATED);
             // $token = $user->createToken('auth_token')->plainTextToken;
 
             // return response()

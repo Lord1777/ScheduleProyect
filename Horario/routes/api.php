@@ -10,8 +10,10 @@ use App\Http\Controllers\api\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+//'cors' es el alias de Middleware para las cors
 
-//Autenticacion
+
+//Sanctum - Autenticacion
 Route::group(['middleware' => ['cors']], function(){
     Route::post('/register', [AuthController::class, 'register']);
 });
@@ -21,18 +23,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-//Rutas que usan el middleware para solucionar las CORS
-//'cors' es el alias de Middleware para las cors
-
 //Instructores
 Route::group(['middleware' => ['cors']], function(){
     Route::get('/getInstructors', [InstructorController::class, 'index']);
 });
 
+
 //Coordinadores
 Route::group(['middleware' => ['cors']], function(){
     Route::get('/getCoordinators', [CoordinatorsController::class, 'index']);
 });
+
 
 //Ambientes
 Route::group(['middleware' => ['cors']], function(){
@@ -40,10 +41,12 @@ Route::group(['middleware' => ['cors']], function(){
     Route::post('/createEnvironments', [EnvironmentsController::class, 'store']);
 });
 
+
 //Fichas
 Route::group(['middleware' => ['cors']], function(){
     Route::get('/getRecords', [RecordsController::class, 'index']);
 });
+
 
 //Trimestres
 Route::group(['middleware' => ['cors']], function(){

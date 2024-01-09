@@ -5,11 +5,11 @@ import { API_URL } from '../../const/api';
 
 const useFetchPostCoordinator = ({ nombreCompleto, tipoDeDocumento, documento, email, telefono, idContrato, ciudad, profesion, experiencia, idSede }) => {
 
-     //Rol asignado
-     let idRol = getRolByName('coordinador');
+    //Rol asignado
+    let idRol = getRolByName('coordinador');
 
-     //Limite de horas semanales
-     let limiteHoras = getLimiteHorasByIdContrato(idContrato);
+    //Limite de horas semanales
+    let limiteHoras = getLimiteHorasByIdContrato(idContrato);
 
     const { requestOptionsPost } = useRequestOptionsPost({
         nombreCompleto,
@@ -26,20 +26,6 @@ const useFetchPostCoordinator = ({ nombreCompleto, tipoDeDocumento, documento, e
         idRol
     });
 
-    console.log(
-        nombreCompleto,
-        tipoDeDocumento,
-        documento,
-        email,
-        telefono,
-        idContrato,
-        ciudad,
-        profesion,
-        experiencia,
-        limiteHoras,
-        idSede,
-        idRol
-    )
 
     const fetchSubmitCoordinator = async () => {
         try {

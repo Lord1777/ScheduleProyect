@@ -17,8 +17,6 @@ import { AddCoordinator } from './pages/AddCoordinator';
 import "../css/App.css";
 
 
-
-
 function App() {
     return (
         <>

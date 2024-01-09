@@ -12,22 +12,14 @@
 
 /*Contenerdor principal*/
 .main-container {
-    width: 80rem;
-    height: 100vh;
-    border-radius: 1rem;
-    margin-left: 2.5rem;
-    margin-top: 1rem;
-}
-
-/*Contenedor de horarios*/
-.container-schedules {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    margin-top: 3rem;
-    margin-left: 3rem;
+    grid-template-columns: auto;
+    width: 80%;
+    /*height: 60vh; */
     border-radius: 1rem;
-    height: 100%;
-    width: 100%;
+    margin-left: 6rem;
+    margin-top: 3rem;
+    /* background-color: lightgreen; */
 }
 
 /*Título y buscador*/
@@ -35,18 +27,19 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 0.5rem;
 }
 
 .title-and-search h2 {
-    margin-left: 1rem;
+    margin-left: 3rem;
 }
 
 .title-and-search .search-input {
-    margin-right: 1rem;
+    margin-right: 3rem;
 }
 
 /*Contenedores de los horarios de las fichas*/
-.schedule1 {
+.schedule{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,11 +50,11 @@
     padding-top: 7rem;
     margin-left: 1.5rem;
     border-radius: 1rem;
-    position: absolute;
+    /* position: absolute; */
     cursor: pointer;
 }
 
-.schedule2 {
+/* .schedule2 {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -106,6 +99,36 @@
     cursor: pointer;
 }
 
+.schedule5 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--primary-color);
+    width: 15rem;
+    height: 18.5vh;
+    margin-top: 1rem;
+    padding-top: 7rem;
+    margin-left: 57rem;
+    border-radius: 1rem;
+    position: absolute;
+    cursor: pointer;
+}
+
+.schedule6 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--primary-color);
+    width: 15rem;
+    height: 18.5vh;
+    margin-top: 1rem;
+    padding-top: 7rem;
+    margin-left: 57rem;
+    border-radius: 1rem;
+    position: absolute;
+    cursor: pointer;
+} */
+
 /*Iconos de calendarios*/
 .calendar-icon {
     width: 6rem;
@@ -139,31 +162,26 @@
 @media screen and (max-width:375px) {
 
     .title-and-search h2 {
+        margin-left: 20rem;
         font-size: 1.3rem;
+        width: 13rem;
+        /* background-color: aqua; */
     }
 
     .title-and-search .search-input {
         margin-top: 1rem;
-        margin-right: -1.5rem;
-        width: 15rem;
+        margin-left: 21.5rem;
+        width: 16rem;
     }
 
     .main-container {
+        grid-template-columns: auto;
         margin-left: -1rem;
     }
 
-    .container-schedules{
-        display: grid;
-        grid-template-columns: 1fr;
-        margin-top: 1.5rem;
-        margin-left: 2.2rem;
-        width:fit-content;
-    }
-
-    .main-container .title-and-search {
+    .title-and-search {
         display: flex;
         flex-direction: column;
         margin-right: 59rem;
-        margin-top: -0.5rem;
     }
 }

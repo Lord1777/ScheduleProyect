@@ -13,6 +13,9 @@ import { CrudQuarters } from './pages/CrudQuarters';
 import { AddQuarter } from './pages/AddQuarter';
 import '../css/App.css'
 import { WatchSchedules } from '../../resources/js/pages/WatchSchedules.jsx';
+import { AddInstructors } from './pages/AddInstructors';
+import { AddCoordinator } from './pages/AddCoordinator';
+import "../css/App.css";
 
 
 function App() {

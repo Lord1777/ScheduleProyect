@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faPenToSquare, faCircle } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/admin/TableInstructors.css';
@@ -9,11 +9,7 @@ import useFetchGetQuarter from '../../hooks/FetchGET/useFetchGetQuarter';
 
 export const TableQuarter = () => {
 
-    const { dataQuarter, fetchDataQuarter } = useFetchGetQuarter();
-
-    useEffect(() => {
-        fetchDataQuarter();
-    }, [!dataQuarter])
+    const { dataQuarter} = useFetchGetQuarter('/getQuarters');
 
     return (
         <>

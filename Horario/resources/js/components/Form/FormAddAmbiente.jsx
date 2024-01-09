@@ -1,19 +1,9 @@
 import React, { useState } from 'react'
-import useDropdown from '../../hooks/useDropdown';
 import '../../../css/Form/FormAddAmbiente.css'
-
+import { getSedeByName } from '../../hooks/useObjectMapping';
+import useDropdown from '../../hooks/useDropdown';
 
 export const FormAddAmbiente = () => {
-
-    const getHeadquartersByName = (name) =>{
-
-        const headquarters ={
-            CBI: 2,
-            Industrial: 1,
-        }
-
-        return headquarters[name]
-    }
 
     const dropdown1 = useDropdown();
     const dropdown2 = useDropdown();

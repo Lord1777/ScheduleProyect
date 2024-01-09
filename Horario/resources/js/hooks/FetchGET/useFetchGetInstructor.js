@@ -1,33 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useRequestOptionsGet from './useRequestOptionsGet';
+import { API_URL } from '../../const/api';
 
 
-const useFetchGetInstructor = () => {
+const useFetchGetInstructor = (route) => {
 
   const { requestOptionsGet } = useRequestOptionsGet();
   const [dataInstructor, setDataInstructor] = useState([]);
 
-  const fetchDataInstructor = async () => {
-
-    try {
-      await fetch(`http://localhost:8000/api/getInstructors`, requestOptionsGet)
-        .then((response) => response.json())
-        .then((result) => setDataInstructor(result));
-
-    } catch (error) {
-      console.error(`Request Error: ${error}`);
-    }
+  useEffect(() => {
+    fetch(`${API_URL}${route}`, requestOptionsGet)
+      .then((response) => response.json())
+      .then((result) => setDataInstructor(result))
+      .catch((err) => console.log(err));
+  }, []);
 
 
-  }
+
+
 
   return (
     {
       dataInstructor,
-      fetchDataInstructor,
     }
   );
 }
+
 
 
 export default useFetchGetInstructor;

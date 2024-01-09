@@ -100,6 +100,10 @@ form .container_info_product input::placeholder {
     font-size: 0.9rem;
 }
 
+.container-icon-sena img{
+    width: 9rem;
+}
+
 /*select*/
 
 .dropdown {

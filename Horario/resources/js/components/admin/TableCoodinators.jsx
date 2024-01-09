@@ -1,20 +1,16 @@
-import React,{useEffect} from 'react'
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faUserPen, faUserSlash } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/admin/TableInstructors.css';
 import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
 import useFetchGetCoordinator from "../../hooks/FetchGET/useFetchGetCoordinator";
+import { Link } from 'react-router-dom';
 
 
 export const TableCoodinators = () => {
 
-    const { dataCoordinator, fetchDataCoordinator } = useFetchGetCoordinator();
-
-    useEffect(() => {
-        fetchDataCoordinator();
-    }, [!dataCoordinator])
-
+    const { dataCoordinator} = useFetchGetCoordinator('/getCoordinators');
 
     return (
         <>
@@ -27,7 +23,7 @@ export const TableCoodinators = () => {
 
                 <div className="buttons">
                     <button type="button">Inhabilitados</button>
-                    <button type="button">Añadir Coordinador</button>
+                    <Link><button type="button">Añadir Coordinador</button></Link>
                 </div>
             </div>
 

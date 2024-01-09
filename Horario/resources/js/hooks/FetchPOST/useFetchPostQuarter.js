@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import useRequestOptionsPost from './useRequestOptionsPost'
 
-export const useFetchPostQuarter = ({ trimestre, fechaInicio, fechaFinal }) => {
+const useFetchPostQuarter = ({ trimestre, fechaInicio, fechaFinal }) => {
 
     const { requestOptionsPost } = useRequestOptionsPost({
         trimestre,

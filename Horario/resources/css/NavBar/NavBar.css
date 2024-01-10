@@ -33,6 +33,7 @@
 
 .nav-bar .username{
     padding-left: 2rem;
+    margin-right: 2rem;
 }
 
 .nav-bar .username h2{
@@ -103,6 +104,19 @@
     flex-direction: column;
 }
 
+/*Responsive*/
+
+@media (max-width:540px){
+    .nav-bar .username h2{
+        white-space: nowrap;
+        font-size: 1rem;
+    }
+
+    .nav-bar .Title{
+        white-space: nowrap;
+    }
+}
+
 @media (max-width:465px){
     .nav-bar .name-proyect-toggle {
         display: flex;
@@ -123,6 +137,19 @@
 @media (max-width:420px){
     .nav-bar .name-proyect-toggle h2{
         font-size: 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width:375px){
+
+    .nav-bar .name-proyect-toggle h2{
+        margin-left: -1rem;
+        font-size: 0.8rem;
+    }
+
+    .nav-bar .name-proyect-toggle button img{
+        margin-left: -3.7rem;
     }
 }
 
@@ -149,5 +176,15 @@
         transition: 0.5s ease;
         cursor: pointer;
         font-size: 0.95rem;
+    }
+}
+
+@media (max-width:280px){
+    .nav-bar .toggle-nav{
+        margin-left: 1rem;
+    }
+
+    .nav-bar .name-proyect-toggle{
+        margin-left: 1rem;
     }
 }

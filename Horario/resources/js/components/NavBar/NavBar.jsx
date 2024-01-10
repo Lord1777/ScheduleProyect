@@ -26,7 +26,7 @@ export const NavBar = () => {
                     </button>
                 </div>
                 <div className='username'>
-                    <h2>Nombre</h2>
+                    <h2>Nombre del Coordinador</h2>
                 </div>
             </nav>
             <div className={`options-nav ${isNavOpen ? 'open' : ''}`}>

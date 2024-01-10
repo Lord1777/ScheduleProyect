@@ -106,6 +106,17 @@
 
 /*Responsive*/
 
+@media (max-width:540px){
+    .nav-bar .username h2{
+        white-space: nowrap;
+        font-size: 1rem;
+    }
+
+    .nav-bar .Title{
+        white-space: nowrap;
+    }
+}
+
 @media (max-width:465px){
     .nav-bar .name-proyect-toggle {
         display: flex;
@@ -165,5 +176,15 @@
         transition: 0.5s ease;
         cursor: pointer;
         font-size: 0.95rem;
+    }
+}
+
+@media (max-width:280px){
+    .nav-bar .toggle-nav{
+        margin-left: 1rem;
+    }
+
+    .nav-bar .name-proyect-toggle{
+        margin-left: 1rem;
     }
 }

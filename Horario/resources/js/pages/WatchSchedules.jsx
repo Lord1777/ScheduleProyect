@@ -68,7 +68,22 @@ export const WatchSchedules = () => {
             <h2>2560354</h2>
           </div>
         </div>
+        <div className="schedule">
+          <FontAwesomeIcon icon={faCalendar} className="calendar-icon" />
+          <div className="ficha-and-number">
+            <h2>Ficha</h2>
+            <h2>2560354</h2>
+          </div>
+        </div>
+        <div className="schedule">
+          <FontAwesomeIcon icon={faCalendar} className="calendar-icon" />
+          <div className="ficha-and-number">
+            <h2>Ficha</h2>
+            <h2>2560354</h2>
+          </div>
+        </div>
       </div>{/*Contenedor principal*/}
+      <div className="Space"></div>
     </>
   );
 };

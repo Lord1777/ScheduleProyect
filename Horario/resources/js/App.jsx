@@ -15,6 +15,7 @@ import { WachtSchedules } from './pages/WachtSchedules';
 import { AddInstructors } from './pages/AddInstructors';
 import { AddCoordinator } from './pages/AddCoordinator';
 import "../css/App.css";
+import { Experiment } from './pages/Experiment';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
                     <Route path='/AddInstructor' element={<AddInstructors/>} />
                     <Route path='/AddCoordinador' element={<AddCoordinator/>} />
                     <Route path='/HorariosFichas' element={<WachtSchedules/>}/>
+                    <Route path='/Experiment' element={<Experiment/>} />
                 </Routes>
             </Router>
         </>

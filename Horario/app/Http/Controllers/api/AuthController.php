@@ -25,7 +25,9 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 422);
+            return response()->json([
+                'error' => $validator->errors()
+            ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
         }
 
         try {
@@ -47,14 +49,94 @@ class AuthController extends Controller
                 'idRol' => $request->idRol,
             ]);
 
-            return response()->json(['message' => 'User Created Successfully'], Response::HTTP_CREATED);
-            // $token = $user->createToken('auth_token')->plainTextToken;
-
-            // return response()
-            //     ->json(['data' => $user, 'access_token' => $token, 'token_type' => 'Bearer',]);
+            return response()->json([
+                'status' => 1,
+                'message' => 'User Created Successfully',
+            ], Response::HTTP_CREATED); //201
+            
 
         } catch (\Exception $e) {
-            return response()->json(['error' => "Register Instructor Error: $e"], 500);
+            return response()->json([
+                'error' => "Register Instructor Error: $e"
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
+    public function login(Request $request)
+    {
+        if (!Auth::attempt($request->only('documento', 'password'))) {
+            return response([
+                'message' => 'Invalid Credentials!'
+            ], Response::HTTP_UNAUTHORIZED); //401
+        }
+
+        $user = Usuario::with('rol')->firstWhere('documento', $request->documento);
+
+        if ($user && Hash::check($request->password, $user->password)) {
+            $token = $user->createToken('auth_token')->plainTextToken;
+
+            return response()->json([
+                // 'data' => $user,
+                'status' => 1,
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+                'role' => $user->rol->rol,
+            ]);
+        }
+
+        return response()->json([
+            'status' => 0,
+            'message' => 'Incorrect Credentials',
+        ], Response::HTTP_UNAUTHORIZED); //401
+    }
+
+    public function user()
+    {
+        try {
+            $user = Auth::user();
+
+            if ($user) {
+                return response()->json([
+                    "status" => 1,
+                    "data" => $user,
+                ]);
+            } else {
+                return response()->json([
+                    "status" => 0,
+                    "message" => "Unauthenticated User",
+                ], Response::HTTP_UNAUTHORIZED); //401
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                "status" => 0,
+                "message" => "Error Getting User",
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
+    public function logout()
+    {
+        try {
+            $user = auth()->user();
+
+            if ($user) {
+                $user->tokens()->delete();
+
+                return response()->json([
+                    "status" => 1,
+                    "message" => "Successful Logout",
+                ]);
+            } else {
+                return response()->json([
+                    "status" => 0,
+                    "message" => "Unauthenticated User",
+                ], Response::HTTP_UNAUTHORIZED); //401
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                "status" => 0,
+                "message" => "Logout Error",
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
 }

@@ -50,7 +50,7 @@ class Usuario extends Authenticatable
     ];
 
     // Relación la tabla roles
-    public function role()
+    public function rol()
     {
         return $this->belongsTo(Rol::class, 'idRol');
     }

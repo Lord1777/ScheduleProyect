@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavBar } from '../components/NavBar/NavBar';
-import '../../css/DetailsFicha/DetailsFicha.css';
+import '../../css/Details/DetailsFicha.css';
 import '../../css/Form/BoxContainerFormAdd.css';
 import useDropdown from '../../js/hooks/useDropdown.js';
 

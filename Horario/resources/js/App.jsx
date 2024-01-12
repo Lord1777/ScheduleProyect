@@ -18,6 +18,7 @@ import { AddCoordinator } from './pages/AddCoordinator';
 import "../css/App.css";
 import { Experiment } from './pages/Experiment';
 import { DetailsFicha } from './pages/DetailsFicha';
+import { DetailsAmbiente } from './pages/DetailsAmbiente';
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
                     <Route path='/HorariosFichas' element={<WatchSchedules />} />
                     <Route path='/Experiment' element={<Experiment/>} />
                     <Route path='/DetallesFicha' element={<DetailsFicha/>} />
+                    <Route path='/DetallesAmbiente' element={<DetailsAmbiente/>} />
                 </Routes>
             </Router>
         </>

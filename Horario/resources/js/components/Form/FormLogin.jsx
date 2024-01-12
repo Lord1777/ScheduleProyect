@@ -40,7 +40,7 @@ export const FormLogin = () => {
                     </div>
                     <h2>Ingreso Usuarios Registrados</h2>
 
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <form method="POST" onSubmit={handleSubmit(onSubmit)}>
                         <div>
                             <div className={`dropdown ${isDropdown ? 'open' : ''}`}>
                                 <input

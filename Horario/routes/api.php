@@ -18,35 +18,38 @@ Route::group(['middleware' => ['cors']], function(){
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
 });
-
-
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
     Route::get('/logout', [AuthController::class, 'logout']);
 });
 
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-
 //Instructores
 Route::group(['middleware' => ['cors']], function(){
     Route::get('/getInstructors', [InstructorController::class, 'index']);
+    Route::get('/getInstructor/{idUsuario}', [InstructorController::class, 'show']);
+    Route::put('/disableInstructor/{idUsuario}', [InstructorController::class, 'disable']);
+    Route::put('/enableInstructor/{idUsuario}', [InstructorController::class, 'enabled']);
 });
 
 
 //Coordinadores
 Route::group(['middleware' => ['cors']], function(){
     Route::get('/getCoordinators', [CoordinatorsController::class, 'index']);
+    Route::get('/getCoordinator/{idUsuario}', [CoordinatorsController::class, 'show']);
+    Route::put('/disableCoordinator/{idUsuario}', [CoordinatorsController::class, 'disable']);
+    Route::put('/enableCoordinator/{idUsuario}', [CoordinatorsController::class, 'enabled']);
 });
 
 
 //Ambientes
 Route::group(['middleware' => ['cors']], function(){
     Route::get('/getEnvironments', [EnvironmentsController::class, 'index']);
-    Route::post('/createEnvironments', [EnvironmentsController::class, 'store']);
+    Route::get('/getEnvironment/{idAmbiente}', [EnvironmentsController::class, 'show']);
+    Route::post('/createEnvironment', [EnvironmentsController::class, 'store']);
+    Route::put('/disableEnvironment/{idAmbiente}', [EnvironmentsController::class, 'disable']);
+    Route::put('/enableEnvironment/{idAmbiente}', [EnvironmentsController::class, 'enabled']);
+
 });
 
 

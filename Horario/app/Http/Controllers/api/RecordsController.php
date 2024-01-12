@@ -21,7 +21,7 @@ class RecordsController extends Controller
 
     public function store(Request $request)
     {
-        $record = new Ficha;
+        
     }
 
     public function update()

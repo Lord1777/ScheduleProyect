@@ -8,7 +8,7 @@ const useFetchPostEnvironment = () => {
     const fetchSubmitEnvironment = async() =>{
         
       try {
-        const response = await fetch(`http://localhost:8000/api/createEnvironments`, requestOptionsPost)
+        const response = await fetch(`http://localhost:8000/api/createEnvironment`, requestOptionsPost)
 
         if(response.ok){
           const data = await response.json()

@@ -17,6 +17,7 @@ import { AddInstructors } from './pages/AddInstructors';
 import { AddCoordinator } from './pages/AddCoordinator';
 import "../css/App.css";
 import { Experiment } from './pages/Experiment';
+import { DetailsFicha } from './pages/DetailsFicha';
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
                     <Route path='/AddTrimestre' element={<AddQuarter />} />
                     <Route path='/HorariosFichas' element={<WatchSchedules />} />
                     <Route path='/Experiment' element={<Experiment/>} />
+                    <Route path='/DetallesFicha' element={<DetailsFicha/>} />
                 </Routes>
             </Router>
         </>

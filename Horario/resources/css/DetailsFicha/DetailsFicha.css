@@ -1,0 +1,529 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.container_form_add{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.grid-column{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.container_form_add form .grid-column input {
+    padding: 1.2rem;
+    border-radius: 0.3rem;
+    width: 20rem;
+    height: 3.5rem;
+    border: none;
+    background-color: #D9D9D9;
+    outline: none;
+}
+.container_form_add form .grid-column input[type="number"]::-webkit-inner-spin-button,
+.container_form_add form .grid-column input[type="number"]::-webkit-outer-spin-button{
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+
+.container_form_add form .grid-column input[type="number"]{
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+.Dropdown{
+    position: relative;
+    width: 20rem;
+    height: 3.5rem;
+    user-select: none;
+}
+
+.Dropdown::before{
+    content: '';
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 1;
+    width: 8px;
+    height: 8px;
+    border: 2px solid #fff;
+    border-top: 2px solid var(--primary-color);
+    border-right: 2px solid var(--primary-color);
+    transform: rotate(-135deg);
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+.Dropdown::after{
+    width: 1rem;
+    height: 3.5rem;
+    border-radius: 0rem 0.3rem 0.3rem 0rem;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    background: var(--primary-color);
+    cursor: pointer;
+    pointer-events: none;
+    transition: .25s all ease;
+}
+
+.Dropdown.open::before {
+    transform: rotate(-45deg);
+}
+
+.Dropdown input{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    user-select: none;
+    caret-color: transparent;
+}
+
+.Dropdown .options {
+    display: none;
+}
+
+.Dropdown .open {
+    position: absolute;
+    top: 4rem;
+    width: 100%;
+    background-color: #FFF;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0px 5px 15px 5px rgba(158, 158, 158, 0.45);
+    z-index: 2;
+    display: block;
+}
+
+.Dropdown .options div {
+    padding: 1rem 1rem;
+    cursor: pointer;
+}
+
+.Dropdown .options div:hover {
+    background-color: var(--color-hover-option-select);
+    color: var(--color-text-hover-option);
+}
+
+.container-btns {
+    position: relative;
+    bottom: -3rem;
+    right: 0rem;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.container-btns button{
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0.8rem 2rem;
+    margin: 0.5rem;
+    border-radius: 0.2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.container-btns .crear-horario{
+    background-color: var(--color-btn-guardar);
+    color: var(--color-text-btn);
+}
+
+.container-btns .guardar{
+    background-color: var(--color-btn-guardar);
+    color: var(--color-text-btn);
+}
+
+.container-btns .cancelar{
+    background-color: var(--color-btn-cancelar);
+    color: var(--color-text-btn);
+}
+
+/*Responsive*/
+
+@media(max-width:760px){
+    .container_form_add form .grid-column input {
+        padding: 1.2rem;
+        border-radius: 0.3rem;
+        width: 15rem;
+        height: 3rem;
+        border: none;
+        background-color: #D9D9D9;
+        outline: none;
+    }
+
+    .Dropdown {
+        position: relative;
+        width: 15rem;
+        height: 3rem;
+        user-select: none;
+    }
+
+    .Dropdown::after {
+        width: 1rem;
+        height: 3rem;
+        border-radius: 0rem 0.3rem 0.3rem 0rem;
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0 1em;
+        background: var(--primary-color);
+        cursor: pointer;
+        pointer-events: none;
+        transition: .25s all ease;
+    }
+
+    .Dropdown::before {
+        content: '';
+        position: absolute;
+        right: 22px;
+        top: 20px;
+        z-index: 1;
+        width: 5px;
+        height: 5px;
+        border: 2px solid #fff;
+        border-top: 2px solid var(--primary-color);
+        border-right: 2px solid var(--primary-color);
+        transform: rotate(-135deg);
+        transition: 0.5s;
+        pointer-events: none;
+    }
+
+    .Dropdown .open {
+        position: absolute;
+        top: 3.5rem;
+        width: 100%;
+        background-color: #FFF;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0px 5px 15px 5px rgba(158, 158, 158, 0.45);
+        z-index: 2;
+        display: block;
+    }
+
+    .Dropdown .options div {
+        font-size: 0.9rem;
+        padding: 0.8rem 0.5rem;
+        cursor: pointer;
+    }
+}
+@media(max-width:610px){
+    .container-btns {
+        position: relative;
+        bottom: -2rem;
+        right: 0rem;
+        width: 100%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+}
+
+@media(max-width:550px){
+    .grid-column {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .container-btns {
+        position: relative;
+        bottom: -2rem;
+        right: 0rem;
+    }
+
+    .container_form_add{
+        height: auto;
+        margin-top: 5rem;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media (max-width:540px){
+    .box_form{
+        margin-top: 0.5rem;
+        height: 80%;
+    }
+
+    .grid-column{
+        margin-top: -2.5rem;
+    }
+
+    .container-btns .crear-horario{
+        white-space: nowrap;
+    }
+}
+
+@media (max-width:430px){
+    .box_form{
+        margin-top: -12rem;
+        height: 60%;
+    }
+
+    .grid-column{
+        margin-top: -3rem;
+    }
+
+    .container-btns{
+        margin-left: -0.01rem; 
+        margin-top: -0.2rem;  
+       }
+   
+       .container-btns button{
+           border: none;
+           outline: none;
+           cursor: pointer;
+           font-weight: 400;
+           width: 20%;
+           margin-left: 0.5rem; 
+       }
+   
+       .container-btns .crear-horario{
+           padding: 12.5px 7px;
+           white-space: nowrap;
+           width: 35%;
+       }
+   
+       .container-btns .guardar{
+           padding: 12.5px 13px;
+           width: 25%;
+       }
+   
+       .container-btns .cancelar{
+           padding: 12.5px 9px;
+           width: 28%;
+       }
+}
+
+@media (max-width:414px){
+
+    .box_form{
+        margin-top: -8rem;
+        height: 63%;
+    }
+
+    .grid-column{
+        margin-top: -3rem;
+    }
+
+    .container-btns{
+        margin-left: -0.01rem; 
+        margin-top: -0.2rem;  
+       }
+   
+       .container-btns button{
+           border: none;
+           outline: none;
+           cursor: pointer;
+           font-weight: 400;
+           width: 20%;
+           margin-left: 0.5rem; 
+       }
+   
+       .container-btns .crear-horario{
+           padding: 12.5px 7px;
+           white-space: nowrap;
+           width: 35%;
+       }
+   
+       .container-btns .guardar{
+           padding: 12.5px 13px;
+           width: 25%;
+       }
+   
+       .container-btns .cancelar{
+           padding: 12.5px 9px;
+           width: 28%;
+       }
+}
+
+@media (max-width:390px){
+    .container-btns{
+        margin-top: -0.7rem;
+    }
+
+    .box_form{
+        height: 65%;
+    }
+}
+
+@media (max-width:375px){
+
+    .box_form{
+        height: 87%;
+    }
+
+    .grid-column{
+        margin-top: -3rem;
+    }
+
+    .container-btns{
+     margin-left: -0.01rem; 
+     margin-top: 1rem;  
+    }
+
+    .container-btns button{
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-weight: 400;
+        width: 20%;
+        margin-left: 0.5rem; 
+    }
+
+    .container-btns .crear-horario{
+        padding: 12.5px 7px;
+        white-space: nowrap;
+        width: 35%;
+    }
+
+    .container-btns .guardar{
+        padding: 12.5px 13px;
+        width: 25%;
+    }
+
+    .container-btns .cancelar{
+        padding: 12.5px 9px;
+        width: 28%;
+    }
+}
+
+@media (max-width:360px){
+    .box_form{
+        height: 75%;
+        width: 95%;
+        margin-top: -1rem;
+    }
+
+    .container-btns{
+        margin-top: -0.8rem;
+    }
+}
+
+@media(max-width:350px){
+    .container-btns button {
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 0.6rem 1.2rem;
+        margin: 0.5rem;
+        border-radius: 0.2rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        font-size: 0.7rem;
+    }
+
+    .container-btns {
+        position: relative;
+        bottom: -2rem;
+        right: 0rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .container_form_add form .grid-column input {
+        padding: 1.2rem;
+        border-radius: 0.3rem;
+        width: 12rem;
+        height: 3rem;
+        border: none;
+        background-color: #D9D9D9;
+        outline: none;
+    }
+
+    .Dropdown {
+        position: relative;
+        width: 12rem;
+        height: 3rem;
+        user-select: none;
+    }
+
+    .Dropdown::after {
+        width: 0.4rem;
+        height: 3rem;
+        border-radius: 0rem 0.3rem 0.3rem 0rem;
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0 1em;
+        background: var(--primary-color);
+        cursor: pointer;
+        pointer-events: none;
+        transition: .25s all ease;
+    }
+
+    .Dropdown::before {
+        content: '';
+        position: absolute;
+        right: 15px;
+        top: 19px;
+        z-index: 1;
+        width: 5px;
+        height: 5px;
+        border: 2px solid #fff;
+        border-top: 2px solid var(--primary-color);
+        border-right: 2px solid var(--primary-color);
+        transform: rotate(-135deg);
+        transition: 0.5s;
+        pointer-events: none;
+    }
+}
+
+@media (max-width:280px){
+    .box_form{
+        height: 80%;
+        margin-top: 1rem;
+        width: 100%;
+    }
+    
+    .container-btns{
+        margin-left: -0.01rem; 
+        margin-top: -1.5rem;  
+       }
+   
+       .container-btns button{
+           border: none;
+           outline: none;
+           cursor: pointer;
+           font-weight: 400;
+           width: 20%;
+           margin-left: 0.5rem; 
+       }
+   
+       .container-btns .crear-horario{
+           padding: 12.5px 3px;
+           white-space: nowrap;
+           width: 35%;
+       }
+   
+       .container-btns .guardar{
+           padding: 12.5px 8px;
+           width: 25%;
+       }
+   
+       .container-btns .cancelar{
+           padding: 12.5px 3px;
+           width: 28%;
+       }
+}

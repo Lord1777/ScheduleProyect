@@ -22,6 +22,7 @@ Route::get('/CrudTrimestres', fn() => view('welcome'));
 Route::match(['get', 'post'],'/AddTrimestre', fn() => view('welcome'));
 Route::get('/Panel', fn() => view('welcome'));
 Route::get('/ConsultaAprendiz', fn() => view('welcome'));
+Route::get('/DetallesFicha', fn() => view('welcome'));
 
 
 // Route::get('/{any}', function () {

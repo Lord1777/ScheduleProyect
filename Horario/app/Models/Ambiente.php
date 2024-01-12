@@ -12,4 +12,8 @@ class Ambiente extends Model
     protected $primaryKey = 'idAmbiente';
     public $timestamps = false; //desactiva las marcas de tiempo
     // protected $table = 'ambientes';
+
+    protected $fillable = [
+        'estado',
+    ];
 }

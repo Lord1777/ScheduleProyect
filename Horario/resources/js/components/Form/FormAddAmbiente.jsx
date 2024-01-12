@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import '../../../css/Form/FormAddAmbiente.css'
 import { getSedeByName } from '../../hooks/useObjectMapping';
 import useDropdown from '../../hooks/useDropdown';
+import useFetchPostEnvironment from '../../hooks/FetchPOST/useFetchPostEnvironment';
 
 export const FormAddAmbiente = () => {
 
@@ -19,6 +20,13 @@ export const FormAddAmbiente = () => {
     const [aireAcondicionado, setAireAcondicionado] = useState(null);
     const [cantidadComputadores, setCantidadComputadores] = useState(null);
 
+    const { fetchSubmitEnvironment } = useFetchPostEnvironment();
+
+    const handleSubmit = (data) =>{
+        // fetchSubmitEnvironment()
+        data.preventDefault()
+    }
+
     
     return (
         <>
@@ -26,7 +34,7 @@ export const FormAddAmbiente = () => {
                 <div className='box_form_ambiente'>
                     <h2 className='title_underline'>Registro de Ambientes</h2>
                     <div className='container_form_add'>
-                        <form method='POST'>
+                        <form onSubmit={handleSubmit}>
                             <div className='grid-column'>
                                 <input
                                     type="number"
@@ -126,7 +134,7 @@ export const FormAddAmbiente = () => {
                                 </div>
                             </div>
                             <div className="container-btns">
-                                <button className='guardar'>Guardar</button>
+                                <button type='submit' className='guardar'>Guardar</button>
                                 <button className='cancelar'>Cancelar</button>
                             </div>
                         </form>

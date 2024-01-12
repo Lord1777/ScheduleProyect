@@ -20,7 +20,7 @@ class Usuario extends Authenticatable
 
     //Columnas que se ocultaran cuando el modelo se convierta en un array o se serialize a JSON
     protected $hidden = [
-        'contraseña',
+        'password',
         'remember_token',
         'estado',
     ];
@@ -40,7 +40,7 @@ class Usuario extends Authenticatable
         'profesion',
         'email',
         'experiencia',
-        'contraseña',
+        'password',
         'limiteHoras',
         'horasAsignadas',
         'estado',

@@ -9,6 +9,8 @@ import useDropdown from '../../hooks/useDropdown'
 import { TooltipHorario } from '../Tooltips/TooltipHorario'
 import { Link } from 'react-router-dom'
 import useValidationForm from '../../hooks/useValidationForm'
+import useFetchLogin from '../../hooks/FetchPOST/useFetchLogin'
+
 
 export const FormLogin = () => {
     const { password, showPassword, setPassword, handleTogglePassword } = usePasswordToggle();
@@ -17,10 +19,17 @@ export const FormLogin = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const onSubmit = (data) => {
-        // Handle form submission here
-        console.log(data);
+    const { authUser } = useFetchLogin();
+    
+
+    const onSubmit = async(data) => {
+        console.log(password)
+        await authUser(data.documento, password);
     };
+
+
+
+
 
     return (
         <>
@@ -37,6 +46,7 @@ export const FormLogin = () => {
                                 <input
                                     type="text"
                                     className='textBox'
+                                    name='tipoDeDocumento'
                                     placeholder='Tipo de Documento'
                                     readOnly
                                     onClick={handleDropdown}
@@ -45,7 +55,6 @@ export const FormLogin = () => {
                                 />
                                 <div className={`options ${isDropdown ? 'open' : ''}`}>
                                     <div onClick={() => handleOptionClick('Cedula')}>Cédula</div>
-                                    <div onClick={() => handleOptionClick('Tarjeta de Identidad')}>Tarjeta de Identidad</div>
                                     <div onClick={() => handleOptionClick('Cedula de Extranjeria')}>Cédula de Extranjería</div>
                                 </div>
                             </div>
@@ -55,7 +64,7 @@ export const FormLogin = () => {
                         <div>
                             <input
                                 type="number"
-                                name="N_Documento"
+                                name="documento"
                                 placeholder='Número Documento'
                                 {...register("documento", DOCUMENTO)}
                             />

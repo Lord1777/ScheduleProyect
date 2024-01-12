@@ -1,11 +1,9 @@
 import React, {useState} from 'react';
 import useRequestOptionsPost from './useRequestOptionsPost';
 
-const useFetchPostEnvironment = ({  }) => {
+const useFetchPostEnvironment = () => {
 
-  const { requestOptionsPost } = useRequestOptionsPost({
-
-  });
+  const { requestOptionsPost } = useRequestOptionsPost();
 
     const fetchSubmitEnvironment = async() =>{
         

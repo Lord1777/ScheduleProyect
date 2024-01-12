@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('email',100);
             $table->timestamp('email_verified_at')->nullable();
             $table->text('experiencia');
-            $table->string('contraseña');
+            $table->string('password');
             $table->integer('limiteHoras');
             $table->integer('horasAsignadas');
             $table->string('estado',30);

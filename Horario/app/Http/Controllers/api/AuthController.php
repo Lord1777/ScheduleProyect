@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use stdClass;
 
@@ -40,7 +41,7 @@ class AuthController extends Controller
                 'profesion' => $request->profesion,
                 'email' => $request->email,
                 'experiencia' => $request->experiencia,
-                'contraseña' => strval($request->documento),
+                'password' => Hash::make(strval($request->documento)),
                 'limiteHoras' => $request->limiteHoras,
                 'horasAsignadas' => 0,
                 'estado' => 'habilitado',
@@ -64,6 +65,8 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        // Log::info('Datos de la solicitud:', $request->all());
+
         if (!Auth::attempt($request->only('documento', 'password'))) {
             return response([
                 'message' => 'Invalid Credentials!'
@@ -81,6 +84,7 @@ class AuthController extends Controller
                 'access_token' => $token,
                 'token_type' => 'Bearer',
                 'role' => $user->rol->rol,
+                'message' => 'Login Succesfully',
             ]);
         }
 

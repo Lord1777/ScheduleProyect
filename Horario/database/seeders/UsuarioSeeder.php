@@ -23,7 +23,7 @@ class UsuarioSeeder extends Seeder
         $usuario1->profesion = 'ingeniero en sistemas';
         $usuario1->email = 'marlon@gmail.com';
         $usuario1->experiencia = 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste fugit facere illum perspiciatis totam possimus velit? Fugiat, id accusamus dolor, ex fuga, nisi consequuntur quasi nulla quo dolores magni repellat.';
-        $usuario1->contraseña = Hash::make('contraseña123');
+        $usuario1->password = Hash::make('password123');
         $usuario1->limiteHoras = 35;
         $usuario1->horasAsignadas = 0;
         $usuario1->estado = 'habilitado';
@@ -41,7 +41,7 @@ class UsuarioSeeder extends Seeder
         $usuario2->profesion = 'ingeniero de software';
         $usuario2->email = 'alfredo@gmail.com';
         $usuario2->experiencia = 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste fugit facere illum perspiciatis totam possimus velit? Fugiat, id accusamus dolor, ex fuga, nisi consequuntur quasi nulla quo dolores magni repellat.';
-        $usuario2->contraseña = Hash::make('exitos.');
+        $usuario2->password = Hash::make('exitos.');
         $usuario2->limiteHoras = 40;
         $usuario2->horasAsignadas = 0;
         $usuario2->estado = 'habilitado';
@@ -59,7 +59,7 @@ class UsuarioSeeder extends Seeder
         $usuario3->profesion = 'ingeniero en sistemas';
         $usuario3->email = 'aguespud@gmail.com';
         $usuario3->experiencia = 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste fugit facere illum perspiciatis totam possimus velit? Fugiat, id accusamus dolor, ex fuga, nisi consequuntur quasi nulla quo dolores magni repellat.';
-        $usuario3->contraseña = Hash::make('solofrontend');
+        $usuario3->password = Hash::make('solofrontend');
         $usuario3->limiteHoras = 35;
         $usuario3->horasAsignadas = 0;
         $usuario3->estado = 'habilitado';
@@ -77,7 +77,7 @@ class UsuarioSeeder extends Seeder
         $usuario4->profesion = 'arquitecto';
         $usuario4->email = 'marlon@gmail.com';
         $usuario4->experiencia = 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste fugit facere illum perspiciatis totam possimus velit? Fugiat, id accusamus dolor, ex fuga, nisi consequuntur quasi nulla quo dolores magni repellat.';
-        $usuario4->contraseña = Hash::make('123456789');
+        $usuario4->password = Hash::make('123456789');
         $usuario4->limiteHoras = 35;
         $usuario4->horasAsignadas = 0;
         $usuario4->estado = 'habilitado';
@@ -95,7 +95,7 @@ class UsuarioSeeder extends Seeder
         $usuario5->profesion = 'astro fisico';
         $usuario5->email = 'marlon@gmail.com';
         $usuario5->experiencia = 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste fugit facere illum perspiciatis totam possimus velit? Fugiat, id accusamus dolor, ex fuga, nisi consequuntur quasi nulla quo dolores magni repellat.';
-        $usuario5->contraseña = Hash::make('venidacristo');
+        $usuario5->password = Hash::make('venidacristo');
         $usuario5->limiteHoras = 40;
         $usuario5->horasAsignadas = 0;
         $usuario5->estado = 'habilitado';
@@ -113,7 +113,7 @@ class UsuarioSeeder extends Seeder
         $usuario6->profesion = 'desarrollador de software';
         $usuario6->email = 'samuel_pulgarinm@misena.edu.co';
         $usuario6->experiencia = 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste fugit facere illum perspiciatis totam possimus velit? Fugiat, id accusamus dolor, ex fuga, nisi consequuntur quasi nulla quo dolores magni repellat.';
-        $usuario6->contraseña = Hash::make('undead');
+        $usuario6->password = Hash::make('undead');
         $usuario6->limiteHoras = 40;
         $usuario6->horasAsignadas = 0;
         $usuario6->estado = 'habilitado';

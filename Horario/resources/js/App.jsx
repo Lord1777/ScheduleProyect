@@ -19,6 +19,7 @@ import "../css/App.css";
 import { Experiment } from '../js/pages/Experiment';
 import { DetailsFicha } from '../js/pages/Details/DetailsFicha';
 import { DetailsAmbiente } from '../js/pages/Details/DetailsAmbiente';
+import { DetailsInstructor } from '../js/pages/Details/DetailsInstructor';
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
                     <Route path='/Experiment' element={<Experiment/>} />
                     <Route path='/DetallesFicha' element={<DetailsFicha/>} />
                     <Route path='/DetallesAmbiente' element={<DetailsAmbiente/>} />
+                    <Route path='/DetallesInstructor' element={<DetailsInstructor/>} />
                 </Routes>
             </Router>
         </>

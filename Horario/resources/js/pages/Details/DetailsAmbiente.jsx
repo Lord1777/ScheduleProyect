@@ -1,8 +1,8 @@
 import React from 'react';
-import { NavBar } from '../components/NavBar/NavBar';
-import '../../css/Details/DetailsAmbiente.css';
-import useDropdown from '../../js/hooks/useDropdown.js';
-import useFetchPostEnvironment from '../hooks/FetchPOST/useFetchPostEnvironment.js';
+import { NavBar } from '../../components/NavBar/NavBar';
+import '../../../css/Details/DetailsAmbiente.css';
+import useDropdown from '../../hooks/useDropdown.js';
+import useFetchPostEnvironment from '../../hooks/FetchPOST/useFetchPostEnvironment.js';
 import { useState } from 'react';
 
 export const DetailsAmbiente = () => {
@@ -44,7 +44,7 @@ export const DetailsAmbiente = () => {
                                     type="number"
                                     name='ambiente'
                                     onChange={(e) => setAmbiente(e.target.value)}
-
+                                    value='115'
                                 />
 
                                 <div className={`Dropdown ${dropdown1.isDropdown ? 'open' : ''}`}>
@@ -54,7 +54,7 @@ export const DetailsAmbiente = () => {
                                         className='textBox'
                                         readOnly
                                         onClick={dropdown1.handleDropdown}
-                                        value={dropdown1.selectedOption}
+                                        value='Aire Acondicionado - Si'
                                         onChange={(e) => setAireAcondicionado(e.target.value)}
                                     />
                                     <div className={`options ${dropdown1.isDropdown ? 'open' : ''}`}>
@@ -67,6 +67,7 @@ export const DetailsAmbiente = () => {
                                     type="number"
                                     name="capacidad"
                                     onChange={(e) => setCapacidad(e.target.value)}
+                                    value='40'
                                 />
 
                                 <div className={`Dropdown ${dropdown2.isDropdown ? 'open' : ''}`}>
@@ -76,7 +77,7 @@ export const DetailsAmbiente = () => {
                                         className='textBox'
                                         readOnly
                                         onClick={dropdown2.handleDropdown}
-                                        value={dropdown2.selectedOption}
+                                        value='Video Beam - Si'
                                         onChange={(e) => setVideoBeam(e.target.value)}
                                     />
                                     <div className={`options ${dropdown2.isDropdown ? 'open' : ''}`}>
@@ -89,6 +90,7 @@ export const DetailsAmbiente = () => {
                                     type="number"
                                     name="cantidadMesas"
                                     onChange={(e) => setCantidadMesas(e.target.value)}
+                                    value='16'
                                 />
 
                                 <div className={`Dropdown ${dropdown3.isDropdown ? 'open' : ''}`}>
@@ -98,7 +100,7 @@ export const DetailsAmbiente = () => {
                                         className='textBox'
                                         readOnly
                                         onClick={dropdown3.handleDropdown}
-                                        value={dropdown3.selectedOption}
+                                        value='CBI'
                                         onChange={(e) => setSede(e.target.value)}
                                     />
                                     <div className={`options ${dropdown3.isDropdown ? 'open' : ''}`}>
@@ -111,6 +113,7 @@ export const DetailsAmbiente = () => {
                                     type="number"
                                     name="cantidadComputadores"
                                     onChange={(e) => setCantidadComputadores(e.target.value)}
+                                    value='29'
                                 />
 
                                 <div className={`Dropdown ${dropdown4.isDropdown ? 'open' : ''}`}>
@@ -120,7 +123,7 @@ export const DetailsAmbiente = () => {
                                         className='textBox'
                                         readOnly
                                         onClick={dropdown4.handleDropdown}
-                                        value={dropdown4.selectedOption}
+                                        value='Tablero - Si'
                                         onChange={(e) => setTablero(e.target.value)}
                                     />
                                     <div className={`options ${dropdown4.isDropdown ? 'open' : ''}`}>

@@ -23,7 +23,6 @@ export const FormLogin = () => {
     
 
     const onSubmit = async(data) => {
-        console.log(password)
         await authUser(data.documento, password);
     };
 

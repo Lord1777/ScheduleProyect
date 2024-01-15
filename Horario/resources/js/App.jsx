@@ -11,32 +11,45 @@ import { AddRecords } from './pages/AddRecords';
 import { AddEnvironments } from './pages/AddEnvironments';
 import { CrudQuarters } from './pages/CrudQuarters';
 import { AddQuarter } from './pages/AddQuarter';
-import '../css/App.css'
 import { WatchSchedules } from '../../resources/js/pages/WatchSchedules.jsx';
 import { AddInstructors } from './pages/AddInstructors';
 import { AddCoordinator } from './pages/AddCoordinator';
+import { Forbidden } from './content/Forbidden.jsx';
+import ProtectedRoute from './components/utils/ProtectedRoute.jsx';
 import "../css/App.css";
-import { Experiment } from './pages/Experiment';
 
 
 function App() {
+
+    let access_token = localStorage.getItem('access_token');
+    let role = localStorage.getItem('role');
+    console.log(role)
+
     return (
         <>
             <Router>
                 <Routes>
                     <Route path='/' element={<Login />} />
-                    <Route path='/Panel' element={<ControlPanel />} />
                     <Route path='/ConsultaAprendiz' element={<ConsultAprenttice />} />
-                    <Route path='/CrudInstructor' element={<CrudInstructor />} />
-                    <Route path='/CrudCoordinadores' element={<CrudCoordinators />} />
-                    <Route path='/CrudAmbientes' element={<CrudEnvironments />} />
-                    <Route path='/CrudFichas' element={<CrudRecords />} />
-                    <Route path='/AddFicha' element={<AddRecords />} />
-                    <Route path='/AddAmbiente' element={<AddEnvironments />} />
-                    <Route path='/CrudTrimestres' element={<CrudQuarters />} />
-                    <Route path='/AddTrimestre' element={<AddQuarter />} />
-                    <Route path='/HorariosFichas' element={<WatchSchedules />} />
-                    <Route path='/Experiment' element={<Experiment/>} />
+                    <Route path='/403-forbidden' element={<Forbidden/>} />
+
+                {/* Vistas del coordinador */}
+                    <Route element={ <ProtectedRoute role={'coordinador'} userRole={role} />}  >
+                        <Route path='/Panel' element={<ControlPanel />} /> 
+                        <Route path='/HorariosFichas' element={<WatchSchedules />} />
+
+                        <Route path='/CrudInstructor' element={<CrudInstructor />} />
+                        <Route path='/CrudCoordinadores' element={<CrudCoordinators />} />
+                        <Route path='/CrudAmbientes' element={<CrudEnvironments />} />
+                        <Route path='/CrudFichas' element={<CrudRecords />} />
+                        <Route path='/CrudTrimestres' element={<CrudQuarters />} />
+
+                        <Route path='/AddInstructor' element={<AddInstructors />} />
+                        <Route path='/AddCoordinador' element={<AddCoordinator />} />
+                        <Route path='/AddAmbiente' element={<AddEnvironments />} />
+                        <Route path='/AddFicha' element={<AddRecords />} />
+                        <Route path='/AddTrimestre' element={<AddQuarter />} />
+                    </Route>
                 </Routes>
             </Router>
         </>

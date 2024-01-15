@@ -10,7 +10,6 @@ Route::get('/ConsultaAprendiz', fn() => view('welcome'));
 Route::get('/AddFicha', fn() => view('welcome'));
 Route::match(['get','post'], '/AddInstructor', fn() => view('welcome'));
 Route::match(['get', 'post'], '/AddCoordinador', fn()=> view('welcome'));
-Route::match(['get', 'post'], '/Experiment', fn() => view('welcome'));
 Route::get('/Ambientes', fn() => view('welcome'));
 Route::get('/HorariosFichas', fn() => view('welcome'));
 Route::get('/CrudInstructor', fn() =>view('welcome'));
@@ -22,6 +21,8 @@ Route::get('/CrudTrimestres', fn() => view('welcome'));
 Route::match(['get', 'post'],'/AddTrimestre', fn() => view('welcome'));
 Route::get('/Panel', fn() => view('welcome'));
 Route::get('/ConsultaAprendiz', fn() => view('welcome'));
+Route::get('403-forbidden', fn() => view('welcome'));
+
 
 
 // Route::get('/{any}', function () {

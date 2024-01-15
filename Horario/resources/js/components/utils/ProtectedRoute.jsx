@@ -1,15 +1,15 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { ControlPanel } from '../../pages/ControlPanel';
-import { CrudInstructor } from '../../pages/CrudInstructor';
-import { CrudEnvironments } from '../../pages/CrudEnvironments';
-import { CrudRecords } from '../../pages/CrudRecords';
-import { CrudQuarters } from '../../pages/CrudQuarters';
-import { CrudCoordinators } from '../../pages/CrudCoordinators';
-import { AddRecords } from '../../pages/AddRecords';
-import { AddEnvironments } from '../../pages/AddEnvironments';
-import { AddInstructors } from '../../pages/AddInstructors';
-import { AddCoordinator } from '../../pages/AddCoordinator';
+import { CrudInstructor } from '../../pages/CRUD/CrudInstructor';
+import { CrudEnvironments } from '../../pages/CRUD/CrudEnvironments';
+import { CrudRecords } from '../../pages/CRUD/CrudRecords';
+import { CrudQuarters } from '../../pages/CRUD/CrudQuarters';
+import { CrudCoordinators } from '../../pages/CRUD/CrudCoordinators';
+import { AddRecords } from '../../pages/Add/AddRecords';
+import { AddEnvironments } from '../../pages/Add/AddEnvironments';
+import { AddInstructors } from '../../pages/Add/AddInstructors';
+import { AddCoordinator } from '../../pages/Add/AddCoordinator';
 import { WatchSchedules } from '../../pages/WatchSchedules';
 
 

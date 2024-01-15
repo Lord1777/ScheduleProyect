@@ -5,30 +5,29 @@ import LogoSena from '../../assets/img/LogoSena.png'
 import CloseEye from '../../assets/icons/close-eye.png'
 import OpenEye from '../../assets/icons/open-eye.png'
 import usePasswordToggle from '../../hooks/usePasswordToggle'
-import useDropdown from '../../hooks/useDropdown'
+import useDropdownLogin from '../../hooks/useDropdownLogin'
 import { TooltipHorario } from '../Tooltips/TooltipHorario'
 import { Link } from 'react-router-dom'
 import useValidationForm from '../../hooks/useValidationForm'
 import useFetchLogin from '../../hooks/FetchPOST/useFetchLogin'
 
 
+
 export const FormLogin = () => {
     const { password, showPassword, setPassword, handleTogglePassword } = usePasswordToggle();
-    const { isDropdown, selectedOption, handleDropdown, handleOptionClick } = useDropdown();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+    const { isDropdown, handleDropdown, handleOptionClick } = useDropdownLogin(setValue, "tipoDocumento");
+
+    const [tipoDocumentoValue, setTipoDocumentoValue] = React.useState('');
     const { TIPO_DOCUMENTO, DOCUMENTO, PASSWORD } = useValidationForm();
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
 
     const { authUser } = useFetchLogin();
-    
 
-    const onSubmit = async(data) => {
+
+    const onSubmit = async (data) => {
         await authUser(data.documento, password);
     };
-
-
-
-
 
     return (
         <>
@@ -49,12 +48,12 @@ export const FormLogin = () => {
                                     placeholder='Tipo de Documento'
                                     readOnly
                                     onClick={handleDropdown}
-                                    value={selectedOption}
+                                    value={tipoDocumentoValue}
                                     {...register("tipoDocumento", TIPO_DOCUMENTO)}
                                 />
                                 <div className={`options ${isDropdown ? 'open' : ''}`}>
-                                    <div onClick={() => handleOptionClick('Cedula')}>Cédula</div>
-                                    <div onClick={() => handleOptionClick('Cedula de Extranjeria')}>Cédula de Extranjería</div>
+                                    <div onClick={() => handleOptionClick('Cedula', setTipoDocumentoValue)}>Cédula</div>
+                                    <div onClick={() => handleOptionClick('Cedula de Extranjeria', setTipoDocumentoValue)}>Cédula de Extranjería</div>
                                 </div>
                             </div>
                             {errors.tipoDocumento && <p className='errors_forms'>{errors.tipoDocumento.message}</p>}
@@ -74,12 +73,11 @@ export const FormLogin = () => {
                             <div className="password">
                                 <input
                                     type={showPassword ? 'text' : 'password'}
-                                    value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     name="password"
                                     placeholder='Contraseña'
                                     autoComplete='false'
-                                    // {...register("password", PASSWORD)}
+                                //{...register("password", PASSWORD)}
                                 />
                                 <img src={showPassword ? OpenEye : CloseEye} onClick={handleTogglePassword} />
                             </div>

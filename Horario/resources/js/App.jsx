@@ -3,23 +3,21 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Login } from './pages/Login';
 import { ControlPanel } from './pages/ControlPanel';
 import { ConsultAprenttice } from './pages/ConsultAprenttice';
-import { CrudInstructor } from './pages/CrudInstructor';
-import { CrudCoordinators } from './pages/CrudCoordinators';
-import { CrudEnvironments } from './pages/CrudEnvironments';
-import { CrudRecords } from './pages/CrudRecords';
-import { AddRecords } from './pages/AddRecords';
-import { AddEnvironments } from './pages/AddEnvironments';
-import { CrudQuarters } from './pages/CrudQuarters';
-import { AddQuarter } from './pages/AddQuarter';
+import { CrudInstructor } from './pages/CRUD/CrudInstructor.jsx';
+import { CrudCoordinators } from './pages/CRUD/CrudCoordinators.jsx';
+import { CrudEnvironments } from './pages/CRUD/CrudEnvironments.jsx';
+import { CrudRecords } from './pages/CRUD/CrudRecords.jsx';
+import { AddRecords } from './pages/Add/AddRecords';
+import { AddEnvironments } from './pages/Add/AddEnvironments';
+import { CrudQuarters } from './pages/CRUD/CrudQuarters.jsx';
+import { AddQuarter } from './pages/Add/AddQuarter';
 import { WatchSchedules } from '../../resources/js/pages/WatchSchedules.jsx';
-import { AddInstructors } from './pages/AddInstructors';
-import { AddCoordinator } from './pages/AddCoordinator';
+import { AddInstructors } from './pages/Add/AddInstructors';
+import { AddCoordinator } from './pages/Add/AddCoordinator';
 import { Forbidden } from './content/Forbidden.jsx';
 import ProtectedRoute from './components/utils/ProtectedRoute.jsx';
 import "../css/App.css";
-import { Experiment } from './pages/Experiment';
-import { DetailsFicha } from './pages/DetailsFicha';
-import { DetailsAmbiente } from './pages/DetailsAmbiente';
+
 
 
 function App() {

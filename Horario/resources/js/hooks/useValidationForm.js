@@ -65,12 +65,68 @@ const useValidationForm = () => {
         }
     }
 
+    const NFICHA = {
+        required: {
+            value: true,
+            message: "Es requerido este campo"
+        },
+        pattern: {
+            value: /^[0-9]*$/,
+            message: "Solo se permiten números"
+        },
+    }
+    
+    const DURACION = {
+        required: {
+            value: true,
+            message: "Es requerido este campo"
+        }
+    }
+
+    const PROGRAMA = {
+        required: {
+            value: true,
+            message: "Es requerido este campo"
+        },
+        pattern: {
+            value: /^[A-Za-z]+$/,
+            message: "Solo se permiten letras en el nombre",
+        },
+    }
+
+    const MODALIDAD = {
+        required: {
+            value: true,
+            message: "Es requerido este campo"
+        },
+    }
+
+    const NIVEL_FORMACION = {
+        required: {
+            value: true,
+            message: "Es requerido este campo"
+        },
+    }
+
+    const JORNADA_ACADEMICA = {
+        required: {
+            value: true,
+            message: "Es requerido este campo"
+        },
+    }
+
     return {
         NOMBRE,
         PASSWORD,
         TIPO_DOCUMENTO,
         DOCUMENTO,
-        EMAIL
+        EMAIL,
+        NFICHA,
+        DURACION,
+        PROGRAMA,
+        MODALIDAD,
+        NIVEL_FORMACION,
+        JORNADA_ACADEMICA
     }
 }
 

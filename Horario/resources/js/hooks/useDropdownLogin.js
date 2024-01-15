@@ -1,25 +1,22 @@
-// hooks/useDropdown.js
 import React, { useState } from 'react';
 
 const useDropdown = (setValue, valueKey) => {
   const [isDropdown, setIsDropdown] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('');
 
   const handleDropdown = () => {
     setIsDropdown(!isDropdown);
   };
 
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
-    setValue(valueKey, option); // Update the form value using setValue
-    setIsDropdown(false); // Close the dropdown after selecting an option
+  const handleOptionClick = (option, setInputValue) => {
+    setInputValue(option);
+    setValue(valueKey, option); // Set the form value dynamically
+    setIsDropdown(false);
   };
 
   return {
     isDropdown,
     handleDropdown,
     handleOptionClick,
-    selectedOption,
   };
 };
 

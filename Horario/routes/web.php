@@ -25,6 +25,7 @@ Route::get('/DetallesFicha', fn() => view('welcome'));
 Route::get('/DetallesAmbiente', fn() => view('welcome'));
 Route::get('403-forbidden', fn() => view('welcome'));
 
+Route::get('/DetallesInstructor', fn() => view('welcome'));
 
 
 // Route::get('/{any}', function () {

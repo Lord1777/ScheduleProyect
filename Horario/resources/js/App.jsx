@@ -17,6 +17,9 @@ import { AddCoordinator } from './pages/AddCoordinator';
 import { Forbidden } from './content/Forbidden.jsx';
 import ProtectedRoute from './components/utils/ProtectedRoute.jsx';
 import "../css/App.css";
+import { Experiment } from './pages/Experiment';
+import { DetailsFicha } from './pages/DetailsFicha';
+import { DetailsAmbiente } from './pages/DetailsAmbiente';
 
 
 function App() {

@@ -1,8 +1,8 @@
 import React from 'react';
-import { NavBar } from '../components/NavBar/NavBar';
-import '../../css/Details/DetailsFicha.css';
-import '../../css/Form/BoxContainerFormAdd.css';
-import useDropdown from '../../js/hooks/useDropdown.js';
+import { NavBar } from '../../components/NavBar/NavBar';
+import '../../../css/Details/DetailsFicha.css';
+import '../../../css/Form/BoxContainerFormAdd.css';
+import useDropdown from '../../hooks/useDropdown';
 
 export const DetailsFicha = () => {
 

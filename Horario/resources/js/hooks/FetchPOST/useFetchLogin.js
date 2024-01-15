@@ -4,7 +4,6 @@ import { API_URL } from '../../const/api';
 const useFetchLogin = () => {
 
     const authUser = async (documento, password) => {
-        console.log(password)
 
         try {
             const response = await fetch(`${API_URL}/login`, {
@@ -15,7 +14,8 @@ const useFetchLogin = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
+                localStorage.setItem('access_token', data.access_token)
+                localStorage.setItem('role', data.role)
             }
         } catch (error) {
             console.log(`Server Error: ${error}`);

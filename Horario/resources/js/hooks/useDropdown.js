@@ -11,8 +11,8 @@ const useDropdown = (setValue, valueKey) => {
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
-    setValue(valueKey, option); // Update the form value using setValue
-    setIsDropdown(false); // Close the dropdown after selecting an option
+    setValue(valueKey, option);
+    setIsDropdown(false); 
   };
 
   return {

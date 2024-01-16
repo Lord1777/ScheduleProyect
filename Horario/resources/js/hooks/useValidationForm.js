@@ -208,6 +208,85 @@ const useValidationForm = () => {
         },
     }
 
+    const TIPO_CONTRATO = {
+        required: {
+            value: true,
+            message: "Es requerido este campo",
+        },
+    }
+
+    const TELEFONO_CELULAR = {
+        required: {
+            value: true,
+            message: "Es requerido este campo",
+        },
+        minLength: {
+            value: 10,
+            message: "Debe tener al menos 10 dígitos",
+        },
+        maxLength: {
+            value: 10,
+            message: "No puede tener más de 10 dígitos",
+        },
+        pattern: {
+            value: /^[0-9]+$/,
+            message: "Debe contener solo números",
+        },
+    }
+
+    const CIUDAD = {
+        required: {
+            value: true,
+            message: "Es requerido este campo",
+        },
+        minLength: {
+            value: 2,
+            message: "La ciudad debe tener al menos 2 caracteres",
+        },
+        maxLength: {
+            value: 50,
+            message: "La ciudad no puede tener más de 50 caracteres",
+        },
+        pattern: {
+            value: /^[A-Za-zÁÉÍÓÚÑáéíóúñ\s-]+$/,
+            message: "La ciudad debe contener solo letras, espacios y guiones",
+        },
+    }
+
+    const PROFESION = {
+        required: {
+            value: true,
+            message: "Es requerido este campo",
+        },
+        minLength: {
+            value: 2,
+            message: "La profesión debe tener al menos 2 caracteres",
+        },
+        maxLength: {
+            value: 50,
+            message: "La profesión no puede tener más de 50 caracteres",
+        },
+        pattern: {
+            value: /^[A-Za-zÁÉÍÓÚÑáéíóúñ\s-]+$/,
+            message: "La profesión debe contener solo letras, espacios y guiones",
+        },
+    }
+
+    const EXPERIENCIA = {
+        required: {
+            value: true,
+            message: "Es requerido este campo",
+        },
+        minLength: {
+            value: 10,
+            message: "Debe tener al menos 10 caracteres",
+        },
+        maxLength: {
+            value: 500,
+            message: "No puede tener más de 500 caracteres",
+        },
+    };    
+
 
     return {
         NOMBRE,
@@ -231,7 +310,12 @@ const useValidationForm = () => {
         TABLERO,
         N_TRIMESTRE,
         FECHA_INI,
-        FECHA_FIN
+        FECHA_FIN,
+        TIPO_CONTRATO,
+        TELEFONO_CELULAR,
+        CIUDAD,
+        PROFESION,
+        EXPERIENCIA
     }
 }
 

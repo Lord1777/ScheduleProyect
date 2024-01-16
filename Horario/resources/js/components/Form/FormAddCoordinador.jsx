@@ -29,7 +29,7 @@ export const FormAddCoordinador = () => {
         idSede,
     });
 
-    const handleSubmit = (e) =>{
+    const handleSubmit = (e) => {
         e.preventDefault();
         fetchSubmitCoordinator();
     }

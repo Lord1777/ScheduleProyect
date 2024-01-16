@@ -17,7 +17,7 @@ const FormAddInstructor = () => {
     const [experiencia, setExperiencia] = useState('');
     const [idSede, setIdSede] = useState('');
 
-    const {fetchSubmitInstructor} = useFetchPostInstructor({ 
+    const { fetchSubmitInstructor } = useFetchPostInstructor({
         nombreCompleto,
         tipoDeDocumento,
         documento,
@@ -30,13 +30,16 @@ const FormAddInstructor = () => {
         idSede,
     })
 
-    const handleSubmit = (e) =>{
+    const handleSubmit = (e) => {
         e.preventDefault();
         fetchSubmitInstructor();
     }
 
     return (
         <>
+
+            {/* //FormAddCoordinador usa las mismas clases
+                //La interfaz es igual */}
             <main className='container_form_add_instructor'>
                 <div className='box_form_instructor'>
                     <div className='container_form_add_elements'>

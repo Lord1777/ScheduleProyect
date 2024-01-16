@@ -115,6 +115,100 @@ const useValidationForm = () => {
         },
     }
 
+    const N_AMBIENTE = {
+        required: {
+            value: true,
+            message: "Es requerido este campo"
+        },
+        pattern: {
+            value: /^[0-9]*$/,
+            message: "Solo se permiten números"
+        },
+    }
+
+    const CAPACIDAD_AMBIENTE = {
+        required: {
+            value: true,
+            message: "Es requerido este campo"
+        },
+        pattern: {
+            value: /^[0-9]*$/,
+            message: "Solo se permiten números"
+        },
+    }
+
+    const C_MESAS = {
+        required: {
+            value: true,
+            message: "Es requerido este campo"
+        },
+        pattern: {
+            value: /^[0-9]*$/,
+            message: "Solo se permiten números"
+        },
+    }
+
+    const C_COMPUTADORES = {
+        pattern: {
+            value: /^[0-9]*$/,
+            message: "Solo se permiten números"
+        },
+    }
+
+    const AIRE_ACONDICIONADO = {
+        required: {
+            value: true,
+            message: "Es requerido este campo"
+        },
+    }
+
+    const VIDEO_BEAM = {
+        required: {
+            value: true,
+            message: "Es requerido este campo"
+        }, 
+    }
+
+    const SEDE = {
+        required: {
+            value: true,
+            message: "Es requerido este campo"
+        },
+    }
+
+    const TABLERO = {
+        required: {
+            value: true,
+            message: "Es requerido este campo"
+        },
+    }
+
+    const N_TRIMESTRE = {
+        required: {
+            value: true,
+            message: "Es requerido este campo",
+        },
+        pattern: {
+            value: /^[1-4]$/,
+            message: "Solo se permiten los números 1, 2, 3 o 4",
+        },
+    }
+
+    const FECHA_INI = {
+        required: {
+            value: true,
+            message: "Es requerido este campo",
+        },
+    }
+
+    const FECHA_FIN = {
+        required: {
+            value: true,
+            message: "Es requerido este campo",
+        },
+    }
+
+
     return {
         NOMBRE,
         PASSWORD,
@@ -126,7 +220,18 @@ const useValidationForm = () => {
         PROGRAMA,
         MODALIDAD,
         NIVEL_FORMACION,
-        JORNADA_ACADEMICA
+        JORNADA_ACADEMICA,
+        N_AMBIENTE,
+        CAPACIDAD_AMBIENTE,
+        C_MESAS,
+        C_COMPUTADORES,
+        AIRE_ACONDICIONADO,
+        VIDEO_BEAM,
+        SEDE,
+        TABLERO,
+        N_TRIMESTRE,
+        FECHA_INI,
+        FECHA_FIN
     }
 }
 

@@ -8,8 +8,8 @@ import { useForm } from 'react-hook-form';
 
 
 export const FormAddFicha = () => {
+    
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
-
     const dropdown1 = useDropdown(setValue, 'Modalidad');
     const dropdown2 = useDropdown(setValue, 'NivelFormacion');
     const dropdown3 = useDropdown(setValue, 'JornadaAcademica');

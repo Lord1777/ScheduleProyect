@@ -6,9 +6,10 @@ import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
 import useFetchGetEnvironment from '../../hooks/FetchGET/useFetchGetEnvironment';
 
+
 export const TableEnvironments = () => {
 
-    const { dataEnvironment} = useFetchGetEnvironment('/getEnvironments');
+    const { dataEnvironment} = useFetchGetEnvironment('/getEnvironments');    
 
     return (
         <>

@@ -23,11 +23,11 @@ export const getRolByName = (name) => {
     return roles[name]
 }
 
-export const getLimiteHorasByIdContrato = (id) =>{
+export const getLimiteHorasByTypeContrato = (string) =>{
     const limiteHoras = {
-        2: 35,
-        1: 40,
+        contratista: 35,
+        planta: 40,
     }
-    return limiteHoras[id]
+    return limiteHoras[string]
 }
 

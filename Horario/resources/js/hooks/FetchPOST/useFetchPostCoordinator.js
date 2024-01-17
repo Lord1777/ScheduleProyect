@@ -1,35 +1,43 @@
 import React, { useState } from 'react';
 import useRequestOptionsPost from './useRequestOptionsPost';
-import { getLimiteHorasByIdContrato, getRolByName } from '../useObjectMapping';
+import { getLimiteHorasByTypeContrato, getRolByName, getContratoByName, getSedeByName } from '../useObjectMapping';
 import { API_URL } from '../../const/api';
 
-const useFetchPostCoordinator = ({ nombreCompleto, tipoDeDocumento, documento, email, telefono, idContrato, ciudad, profesion, experiencia, idSede }) => {
+const useFetchPostCoordinator = () => {
 
-    //Rol asignado
-    let idRol = getRolByName('coordinador');
+    const fetchSubmitCoordinator = async (sede, tipoContrato, tipoDocumento, ciudad, documento, email, experiencia, nombreCompleto, profesion, telefono) => {
 
-    //Limite de horas semanales
-    let limiteHoras = getLimiteHorasByIdContrato(idContrato);
+        //Rol asignado
+        let idRol = getRolByName('coordinador');
 
-    const { requestOptionsPost } = useRequestOptionsPost({
-        nombreCompleto,
-        tipoDeDocumento,
-        documento,
-        email,
-        telefono,
-        idContrato,
-        ciudad,
-        profesion,
-        experiencia,
-        limiteHoras,
-        idSede,
-        idRol
-    });
+        //Limite de horas semanales
+        let limiteHoras = getLimiteHorasByTypeContrato(tipoContrato);
 
+        //Id del contrato
+        let idContrato = getContratoByName(tipoContrato);
 
-    const fetchSubmitCoordinator = async () => {
+        //Id de la sede
+        let idSede = getSedeByName(sede);
+
         try {
-            const response = await fetch(`${API_URL}/register`, requestOptionsPost)
+            const response = await fetch(`${API_URL}/register`,{
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    tipoDocumento,
+                    ciudad,
+                    documento,
+                    email,
+                    experiencia,
+                    nombreCompleto,
+                    profesion,
+                    telefono,
+                    limiteHoras,
+                    idRol,
+                    idContrato,
+                    idSede,
+                })
+            })
             if (response.ok) {
                 const data = await response.json();
                 console.log(data.message); // Mensaje definido en Laravel

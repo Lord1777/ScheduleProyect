@@ -33,7 +33,7 @@ class AuthController extends Controller
 
         try {
             Usuario::create([
-                'tipoDeDocumento' => $request->tipoDeDocumento,
+                'tipoDocumento' => $request->tipoDocumento,
                 'documento' => $request->documento,
                 'nombreCompleto' => $request->nombreCompleto,
                 'ciudad' => $request->ciudad,

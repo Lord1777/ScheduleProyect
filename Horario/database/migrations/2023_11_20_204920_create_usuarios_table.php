@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('usuarios', function (Blueprint $table) {
             $table->id('idUsuario')->unique();
-            $table->string('tipoDeDocumento', 100);
+            $table->string('tipoDocumento', 100);
             $table->unsignedBigInteger('documento')->unique();
             $table->string('nombreCompleto',50);
             $table->string('ciudad',30);

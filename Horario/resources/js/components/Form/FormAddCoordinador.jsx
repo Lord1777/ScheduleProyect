@@ -67,11 +67,11 @@ export const FormAddCoordinador = () => {
                             <form method='POST' onSubmit={handleSubmit(onSubmit)}>
                                 <div className="grid-column-add">
 
-                                    <div className='container-input-error' id='largo'>
+                                    <div className='container-input-error'>
                                         <input
                                             type="text"
                                             name="nombreCompleto"
-                                            id="long"
+                                            className='long'
                                             placeholder='Nombre Completo'
                                             onChange={(e) => setNombreCompleto(e.target.value)}
                                             {...register("nombreCompleto", NOMBRE)}
@@ -79,9 +79,9 @@ export const FormAddCoordinador = () => {
                                         {errors.nombreCompleto && <p className='errors_forms'>{errors.nombreCompleto.message}</p>}
                                     </div>
 
-                                    <div className="parejita">
+                                    
                                         <div className='container-input-error'>
-                                            <div className={`Dropdown ${dropdown1.isDropdown ? 'open' : ''}`}>
+                                            <div className={`Dropdown ${dropdown1.isDropdown ? 'open' : ''}`} id='widthDropdown'>
                                                 <input
                                                     type='text'
                                                     name='TipoDocumento'
@@ -113,14 +113,14 @@ export const FormAddCoordinador = () => {
                                             />
                                             {errors.documento && <p className='errors_forms'>{errors.documento.message}</p>}
                                         </div>
-                                    </div>
+                                    
 
 
-                                    <div className='container-input-error' id='largo'>
+                                    <div className='container-input-error'>
                                         <input
                                             type="text"
                                             name="email"
-                                            id="long"
+                                            className='long'
                                             placeholder='E-mail'
                                             onChange={(e) => setEmail(e.target.value)}
                                             {...register("email", EMAIL)}
@@ -141,7 +141,7 @@ export const FormAddCoordinador = () => {
                                     </div>
 
                                     <div className='container-input-error'>
-                                        <div className={`Dropdown ${dropdown2.isDropdown ? 'open' : ''}`}>
+                                        <div className={`Dropdown ${dropdown2.isDropdown ? 'open' : ''}`} id='widthDropdown'>
                                             <input
                                                 type='text'
                                                 name='TipoContrato'
@@ -161,11 +161,11 @@ export const FormAddCoordinador = () => {
                                         {errors.TipoContrato && <p className='errors_forms'>{errors.TipoContrato.message}</p>}
                                     </div>
 
-                                    <div className='container-input-error' id='largo'>
+                                    <div className='container-input-error'>
                                         <input
                                             type="text"
                                             name="ciudad"
-                                            id="long"
+                                            className='long'
                                             placeholder='Ciudad'
                                             onChange={(e) => setCiudad(e.target.value)}
                                             {...register("ciudad", CIUDAD)}
@@ -173,11 +173,11 @@ export const FormAddCoordinador = () => {
                                         {errors.ciudad && <p className='errors_forms'>{errors.ciudad.message}</p>}
                                     </div>
 
-                                    <div className='container-input-error' id='largo'>
+                                    <div className='container-input-error'>
                                         <input
                                             type="text"
                                             name="profesion"
-                                            id="long"
+                                            className='long'
                                             placeholder='Profesión'
                                             onChange={(e) => setProfesion(e.target.value)}
                                             {...register("profesion", PROFESION)}
@@ -186,10 +186,10 @@ export const FormAddCoordinador = () => {
 
                                     </div>
 
-                                    <div className='container-input-error' id='largo'>
+                                    <div className='container-input-error'>
                                         <textarea
                                             name="experiencia"
-                                            id="long"
+                                            className='long'
                                             cols="30"
                                             rows="10"
                                             placeholder='Experiencia:'
@@ -201,8 +201,8 @@ export const FormAddCoordinador = () => {
                                     </div>
 
 
-                                    <div>
-                                        <div className={`Dropdown ${dropdown3.isDropdown ? 'open' : ''}`}>
+                                    <div className='container-input-error'>
+                                        <div className={`Dropdown ${dropdown3.isDropdown ? 'open' : ''}`} id='widthDropdown'>
                                             <input
                                                 type='text'
                                                 name='Sede'

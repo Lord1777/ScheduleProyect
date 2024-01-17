@@ -15,6 +15,8 @@ import { WatchSchedules } from '../../resources/js/pages/WatchSchedules.jsx';
 import { AddInstructors } from './pages/Add/AddInstructors';
 import { AddCoordinator } from './pages/Add/AddCoordinator';
 import { Forbidden } from './content/Forbidden.jsx';
+import { ScheduleAprenttice } from './pages/Aprenttice/ScheduleAprenttice.jsx';
+import { SeeScheduleFichas } from './pages/SeeScheduleFichas.jsx';
 import ProtectedRoute from './components/utils/ProtectedRoute.jsx';
 import "../css/App.css";
 
@@ -33,6 +35,8 @@ function App() {
                     <Route path='/' element={<Login />} />
                     <Route path='/ConsultaAprendiz' element={<ConsultAprenttice />} />
                     <Route path='/403-forbidden' element={<Forbidden/>} />
+                    <Route path='/HorarioAprediz' element={<ScheduleAprenttice/>}/>
+                    <Route path='/HorarioFichas' element={<SeeScheduleFichas/>}/>
 
                 {/* Vistas del coordinador */}
                     <Route element={ <ProtectedRoute role={'coordinador'} userRole={role} />}  >

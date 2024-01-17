@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import logoSena from '../../assets/img/LogoSena.png';
-import { getContratoByName, getSedeByName } from '../../hooks/useObjectMapping';
 import useFetchPostCoordinator from '../../hooks/FetchPOST/useFetchPostCoordinator';
 import useValidationForm from '../../hooks/useValidationForm';
 import useDropdown from '../../hooks/useDropdown';
@@ -23,41 +22,28 @@ export const FormAddCoordinador = () => {
     const dropdown2 = useDropdown(setValue, "TipoContrato");
     const dropdown3 = useDropdown(setValue, "Sede");
 
-    const onSubmit = (data) => {
-        console.log(data)
+    const { fetchSubmitCoordinator } = useFetchPostCoordinator();
+
+    const onSubmit = async (data) => {
+
+        await fetchSubmitCoordinator(
+            data.Sede,
+            data.TipoContrato,
+            data.TipoDocumento,
+            data.ciudad,
+            data.documento,
+            data.email,
+            data.experiencia,
+            data.nombreCompleto,
+            data.profesion,
+            data.telefono
+        );
     }
-
-    // const [nombreCompleto, setNombreCompleto] = useState('');
-    // const [tipoDeDocumento, setTipoDeDocumento] = useState('');
-    // const [documento, setDocumento] = useState('');
-    // const [email, setEmail] = useState('');
-    // const [telefono, setTelefono] = useState('');
-    // const [idContrato, setIdContrato] = useState('');
-    // const [ciudad, setCiudad] = useState('');
-    // const [profesion, setProfesion] = useState('');
-    // const [experiencia, setExperiencia] = useState('');
-    // const [idSede, setIdSede] = useState('');
-
-    // const { fetchSubmitCoordinator } = useFetchPostCoordinator({
-    //     nombreCompleto,
-    //     tipoDeDocumento,
-    //     documento,
-    //     email,
-    //     telefono,
-    //     idContrato,
-    //     ciudad,
-    //     profesion,
-    //     experiencia,
-    //     idSede,
-    // });
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     fetchSubmitCoordinator();
-    // }
 
     return (
         <>
+            {/* //FormAddCoordinador usa las mismas clases que FormAddInstructor
+                //La interfaz es igual */}
             <main className='container_form_add_instructor'>
                 <div className='box_form_instructor'>
                     <div className='container_form_add_elements'>
@@ -73,7 +59,6 @@ export const FormAddCoordinador = () => {
                                             name="nombreCompleto"
                                             className='long'
                                             placeholder='Nombre Completo'
-                                            onChange={(e) => setNombreCompleto(e.target.value)}
                                             {...register("nombreCompleto", NOMBRE)}
                                         />
                                         {errors.nombreCompleto && <p className='errors_forms'>{errors.nombreCompleto.message}</p>}
@@ -90,7 +75,6 @@ export const FormAddCoordinador = () => {
                                                     readOnly
                                                     onClick={dropdown1.handleDropdown}
                                                     value={dropdown1.selectedOption}
-                                                    onChange={(e) => setAireAcondicionado(e.target.value)}
                                                     {...register("TipoDocumento", TIPO_DOCUMENTO)}
                                                 />
                                                 <div className={`options ${dropdown1.isDropdown ? 'open' : ''}`}>
@@ -108,7 +92,6 @@ export const FormAddCoordinador = () => {
                                                 name="documento"
                                                 id=""
                                                 placeholder='Número de Documento'
-                                                onChange={(e) => setDocumento(e.target.value)}
                                                 {...register("documento", DOCUMENTO)}
                                             />
                                             {errors.documento && <p className='errors_forms'>{errors.documento.message}</p>}
@@ -122,7 +105,6 @@ export const FormAddCoordinador = () => {
                                             name="email"
                                             className='long'
                                             placeholder='E-mail'
-                                            onChange={(e) => setEmail(e.target.value)}
                                             {...register("email", EMAIL)}
                                         />
                                         {errors.email && <p className='errors_forms'>{errors.email.message}</p>}
@@ -134,7 +116,6 @@ export const FormAddCoordinador = () => {
                                             name="telefono"
                                             id=""
                                             placeholder='Telefono'
-                                            onChange={(e) => setTelefono(e.target.value)}
                                             {...register("telefono", TELEFONO_CELULAR)}
                                         />
                                         {errors.telefono && <p className='errors_forms'>{errors.telefono.message}</p>}
@@ -150,7 +131,6 @@ export const FormAddCoordinador = () => {
                                                 readOnly
                                                 onClick={dropdown2.handleDropdown}
                                                 value={dropdown2.selectedOption}
-                                                onChange={(e) => setAireAcondicionado(e.target.value)}
                                                 {...register("TipoContrato", TIPO_CONTRATO)}
                                             />
                                             <div className={`options ${dropdown2.isDropdown ? 'open' : ''}`}>
@@ -167,7 +147,6 @@ export const FormAddCoordinador = () => {
                                             name="ciudad"
                                             className='long'
                                             placeholder='Ciudad'
-                                            onChange={(e) => setCiudad(e.target.value)}
                                             {...register("ciudad", CIUDAD)}
                                         />
                                         {errors.ciudad && <p className='errors_forms'>{errors.ciudad.message}</p>}
@@ -179,7 +158,6 @@ export const FormAddCoordinador = () => {
                                             name="profesion"
                                             className='long'
                                             placeholder='Profesión'
-                                            onChange={(e) => setProfesion(e.target.value)}
                                             {...register("profesion", PROFESION)}
                                         />
                                         {errors.profesion && <p className='errors_forms'>{errors.profesion.message}</p>}
@@ -193,7 +171,6 @@ export const FormAddCoordinador = () => {
                                             cols="30"
                                             rows="10"
                                             placeholder='Experiencia:'
-                                            onChange={(e) => setExperiencia(e.target.value)}
                                             {...register("experiencia", EXPERIENCIA)}
                                         ></textarea>
                                         {errors.experiencia && <p className='errors_forms'>{errors.experiencia.message}</p>}
@@ -211,7 +188,6 @@ export const FormAddCoordinador = () => {
                                                 readOnly
                                                 onClick={dropdown3.handleDropdown}
                                                 value={dropdown3.selectedOption}
-                                                onChange={(e) => setAireAcondicionado(e.target.value)}
                                                 {...register("Sede", SEDE)}
                                             />
                                             <div className={`options ${dropdown3.isDropdown ? 'open' : ''}`}>

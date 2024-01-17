@@ -15,7 +15,7 @@ class UsuarioSeeder extends Seeder
     public function run(): void
     {
         $usuario1 = new Usuario();
-        $usuario1->tipoDeDocumento = 'cedula ciudadania';
+        $usuario1->tipoDocumento = 'cedula ciudadania';
         $usuario1->documento = 1258785611;
         $usuario1->nombreCompleto = 'marlon ortiz rivera';
         $usuario1->ciudad = 'cali';
@@ -33,7 +33,7 @@ class UsuarioSeeder extends Seeder
         $usuario1->save();
 
         $usuario2 = new Usuario();
-        $usuario2->tipoDeDocumento = 'cedula ciudadania';
+        $usuario2->tipoDocumento = 'cedula ciudadania';
         $usuario2->documento = 1564651345;
         $usuario2->nombreCompleto = 'alfredo sierra';
         $usuario2->ciudad = 'palmira';
@@ -51,7 +51,7 @@ class UsuarioSeeder extends Seeder
         $usuario2->save();
 
         $usuario3 = new Usuario();
-        $usuario3->tipoDeDocumento = 'cedula ciudadania';
+        $usuario3->tipoDocumento = 'cedula ciudadania';
         $usuario3->documento = 1008785611;
         $usuario3->nombreCompleto = 'alejandro guespud';
         $usuario3->ciudad = 'cali';
@@ -69,7 +69,7 @@ class UsuarioSeeder extends Seeder
         $usuario3->save();
 
         $usuario4 = new Usuario();
-        $usuario4->tipoDeDocumento = 'cedula ciudadania';
+        $usuario4->tipoDocumento = 'cedula ciudadania';
         $usuario4->documento = 11078547412;
         $usuario4->nombreCompleto = 'freddy jose diaz';
         $usuario4->ciudad = 'pradera';
@@ -87,7 +87,7 @@ class UsuarioSeeder extends Seeder
         $usuario4->save();
 
         $usuario5 = new Usuario();
-        $usuario5->tipoDeDocumento = 'cedula extrangeria';
+        $usuario5->tipoDocumento = 'cedula extrangeria';
         $usuario5->documento = 1258785612;
         $usuario5->nombreCompleto = 'edinson yamid cuaran';
         $usuario5->ciudad = 'cerrito';
@@ -105,7 +105,7 @@ class UsuarioSeeder extends Seeder
         $usuario5->save();
 
         $usuario6 = new Usuario();
-        $usuario6->tipoDeDocumento = 'cedula ciudadania';
+        $usuario6->tipoDocumento = 'cedula ciudadania';
         $usuario6->documento = 1107839963;
         $usuario6->nombreCompleto = 'samuel pulgarin muñoz';
         $usuario6->ciudad = 'cali';

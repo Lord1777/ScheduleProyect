@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -28,11 +30,11 @@ class Usuario extends Authenticatable
     //Especifica como debe ser convertidos o interpretados estas columnas
     protected $casts = [
         'email_verified_at' => 'datetime',
-    ];   
-    
+    ];
+
     // Campos que se pueden asignar masivamente
     protected $fillable = [
-        'tipoDeDocumento',
+        'tipoDocumento',
         'documento',
         'nombreCompleto',
         'ciudad',
@@ -49,9 +51,22 @@ class Usuario extends Authenticatable
         'idRol',
     ];
 
-    // Relación la tabla roles
+    // Relación con la tabla roles
     public function rol()
     {
         return $this->belongsTo(Rol::class, 'idRol');
+    }
+
+
+    protected function nombreCompleto(): Attribute
+    {
+        return new Attribute(
+
+            //Accesor: Primera letra de cada palabra en mayuscula
+            get: fn ($value) => ucwords($value),
+            
+            //Mutador: Nombre completo en minuscula
+            set: fn ($value) => strtolower($value),
+        );
     }
 }

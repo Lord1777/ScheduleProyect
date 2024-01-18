@@ -25,17 +25,17 @@ class QuartersController extends Controller
         try {
             $quarter = new Trimestre();
 
-            $quarter->trimestre = $request->trimestre;
+            $quarter->trimestre = intval($request->trimestre);
             $quarter->fechaInicio = Carbon::parse($request->fechaInicio)->format('Y-m-d');
             $quarter->fechaFinal = Carbon::parse($request->fechaFinal)->format('Y-m-d');
             $quarter->estado = 'habilitado';
 
             $quarter->save();
 
-            // Devuelve una respuesta con el código 201 y un mensaje de éxito
-            return response()->json(['message' => 'Resource created successfully'], Response::HTTP_CREATED);
+            
+            return response()->json(['message' => 'Resource created successfully'], Response::HTTP_CREATED); //201
         } catch (\Exception $e) {
-            return response()->json(['error' => "Request quarters error: $e"], 500);
+            return response()->json(['error' => "Request quarters error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
 

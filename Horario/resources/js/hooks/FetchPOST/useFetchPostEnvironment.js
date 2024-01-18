@@ -1,14 +1,39 @@
 import React, {useState} from 'react';
-import useRequestOptionsPost from './useRequestOptionsPost';
+import { getSedeByName, getTrueOrFalseByYesOrNot } from '../useObjectMapping';
+import { API_URL } from '../../const/api';
 
 const useFetchPostEnvironment = () => {
+  
 
-  const { requestOptionsPost } = useRequestOptionsPost();
-
-    const fetchSubmitEnvironment = async() =>{
+    const fetchSubmitEnvironment = async( ambiente, cantidadMesas, capacidad, catidadComputadores, aireAcondicionados, tableros, videoBeams, sede, ) =>{
         
+      //Id de la sede
+      let idSede = getSedeByName(sede);
+
+      //True or False
+      let aireAcondicionado = getTrueOrFalseByYesOrNot(aireAcondicionados);
+
+      //True or False
+      let videoBeam = getTrueOrFalseByYesOrNot(videoBeams);
+
+      //True or False
+      let tablero = getTrueOrFalseByYesOrNot(tableros);
+
       try {
-        const response = await fetch(`http://localhost:8000/api/createEnvironment`, requestOptionsPost)
+        const response = await fetch(`${API_URL}/createEnvironment`, {
+          method: "POST",
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            ambiente,
+            cantidadMesas,
+            capacidad,
+            catidadComputadores,
+            aireAcondicionado,
+            tablero,
+            videoBeam,
+            idSede,
+          })
+        })
 
         if(response.ok){
           const data = await response.json()

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { API_URL } from '../../const/api';
-import useRequestOptionsPost from './useRequestOptionsPost';
 import { getContratoByName, getLimiteHorasByTypeContrato, getRolByName, getSedeByName } from '../useObjectMapping';
 
 const useFetchPostInstructor = () => {

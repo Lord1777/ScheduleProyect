@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import useRequestOptionsPost from './useRequestOptionsPost';
 import { getLimiteHorasByTypeContrato, getRolByName, getContratoByName, getSedeByName } from '../useObjectMapping';
 import { API_URL } from '../../const/api';
 

@@ -12,20 +12,17 @@ function FormAddTrimestre() {
 
     const { control, register, handleSubmit, setValue, formState: { errors } } = useForm();
     const { N_TRIMESTRE, FECHA_INI, FECHA_FIN } = useValidationForm();
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
-    const [trimestre, setTrimestre] = useState(null);
 
-    // const { fetchSubmitQuarter } = useFetchPostQuarter({ trimestre, fechaInicio: startDate, fechaFinal: endDate });
+    const { fetchSubmitQuarter } = useFetchPostQuarter();
 
-    // const handleSubmit = (e) =>{
-    //     e.preventDefault();
-    //     fetchSubmitQuarter();
-    // }
-    const onSubmit = () => {
-
+    const onSubmit = async(data) => {
+        console.log(data);
+        await fetchSubmitQuarter(
+            data.trimestre,
+            data.fechaInicio,
+            data.fechaFinal,
+        );
     }
-
 
     return (
         <>
@@ -40,7 +37,6 @@ function FormAddTrimestre() {
                                         type="number"
                                         name="trimestre"
                                         placeholder='N° Trimestre'
-                                        onChange={(e) => setTrimestre(e.target.value)}
                                         {...register("trimestre", N_TRIMESTRE)}
                                     />
                                     {errors.trimestre && <p className='errors_forms'>{errors.trimestre.message}</p>}

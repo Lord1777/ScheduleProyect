@@ -14,6 +14,22 @@ class Ambiente extends Model
     // protected $table = 'ambientes';
 
     protected $fillable = [
+        'ambiente',
+        'capacidad',
+        'cantidadMesas',
+        'aireAcondicionado',
+        'videoBeam',
+        'tablero',
+        'cantidadComputadores',
+        'limiteHoras',
+        'horasAsignadas',
+        'estado',
+        'idSede',
         'estado',
     ];
+
+    public function sede()
+    {
+        return $this->belongsTo(Sede::class, 'idSede');
+    }
 }

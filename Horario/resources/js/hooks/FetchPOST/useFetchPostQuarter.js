@@ -1,17 +1,19 @@
-import React, { useState } from 'react'
-import useRequestOptionsPost from './useRequestOptionsPost'
+import React, { useState } from 'react';
 
-const useFetchPostQuarter = ({ trimestre, fechaInicio, fechaFinal }) => {
+const useFetchPostQuarter = () => {
 
-    const { requestOptionsPost } = useRequestOptionsPost({
-        trimestre,
-        fechaInicio,
-        fechaFinal});
-
-    const fetchSubmitQuarter = async () => {
+    const fetchSubmitQuarter = async (trimestre, fechaInicio, fechaFinal) => {
 
         try {
-            const response = await fetch(`http://localhost:8000/api/createQuarters`, requestOptionsPost);
+            const response = await fetch(`http://localhost:8000/api/createQuarters`, {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    trimestre,
+                    fechaInicio,
+                    fechaFinal
+                })
+            });
     
             if (response.ok) {
                 const data = await response.json();
@@ -20,8 +22,6 @@ const useFetchPostQuarter = ({ trimestre, fechaInicio, fechaFinal }) => {
         } catch (err) {
             console.error(`Error Creating Quarter: ${err}`);
         }
-
-
     }
 
     return (

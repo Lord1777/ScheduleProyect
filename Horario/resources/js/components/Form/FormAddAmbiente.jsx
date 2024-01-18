@@ -24,24 +24,21 @@ export const FormAddAmbiente = () => {
     const dropdown3 = useDropdown(setValue, "sede");
     const dropdown4 = useDropdown(setValue, "tablero");
 
-    const onSubmit = () => {
+    const { fetchSubmitEnvironment } = useFetchPostEnvironment();
 
+    const onSubmit = async(data) => {
+
+        await fetchSubmitEnvironment(
+            data.ambiente,
+            data.cantidadMesas,
+            data.capacidad,
+            data.catidadComputadores,
+            data.aireAcondicionados,
+            data.tableros,
+            data.videoBeams,
+            data.sede,
+        )
     }
-    // const [sede, setSede] = useState(null);
-    // const [tablero, setTablero] = useState(null);
-    // const [ambiente, setAmbiente] = useState(null);
-    // const [capacidad, setCapacidad] = useState(null);
-    // const [videoBeam, setVideoBeam] = useState(null);
-    // const [cantidadMesas, setCantidadMesas] = useState(null);
-    // const [aireAcondicionado, setAireAcondicionado] = useState(null);
-    // const [cantidadComputadores, setCantidadComputadores] = useState(null);
-
-    // const { fetchSubmitEnvironment } = useFetchPostEnvironment();
-
-    // const handleSubmit = (data) =>{
-    //     // fetchSubmitEnvironment()
-    //     data.preventDefault()
-    // }
 
 
     return (
@@ -57,7 +54,6 @@ export const FormAddAmbiente = () => {
                                         type="number"
                                         name='ambiente'
                                         placeholder='Numero del Ambiente'
-                                        onChange={(e) => setAmbiente(e.target.value)}
                                         {...register("ambiente", N_AMBIENTE)}
                                     />
                                     {errors.ambiente && <p className='errors_forms'>{errors.ambiente.message}</p>}
@@ -73,8 +69,7 @@ export const FormAddAmbiente = () => {
                                             readOnly
                                             onClick={dropdown1.handleDropdown}
                                             value={dropdown1.selectedOption}
-                                            onChange={(e) => setAireAcondicionado(e.target.value)}
-                                            {...register("aireAcondicionado", AIRE_ACONDICIONADO)}
+                                            {...register("aireAcondicionados", AIRE_ACONDICIONADO)}
                                         />
                                         <div className={`options ${dropdown1.isDropdown ? 'open' : ''}`}>
                                             <div onClick={() => dropdown1.handleOptionClick('Si', setValue, 'aireAcondicionado')}>Si</div>
@@ -89,7 +84,6 @@ export const FormAddAmbiente = () => {
                                         type="number"
                                         name="capacidad"
                                         placeholder='Capadidad del Ambiente'
-                                        onChange={(e) => setCapacidad(e.target.value)}
                                         {...register("capacidad", CAPACIDAD_AMBIENTE)}
                                     />
                                     {errors.capacidad && <p className='errors_forms'>{errors.capacidad.message}</p>}
@@ -105,8 +99,7 @@ export const FormAddAmbiente = () => {
                                             readOnly
                                             onClick={dropdown2.handleDropdown}
                                             value={dropdown2.selectedOption}
-                                            onChange={(e) => setVideoBeam(e.target.value)}
-                                            {...register("videoBeam", VIDEO_BEAM)}
+                                            {...register("videoBeams", VIDEO_BEAM)}
                                         />
                                         <div className={`options ${dropdown2.isDropdown ? 'open' : ''}`}>
                                             <div onClick={() => dropdown2.handleOptionClick('Si', setValue, 'videoBeam')}>Si</div>
@@ -121,7 +114,6 @@ export const FormAddAmbiente = () => {
                                         type="number"
                                         name="cantidadMesas"
                                         placeholder='Cantidad Mesas'
-                                        onChange={(e) => setCantidadMesas(e.target.value)}
                                         {...register("cantidadMesas", C_MESAS)}
                                     />
                                     {errors.cantidadMesas && <p className='errors_forms'>{errors.cantidadMesas.message}</p>}
@@ -131,18 +123,17 @@ export const FormAddAmbiente = () => {
                                     <div className={`Dropdown ${dropdown3.isDropdown ? 'open' : ''}`}>
                                         <input
                                             type='text'
-                                            name='sede'
+                                            name='idSede'
                                             className='textBox'
                                             placeholder='Sede'
                                             readOnly
                                             onClick={dropdown3.handleDropdown}
                                             value={dropdown3.selectedOption}
-                                            onChange={(e) => setSede(e.target.value)}
                                             {...register("sede", SEDE)}
                                         />
                                         <div className={`options ${dropdown3.isDropdown ? 'open' : ''}`}>
-                                            <div onClick={() => dropdown3.handleOptionClick('CBI', setValue, 'sede')}>CBI</div>
-                                            <div onClick={() => dropdown3.handleOptionClick('Industrial', setValue, 'sede')}>Industrial</div>
+                                            <div onClick={() => dropdown3.handleOptionClick('cbi', setValue, 'sede')}>CBI</div>
+                                            <div onClick={() => dropdown3.handleOptionClick('industrial', setValue, 'sede')}>Industrial</div>
                                         </div>
                                     </div>
                                     {errors.sede && <p className='errors_forms'>{errors.sede.message}</p>}
@@ -153,8 +144,7 @@ export const FormAddAmbiente = () => {
                                         type="number"
                                         name="cantidadComputadores"
                                         placeholder='Cantidad Computadores'
-                                        onChange={(e) => setCantidadComputadores(e.target.value)}
-                                        {...register("catiadadComputadores", C_COMPUTADORES)}
+                                        {...register("catidadComputadores", C_COMPUTADORES)}
                                     />
                                     {errors.cantidadComputadores && <p className='errors_forms'>{errors.cantidadComputadores.message}</p>}
                                 </div>
@@ -169,8 +159,7 @@ export const FormAddAmbiente = () => {
                                             readOnly
                                             onClick={dropdown4.handleDropdown}
                                             value={dropdown4.selectedOption}
-                                            onChange={(e) => setTablero(e.target.value)}
-                                            {...register("tablero", TABLERO)}
+                                            {...register("tableros", TABLERO)}
                                         />
                                         <div className={`options ${dropdown4.isDropdown ? 'open' : ''}`}>
                                             <div onClick={() => dropdown4.handleOptionClick('Si', setValue, 'tablero')}>Si</div>

@@ -31,3 +31,11 @@ export const getLimiteHorasByTypeContrato = (string) =>{
     return limiteHoras[string]
 }
 
+export const getTrueOrFalseByYesOrNot = ( string ) =>{
+    const boolean = {
+        Si: 1,
+        No: 0,
+    }
+    return boolean[string]
+}
+

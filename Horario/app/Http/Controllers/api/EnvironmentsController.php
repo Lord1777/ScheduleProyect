@@ -34,10 +34,12 @@ class EnvironmentsController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'ambiente' => 'required',
-            'capacidad' => 'required|numeric',
+            'aireAcondicionado' => 'required|boolean',
+            'videoBeam' => 'required|boolean',
+            'tablero' => 'required|boolean',
             'idSede' => 'required|exists:sedes,idSede',
         ]);
-        
+
         if ($validator->fails()) {
             return response()->json([
                 'status' => 0,
@@ -45,33 +47,29 @@ class EnvironmentsController extends Controller
             ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
         }
 
-        $environment = new Ambiente();
-
-        $environment->ambiente = $request->ambiente;
-        $environment->capacidad = $request->capacidad;
-        $environment->cantidadMesas = $request->cantidadMesas;
-        $environment->aireAcondicionado = $request->aireAcondicionado;
-        $environment->videoBeam = $request->videoBeam;
-        $environment->tablero = $request->tablero;
-        $environment->cantidadComputadores = $request->cantidadComputadores;
-        $environment->limiteHoras = '96';
-        $environment->horasAsignadas = '0';
-        $environment->estado = 'habilitado';
-
-        try{
-            $idSede = $request->idSede;
-            $sede = Sede::findOrFail($idSede);
-    
-            // Asociar el nuevo ambiente a la sede
-            $sede->ambientes()->save($environment);
+        try {
+            Ambiente::create([
+                'ambiente' => intval($request->ambiente),
+                'capacidad' => intval($request->capacidad),
+                'cantidadMesas' => intval($request->cantidadMesas),
+                'aireAcondicionado' =>  boolval($request->aireAcondicionado),
+                'videoBeam' => boolval($request->videoBeam),
+                'tablero' => boolval($request->tablero),
+                'cantidadComputadores' => intval($request->cantidadComputadores),
+                'limiteHoras' => 96,
+                'horasAsignadas' => 0,
+                'estado' => 'habilitado',
+                'idSede' => $request->idSede,
+            ]);
 
             return response()->json([
                 'status' => 1,
                 'message' => 'Successfully Created Environment',
             ], Response::HTTP_CREATED); //201
 
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
+                'status' => 0,
                 'error' => 'Error Creating Environment: ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
@@ -82,7 +80,6 @@ class EnvironmentsController extends Controller
         try {
             $ambiente = Ambiente::findOrFail($idAmbiente);
             return response()->json($ambiente, Response::HTTP_OK);
-
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
                 'status' => 0,
@@ -118,7 +115,7 @@ class EnvironmentsController extends Controller
                 'error' => 'Environment Not Found'
             ], Response::HTTP_NOT_FOUND); //404
 
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json([
                 'error' => 'Error Disable Environment: ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
@@ -143,7 +140,7 @@ class EnvironmentsController extends Controller
                 'error' => 'Environment Not Found'
             ], Response::HTTP_NOT_FOUND); //404
 
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json([
                 'error' => 'Error Enabled Environment: ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500

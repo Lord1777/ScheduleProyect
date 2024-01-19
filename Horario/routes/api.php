@@ -26,7 +26,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
 //Instructores
 Route::group(['middleware' => ['cors']], function(){
-    Route::get('/getInstructors', [InstructorController::class, 'index']);
+    Route::get('/getEnabledInstructors', [InstructorController::class, 'indexEnabled']);
+    Route::get('/getDisableInstructors', [InstructorController::class, 'indexDisable']);
     Route::get('/getInstructor/{idUsuario}', [InstructorController::class, 'show']);
     Route::put('/disableInstructor/{idUsuario}', [InstructorController::class, 'disable']);
     Route::put('/enableInstructor/{idUsuario}', [InstructorController::class, 'enabled']);

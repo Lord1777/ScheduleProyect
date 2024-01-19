@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faUserPen, faUserSlash } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faUserAlt, faUserCheck, faUserPen, faUserSlash } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/admin/TableInstructors.css';
 import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
@@ -10,7 +10,12 @@ import { Link } from 'react-router-dom';
 
 export const TableInstructors = () => {
 
-    const { dataInstructor } = useFetchGetInstructor('/getInstructors');
+    const [disabled, setDisabled] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const { dataInstructor } = useFetchGetInstructor(disabled ? '/getDisableInstructors' : '/getEnabledInstructors', currentPage);
+
+    let totalPage = dataInstructor.last_page
 
     return (
         <>
@@ -22,7 +27,13 @@ export const TableInstructors = () => {
                 </div>
 
                 <div className="buttons">
-                    <button type="button">Inhabilitados</button>
+                    <button
+                        type="button"
+                        onClick={() => {
+                            disabled ? setDisabled(false) : setDisabled(true);
+                            setCurrentPage(1);
+                        }}
+                    >{disabled ? 'Habilitados' : 'Inhabilitados'}</button>
                     <Link to={'/AddInstructor'}><button type="button">Añadir Instructor</button></Link>
                 </div>
             </div>
@@ -36,14 +47,16 @@ export const TableInstructors = () => {
                             <th>Contrato</th>
                             <th>Profesión</th>
                             <th>Editar</th>
-                            <th>Inhabilitar</th>
+                            {disabled ? <th>Habilitar</th> : <th>Inhabilitar</th>}
+
+
                         </tr>
                     </thead>
                     <tbody>
-                        {dataInstructor.map((instructor) => {
+                        {dataInstructor.data && dataInstructor.data.length > 0 && dataInstructor.data.map((instructor) => {
 
                             return (
-                                <tr>
+                                <tr key={instructor.idUsuario}>
                                     <td>{instructor.documento}</td>
                                     <td>{instructor.nombreCompleto}</td>
                                     <td>{instructor.tipoContrato}</td>
@@ -53,16 +66,45 @@ export const TableInstructors = () => {
                                             <FontAwesomeIcon icon={faUserPen} className='iconEdit' />
                                         </button>
                                     </td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar' />
-                                        </button>
-                                    </td>
+                                    {disabled ? (
+                                        <td>
+                                            <button>
+                                                <FontAwesomeIcon icon={faUserCheck} className='iconHabilitar' />
+                                            </button>
+                                        </td>
+                                    ) : (
+                                        <td>
+                                            <button>
+                                                <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar' />
+                                            </button>
+                                        </td>
+
+                                    )}
                                 </tr>
                             )
                         })}
                     </tbody>
                 </table>
+            </div>
+
+            <div className="container_pagination_buttons">
+                <button
+                    onClick={() => {
+                        setCurrentPage(currentPage - 1);
+                        window.scrollTo(0, 0);
+                    }}
+                    disabled={currentPage === 1}
+                >Anterior</button>
+                <button id='actuallyPage'>
+                    {currentPage}
+                </button>
+                <button
+                    onClick={() => {
+                        setCurrentPage(currentPage + 1);
+                        window.scrollTo(0, 0);
+                    }}
+                    disabled={currentPage === totalPage}
+                >Siguiente</button>
             </div>
         </>
     );

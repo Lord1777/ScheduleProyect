@@ -10,16 +10,27 @@ use Illuminate\Support\Facades\Validator;
 
 class CoordinatorsController extends Controller
 {
-    public function index()
+    public function indexEnabled()
     {
         try{
-            $coordinators = Usuario::where('idRol', 1)->where('estado', 'habilitado')->get();
-            return response()->json($coordinators, Response::HTTP_OK);
+            $coordinators = Usuario::where('idRol', 1)->where('estado', 'habilitado')->paginate(15);
+            return response()->json($coordinators, Response::HTTP_OK); //200
 
         }catch(\Exception $e){
-            return response()->json(['error' => "Request coordinator error: $e"], 500);
+            return response()->json(['error' => "Request coordinator error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
 
+    }
+
+    public function indexDisable()
+    {
+        try{
+            $coordinators = Usuario::where('idRol', 1)->where('estado', 'inhabilitado')->paginate(15);
+            return response()->json($coordinators, Response::HTTP_OK); //200
+
+        }catch(\Exception $e){
+            return response()->json(['error' => "Request coordinator error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
     }
 
     public function show(string $idUsuario)

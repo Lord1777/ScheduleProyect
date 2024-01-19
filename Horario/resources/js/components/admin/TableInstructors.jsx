@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faUserAlt, faUserCheck, faUserPen, faUserSlash } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/admin/TableInstructors.css';
@@ -15,7 +15,7 @@ export const TableInstructors = () => {
 
     const { dataInstructor } = useFetchGetInstructor(disabled ? '/getDisableInstructors' : '/getEnabledInstructors', currentPage);
 
-    let totalPage = dataInstructor.last_page
+    let totalPage = dataInstructor.last_page;
 
     return (
         <>

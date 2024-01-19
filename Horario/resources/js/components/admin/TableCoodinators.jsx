@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faUserPen, faUserSlash } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faUserCheck, faUserPen, faUserSlash } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/admin/TableInstructors.css';
 import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
@@ -10,7 +10,12 @@ import { Link } from 'react-router-dom';
 
 export const TableCoodinators = () => {
 
-    const { dataCoordinator} = useFetchGetCoordinator('/getCoordinators');
+    const [disabled, setDisabled] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const { dataCoordinator} = useFetchGetCoordinator(disabled ? '/getDisableCoordinators' : '/getEnabledCoordinators', currentPage);
+
+    let totalPage = dataCoordinator.last_page;
 
     return (
         <>
@@ -22,7 +27,13 @@ export const TableCoodinators = () => {
                 </div>
 
                 <div className="buttons">
-                    <button type="button">Inhabilitados</button>
+                <button
+                        type="button"
+                        onClick={() => {
+                            disabled ? setDisabled(false) : setDisabled(true);
+                            setCurrentPage(1);
+                        }}
+                    >{disabled ? 'Habilitados' : 'Inhabilitados'}</button>
                     <Link><button type="button">Añadir Coordinador</button></Link>
                 </div>
             </div>
@@ -36,11 +47,11 @@ export const TableCoodinators = () => {
                             <th>Telefono</th>
                             <th>Email</th>
                             <th>Editar</th>
-                            <th>Inhabilitar</th>
+                            {disabled ? <th>Habilitar</th> : <th>Inhabilitar</th>}
                         </tr>
                     </thead>
                     <tbody>
-                        {dataCoordinator.map((coordinator) => {
+                        {dataCoordinator.data && dataCoordinator.data.length > 0 && dataCoordinator.data.map((coordinator) => {
 
                             return (
                                 <tr>
@@ -53,16 +64,45 @@ export const TableCoodinators = () => {
                                             <FontAwesomeIcon icon={faUserPen} className='iconEdit' />
                                         </button>
                                     </td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar' />
-                                        </button>
-                                    </td>
+                                    {disabled ? (
+                                        <td>
+                                            <button>
+                                                <FontAwesomeIcon icon={faUserCheck} className='iconHabilitar' />
+                                            </button>
+                                        </td>
+                                    ) : (
+                                        <td>
+                                            <button>
+                                                <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar' />
+                                            </button>
+                                        </td>
+
+                                    )}
                                 </tr>
                             )
                         })}
                     </tbody>
                 </table>
+            </div>
+
+            <div className="container_pagination_buttons">
+                <button
+                    onClick={() => {
+                        setCurrentPage(currentPage - 1);
+                        window.scrollTo(0, 0);
+                    }}
+                    disabled={currentPage === 1}
+                >Anterior</button>
+                <button id='actuallyPage'>
+                    {currentPage}
+                </button>
+                <button
+                    onClick={() => {
+                        setCurrentPage(currentPage + 1);
+                        window.scrollTo(0, 0);
+                    }}
+                    disabled={currentPage === totalPage}
+                >Siguiente</button>
             </div>
         </>
     )

@@ -11,7 +11,25 @@ use Illuminate\Support\Facades\Validator;
 
 class EnvironmentsController extends Controller
 {
-    public function index()
+    public function indexEnabled()
+    {
+        try {
+            $environment = Ambiente::join('sedes', 'ambientes.idSede', '=', 'sedes.idSede')
+                ->select(
+                    'ambientes.ambiente',
+                    'ambientes.capacidad',
+                    'sedes.sede',
+                )
+                ->where('ambientes.estado', 'habilitado')
+                ->paginate(15);
+
+            return response()->json($environment, Response::HTTP_OK); //200
+        } catch (\Exception $e) {
+            return response()->json(['error' => "Request environment error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
+    public function indexDisable()
     {
         try {
 
@@ -21,12 +39,12 @@ class EnvironmentsController extends Controller
                     'ambientes.capacidad',
                     'sedes.sede',
                 )
-                ->where('ambientes.estado', 'habilitado')
-                ->get();
+                ->where('ambientes.estado', 'inhabilitado')
+                ->paginate(15);
 
             return response()->json($environment, Response::HTTP_OK); //200
         } catch (\Exception $e) {
-            return response()->json(['error' => "Request environment error: $e"], 500);
+            return response()->json(['error' => "Request environment error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
 

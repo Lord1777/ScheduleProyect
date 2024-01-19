@@ -10,13 +10,23 @@ use App\Http\Controllers\Controller;
 
 class QuartersController extends Controller
 {
-    public function index()
+    public function indexEnabled()
     {
         try {
-            $quarter = Trimestre::where('estado', 'habilitado')->get();
+            $quarter = Trimestre::where('estado', 'habilitado')->paginate(15);
             return response()->json($quarter, 200);
         } catch (\Exception $e) {
             return response()->json(['error' => "Request quarters error: $e"], 500);
+        }
+    }
+
+    public function indexDisable()
+    {
+        try {
+            $quarter = Trimestre::where('estado', 'inhabilitado')->paginate(15);
+            return response()->json($quarter, Response::HTTP_OK); //200
+        } catch (\Exception $e) {
+            return response()->json(['error' => "Request quarters error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
 

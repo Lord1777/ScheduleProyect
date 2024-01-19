@@ -1,6 +1,6 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faPenToSquare, faCircle } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faPenToSquare, faCircle, faUserCheck, faUserSlash } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/admin/TableInstructors.css';
 import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
@@ -9,7 +9,12 @@ import useFetchGetEnvironment from '../../hooks/FetchGET/useFetchGetEnvironment'
 
 export const TableEnvironments = () => {
 
-    const { dataEnvironment} = useFetchGetEnvironment('/getEnvironments');    
+    const [disabled, setDisabled] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const { dataEnvironment} = useFetchGetEnvironment(disabled ? '/getDisableEnvironments' : '/getEnabledEnvironments', currentPage);  
+    
+    let totalPage = dataEnvironment.last_page;
 
     return (
         <>
@@ -21,7 +26,13 @@ export const TableEnvironments = () => {
                 </div>
 
                 <div className="buttons">
-                    <button type="button">Inhabilitados</button>
+                <button
+                        type="button"
+                        onClick={() => {
+                            disabled ? setDisabled(false) : setDisabled(true);
+                            setCurrentPage(1);
+                        }}
+                    >{disabled ? 'Habilitados' : 'Inhabilitados'}</button>
                     <button type="button">Añadir Ambiente</button>
                 </div>
             </div>
@@ -34,11 +45,11 @@ export const TableEnvironments = () => {
                             <th>Capacidad</th>
                             <th>Lugar de Ambiente</th>
                             <th>Editar</th>
-                            <th>Inhabilitar</th>
+                            {disabled ? <th>Habilitar</th> : <th>Inhabilitar</th>}
                         </tr>
                     </thead>
                     <tbody>
-                        {dataEnvironment.map((environment) => {
+                        {dataEnvironment.data && dataEnvironment.data.length > 0 && dataEnvironment.data.map((environment) => {
 
                             return (
                                 <tr>
@@ -50,16 +61,44 @@ export const TableEnvironments = () => {
                                             <FontAwesomeIcon icon={faPenToSquare} className='iconEdit' />
                                         </button>
                                     </td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faCircle} className='iconInhabilitar' />
-                                        </button>
-                                    </td>
+                                    {disabled ? (
+                                        <td>
+                                            <button>
+                                                <FontAwesomeIcon icon={faUserCheck} className='iconHabilitar' />
+                                            </button>
+                                        </td>
+                                    ) : (
+                                        <td>
+                                            <button>
+                                                <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar' />
+                                            </button>
+                                        </td>
+
+                                    )}
                                 </tr>
                             )
                         })}
                     </tbody>
                 </table>
+            </div>
+            <div className="container_pagination_buttons">
+                <button
+                    onClick={() => {
+                        setCurrentPage(currentPage - 1);
+                        window.scrollTo(0, 0);
+                    }}
+                    disabled={currentPage === 1}
+                >Anterior</button>
+                <button id='actuallyPage'>
+                    {currentPage}
+                </button>
+                <button
+                    onClick={() => {
+                        setCurrentPage(currentPage + 1);
+                        window.scrollTo(0, 0);
+                    }}
+                    disabled={currentPage === totalPage}
+                >Siguiente</button>
             </div>
         </>
     )

@@ -36,7 +36,8 @@ Route::group(['middleware' => ['cors']], function(){
 
 //Coordinadores
 Route::group(['middleware' => ['cors']], function(){
-    Route::get('/getCoordinators', [CoordinatorsController::class, 'index']);
+    Route::get('/getEnabledCoordinators', [CoordinatorsController::class, 'indexEnabled']);
+    Route::get('/getDisableCoordinators', [CoordinatorsController::class, 'indexDisable']);
     Route::get('/getCoordinator/{idUsuario}', [CoordinatorsController::class, 'show']);
     Route::put('/disableCoordinator/{idUsuario}', [CoordinatorsController::class, 'disable']);
     Route::put('/enableCoordinator/{idUsuario}', [CoordinatorsController::class, 'enabled']);
@@ -45,7 +46,8 @@ Route::group(['middleware' => ['cors']], function(){
 
 //Ambientes
 Route::group(['middleware' => ['cors']], function(){
-    Route::get('/getEnvironments', [EnvironmentsController::class, 'index']);
+    Route::get('/getEnabledEnvironments', [EnvironmentsController::class, 'indexEnabled']);
+    Route::get('/getDisableEnvironments', [EnvironmentsController::class, 'indexDisable']);
     Route::get('/getEnvironment/{idAmbiente}', [EnvironmentsController::class, 'show']);
     Route::post('/createEnvironment', [EnvironmentsController::class, 'store']);
     Route::put('/disableEnvironment/{idAmbiente}', [EnvironmentsController::class, 'disable']);
@@ -56,13 +58,15 @@ Route::group(['middleware' => ['cors']], function(){
 
 //Fichas
 Route::group(['middleware' => ['cors']], function(){
-    Route::get('/getRecords', [RecordsController::class, 'index']);
+    Route::get('/getEnabledRecords', [RecordsController::class, 'indexEnabled']);
+    Route::get('/getDisableRecords', [RecordsController::class, 'indexDisable']);
 });
 
 
 //Trimestres
 Route::group(['middleware' => ['cors']], function(){
-    Route::get('/getQuarters', [QuartersController::class, 'index']);
+    Route::get('/getEnabledQuarters', [QuartersController::class, 'indexEnabled']);
+    Route::get('/getDisableQuarters', [QuartersController::class, 'indexDisable']);
     Route::post('/createQuarters', [QuartersController::class, 'store']);
 });
 

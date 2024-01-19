@@ -11,8 +11,7 @@ const useFetchGetInstructor = (route, page) => {
   useEffect(() => {
     fetch(`${API_URL}${route}?page=${page}`, requestOptionsGet)
       .then((response) => response.json())
-      .then((result) => {setDataInstructor(result)
-      console.log(result)})
+      .then((result) => setDataInstructor(result))
       .catch((err) => console.log(err));
   }, [route, page]);
 

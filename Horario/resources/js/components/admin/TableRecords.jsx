@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faPenToSquare, faCircle } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faPenToSquare, faCircle, faUserCheck, faUserSlash } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/admin/TableInstructors.css';
 import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
@@ -8,8 +8,12 @@ import useFetchGetRecord from '../../hooks/FetchGET/useFetchGetRecord';
 
 export const TableRecords = () => {
 
-    const {dataRecord} = useFetchGetRecord('/getRecords');
+    const [disabled, setDisabled] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
 
+    const { dataRecord } = useFetchGetRecord(disabled ? '/getDisableRecords' : '/getEnabledRecords', currentPage);
+
+    let totalPage = dataRecord.last_page;
 
     return (
         <>
@@ -21,7 +25,13 @@ export const TableRecords = () => {
                 </div>
 
                 <div className="buttons">
-                    <button type="button">Inhabilitados</button>
+                    <button
+                        type="button"
+                        onClick={() => {
+                            disabled ? setDisabled(false) : setDisabled(true);
+                            setCurrentPage(1);
+                        }}
+                    >{disabled ? 'Habilitados' : 'Inhabilitados'}</button>
                     <button type="button">Añadir Ficha</button>
                 </div>
             </div>
@@ -36,34 +46,62 @@ export const TableRecords = () => {
                             <th>Jornada</th>
                             <th>Modalidad</th>
                             <th>Editar</th>
-                            <th>Inhabilitar</th>
+                            {disabled ? <th>Habilitar</th> : <th>Inhabilitar</th>}
                         </tr>
                     </thead>
                     <tbody>
-                        {dataRecord.map((record) => {
+                        {dataRecord.data && dataRecord.data.length > 0 && dataRecord.data.map((record) => {
 
                             return (
                                 <tr>
                                     <td>{record.ficha}</td>
-                                    <td>{record.programa.nombre}</td>
-                                    <td>{record.programa.nivel.nivel}</td>
-                                    <td>{record.programa.jornada.jornada}</td>
-                                    <td>{record.programa.modalidad.modalidad}</td>
+                                    <td>{record.nombre}</td>
+                                    <td>{record.nivel}</td>
+                                    <td>{record.jornada}</td>
+                                    <td>{record.modalidad}</td>
                                     <td>
                                         <button>
                                             <FontAwesomeIcon icon={faPenToSquare} className='iconEdit' />
                                         </button>
                                     </td>
-                                    <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faCircle} className='iconInhabilitar' />
-                                        </button>
-                                    </td>
+                                    {disabled ? (
+                                        <td>
+                                            <button>
+                                                <FontAwesomeIcon icon={faUserCheck} className='iconHabilitar' />
+                                            </button>
+                                        </td>
+                                    ) : (
+                                        <td>
+                                            <button>
+                                                <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar' />
+                                            </button>
+                                        </td>
+
+                                    )}
                                 </tr>
                             )
                         })}
                     </tbody>
                 </table>
+            </div>
+            <div className="container_pagination_buttons">
+                <button
+                    onClick={() => {
+                        setCurrentPage(currentPage - 1);
+                        window.scrollTo(0, 0);
+                    }}
+                    disabled={currentPage === 1}
+                >Anterior</button>
+                <button id='actuallyPage'>
+                    {currentPage}
+                </button>
+                <button
+                    onClick={() => {
+                        setCurrentPage(currentPage + 1);
+                        window.scrollTo(0, 0);
+                    }}
+                    disabled={currentPage === totalPage}
+                >Siguiente</button>
             </div>
         </>
     )

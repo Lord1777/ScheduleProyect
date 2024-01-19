@@ -6,6 +6,7 @@ import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
 import useFetchGetCoordinator from "../../hooks/FetchGET/useFetchGetCoordinator";
 import { Link } from 'react-router-dom';
+import { useFetchPutCoordinator } from '../../hooks/FetchPUT/useFetchPutCoordinator';
 
 
 export const TableCoodinators = () => {
@@ -13,9 +14,20 @@ export const TableCoodinators = () => {
     const [disabled, setDisabled] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
 
-    const { dataCoordinator} = useFetchGetCoordinator(disabled ? '/getDisableCoordinators' : '/getEnabledCoordinators', currentPage);
+    const { dataCoordinator, fetchData} = useFetchGetCoordinator(disabled ? '/getDisableCoordinators' : '/getEnabledCoordinators', currentPage);
+    const { fetchPutCoordinator } = useFetchPutCoordinator();
 
     let totalPage = dataCoordinator.last_page;
+
+    const enableCoordinator = (idUsuario) => {
+        fetchPutCoordinator('/enableCoordinator', idUsuario);
+        fetchData();
+    }
+
+    const disableCoordinator = (idUsuario) =>{
+        fetchPutCoordinator('/disableCoordinator', idUsuario);
+        fetchData();
+    }
 
     return (
         <>
@@ -66,13 +78,13 @@ export const TableCoodinators = () => {
                                     </td>
                                     {disabled ? (
                                         <td>
-                                            <button>
+                                            <button onClick={() => {enableCoordinator(coordinator.idUsuario)}}>
                                                 <FontAwesomeIcon icon={faUserCheck} className='iconHabilitar' />
                                             </button>
                                         </td>
                                     ) : (
                                         <td>
-                                            <button>
+                                            <button onClick={() => disableCoordinator(coordinator.idUsuario)} >
                                                 <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar' />
                                             </button>
                                         </td>

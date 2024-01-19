@@ -15,6 +15,7 @@ class InstructorController extends Controller
         try {
             $instructors = Usuario::join('contratos', 'usuarios.idContrato', '=', 'contratos.idContrato')
                 ->select(
+                    'usuarios.idUsuario',
                     'usuarios.documento',
                     'usuarios.nombreCompleto',
                     'contratos.tipoContrato',
@@ -37,6 +38,7 @@ class InstructorController extends Controller
         try {
             $instructors = Usuario::join('contratos', 'usuarios.idContrato', '=', 'contratos.idContrato')
                 ->select(
+                    'usuarios.idUsuario',
                     'usuarios.documento',
                     'usuarios.nombreCompleto',
                     'contratos.tipoContrato',

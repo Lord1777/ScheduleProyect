@@ -29,8 +29,8 @@ Route::group(['middleware' => ['cors']], function(){
     Route::get('/getEnabledInstructors', [InstructorController::class, 'indexEnabled']);
     Route::get('/getDisableInstructors', [InstructorController::class, 'indexDisable']);
     Route::get('/getInstructor/{idUsuario}', [InstructorController::class, 'show']);
-    Route::put('/disableInstructor/{idUsuario}', [InstructorController::class, 'disable']);
-    Route::put('/enableInstructor/{idUsuario}', [InstructorController::class, 'enabled']);
+    Route::match(['get', 'put'], '/disableInstructor/{idUsuario}', [InstructorController::class, 'disable']);
+    Route::match(['get', 'put'], '/enableInstructor/{idUsuario}', [InstructorController::class, 'enabled']);
 });
 
 
@@ -39,8 +39,8 @@ Route::group(['middleware' => ['cors']], function(){
     Route::get('/getEnabledCoordinators', [CoordinatorsController::class, 'indexEnabled']);
     Route::get('/getDisableCoordinators', [CoordinatorsController::class, 'indexDisable']);
     Route::get('/getCoordinator/{idUsuario}', [CoordinatorsController::class, 'show']);
-    Route::put('/disableCoordinator/{idUsuario}', [CoordinatorsController::class, 'disable']);
-    Route::put('/enableCoordinator/{idUsuario}', [CoordinatorsController::class, 'enabled']);
+    Route::match(['get','put'],'/disableCoordinator/{idUsuario}', [CoordinatorsController::class, 'disable']);
+    Route::match(['get','put'],'/enableCoordinator/{idUsuario}', [CoordinatorsController::class, 'enabled']);
 });
 
 
@@ -50,8 +50,8 @@ Route::group(['middleware' => ['cors']], function(){
     Route::get('/getDisableEnvironments', [EnvironmentsController::class, 'indexDisable']);
     Route::get('/getEnvironment/{idAmbiente}', [EnvironmentsController::class, 'show']);
     Route::post('/createEnvironment', [EnvironmentsController::class, 'store']);
-    Route::put('/disableEnvironment/{idAmbiente}', [EnvironmentsController::class, 'disable']);
-    Route::put('/enableEnvironment/{idAmbiente}', [EnvironmentsController::class, 'enabled']);
+    Route::match(['get', 'put'], '/disableEnvironment/{idAmbiente}', [EnvironmentsController::class, 'disable']);
+    Route::match(['get', 'put'], '/enableEnvironment/{idAmbiente}', [EnvironmentsController::class, 'enabled']);
 
 });
 

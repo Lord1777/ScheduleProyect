@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import useRequestOptionsGet from './useRequestOptionsGet';
 import { API_URL } from '../../const/api';
 
@@ -6,19 +6,28 @@ const useFetchGetCoordinator = (route, page) => {
 
     const { requestOptionsGet } = useRequestOptionsGet();
     const [dataCoordinator, setDataCooordinator] = useState([]);
+    const fetchDataRef = useRef();
 
 
     useEffect(() => {
-        fetch(`${API_URL}${route}?page=${page}`, requestOptionsGet)
-            .then((response) => response.json())
-            .then((result) => setDataCooordinator(result))
-            .catch((err) => console.log(err))
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`${API_URL}${route}?page=${page}`, requestOptionsGet);
+                const result = await response.json();
+                setDataCooordinator(result);
+            } catch (err) {
+                console.error('Error al obtener datos:', err);
+            }
+        }
+        // Asignar la función fetchData al ref
+        fetchDataRef.current = fetchData;
+        fetchData();
     }, [route, page]);
-
 
     return (
         {
             dataCoordinator,
+            fetchData: () => fetchDataRef.current(),
         }
     )
 }

@@ -5,7 +5,9 @@ import '../../../css/admin/TableInstructors.css';
 import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
 import useFetchGetInstructor from '../../hooks/FetchGET/useFetchGetInstructor';
+import { useFetchPutInstructor } from '../../hooks/FetchPUT/useFetchPutInstructor';
 import { Link } from 'react-router-dom';
+
 
 
 export const TableInstructors = () => {
@@ -13,9 +15,20 @@ export const TableInstructors = () => {
     const [disabled, setDisabled] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
 
-    const { dataInstructor } = useFetchGetInstructor(disabled ? '/getDisableInstructors' : '/getEnabledInstructors', currentPage);
+    const { dataInstructor, fetchData } = useFetchGetInstructor(disabled ? '/getDisableInstructors' : '/getEnabledInstructors', currentPage);
+    const { fetchPutInstructor } = useFetchPutInstructor();
 
     let totalPage = dataInstructor.last_page;
+
+    const enableInstructor = (idUsuario) => {
+        fetchPutInstructor('/enableInstructor', idUsuario);
+        fetchData();
+    }
+
+    const disableInstructor = (idUsuario) =>{
+        fetchPutInstructor('/disableInstructor', idUsuario);
+        fetchData();
+    }
 
     return (
         <>
@@ -68,13 +81,13 @@ export const TableInstructors = () => {
                                     </td>
                                     {disabled ? (
                                         <td>
-                                            <button>
+                                            <button onClick={ () => enableInstructor(instructor.idUsuario)}>
                                                 <FontAwesomeIcon icon={faUserCheck} className='iconHabilitar' />
                                             </button>
                                         </td>
                                     ) : (
                                         <td>
-                                            <button>
+                                            <button onClick={() => disableInstructor(instructor.idUsuario)}>
                                                 <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar' />
                                             </button>
                                         </td>

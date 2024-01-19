@@ -1,27 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import useRequestOptionsGet from './useRequestOptionsGet';
 import { API_URL } from '../../const/api';
 
-
 const useFetchGetInstructor = (route, page) => {
-
+  
   const { requestOptionsGet } = useRequestOptionsGet();
   const [dataInstructor, setDataInstructor] = useState([]);
+  const fetchDataRef = useRef();
 
   useEffect(() => {
-    fetch(`${API_URL}${route}?page=${page}`, requestOptionsGet)
-      .then((response) => response.json())
-      .then((result) => setDataInstructor(result))
-      .catch((err) => console.log(err));
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${API_URL}${route}?page=${page}`, requestOptionsGet);
+        const result = await response.json();
+        setDataInstructor(result);
+      } catch (err) {
+        console.error('Error al obtener datos:', err);
+      }
+    };
+
+    // Asignar la función fetchData al ref
+    fetchDataRef.current = fetchData;
+
+    fetchData();
   }, [route, page]);
 
-  return (
-    {
-      dataInstructor,
-    }
-  );
-}
-
-
+  return {
+    dataInstructor,
+    fetchData: () => fetchDataRef.current(), // Llamada a la función fetchData almacenada en el ref
+  };
+};
 
 export default useFetchGetInstructor;

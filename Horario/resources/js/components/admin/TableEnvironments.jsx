@@ -5,6 +5,7 @@ import '../../../css/admin/TableInstructors.css';
 import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
 import useFetchGetEnvironment from '../../hooks/FetchGET/useFetchGetEnvironment';
+import { useFetchPutEnvironment } from '../../hooks/FetchPUT/useFetchPutEnvironment';
 
 
 export const TableEnvironments = () => {
@@ -12,9 +13,20 @@ export const TableEnvironments = () => {
     const [disabled, setDisabled] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
 
-    const { dataEnvironment} = useFetchGetEnvironment(disabled ? '/getDisableEnvironments' : '/getEnabledEnvironments', currentPage);  
-    
+    const { dataEnvironment, fetchData} = useFetchGetEnvironment(disabled ? '/getDisableEnvironments' : '/getEnabledEnvironments', currentPage);  
+    const { fetchPutEnvironment } = useFetchPutEnvironment()
+
     let totalPage = dataEnvironment.last_page;
+
+    const enableEnvironment = (idAmbiente) => {
+        fetchPutEnvironment('/enableEnvironment', idAmbiente);
+        fetchData();
+    }
+
+    const disableEnvironment = (idAmbiente) =>{
+        fetchPutEnvironment('/disableEnvironment', idAmbiente);
+        fetchData();
+    }
 
     return (
         <>
@@ -63,13 +75,13 @@ export const TableEnvironments = () => {
                                     </td>
                                     {disabled ? (
                                         <td>
-                                            <button>
+                                            <button onClick={() => enableEnvironment(environment.idAmbiente)} >
                                                 <FontAwesomeIcon icon={faUserCheck} className='iconHabilitar' />
                                             </button>
                                         </td>
                                     ) : (
                                         <td>
-                                            <button>
+                                            <button onClick={() => disableEnvironment(environment.idAmbiente)}>
                                                 <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar' />
                                             </button>
                                         </td>

@@ -16,6 +16,7 @@ class EnvironmentsController extends Controller
         try {
             $environment = Ambiente::join('sedes', 'ambientes.idSede', '=', 'sedes.idSede')
                 ->select(
+                    'ambientes.idAmbiente',
                     'ambientes.ambiente',
                     'ambientes.capacidad',
                     'sedes.sede',
@@ -35,6 +36,7 @@ class EnvironmentsController extends Controller
 
             $environment = Ambiente::join('sedes', 'ambientes.idSede', '=', 'sedes.idSede')
                 ->select(
+                    'ambientes.idAmbiente',
                     'ambientes.ambiente',
                     'ambientes.capacidad',
                     'sedes.sede',

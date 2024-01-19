@@ -20,6 +20,7 @@ import { SeeScheduleFichas } from './pages/SeeScheduleFichas.jsx';
 import { SeeScheduleInstructors } from './pages/SeeScheduleInstructors.jsx';
 import { SeeScheduleAmbiente } from './pages/SeeScheduleAmbiente.jsx';
 import { AddSchedule } from './pages/Add/AddSchedule.jsx';
+import { ModalAsignar } from './components/Modals/ModalAsignar.jsx';
 import ProtectedRoute from './components/utils/ProtectedRoute.jsx';
 import "../css/App.css";
 
@@ -43,7 +44,8 @@ function App() {
                     <Route path='/HorarioInstructor' element={<SeeScheduleInstructors/>}/>
                     <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente/>}/>
                     <Route path='/AddHorario' element={<AddSchedule/>}/>
-
+                    <Route path='/modal' element={<ModalAsignar/>}/>
+x
                 {/* Vistas del coordinador */}
                     <Route element={ <ProtectedRoute role={'coordinador'} userRole={role} />}  >
                         <Route path='/Panel' element={<ControlPanel />} /> 

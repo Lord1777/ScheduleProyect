@@ -30,7 +30,7 @@ Route::get('/HorarioFichas', fn()=> view('welcome'));
 Route::get('/HorarioInstructor', fn()=> view('welcome'));
 Route::get('/HorarioAmbiente', fn()=> view('welcome'));
 Route::get('/AddHorario', fn() => view('welcome'));
-
+Route::get('/modal', fn() => view('welcome'));
 
 // Route::get('/{any}', function () {
 //     //Todas las rutas retornan welcome porque ahí es donde se está renderizando React

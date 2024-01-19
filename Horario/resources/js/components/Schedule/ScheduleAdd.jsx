@@ -1,11 +1,15 @@
 import React from 'react';
 import '../../../css/Schedule/ScheduleAdd.css';
 import useSelectedBoxes from '../../hooks/useSelectedBoxes';
+import { ModalAsignar } from '../Modals/ModalAsignar';
+import useModalAsignar from '../../hooks/useModalAsignar';
 
 
 export const ScheduleAdd = () => {
     
     const { selectedBoxes, handleBoxClick, resetSelectedBoxes } = useSelectedBoxes();
+    const { isModal, openModal, closeModal } = useModalAsignar();
+    
 
     return (
         <>
@@ -41,13 +45,17 @@ export const ScheduleAdd = () => {
 
                 <div className="container-buttons">
                     {selectedBoxes.size > 0 && (
-                        <button className='asignar' onClick={resetSelectedBoxes}>
+                        <button className='asignar' onClick={openModal}>
                             Asignar
                         </button>
                     )}
                     <button className='guardar'>Guardar</button>
                 </div>
             </div>
+            <ModalAsignar
+            openModal={isModal}
+            closeModal={closeModal}
+            />
         </>
     );
 };

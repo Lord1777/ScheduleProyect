@@ -59,8 +59,8 @@
     width: 8px;
     height: 8px;
     border: 2px solid #fff;
-    border-top: 2px solid var(--primary-color);
-    border-right: 2px solid var(--primary-color);
+    border-top: 2px solid transparent;
+    border-right: 2px solid transparent;
     transform: rotate(-135deg);
     transition: 0.5s;
     pointer-events: none;

@@ -1,0 +1,123 @@
+.shadow_box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(38, 38, 38, 0.6);
+    overflow: hidden;
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+}
+
+.box-modal-asignar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 28rem;
+    height: 30rem;
+    border-radius: 1rem;
+    background-color: #FFF;
+    padding: 1rem;
+}
+
+.box-modal-asignar h3{
+    margin-bottom: 5rem;
+}
+
+.box-modal-asignar .container-buttons-modal{
+    margin-top: 3rem;
+}
+
+.box-modal-asignar .container-buttons-modal button{
+    margin: 1rem;
+    outline: none;
+    width: 8rem;
+    height: 2.8rem;
+    color: var(--color-text-btn);
+    border: none;
+    border-radius: 0.2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.box-modal-asignar .container-buttons-modal .Guardar{
+    background-color: var(--primary-color);
+}
+
+.box-modal-asignar .container-buttons-modal .Cancelar{
+    background-color: var(--color-btn-cancelar);
+}
+
+@media (max-width:420px){
+    .box-modal-asignar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 22rem;
+        height: 28rem;
+        border-radius: 1rem;
+        background-color: #FFF;
+        padding: 1rem;
+    }
+}
+
+@media (max-width:360px){
+    .box-modal-asignar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 22rem;
+        height: 28rem;
+        border-radius: 1rem;
+        background-color: #FFF;
+        padding: 1rem;
+    }
+
+    .box-modal-asignar h3{
+        text-align: center;
+    }
+
+    .box-modal-asignar .container-buttons-modal {
+        display: flex;
+        margin-top: 1rem;
+    }
+
+    .box-modal-asignar .container-buttons-modal button {
+        margin: 0rem 1rem;
+        outline: none;
+        width: 7rem;
+        height: 2.8rem;
+        color: var(--color-text-btn);
+        border: none;
+        border-radius: 0.2rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        user-select: none;
+    }
+}
+
+@media (max-width:280px){
+    .box-modal-asignar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 17rem;
+        height: 25rem;
+        border-radius: 1rem;
+        background-color: #FFF;
+        padding: 1rem;
+    }
+
+    .box-modal-asignar h3 {
+        margin-bottom: 3rem;
+        text-align: center;
+    }
+}

@@ -58,6 +58,8 @@
     border-radius: 0.2rem;
     font-weight: 600;
     letter-spacing: 1px;
+    user-select: none;
+    cursor: pointer;
 }
 
 .containergrid-buttons .container-buttons .asignar {

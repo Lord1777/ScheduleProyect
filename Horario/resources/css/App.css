@@ -11,6 +11,8 @@
     --color-btn-cancelar: #E74C3C;
     --color-text-btn: #fff;
     --color-error: red;
+    --color-btn-save: #0C8CE9;
+    --selected-box: #9FF3FF;
 }
 
 * {

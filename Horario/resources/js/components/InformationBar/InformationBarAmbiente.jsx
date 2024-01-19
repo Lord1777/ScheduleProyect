@@ -1,26 +1,24 @@
 import React from 'react'
-import '../../../css/InformationBar/InformationBar.css'
-import useDropdownGet from '../../hooks/useDropdownGet';
+import useDropdownGet from '../../hooks/useDropdownGet'
 import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
 
-
-export const InformationBarFichas = () => {
+export const InformationBarAmbiente = () => {
 
     const dropdown1 = useDropdownGet();
     const dropdown2 = useDropdownGet();
     const trimestreDropdown = useTrimestreDropdown();
 
-    return (
-        <>
-            <div className="information_bar">
+  return (
+    <>
+        <div className="information_bar">
                 <div className="deplegable-horas">
 
                     <div className={`desplegable ${dropdown1.isDropdown ? 'open' : ''}`}>
                         <input
                             type="text"
                             className='textBox'
-                            name='Instructor'
-                            placeholder='Instructores'
+                            name='Ambiente'
+                            placeholder='Ambientes'
                             readOnly
                             onClick={dropdown1.handleDropdown}
                             value={dropdown1.selectedOption}
@@ -62,6 +60,6 @@ export const InformationBarFichas = () => {
                     onChange={trimestreDropdown.toggleTrimestreDropdown}/>
                 </div>
             </div>
-        </>
-    )
+    </>
+  )
 }

@@ -1,15 +1,14 @@
 import React from 'react'
 import '../../../css/InformationBar/InformationBar.css'
-import useDropdownGet from '../../hooks/useDropdownGet';
+import useDropdownGet from '../../hooks/useDropdownGet'
 import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
 
-
-export const InformationBarFichas = () => {
+export const InformationBarInstructor = () => {
 
     const dropdown1 = useDropdownGet();
     const dropdown2 = useDropdownGet();
     const trimestreDropdown = useTrimestreDropdown();
-
+    
     return (
         <>
             <div className="information_bar">
@@ -19,8 +18,8 @@ export const InformationBarFichas = () => {
                         <input
                             type="text"
                             className='textBox'
-                            name='Instructor'
-                            placeholder='Instructores'
+                            name='Fichas'
+                            placeholder='Fichas'
                             readOnly
                             onClick={dropdown1.handleDropdown}
                             value={dropdown1.selectedOption}

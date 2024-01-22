@@ -57,8 +57,7 @@ class QuartersController extends Controller
     public function enabled(string $idTrimestre)
     {
         try{
-            $quarter = Trimestre::where('idTrimestre', $idTrimestre)
-            ->firstOrFail();
+            $quarter = Trimestre::findOrFail($idTrimestre);
 
             $quarter->update(['estado' => 'habilitado']);
 
@@ -69,7 +68,7 @@ class QuartersController extends Controller
             
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e){
             return response()->json([
-                'status', 0,
+                'status' => 0,
                 'error' => 'Quarter Not Found'
             ], Response::HTTP_NOT_FOUND); //404
         } catch(\Exception $e){
@@ -81,6 +80,25 @@ class QuartersController extends Controller
 
     public function disable(string $idTrimestre)
     {
+        try{
+            $quarter = Trimestre::findOrFail($idTrimestre);
 
-    }
+            $quarter->update(['estado' => 'inhabilitado']);
+
+            return response()->json([
+                'status' => 1,
+                'message' => 'Quarter Successfully Enabled'
+            ], Response::HTTP_OK); //200
+            
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e){
+            return response()->json([
+                'status' => 0,
+                'error' => 'Quarter Not Found'
+            ], Response::HTTP_NOT_FOUND); //404
+        } catch(\Exception $e){
+            return response()->json([
+                'error' => 'Error Enabled Quarter: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }   
 }

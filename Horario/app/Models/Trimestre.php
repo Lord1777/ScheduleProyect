@@ -11,4 +11,12 @@ class Trimestre extends Model
 
     protected $primaryKey = 'idTrimestre';
     public $timestamps = false;
+
+    protected $hidden = [
+        'estado',
+    ];
+
+    protected $fillable = [
+        'estado',
+    ];
 }

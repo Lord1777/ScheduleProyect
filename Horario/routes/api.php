@@ -68,6 +68,8 @@ Route::group(['middleware' => ['cors']], function(){
     Route::get('/getEnabledQuarters', [QuartersController::class, 'indexEnabled']);
     Route::get('/getDisableQuarters', [QuartersController::class, 'indexDisable']);
     Route::post('/createQuarters', [QuartersController::class, 'store']);
+    Route::match(['get', 'put'], '/disableQuarter/{idAmbiente}', [QuartersController::class, 'disable']);
+    Route::match(['get', 'put'], '/enableQuarter/{idAmbiente}', [QuartersController::class, 'enabled']);
 });
 
 

@@ -5,6 +5,7 @@ import '../../../css/admin/TableInstructors.css';
 import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
 import useFetchGetQuarter from '../../hooks/FetchGET/useFetchGetQuarter';
+import { useFetchPutQuarter } from '../../hooks/FetchPUT/useFetchPutQuarter';
 
 
 export const TableQuarter = () => {
@@ -12,9 +13,20 @@ export const TableQuarter = () => {
     const [disabled, setDisabled] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
 
-    const { dataQuarter } = useFetchGetQuarter(disabled ? '/getDisableQuarters' : '/getEnabledQuarters');
+    const { dataQuarter, fetchData } = useFetchGetQuarter(disabled ? '/getDisableQuarters' : '/getEnabledQuarters');
+    const { fetchPutQuarter} = useFetchPutQuarter();
 
     let totalPage = dataQuarter.last_page;
+
+    const enableQuarter = (idTrimestre) => {
+        fetchPutQuarter('/enableQuarter', idTrimestre);
+        fetchData();
+    }
+
+    const disableQuarter = (idTrimestre) =>{
+        fetchPutQuarter('/disableQuarter', idTrimestre);
+        fetchData();
+    }
 
     return (
         <>
@@ -62,13 +74,13 @@ export const TableQuarter = () => {
                                     </td>
                                     {disabled ? (
                                         <td>
-                                            <button>
+                                            <button onClick={() => enableQuarter(quarter.idTrimestre)} >
                                                 <FontAwesomeIcon icon={faUserSlash} className='iconHabilitar' />
                                             </button>
                                         </td>
                                     ) : (
                                         <td>
-                                            <button>
+                                            <button onClick={() => disableQuarter(quarter.idTrimestre)} >
                                                 <FontAwesomeIcon icon={faUserCheck} className='iconInhabilitar' />
                                             </button>
                                         </td>

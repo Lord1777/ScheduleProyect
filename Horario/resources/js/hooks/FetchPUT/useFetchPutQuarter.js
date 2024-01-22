@@ -2,14 +2,14 @@ import React from 'react';
 import { API_URL } from '../../const/api';
 import useRequestOptionsPut from './useRequestOptionsPut';
 
-export const useFetchPutEnvironment = () => {
+export const useFetchPutQuarter = () => {
 
     const { requestOptionsPut } = useRequestOptionsPut();
 
-    const fetchPutEnvironment = async(route, idAmbiente) =>{
+    const fetchPutQuarter = async(route, idTrimestre) =>{
 
         try {
-            const response = await fetch(`${API_URL}${route}/${idAmbiente}`, useRequestOptionsPut)
+            const response = await fetch(`${API_URL}${route}/${idTrimestre}`, useRequestOptionsPut)
 
             if (response.ok) {
                 const data = await response.json();
@@ -17,12 +17,12 @@ export const useFetchPutEnvironment = () => {
             }
 
         } catch (error) {
-            console.log(`Error Updating Environment: ${error}`)
+            console.log(`Error Updating Quarter: ${error}`)
         }
     }
   return (
-   {
-        fetchPutEnvironment
-   }
+    {
+        fetchPutQuarter
+    }
   )
 }

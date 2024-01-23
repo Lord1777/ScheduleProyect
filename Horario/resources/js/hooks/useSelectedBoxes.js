@@ -20,6 +20,7 @@ const useSelectedBoxes = () => {
         setSelectedBoxes(new Set());
     };
 
+
   return {
     selectedBoxes,
     handleBoxClick,

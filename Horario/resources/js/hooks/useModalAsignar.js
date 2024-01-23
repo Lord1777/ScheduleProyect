@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 const useModalAsignar = () => {
 
     const [isModal, setIsModal] = useState(false);
+    const [asignaciones, setAsignaciones] = useState({});
 
     const openModal = () => {
         setIsModal(true);
@@ -17,6 +18,8 @@ const useModalAsignar = () => {
         isModal,
         openModal,
         closeModal,
+        asignaciones,
+        setAsignaciones,
     }
 }
 

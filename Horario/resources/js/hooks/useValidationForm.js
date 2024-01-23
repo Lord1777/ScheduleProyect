@@ -17,6 +17,13 @@ const useValidationForm = () => {
         },
     }
 
+    const INSTRUCTOR ={
+        required: {
+            value: true,
+            message: "Es requerido este campo"
+        },
+    }
+
     const PASSWORD = {
         required: {
             value: true,
@@ -123,6 +130,13 @@ const useValidationForm = () => {
         pattern: {
             value: /^[0-9]*$/,
             message: "Solo se permiten números"
+        },
+    }
+
+    const AMBIENTE = {
+        required: {
+            value: true,
+            message: "Es requerido este campo"
         },
     }
 
@@ -290,6 +304,7 @@ const useValidationForm = () => {
 
     return {
         NOMBRE,
+        INSTRUCTOR,
         PASSWORD,
         TIPO_DOCUMENTO,
         DOCUMENTO,
@@ -301,6 +316,7 @@ const useValidationForm = () => {
         NIVEL_FORMACION,
         JORNADA_ACADEMICA,
         N_AMBIENTE,
+        AMBIENTE,
         CAPACIDAD_AMBIENTE,
         C_MESAS,
         C_COMPUTADORES,

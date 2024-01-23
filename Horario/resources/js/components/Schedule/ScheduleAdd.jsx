@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../../css/Schedule/ScheduleAdd.css';
 import useSelectedBoxes from '../../hooks/useSelectedBoxes';
 import { ModalAsignar } from '../Modals/ModalAsignar';
@@ -6,10 +6,10 @@ import useModalAsignar from '../../hooks/useModalAsignar';
 
 
 export const ScheduleAdd = () => {
-    
+
     const { selectedBoxes, handleBoxClick, resetSelectedBoxes } = useSelectedBoxes();
-    const { isModal, openModal, closeModal } = useModalAsignar();
-    
+    const { isModal, openModal, closeModal, asignaciones, setAsignaciones } = useModalAsignar();
+
 
     return (
         <>
@@ -23,22 +23,33 @@ export const ScheduleAdd = () => {
                     <div className="horas-dias">Viernes</div>
                     <div className="horas-dias">Sábado</div>
 
-                    {Array.from({ length: 14 }, (_, rowIndex) => (
+                    {Array.from({ length: 16 }, (_, rowIndex) => (
                         <React.Fragment key={rowIndex}>
                             <div className="hour">
                                 <span>{`${6 + rowIndex}:00`}</span>
                                 <span>{`${7 + rowIndex}:00`}</span>
                             </div>
-                            {Array.from({ length: 6 }, (_, colIndex) => (
-                                <div
-                                    key={colIndex}
-                                    className={`box ${selectedBoxes.has(rowIndex * 6 + colIndex) ? 'selected' : ''}`}
-                                    onClick={() => handleBoxClick(rowIndex * 6 + colIndex)}
-                                >
-                                    <span></span>
-                                    <span></span>
-                                </div>
-                            ))}
+                            {Array.from({ length: 6 }, (_, colIndex) => {
+                                const boxIndex = rowIndex * 6 + colIndex;
+
+                                //Evita renderizar un objeto como un hijo directo de react
+                                const boxData = asignaciones[boxIndex];
+
+                                return (
+                                    <div
+                                        key={colIndex}
+                                        className={`box ${selectedBoxes.has(rowIndex * 6 + colIndex) ? 'selected' : ''}`}
+                                        onClick={() => handleBoxClick(rowIndex * 6 + colIndex)}
+                                    >
+                                        {boxData && (
+                                            <>
+                                                <span>{boxData.instructor}</span>
+                                                <span>{boxData.ambiente}</span>
+                                            </>
+                                        )}
+                                    </div>
+                                );
+                            })}
                         </React.Fragment>
                     ))}
                 </div>
@@ -53,8 +64,12 @@ export const ScheduleAdd = () => {
                 </div>
             </div>
             <ModalAsignar
-            openModal={isModal}
-            closeModal={closeModal}
+                openModal={isModal}
+                closeModal={closeModal}
+                asignaciones={asignaciones}
+                setAsignaciones={setAsignaciones}
+                selectedBoxes={selectedBoxes}
+                resetSelectedBoxes={resetSelectedBoxes}
             />
         </>
     );

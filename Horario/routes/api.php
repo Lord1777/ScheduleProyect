@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 //Sanctum - Autenticacion
 Route::group(['middleware' => ['cors']], function(){
     Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::match(['get', 'post'],'/login', [AuthController::class, 'login']);
 });
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'user']);

@@ -10,6 +10,8 @@ export const ScheduleAdd = () => {
     const { selectedBoxes, handleBoxClick, resetSelectedBoxes } = useSelectedBoxes();
     const { isModal, openModal, closeModal, asignaciones, setAsignaciones } = useModalAsignar();
 
+    // Almacena todos los índices asignados
+    const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
 
     return (
         <>
@@ -33,6 +35,7 @@ export const ScheduleAdd = () => {
                                 const boxIndex = rowIndex * 6 + colIndex;
 
                                 //Evita renderizar un objeto como un hijo directo de react
+                                //Si se rederiza(utiliza) directamente boxIndex, genera un error
                                 const boxData = asignaciones[boxIndex];
 
                                 return (
@@ -70,6 +73,8 @@ export const ScheduleAdd = () => {
                 setAsignaciones={setAsignaciones}
                 selectedBoxes={selectedBoxes}
                 resetSelectedBoxes={resetSelectedBoxes}
+                storeBoxes={globalStoreBoxes}
+                setStoreBoxes={setGlobalStoreBoxes}
             />
         </>
     );

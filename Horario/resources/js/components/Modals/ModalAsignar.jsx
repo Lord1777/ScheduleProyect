@@ -6,7 +6,17 @@ import useValidationForm from '../../hooks/useValidationForm'
 import useModalAsignar from '../../hooks/useModalAsignar'
 import useSelectedBoxes from '../../hooks/useSelectedBoxes'
 
-export const ModalAsignar = ({ openModal, closeModal, currentBoxIndex, asignaciones, setAsignaciones, selectedBoxes, resetSelectedBoxes }) => {
+export const ModalAsignar = ({
+    openModal,
+    closeModal,
+    currentBoxIndex,
+    asignaciones,
+    setAsignaciones,
+    selectedBoxes,
+    resetSelectedBoxes,
+    storeBoxes,
+    setStoreBoxes
+}) => {
 
     if (!openModal) return null;
 
@@ -16,17 +26,29 @@ export const ModalAsignar = ({ openModal, closeModal, currentBoxIndex, asignacio
     const dropdown1 = useDropdownGet(setValue, "instructor");
     const dropdown2 = useDropdownGet(setValue, "ambiente");
 
-    // Almacena todos los índices asignados
-    const [storeBoxes, setStoreBoxes] = useState(new Set());
+    const onSubmit = async (data) => {
+        console.log(selectedBoxes); // Verifica que esto imprima los valores esperados.
+        console.log(setStoreBoxes); // Verifica que esto no imprima 'undefined'.
 
-    const onSubmit = (data) => {
+        const updateStateRecursively = async (boxIndexArray) => {
 
-        selectedBoxes.forEach((boxIndex) => {
+            //Funcion que se cumple despues de que se hayan procesado todos los indices 
+            //del array: selectedBoxes
+            if (boxIndexArray.length === 0) {
+                closeModal();
+                resetSelectedBoxes();
+                return;
+            }
 
-            setStoreBoxes((prevStoreBoxes) => {
-                const newStoreBoxes = new Set(prevStoreBoxes);
-                newStoreBoxes.add(boxIndex);
-                return newStoreBoxes;
+            const boxIndex = boxIndexArray[0];
+
+            await new Promise(resolve => {
+                setStoreBoxes((prevStoreBoxes) => {
+                    const newStoreBoxes = new Set(prevStoreBoxes);
+                    newStoreBoxes.add(boxIndex);
+                    return newStoreBoxes;
+                });
+                resolve();
             });
 
             setAsignaciones((prevAsignaciones) => ({
@@ -36,13 +58,16 @@ export const ModalAsignar = ({ openModal, closeModal, currentBoxIndex, asignacio
                     ambiente: data.ambiente,
                 },
             }));
-        });
 
-        closeModal();
-        resetSelectedBoxes();
-    }
+            // Llama recursivamente para procesar el próximo índice
+            await updateStateRecursively(boxIndexArray.slice(1));
+        };
 
-    console.log(storeBoxes);
+        // Llama a la función recursiva con los índices seleccionados
+        await updateStateRecursively([...selectedBoxes]);
+    };
+
+    //console.log(storeBoxes);
 
     return (
         <>

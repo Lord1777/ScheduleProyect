@@ -18,9 +18,13 @@ return new class extends Migration
             $table->integer('horasAsignadas');
             $table->unsignedBigInteger('idPrograma');
             $table->string('estado',30);
+            $table->unsignedBigInteger('idModalidad');
+            $table->unsignedBigInteger('idJornada');
             // $table->engine = 'InnoDB';
 
             $table->foreign('idPrograma')->references('idPrograma')->on('programas');
+            $table->foreign('idModalidad')->references('idModalidad')->on('modalidades');
+            $table->foreign('idJornada')->references('idJornada')->on('jornadas');
         });
     }
 

@@ -16,13 +16,9 @@ return new class extends Migration
             $table->string('nombre',300);
             $table->integer('duracion');
             $table->string('estado',30);
-            $table->unsignedBigInteger('idModalidad');
-            $table->unsignedBigInteger('idJornada');
             $table->unsignedBigInteger('idNivelFormacion');
             // $table->engine = 'InnoDB';
 
-            $table->foreign('idModalidad')->references('idModalidad')->on('modalidades');
-            $table->foreign('idJornada')->references('idJornada')->on('jornadas');
             $table->foreign('idNivelFormacion')->references('idNivelFormacion')->on('niveles_de_formacion');
         });
     }

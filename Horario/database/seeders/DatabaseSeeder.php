@@ -22,11 +22,9 @@ class DatabaseSeeder extends Seeder
         $this->call(ModalidadSeeder::class);
         $this->call(JordanaSeeder::class);
         $this->call(NivelDeFormacionSeeder::class);
-        $this->call(ProgramaSeeder::class);
         $this->call(ContratoSeeder::class);
         Ambiente::factory(50)->create();
         Trimestre::factory(20)->create();
-        Ficha::factory(50)->create();
         Usuario::factory(100)->create();
     }
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavBar } from '../../components/NavBar/NavBar';
 import '../../../css/Details/DetailsInstructor.css';
 import { getContratoByName, getSedeByName } from '../../hooks/useObjectMapping';
-import useFetchPostInstructor from '../../hooks/FetchPOST/usePostInstructor';
+import useFetchPostInstructor from '../../hooks/FetchPOST/useFetchPostInstructor';
 import logoSena from "../../assets/img/LogoSena.png";
 
 export const DetailsInstructor = () => {

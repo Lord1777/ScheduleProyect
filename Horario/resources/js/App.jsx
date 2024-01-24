@@ -21,6 +21,7 @@ import { SeeScheduleInstructors } from './pages/SeeScheduleInstructors.jsx';
 import { SeeScheduleAmbiente } from './pages/SeeScheduleAmbiente.jsx';
 import { AddSchedule } from './pages/Add/AddSchedule.jsx';
 import { ModalAsignar } from './components/Modals/ModalAsignar.jsx';
+import { DetailsInstructor } from '../js/pages/Details/DetailsInstructor.jsx'
 import ProtectedRoute from './components/utils/ProtectedRoute.jsx';
 import "../css/App.css";
 
@@ -62,6 +63,7 @@ x
                         <Route path='/AddAmbiente' element={<AddEnvironments />} />
                         <Route path='/AddFicha' element={<AddRecords />} />
                         <Route path='/AddTrimestre' element={<AddQuarter />} />
+                        <Route path='/DetallesInstructor' element={<DetailsInstructor/>} />
                     </Route>
                 </Routes>
             </Router>

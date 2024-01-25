@@ -3,18 +3,38 @@ import '../../../css/Schedule/ScheduleAdd.css';
 import useSelectedBoxes from '../../hooks/useSelectedBoxes';
 import { ModalAsignar } from '../Modals/ModalAsignar';
 import useModalAsignar from '../../hooks/useModalAsignar';
+import useDropdownGet from '../../hooks/useDropdownGet';
 
 
 export const ScheduleAdd = () => {
 
     const { selectedBoxes, handleBoxClick, resetSelectedBoxes } = useSelectedBoxes();
     const { isModal, openModal, closeModal, asignaciones, setAsignaciones } = useModalAsignar();
+    const { isDropdown, selectedOption, handleDropdown, handleOptionClick } = useDropdownGet();
 
     // Almacena todos los índices asignados
     const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
 
     return (
         <>
+            <div className="information_bar">
+                <div className={`desplegable ${isDropdown ? 'open' : ''}`}>
+                    <input
+                        type="text"
+                        className='textBox'
+                        name='Trimestres'
+                        placeholder='Trimestres'
+                        readOnly
+                        onClick={handleDropdown}
+                        value={selectedOption}
+                    />
+                    <div className={`desplegable-options ${isDropdown ? 'open' : ''}`}>
+                        <div onClick={() => handleOptionClick('')}></div>
+                        <div onClick={() => handleOptionClick('')}></div>
+                    </div>
+                </div>
+            </div>
+
             <div className="containergrid-buttons">
                 <div className="grid_schedule">
                     <div className="horas-dias">Horas</div>

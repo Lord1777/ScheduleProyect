@@ -29,7 +29,7 @@ Route::get('/DetallesInstructor', fn() => view('welcome'));
 Route::get('/HorarioFichas', fn()=> view('welcome'));
 Route::get('/HorarioInstructor', fn()=> view('welcome'));
 Route::get('/HorarioAmbiente', fn()=> view('welcome'));
-Route::get('/AddHorario', fn() => view('welcome'));
+Route::match(['get', 'post'], '/AddHorario', fn() => view('welcome'));
 Route::get('/modal', fn() => view('welcome'));
 
 // Route::get('/{any}', function () {

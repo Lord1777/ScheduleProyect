@@ -7,6 +7,7 @@ use App\Http\Controllers\api\InstructorController;
 use App\Http\Controllers\api\QuartersController;
 use App\Http\Controllers\api\RecordsController;
 use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\api\ScheduleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -65,11 +66,18 @@ Route::group(['middleware' => ['cors']], function(){
 
 //Trimestres
 Route::group(['middleware' => ['cors']], function(){
-    Route::get('/getEnabledQuarters', [QuartersController::class, 'indexEnabled']);
-    Route::get('/getDisableQuarters', [QuartersController::class, 'indexDisable']);
+    Route::get('/getEnabledQuarters/{page?}', [QuartersController::class, 'indexEnabled']);
+    Route::get('/getQuarters', [QuartersController::class, 'indexEnabled']);
+    Route::get('/getDisableQuarters/{page?}', [QuartersController::class, 'indexDisable']);
     Route::post('/createQuarters', [QuartersController::class, 'store']);
     Route::match(['get', 'put'], '/disableQuarter/{idAmbiente}', [QuartersController::class, 'disable']);
     Route::match(['get', 'put'], '/enableQuarter/{idAmbiente}', [QuartersController::class, 'enabled']);
+});
+
+
+//Horarios academicos
+Route::group(['middleware' => ['cors']], function(){
+    Route::match(['get', 'post'], '/createSchedule', [ScheduleController::class, 'store']);
 });
 
 

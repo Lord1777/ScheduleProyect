@@ -12,7 +12,7 @@ export const useFetchGetQuarter = (route, page) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${API_URL}${route}?page=${page}`, requestOptionsGet);
+        const response = await fetch(`${API_URL}${route}/page=${page === undefined ? null : page}`, requestOptionsGet);
         const result = await response.json();
         setDataQuarter(result);
       } catch (err) {

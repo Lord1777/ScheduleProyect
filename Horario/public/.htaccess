@@ -3,6 +3,13 @@
         Options -MultiViews -Indexes
     </IfModule>
 
+    #CORS
+    <IfModule mod_headers.c>
+        Header always set Access-Control-Allow-Origin "*"
+        Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+        Header always set Access-Control-Allow-Headers "Content-Type, Authorization"
+    </IfModule>
+
     RewriteEngine On
 
     # Handle Authorization Header
@@ -18,4 +25,5 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
 </IfModule>

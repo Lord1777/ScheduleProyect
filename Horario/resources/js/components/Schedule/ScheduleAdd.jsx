@@ -4,6 +4,10 @@ import useSelectedBoxes from '../../hooks/useSelectedBoxes';
 import { ModalAsignar } from '../Modals/ModalAsignar';
 import useModalAsignar from '../../hooks/useModalAsignar';
 import useDropdownGet from '../../hooks/useDropdownGet';
+import { useForm } from 'react-hook-form';
+import useValidationForm from '../../hooks/useValidationForm';
+import { useFetchPostSchedule } from '../../hooks/FetchPOST/useFetchPostSchedule';
+import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
 
 
 export const ScheduleAdd = () => {
@@ -11,9 +15,25 @@ export const ScheduleAdd = () => {
     const { selectedBoxes, handleBoxClick, resetSelectedBoxes } = useSelectedBoxes();
     const { isModal, openModal, closeModal, asignaciones, setAsignaciones } = useModalAsignar();
     const { isDropdown, selectedOption, handleDropdown, handleOptionClick } = useDropdownGet();
+    const { TRIMESTRE } = useValidationForm();
+    const { register, setValue, handleSubmit } = useForm();
+
+    const { fetchSubmitSchedule } = useFetchPostSchedule();
+    const { dataQuarters } = useFetchGetQuarters();
 
     // Almacena todos los índices asignados
     const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
+
+    console.log(dataQuarters);
+
+    const onSubmit = async (data) => {
+
+        await fetchSubmitSchedule({
+            trimestre: parseInt(data.trimestre),
+            globalStoreBoxes
+        })
+
+    }
 
     return (
         <>
@@ -27,10 +47,15 @@ export const ScheduleAdd = () => {
                         readOnly
                         onClick={handleDropdown}
                         value={selectedOption}
+                        {...register("trimestre", TRIMESTRE)}
                     />
                     <div className={`desplegable-options ${isDropdown ? 'open' : ''}`}>
-                        <div onClick={() => handleOptionClick('')}></div>
-                        <div onClick={() => handleOptionClick('')}></div>
+                        {dataQuarters && dataQuarters.length > 0 && dataQuarters.map((quarter) => (
+                            <div key={quarter.idTrimestre} onClick={() =>
+                                 handleOptionClick(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`)}>
+                                    {quarter.trimestre} | {quarter.fechaInicio} - {quarter.fechaFinal} 
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -77,14 +102,16 @@ export const ScheduleAdd = () => {
                     ))}
                 </div>
 
-                <div className="container-buttons">
-                    {selectedBoxes.size > 0 && (
-                        <button className='asignar' onClick={openModal}>
-                            Asignar
-                        </button>
-                    )}
-                    <button className='guardar'>Guardar</button>
-                </div>
+                <form method="post" onSubmit={handleSubmit(onSubmit)}>
+                    <div className="container-buttons">
+                        {selectedBoxes.size > 0 && (
+                            <button className='asignar' onClick={openModal}>
+                                Asignar
+                            </button>
+                        )}
+                        <button className='guardar' type='submit'>Guardar</button>
+                    </div>
+                </form>
             </div>
             <ModalAsignar
                 openModal={isModal}

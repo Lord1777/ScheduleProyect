@@ -7,27 +7,40 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
-use PhpParser\Node\Stmt\TryCatch;
 
 class QuartersController extends Controller
 {
-    public function indexEnabled()
+    public function indexEnabled($page = null)
     {
         try {
-            $quarter = Trimestre::where('estado', 'habilitado')->paginate(15);
-            return response()->json($quarter, Response::HTTP_OK); //200
+            $query = Trimestre::where('estado', 'habilitado');
+
+            if ($page == null) {
+                $quarters = $query->get();
+            } else {
+                $quarters = $query->paginate(15);
+            }
+
+            return response()->json($quarters, Response::HTTP_OK); // 200
         } catch (\Exception $e) {
-            return response()->json(['error' => "Request quarters error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+            return response()->json(['error' => "Request quarters error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); // 500
         }
     }
 
-    public function indexDisable()
+    public function indexDisable($page = null)
     {
         try {
-            $quarter = Trimestre::where('estado', 'inhabilitado')->paginate(15);
-            return response()->json($quarter, Response::HTTP_OK); //200
+            $query = Trimestre::where('estado', 'inhabilitado');
+
+            if ($page == null) {
+                $quarters = $query->get();
+            } else {
+                $quarters = $query->paginate(15);
+            }
+
+            return response()->json($quarters, Response::HTTP_OK); // 200
         } catch (\Exception $e) {
-            return response()->json(['error' => "Request quarters error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+            return response()->json(['error' => "Request quarters error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); // 500
         }
     }
 
@@ -43,7 +56,7 @@ class QuartersController extends Controller
 
             $quarter->save();
 
-            
+
             return response()->json(['message' => 'Resource created successfully'], Response::HTTP_CREATED); //201
         } catch (\Exception $e) {
             return response()->json(['error' => "Request quarters error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
@@ -56,7 +69,7 @@ class QuartersController extends Controller
 
     public function enabled(string $idTrimestre)
     {
-        try{
+        try {
             $quarter = Trimestre::findOrFail($idTrimestre);
 
             $quarter->update(['estado' => 'habilitado']);
@@ -65,13 +78,13 @@ class QuartersController extends Controller
                 'status' => 1,
                 'message' => 'Quarter Successfully Enabled'
             ], Response::HTTP_OK); //200
-            
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e){
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
                 'status' => 0,
                 'error' => 'Quarter Not Found'
             ], Response::HTTP_NOT_FOUND); //404
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
                 'error' => 'Error Enabled Quarter: ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
@@ -80,7 +93,7 @@ class QuartersController extends Controller
 
     public function disable(string $idTrimestre)
     {
-        try{
+        try {
             $quarter = Trimestre::findOrFail($idTrimestre);
 
             $quarter->update(['estado' => 'inhabilitado']);
@@ -89,16 +102,16 @@ class QuartersController extends Controller
                 'status' => 1,
                 'message' => 'Quarter Successfully Enabled'
             ], Response::HTTP_OK); //200
-            
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e){
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
                 'status' => 0,
                 'error' => 'Quarter Not Found'
             ], Response::HTTP_NOT_FOUND); //404
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
                 'error' => 'Error Enabled Quarter: ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
-    }   
+    }
 }

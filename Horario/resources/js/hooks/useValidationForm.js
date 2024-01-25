@@ -208,6 +208,13 @@ const useValidationForm = () => {
         },
     }
 
+    const TRIMESTRE = {
+        required: {
+            value: true,
+            message: "Es requerido este campo",
+        }
+    }
+
     const FECHA_INI = {
         required: {
             value: true,
@@ -325,6 +332,7 @@ const useValidationForm = () => {
         SEDE,
         TABLERO,
         N_TRIMESTRE,
+        TRIMESTRE,
         FECHA_INI,
         FECHA_FIN,
         TIPO_CONTRATO,

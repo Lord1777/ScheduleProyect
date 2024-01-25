@@ -13,5 +13,10 @@ class Asignacion extends Model
 
     protected $fillable = [
         'boxIndex',
+        'idFicha',
+        'idAmbiente',
+        'idUsuario',
+        'idTrimestre',
+        'idHorarioAcademico',
     ];
 }

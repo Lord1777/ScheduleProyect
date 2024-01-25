@@ -13,8 +13,10 @@ export const TableQuarter = () => {
     const [disabled, setDisabled] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
 
-    const { dataQuarter, fetchData } = useFetchGetQuarter(disabled ? '/getDisableQuarters' : '/getEnabledQuarters');
+    const { dataQuarter, fetchData } = useFetchGetQuarter(disabled ? '/getDisableQuarters' : '/getEnabledQuarters', currentPage);
     const { fetchPutQuarter} = useFetchPutQuarter();
+
+    console.log(dataQuarter);
 
     let totalPage = dataQuarter.last_page;
 

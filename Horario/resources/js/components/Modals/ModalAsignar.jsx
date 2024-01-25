@@ -27,8 +27,6 @@ export const ModalAsignar = ({
     const dropdown2 = useDropdownGet(setValue, "ambiente");
 
     const onSubmit = async (data) => {
-        console.log(selectedBoxes); // Verifica que esto imprima los valores esperados.
-        console.log(setStoreBoxes); // Verifica que esto no imprima 'undefined'.
 
         const updateStateRecursively = async (boxIndexArray) => {
 
@@ -42,13 +40,14 @@ export const ModalAsignar = ({
 
             const boxIndex = boxIndexArray[0];
 
-            await new Promise(resolve => {
-                setStoreBoxes((prevStoreBoxes) => {
-                    const newStoreBoxes = new Set(prevStoreBoxes);
-                    newStoreBoxes.add(boxIndex);
-                    return newStoreBoxes;
+            setStoreBoxes((prevStoreBoxes) => {
+                const newStoreBoxes = new Set(prevStoreBoxes);
+                newStoreBoxes.add({
+                    boxIndex,
+                    instructor: data.instructor,
+                    ambiente: data.ambiente,
                 });
-                resolve();
+                return newStoreBoxes;
             });
 
             setAsignaciones((prevAsignaciones) => ({
@@ -67,7 +66,7 @@ export const ModalAsignar = ({
         await updateStateRecursively([...selectedBoxes]);
     };
 
-    //console.log(storeBoxes);
+    // console.log(storeBoxes);
 
     return (
         <>

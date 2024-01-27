@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form'
 import useValidationForm from '../../hooks/useValidationForm'
 import useModalAsignar from '../../hooks/useModalAsignar'
 import useSelectedBoxes from '../../hooks/useSelectedBoxes'
+import { useFetchGetInstructors } from '../../hooks/FetchGetResources/useFetchGetInstructors'
+import { useFetchGetEnvironments } from '../../hooks/FetchGetResources/useFetchGetEnvironments'
 
 export const ModalAsignar = ({
     openModal,
@@ -26,6 +28,19 @@ export const ModalAsignar = ({
     const dropdown1 = useDropdownGet(setValue, "instructor");
     const dropdown2 = useDropdownGet(setValue, "ambiente");
 
+    const { dataInstructors } = useFetchGetInstructors('/getInstructors');
+    const { dataEnvironments } = useFetchGetEnvironments('/getEnvironments');
+
+    //Funciones para obtener el id del instructor y del ambiente en base al parametro recibido
+    const getInstructorId = (nombreInstructor) => {
+        const instructor = dataInstructors.find((instructor) => instructor.nombreCompleto === nombreInstructor);
+        return instructor ? instructor.idUsuario : null; // Ajustar si el ID no está presente
+    };
+    const getAmbienteId = (numeroAmbiente) => {
+        const ambiente = dataEnvironments.find((environment) => environment.ambiente === numeroAmbiente);
+        return ambiente ? ambiente.idAmbiente : null; // Ajustar si el ID no está presente
+    };
+
     const onSubmit = async (data) => {
 
         const updateStateRecursively = async (boxIndexArray) => {
@@ -44,8 +59,8 @@ export const ModalAsignar = ({
                 const newStoreBoxes = new Set(prevStoreBoxes);
                 newStoreBoxes.add({
                     boxIndex,
-                    instructor: data.instructor,
-                    ambiente: data.ambiente,
+                    idInstructor: getInstructorId(data.instructor),
+                    idAmbiente: getAmbienteId(parseInt(data.ambiente)),
                 });
                 return newStoreBoxes;
             });
@@ -66,7 +81,7 @@ export const ModalAsignar = ({
         await updateStateRecursively([...selectedBoxes]);
     };
 
-    // console.log(storeBoxes);
+    console.log(storeBoxes);
 
     return (
         <>
@@ -87,9 +102,11 @@ export const ModalAsignar = ({
                                 {...register("instructor", INSTRUCTOR)}
                             />
                             <div className={`desplegable-options ${dropdown1.isDropdown ? 'open' : ''}`}>
-                                <div onClick={() => dropdown1.handleOptionClick('N/A')}>N/A</div>
-                                <div onClick={() => dropdown1.handleOptionClick('AGP')}>AGP</div>
-                                <div onClick={() => dropdown1.handleOptionClick('DHM')}>DHM</div>
+                                { dataInstructors && dataInstructors.length > 0 && dataInstructors.map((instructor) => (
+                                    <div key={instructor.idUsuario}
+                                    onClick={() => dropdown1.handleOptionClick(`${instructor.nombreCompleto}`)}
+                                    >{instructor.nombreCompleto}</div>
+                                ))} 
                             </div>
                         </div>
 
@@ -105,9 +122,11 @@ export const ModalAsignar = ({
                                 {...register("ambiente", AMBIENTE)}
                             />
                             <div className={`desplegable-options ${dropdown2.isDropdown ? 'open' : ''}`}>
-                                <div onClick={() => dropdown2.handleOptionClick('N/A')}>N/A</div>
-                                <div onClick={() => dropdown2.handleOptionClick('115')}>115</div>
-                                <div onClick={() => dropdown2.handleOptionClick('120')}>120</div>
+                            { dataEnvironments && dataEnvironments.length > 0 && dataEnvironments.map((environment) => (
+                                    <div key={environment.idAmbiente}
+                                    onClick={() => dropdown2.handleOptionClick(`${environment.ambiente}`)}
+                                    >{environment.ambiente}</div>
+                                ))} 
                             </div>
                         </div>
 

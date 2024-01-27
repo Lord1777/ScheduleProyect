@@ -11,6 +11,17 @@ use Illuminate\Support\Facades\Validator;
 
 class EnvironmentsController extends Controller
 {
+    public function getEnvironments()
+    {
+        try{
+            $environment = Ambiente::where('estado', 'habilitado')->get();
+            return response()->json($environment, Response::HTTP_OK); //200
+        }catch(\Exception $e) {
+            return response()->json(['error' => "Request environment error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
+
     public function indexEnabled()
     {
         try {

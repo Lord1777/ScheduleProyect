@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import { API_URL } from '../../const/api';
 import useRequestOptionsGet from '../FetchGET/useRequestOptionsGet';
 
-const useFetchGetQuarters = () => {
-    const [dataQuarters, setDataQuarters] = useState([]);
+
+export const useFetchGetInstructors = (route) => {
+    const [dataInstructors, setDataInstructors] = useState([]);
 
     const { requestOptionsGet } = useRequestOptionsGet();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${API_URL}/getQuarters`, requestOptionsGet)
+                const response = await fetch(`${API_URL}${route}`, requestOptionsGet)
                 const data = await response.json();
-                setDataQuarters(data);
+                setDataInstructors(data);
             } catch (err) {
                 console.log(`Error Fetch Data: ${err}`)
             } 
@@ -21,9 +22,7 @@ const useFetchGetQuarters = () => {
         fetchData();
     }, []);
 
-    return {
-        dataQuarters,
-    };
-};
-
-export default useFetchGetQuarters;
+  return {
+        dataInstructors,
+    }
+}

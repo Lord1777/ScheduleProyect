@@ -10,7 +10,23 @@ use Illuminate\Support\Facades\Validator;
 
 class InstructorController extends Controller
 {
-    public function indexEnabled($page = null)
+    public function getInstructors()
+    {
+        try {
+            $instructors = Usuario::where('usuarios.estado', 'habilitado')
+                ->where('usuarios.idRol', 2)
+                ->get();
+            return response()->json($instructors, Response::HTTP_OK); //200
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Request Instructors Error: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
+
+    public function indexEnabled()
     {
         try {
             $instructors = Usuario::join('contratos', 'usuarios.idContrato', '=', 'contratos.idContrato')
@@ -22,14 +38,8 @@ class InstructorController extends Controller
                     'usuarios.profesion',
                 )
                 ->where('usuarios.estado', 'habilitado')
-                ->where('usuarios.idRol', 2);
-
-            if ($page == null) {
-                $instructors->get();
-            } else {
-                $instructors->paginate(15);
-            }
-
+                ->where('usuarios.idRol', 2)
+                ->paginate(15);
             return response()->json($instructors, Response::HTTP_OK); //200
 
         } catch (\Exception $e) {
@@ -38,6 +48,7 @@ class InstructorController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
+
 
     public function indexDisable()
     {

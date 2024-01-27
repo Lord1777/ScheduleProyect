@@ -20,6 +20,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'documento' => 'required|unique:usuarios',
+            'nombreCompleto' => 'required|unique:usuarios',
             'idContrato' => 'required|exists:contratos,idContrato',
             'idSede' => 'required|exists:sedes,idSede',
             'idRol' => 'required|exists:roles,idRol',

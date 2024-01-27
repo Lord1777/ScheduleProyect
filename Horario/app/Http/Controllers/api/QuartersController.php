@@ -10,37 +10,35 @@ use App\Http\Controllers\Controller;
 
 class QuartersController extends Controller
 {
-    public function indexEnabled($page = null)
+    public function getQuarters()
     {
-        try {
-            $query = Trimestre::where('estado', 'habilitado');
-
-            if ($page == null) {
-                $quarters = $query->get();
-            } else {
-                $quarters = $query->paginate(15);
-            }
-
-            return response()->json($quarters, Response::HTTP_OK); // 200
+        try{
+            $quarter = Trimestre::where('estado', 'habilitado')->get();
+            return response()->json($quarter, Response::HTTP_OK); //200
         } catch (\Exception $e) {
-            return response()->json(['error' => "Request quarters error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); // 500
+            return response()->json(['error' => "Request quarters error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
 
-    public function indexDisable($page = null)
+    
+    public function indexEnabled()
     {
         try {
-            $query = Trimestre::where('estado', 'inhabilitado');
-
-            if ($page == null) {
-                $quarters = $query->get();
-            } else {
-                $quarters = $query->paginate(15);
-            }
-
-            return response()->json($quarters, Response::HTTP_OK); // 200
+            $quarter = Trimestre::where('estado', 'habilitado')->paginate(15);
+            return response()->json($quarter, Response::HTTP_OK); //200
         } catch (\Exception $e) {
-            return response()->json(['error' => "Request quarters error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); // 500
+            return response()->json(['error' => "Request quarters error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
+
+    public function indexDisable()
+    {
+        try {
+            $quarter = Trimestre::where('estado', 'inhabilitado')->paginate(15);
+            return response()->json($quarter, Response::HTTP_OK); //200
+        } catch (\Exception $e) {
+            return response()->json(['error' => "Request quarters error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
 

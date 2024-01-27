@@ -24,8 +24,6 @@ export const ScheduleAdd = () => {
     // Almacena todos los índices asignados
     const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
 
-    console.log(dataQuarters);
-
     const onSubmit = async (data) => {
 
         await fetchSubmitSchedule({

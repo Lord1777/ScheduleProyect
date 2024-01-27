@@ -27,6 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 //Instructores
 Route::group(['middleware' => ['cors']], function(){
+    Route::get('getInstructors', [InstructorController::class, 'getInstructors']);
     Route::get('/getEnabledInstructors', [InstructorController::class, 'indexEnabled']);
     Route::get('/getDisableInstructors', [InstructorController::class, 'indexDisable']);
     Route::get('/getInstructor/{idUsuario}', [InstructorController::class, 'show']);
@@ -47,6 +48,7 @@ Route::group(['middleware' => ['cors']], function(){
 
 //Ambientes
 Route::group(['middleware' => ['cors']], function(){
+    Route::get('getEnvironments', [EnvironmentsController::class, 'getEnvironments']);
     Route::get('/getEnabledEnvironments', [EnvironmentsController::class, 'indexEnabled']);
     Route::get('/getDisableEnvironments', [EnvironmentsController::class, 'indexDisable']);
     Route::get('/getEnvironment/{idAmbiente}', [EnvironmentsController::class, 'show']);
@@ -66,9 +68,9 @@ Route::group(['middleware' => ['cors']], function(){
 
 //Trimestres
 Route::group(['middleware' => ['cors']], function(){
-    Route::get('/getEnabledQuarters/{page?}', [QuartersController::class, 'indexEnabled']);
-    Route::get('/getQuarters', [QuartersController::class, 'indexEnabled']);
-    Route::get('/getDisableQuarters/{page?}', [QuartersController::class, 'indexDisable']);
+    Route::get('/getQuarters', [QuartersController::class, 'getQuarters']);
+    Route::get('/getEnabledQuarters', [QuartersController::class, 'indexEnabled']);
+    Route::get('/getDisableQuarters', [QuartersController::class, 'indexDisable']);
     Route::post('/createQuarters', [QuartersController::class, 'store']);
     Route::match(['get', 'put'], '/disableQuarter/{idAmbiente}', [QuartersController::class, 'disable']);
     Route::match(['get', 'put'], '/enableQuarter/{idAmbiente}', [QuartersController::class, 'enabled']);

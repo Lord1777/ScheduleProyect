@@ -55,7 +55,6 @@ Route::group(['middleware' => ['cors']], function(){
     Route::post('/createEnvironment', [EnvironmentsController::class, 'store']);
     Route::match(['get', 'put'], '/disableEnvironment/{idAmbiente}', [EnvironmentsController::class, 'disable']);
     Route::match(['get', 'put'], '/enableEnvironment/{idAmbiente}', [EnvironmentsController::class, 'enabled']);
-
 });
 
 

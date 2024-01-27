@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faPenToSquare, faCircle, faUserCheck, faUserSlash } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/admin/TableInstructors.css';
@@ -6,6 +6,7 @@ import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
 import useFetchGetEnvironment from '../../hooks/FetchGET/useFetchGetEnvironment';
 import { useFetchPutEnvironment } from '../../hooks/FetchPUT/useFetchPutEnvironment';
+import { Link } from 'react-router-dom';
 
 
 export const TableEnvironments = () => {
@@ -13,7 +14,7 @@ export const TableEnvironments = () => {
     const [disabled, setDisabled] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
 
-    const { dataEnvironment, fetchData} = useFetchGetEnvironment(disabled ? '/getDisableEnvironments' : '/getEnabledEnvironments', currentPage);  
+    const { dataEnvironment, fetchData } = useFetchGetEnvironment(disabled ? '/getDisableEnvironments' : '/getEnabledEnvironments', currentPage);
     const { fetchPutEnvironment } = useFetchPutEnvironment()
 
     let totalPage = dataEnvironment.last_page;
@@ -23,7 +24,7 @@ export const TableEnvironments = () => {
         fetchData();
     }
 
-    const disableEnvironment = (idAmbiente) =>{
+    const disableEnvironment = (idAmbiente) => {
         fetchPutEnvironment('/disableEnvironment', idAmbiente);
         fetchData();
     }
@@ -38,7 +39,7 @@ export const TableEnvironments = () => {
                 </div>
 
                 <div className="buttons">
-                <button
+                    <button
                         type="button"
                         onClick={() => {
                             disabled ? setDisabled(false) : setDisabled(true);
@@ -69,9 +70,11 @@ export const TableEnvironments = () => {
                                     <td>{environment.capacidad}</td>
                                     <td>{environment.sede}</td>
                                     <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faPenToSquare} className='iconEdit' />
-                                        </button>
+                                        <Link to={`/UpdateAmbiente/${environment.idAmbiente}`}>
+                                            <button className='editar'>
+                                                <FontAwesomeIcon icon={faPenToSquare} className='iconEdit' />
+                                            </button>
+                                        </Link>
                                     </td>
                                     {disabled ? (
                                         <td>

@@ -21,9 +21,9 @@ class ProgramsController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'duracion' => 'required|number',
+            'duracion' => 'required|numeric',
             'nombre' => 'required|string',
-            'idNivelFormacion' => 'required|number'
+            'idNivelFormacion' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {

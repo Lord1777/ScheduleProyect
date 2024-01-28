@@ -109,7 +109,13 @@ class EnvironmentsController extends Controller
     public function show(string $idAmbiente)
     {
         try {
-            $ambiente = Ambiente::findOrFail($idAmbiente);
+            $ambiente = Ambiente::join('sedes', 'ambientes.idSede', '=', 'sedes.idSede')
+                            ->select(
+                                'ambientes.*',
+                                'sedes.sede')
+                            ->where('estado', 'habilitado')
+                            ->findOrFail($idAmbiente);
+
             return response()->json($ambiente, Response::HTTP_OK);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([

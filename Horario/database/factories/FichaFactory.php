@@ -20,7 +20,7 @@ class FichaFactory extends Factory
             'ficha' => $this->faker->unique->numberBetween(2000000, 2700000),
             'limiteHoras' => 40,
             'horasAsignadas' => 0,
-            'idPrograma' => $this->faker->numberBetween(1, 9),
+            'idPrograma' => $this->faker->numberBetween(1, 10),
             'estado' => $this->faker->randomElement(['habilitado', 'inhabilitado']),
             'idModalidad' => $this->faker->numberBetween(1,2),
             'idJornada' => $this->faker->numberBetween(1,2),

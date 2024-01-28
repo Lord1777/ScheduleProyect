@@ -15,6 +15,14 @@ export const getContratoByName = (name) =>{
     return contratos[name]
 }
 
+export const getNivelDeFormacionByName = (name) =>{
+    const niveles = {
+        Tecnico: 1,
+        Tecnologo: 2,
+    }
+    return niveles[name]
+}
+
 export const getRolByName = (name) => {
     const roles = {
         coordinador: 1,

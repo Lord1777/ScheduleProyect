@@ -87,7 +87,11 @@ const useValidationForm = () => {
         required: {
             value: true,
             message: "Es requerido este campo"
-        }
+        },
+        pattern: {
+            value: /^[0-9]*$/,
+            message: "Solo se permiten números"
+        },
     }
 
     const PROGRAMA = {
@@ -96,7 +100,7 @@ const useValidationForm = () => {
             message: "Es requerido este campo"
         },
         pattern: {
-            value: /^[A-Za-z]+$/,
+            value: /^[A-Za-z\s]+$/,
             message: "Solo se permiten letras en el nombre",
         },
     }

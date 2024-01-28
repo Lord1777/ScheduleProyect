@@ -25,6 +25,7 @@ import { DetailsInstructor } from '../js/pages/Details/DetailsInstructor.jsx'
 import { UpdateEnvironments } from './pages/Update/UpdateEnvironments.jsx';
 import ProtectedRoute from './components/utils/ProtectedRoute.jsx';
 import "../css/App.css";
+import { AddProgram } from './pages/Add/AddProgram.jsx';
 
 
 
@@ -61,6 +62,7 @@ x
                         <Route path='/AddCoordinador' element={<AddCoordinator />} />
                         <Route path='/AddInstructor' element={<AddInstructors />} />
                         <Route path='/AddAmbiente' element={<AddEnvironments />} />
+                        <Route path='/AddPrograma' element={<AddProgram/>} />
                         <Route path='/AddFicha' element={<AddRecords />} />
                         <Route path='/AddTrimestre' element={<AddQuarter />} />
                         <Route path='/DetallesInstructor' element={<DetailsInstructor/>} />

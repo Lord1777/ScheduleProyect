@@ -7,6 +7,7 @@ use App\Http\Controllers\api\InstructorController;
 use App\Http\Controllers\api\QuartersController;
 use App\Http\Controllers\api\RecordsController;
 use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\api\ProgramsController;
 use App\Http\Controllers\api\ScheduleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,12 @@ Route::group(['middleware' => ['cors']], function(){
     Route::post('/createEnvironment', [EnvironmentsController::class, 'store']);
     Route::match(['get', 'put'], '/disableEnvironment/{idAmbiente}', [EnvironmentsController::class, 'disable']);
     Route::match(['get', 'put'], '/enableEnvironment/{idAmbiente}', [EnvironmentsController::class, 'enabled']);
+});
+
+
+//Programas
+Route::group(['middleware' => ['cors']], function(){
+    Route::post('/createProgram', [ProgramsController::class, 'store']);
 });
 
 

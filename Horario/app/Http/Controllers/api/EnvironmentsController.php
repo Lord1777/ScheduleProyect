@@ -124,8 +124,54 @@ class EnvironmentsController extends Controller
         }
     }
 
-    public function update()
+    public function update(Request $request, string $idAmbiente)
     {
+        $validator = Validator::make($request->all(), [
+            'ambiente' => 'required',
+            'aireAcondicionado' => 'required|boolean',
+            'videoBeam' => 'required|boolean',
+            'tablero' => 'required|boolean',
+            'idSede' => 'required|exists:sedes,idSede',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 0,
+                'errors' => $validator->errors()
+            ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
+        }
+
+        try {
+            $ambiente = Ambiente::findOrFail($idAmbiente);
+
+            $ambiente->update([
+                'ambiente' => intval($request->ambiente),
+                'capacidad' => intval($request->capacidad),
+                'cantidadMesas' => intval($request->cantidadMesas),
+                'aireAcondicionado' =>  boolval($request->aireAcondicionado),
+                'videoBeam' => boolval($request->videoBeam),
+                'tablero' => boolval($request->tablero),
+                'cantidadComputadores' => intval($request->cantidadComputadores),
+                'idSede' => $request->idSede,
+            ]);
+
+            return response()->json([
+                'status' => 1,
+                'message' => 'Successfully Updated Environment',
+            ], Response::HTTP_OK); //200
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'status' => 0,
+                'error' => 'Environment Not Found'
+            ], Response::HTTP_NOT_FOUND); //404
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 0,
+                'error' => 'Error Updating Environment: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
     }
 
     public function disable(string $idAmbiente)

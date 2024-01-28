@@ -1,5 +1,4 @@
-// hooks/useDropdown.js
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const useDropdown = (setValue, valueKey) => {
   const [isDropdown, setIsDropdown] = useState(false);
@@ -12,7 +11,7 @@ const useDropdown = (setValue, valueKey) => {
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setValue(valueKey, option);
-    setIsDropdown(false); 
+    setIsDropdown(false);
   };
 
   return {
@@ -20,6 +19,7 @@ const useDropdown = (setValue, valueKey) => {
     handleDropdown,
     handleOptionClick,
     selectedOption,
+    setSelectedOption,
   };
 };
 

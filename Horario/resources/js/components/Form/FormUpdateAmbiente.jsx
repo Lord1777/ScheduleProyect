@@ -1,49 +1,79 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import useDropdown from '../../hooks/useDropdown';
 import { useForm } from 'react-hook-form';
 import useValidationForm from '../../hooks/useValidationForm';
 import { useParams } from 'react-router-dom';
 import useFetchGetDetailsAmbiente from '../../hooks/FetchGET/useFetchGetDeatilsAmbiente';
+import { API_URL } from '../../const/api';
 
 
 export const FormUpdateAmbiente = () => {
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const {
-        N_AMBIENTE,
-        CAPACIDAD_AMBIENTE,
-        C_MESAS,
-        C_COMPUTADORES,
-        AIRE_ACONDICIONADO,
-        VIDEO_BEAM,
-        SEDE,
-        TABLERO
+      N_AMBIENTE,
+      CAPACIDAD_AMBIENTE,
+      C_MESAS,
+      C_COMPUTADORES,
+      AIRE_ACONDICIONADO,
+      VIDEO_BEAM,
+      SEDE,
+      TABLERO
     } = useValidationForm();
-
+  
     const dropdown1 = useDropdown(setValue, "aireAcondicionado");
     const dropdown2 = useDropdown(setValue, "videoBeam");
     const dropdown3 = useDropdown(setValue, "sede");
     const dropdown4 = useDropdown(setValue, "tablero");
+  
+    const onSubmit = (data) => {
+      console.log(data);
+    };
+  
+    const { id } = useParams();
+    //const { ambienteDetails } = useFetchGetDetailsAmbiente(id);
+    const  [ ambiente, setAmbiente ] = useState(null);
+    const [ capacidad, setCapacidad ] = useState(null);
+    const [ mesas, setMesas ] = useState(null);
+    const [ computadores, setComputadores ] = useState(null);
+    const [ aireacondicionado, setAireacondicionado ] = useState(null);
+    const [ videoBeam, setVideoBeam ] = useState(null);
+    const [ sede, setSede ] = useState(null);
+    const [ tablero, setTablero ] = useState(null);
 
-    const onSubmit = (data) =>{
-        console.log(data)
-    }
-
-    const { id } = useParams(); 
-    const { ambienteDetails } = useFetchGetDetailsAmbiente(id);
+    //const {fetchAmbienteDetails} = useFetchGetDetailsAmbiente(id);
 
     useEffect(() => {
-        if (ambienteDetails) {
-          setValue("ambiente", ambienteDetails.ambiente);
-          setValue("aireAcondicionados", ambienteDetails.aireAcondicionado ? "Si" : "No");
-          setValue("capacidad", ambienteDetails.capacidad);
-          setValue("videoBeams", ambienteDetails.videoBeam ? "Si" : "No");
-          setValue("cantidadMesas", ambienteDetails.cantidadMesas);
-          setValue("sede", ambienteDetails.sede);
-          setValue("catidadComputadores", ambienteDetails.cantidadComputadores);
-          setValue("tableros", ambienteDetails.tablero ? "Si" : "No");
+        if (id) {
+            fetch(`${API_URL}/getEnvironment/${id}`)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(`Network response was not ok: ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then((Data) => {
+                    console.log(Data)
+                    setAmbiente(Data.ambiente);
+                    setCapacidad(Data.capacidad);
+                    setMesas(Data.cantidadMesas);
+                    setComputadores(Data.cantidadComputadores);
+                    setAireacondicionado(Data.aireAcondicionado);
+                    setVideoBeam(Data.videoBeam);
+                    setSede(Data.sede);
+                    setTablero(Data.tablero);
+
+                    dropdown1.setSelectedOption(Data.aireAcondicionado);
+                    dropdown2.setSelectedOption(Data.videoBeam);
+                    dropdown3.setSelectedOption(Data.sede);
+                    dropdown4.setSelectedOption(Data.tablero);
+                })
+                .catch((error) => {
+                    console.error("Error al cargar los detalles del producto:", error);
+                });
         }
-      }, [ambienteDetails, setValue]);
+    }, [id])
+    
 
     return (
         <>
@@ -59,6 +89,8 @@ export const FormUpdateAmbiente = () => {
                                         name='ambiente'
                                         placeholder='Numero del Ambiente'
                                         {...register("ambiente", N_AMBIENTE)}
+                                        value={ambiente}
+                                        onChange={(e)=>setAmbiente(e.target.value)}     
                                     />
                                     {errors.ambiente && <p className='errors_forms'>{errors.ambiente.message}</p>}
                                 </div>
@@ -89,6 +121,8 @@ export const FormUpdateAmbiente = () => {
                                         name="capacidad"
                                         placeholder='Capadidad del Ambiente'
                                         {...register("capacidad", CAPACIDAD_AMBIENTE)}
+                                        value={capacidad}
+                                        onChange={(e)=>setCapacidad(e.target.value)} 
                                     />
                                     {errors.capacidad && <p className='errors_forms'>{errors.capacidad.message}</p>}
                                 </div>
@@ -119,6 +153,8 @@ export const FormUpdateAmbiente = () => {
                                         name="cantidadMesas"
                                         placeholder='Cantidad Mesas'
                                         {...register("cantidadMesas", C_MESAS)}
+                                        value={mesas}
+                                        onChange={(e)=>setMesas(e.target.value)} 
                                     />
                                     {errors.cantidadMesas && <p className='errors_forms'>{errors.cantidadMesas.message}</p>}
                                 </div>
@@ -150,6 +186,8 @@ export const FormUpdateAmbiente = () => {
                                         name="cantidadComputadores"
                                         placeholder='Cantidad Computadores'
                                         {...register("catidadComputadores", C_COMPUTADORES)}
+                                        value={computadores}
+                                        onChange={(e)=>setComputadores(e.target.value)} 
                                     />
                                     {errors.cantidadComputadores && <p className='errors_forms'>{errors.cantidadComputadores.message}</p>}
                                 </div>

@@ -1,29 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { API_URL } from '../../const/api';
 import useRequestOptionsGet from './useRequestOptionsGet';
 
 const useFetchGetDetailsAmbiente = (idAmbiente) => {
   const { requestOptionsGet } = useRequestOptionsGet();
   const [ambienteDetails, setAmbienteDetails] = useState(null);
+  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchAmbienteDetails = async () => {
-      try {
-        const response = await fetch(`${API_URL}/getEnvironment/${idAmbiente}`, requestOptionsGet);
-        const data = await response.json();
-        setAmbienteDetails(data);
-      } catch (error) {
-        console.error(err);
+  const fetchAmbienteDetails = async () => {
+    try {
+      const response = await fetch(`${API_URL}/getEnvironment/${idAmbiente}`, requestOptionsGet);
+
+      if (!response.ok) {
+        if (response.status === 429) {
+          // Implement exponential backoff
+          await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for 1 second
+          return fetchAmbienteDetails();
+        } else {
+          throw new Error('Network response was not ok');
+        }
       }
-    };
 
-    if (idAmbiente) {
-      fetchAmbienteDetails();
+      const data = await response.json();
+      setAmbienteDetails(data);
+    } catch (error) {
+      console.error(error);
+      setError(error);
     }
-  }, [idAmbiente, requestOptionsGet]);
+  };
 
   return {
     ambienteDetails,
+    error,
+    fetchAmbienteDetails
   };
 };
 

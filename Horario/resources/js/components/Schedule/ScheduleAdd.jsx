@@ -21,16 +21,23 @@ export const ScheduleAdd = () => {
     const { fetchSubmitSchedule } = useFetchPostSchedule();
     const { dataQuarters } = useFetchGetQuarters();
 
-    // Almacena todos los índices asignados
+    // Almacena todos los índices, id-instructor, id-ambiente asignados,
     const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
+
+    //Funcion que retorna el id del trimestre
+    const getQuarterId = (dataTrimestre) => {
+        const quarter = dataQuarters.find((quarter) => `${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}` === dataTrimestre);
+        return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
+    };
 
     const onSubmit = async (data) => {
 
-        await fetchSubmitSchedule({
-            trimestre: parseInt(data.trimestre),
-            globalStoreBoxes
-        })
-
+        if(globalStoreBoxes.size > 0){
+            await fetchSubmitSchedule({
+                trimestre: getQuarterId(data.trimestre),
+                globalStoreBoxes
+            })
+        }
     }
 
     return (

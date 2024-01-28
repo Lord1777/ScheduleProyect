@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('horarios_academicos', function (Blueprint $table) {
             $table->id('idHorario')->unique();
-            $table->string('estado',30);
+            $table->string('estado', 30);
+            $table->unsignedBigInteger('idFicha');
+            $table->unsignedBigInteger('idTrimestre');
+
+            $table->foreign('idFicha')->references('idFicha')->on('fichas');
+            $table->foreign('idTrimestre')->references('idTrimestre')->on('trimestres');
         });
     }
 

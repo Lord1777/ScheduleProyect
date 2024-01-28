@@ -13,18 +13,20 @@ class RecordsController extends Controller
     {
         try {
             $records = Ficha::join('programas', 'fichas.idPrograma', '=', 'programas.idPrograma')
-            ->join('modalidades', 'programas.idModalidad', '=', 'modalidades.idModalidad')
-            ->join('niveles_de_formacion', 'programas.idNivelFormacion', '=', 'niveles_de_formacion.idNivelFormacion')
-            ->join('jornadas', 'programas.idJornada', '=', 'jornadas.idJornada')
-            ->select(
-                'fichas.ficha',
-                'programas.nombre',
-                'niveles_de_formacion.nivel',
-                'jornadas.jornada',
-                'modalidades.modalidad'
-            )
-            ->where('fichas.estado', 'habilitado')
-            ->paginate(15);
+                ->join('modalidades', 'fichas.idModalidad', '=', 'modalidades.idModalidad')
+                ->join('niveles_de_formacion', 'programas.idNivelFormacion', '=', 'niveles_de_formacion.idNivelFormacion')
+                ->join('jornadas', 'fichas.idJornada', '=', 'jornadas.idJornada')
+                ->select(
+                    'fichas.ficha',
+                    'fichas.limiteHoras',
+                    'fichas.horasAsignadas',
+                    'programas.nombre as programa_nombre',
+                    'niveles_de_formacion.nivel',
+                    'jornadas.jornada',
+                    'modalidades.modalidad'
+                )
+                ->where('fichas.estado', 'habilitado')
+                ->paginate(15);
             return response()->json($records, Response::HTTP_OK); //200
 
         } catch (\Exception $e) {
@@ -36,18 +38,20 @@ class RecordsController extends Controller
     {
         try {
             $records = Ficha::join('programas', 'fichas.idPrograma', '=', 'programas.idPrograma')
-            ->join('modalidades', 'programas.idModalidad', '=', 'modalidades.idModalidad')
-            ->join('niveles_de_formacion', 'programas.idNivelFormacion', '=', 'niveles_de_formacion.idNivelFormacion')
-            ->join('jornadas', 'programas.idJornada', '=', 'jornadas.idJornada')
-            ->select(
-                'fichas.ficha',
-                'programas.nombre',
-                'niveles_de_formacion.nivel',
-                'jornadas.jornada',
-                'modalidades.modalidad'
-            )
-            ->where('fichas.estado', 'inhabilitado')
-            ->paginate(15);
+                ->join('modalidades', 'fichas.idModalidad', '=', 'modalidades.idModalidad')
+                ->join('niveles_de_formacion', 'programas.idNivelFormacion', '=', 'niveles_de_formacion.idNivelFormacion')
+                ->join('jornadas', 'fichas.idJornada', '=', 'jornadas.idJornada')
+                ->select(
+                    'fichas.ficha',
+                    'fichas.limiteHoras',
+                    'fichas.horasAsignadas',
+                    'programas.nombre as programa_nombre',
+                    'niveles_de_formacion.nivel',
+                    'jornadas.jornada',
+                    'modalidades.modalidad'
+                )
+                ->where('fichas.estado', 'inhabilitado')
+                ->paginate(15);
             return response()->json($records, Response::HTTP_OK); //200
 
         } catch (\Exception $e) {
@@ -57,7 +61,10 @@ class RecordsController extends Controller
 
     public function store(Request $request)
     {
-        
+    }
+
+    public function show(Request $request)
+    {
     }
 
     public function update()

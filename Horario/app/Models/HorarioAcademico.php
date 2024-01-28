@@ -10,4 +10,10 @@ class HorarioAcademico extends Model
     use HasFactory;
 
     protected $primaryKey = 'idHorario';
+
+    protected $fillable = [
+        'estado',
+        'idFicha',
+        'idTrimestre',
+    ];
 }

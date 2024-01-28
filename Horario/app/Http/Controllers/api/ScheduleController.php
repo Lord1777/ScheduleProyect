@@ -24,23 +24,23 @@ class ScheduleController extends Controller
 
         // Crear un nuevo horario académico
         $horarioAcademico = HorarioAcademico::create([
-            'estado' => 'Activo',
+            'estado' => 'habilitado',
+            // 'idFicha' => ,
+            'idTrimestre' => $trimestre,
         ]);
 
         foreach ($globalStoreBoxes as $box) {
             $boxIndex = $box['boxIndex'];
-            $instructor = $box['instructor'];
-            $ambiente = $box['ambiente'];
+            $instructor = $box['idInstructor'];
+            $ambiente = $box['idAmbiente'];
 
             
 
             // Crear una nueva asignación para cada caja
             // Asignacion::create([
             //     'boxIndex' => $boxIndex,
-            //     'idFicha' => $tuValo, // Ajusta esto según tus necesidades
-            //     'idAmbiente' => $tuValor, // Ajusta esto según tus necesidades
-            //     'idUsuario' => $tuValor, // Ajusta esto según tus necesidades
-            //     'idTrimestre' => $trimestre,
+            //     'idAmbiente' => $tuValor, 
+            //     'idUsuario' => $tuValor, 
             //     'idHorarioAcademico' => $horarioAcademico->idHorario,
             // ]);
 

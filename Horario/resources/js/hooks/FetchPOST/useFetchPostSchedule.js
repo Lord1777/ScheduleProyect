@@ -1,16 +1,20 @@
 import React from 'react';
-import { API_URL } from '../../const/api';
+import { API_URL, csrf_token } from '../../const/api';
+
 
 export const useFetchPostSchedule = () => {
 
     const fetchSubmitSchedule = async({ trimestre, globalStoreBoxes}) =>{
         try {
 
-            // console.log(trimestre, globalStoreBoxes);
+            console.log(trimestre, globalStoreBoxes);
 
             const response = await fetch(`${API_URL}/createSchedule`, {
                 method: "POST",
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf_token,
+                 },
                 body: JSON.stringify({
                     trimestre,
                     globalStoreBoxes: Array.from(globalStoreBoxes)

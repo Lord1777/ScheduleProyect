@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Ambiente;
 use App\Models\Ficha;
+use App\Models\Programa;
 use App\Models\Trimestre;
 use App\Models\Usuario;
 use Illuminate\Database\Seeder;
@@ -23,8 +24,10 @@ class DatabaseSeeder extends Seeder
         $this->call(JordanaSeeder::class);
         $this->call(NivelDeFormacionSeeder::class);
         $this->call(ContratoSeeder::class);
+        $this->call(ProgramaSeeder::class);
         Ambiente::factory(50)->create();
         Trimestre::factory(20)->create();
         Usuario::factory(100)->create();
+        Ficha::factory(80)->create();
     }
 }

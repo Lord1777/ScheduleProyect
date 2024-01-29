@@ -29,6 +29,7 @@ import { AddProgram } from './pages/Add/AddProgram.jsx';
 import { DetailsAmbiente } from '../js/pages/Details/DetailsAmbiente.jsx'
 import { DetailsFicha } from '../js/pages/Details/DetailsFicha.jsx'
 import { DetailsCoordinador } from '../js/pages/Details/DetailsCoordinador.jsx'
+import { DetailsTrimestre } from '../js/pages/Details/DetailsTrimestre.jsx'
 
 
 
@@ -52,7 +53,7 @@ function App() {
                     <Route path='/AddHorario' element={<AddSchedule/>}/>
                     <Route path='/UpdateAmbiente/:id' element={<UpdateEnvironments/>}/>
                     <Route path='/modal' element={<ModalAsignar/>}/>
-                    <Route path='/DetallesCoordinador' element={<DetailsCoordinador/>} />
+                    <Route path='/DetallesTrimestre' element={<DetailsTrimestre/>} />
                 {/* Vistas del coordinador */}
                     <Route element={ <ProtectedRoute role={'coordinador'} userRole={role} />}  >
                         <Route path='/Panel' element={<ControlPanel />} /> 
@@ -72,6 +73,7 @@ function App() {
                         <Route path='/DetallesInstructor' element={<DetailsInstructor/>} />
                         <Route path='/DetallesAmbiente' element={<DetailsAmbiente/>} />
                         <Route path='/DetallesFicha' element={<DetailsFicha/>} />
+                        <Route path='/DetallesCoordinador' element={<DetailsCoordinador/>} />
                     </Route>
                 </Routes>
             </Router>

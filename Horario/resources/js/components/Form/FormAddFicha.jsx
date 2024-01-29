@@ -5,7 +5,7 @@ import '../../../css/Form/FormAddFicha.css';
 import useDropdown from '../../hooks/useDropdown';
 import useValidationForm from '../../hooks/useValidationForm';
 import { useForm } from 'react-hook-form';
-import {useFetchPostRecord} from '../../hooks/FetchPOST/useFetchPostRecord';
+import useFetchPostRecord from '../../hooks/FetchPOST/useFetchPostRecord';
 
 export const FormAddFicha = () => {
     

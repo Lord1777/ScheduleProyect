@@ -6,10 +6,23 @@ export const useFetchPutEnvironment = () => {
 
     const { requestOptionsPut } = useRequestOptionsPut();
 
-    const fetchPutEnvironment = async(route, idAmbiente) =>{
+    const fetchPutEnvironment = async(route, id, ambiente, cantidadMesas, capacidad, cantidadComputadores, aireAcondicionado, tablero, videoBeam, idSede) =>{
 
         try {
-            const response = await fetch(`${API_URL}${route}/${idAmbiente}`, useRequestOptionsPut)
+            const response = await fetch(`${API_URL}/updateEnvironment/${id}`,{
+                method: "PUT",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                  ambiente,
+                  cantidadMesas,
+                  capacidad,
+                  cantidadComputadores,
+                  aireAcondicionado,
+                  tablero,
+                  videoBeam,
+                  idSede,
+                })
+            })
 
             if (response.ok) {
                 const data = await response.json();

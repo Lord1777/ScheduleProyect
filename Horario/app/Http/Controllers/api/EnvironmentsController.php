@@ -113,7 +113,6 @@ class EnvironmentsController extends Controller
                             ->select(
                                 'ambientes.*',
                                 'sedes.sede')
-                            ->where('estado', 'habilitado')
                             ->findOrFail($idAmbiente);
 
             return response()->json($ambiente, Response::HTTP_OK);
@@ -129,6 +128,7 @@ class EnvironmentsController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+    
 
     public function update(Request $request, string $idAmbiente)
     {

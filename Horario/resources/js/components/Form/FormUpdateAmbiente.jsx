@@ -5,43 +5,24 @@ import useValidationForm from '../../hooks/useValidationForm';
 import { useParams } from 'react-router-dom';
 import useFetchGetDetailsAmbiente from '../../hooks/FetchGET/useFetchGetDeatilsAmbiente';
 import { API_URL } from '../../const/api';
+import { useFetchPutEnvironment } from '../../hooks/FetchPUT/useFetchPutEnvironment';
 
 
 export const FormUpdateAmbiente = () => {
 
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
-    const {
-        N_AMBIENTE,
-        CAPACIDAD_AMBIENTE,
-        C_MESAS,
-        C_COMPUTADORES,
-        AIRE_ACONDICIONADO,
-        VIDEO_BEAM,
-        SEDE,
-        TABLERO
-    } = useValidationForm();
-
-    const dropdown1 = useDropdown(setValue, "aireAcondicionado");
-    const dropdown2 = useDropdown(setValue, "videoBeam");
-    const dropdown3 = useDropdown(setValue, "sede");
-    const dropdown4 = useDropdown(setValue, "tablero");
-
-    const onSubmit = (data) => {
-        console.log(data);
-    };
-
     const { id } = useParams();
-    //const { ambienteDetails } = useFetchGetDetailsAmbiente(id);
-    const [ambiente, setAmbiente] = useState(null);
-    const [capacidad, setCapacidad] = useState(null);
-    const [mesas, setMesas] = useState(null);
-    const [computadores, setComputadores] = useState(null);
-    const [aireacondicionado, setAireacondicionado] = useState(null);
-    const [videoBeam, setVideoBeam] = useState(null);
-    const [sede, setSede] = useState(null);
-    const [tablero, setTablero] = useState(null);
+    const  [ ambiente, setAmbiente ] = useState(null);
+    const [ capacidad, setCapacidad ] = useState(null);
+    const [ mesas, setMesas ] = useState(null);
+    const [ computadores, setComputadores ] = useState(null);
+    const [ aireacondicionado, setAireacondicionado ] = useState(null);
+    const [ videoBeam, setVideoBeam ] = useState(null);
+    const [ sede, setSede ] = useState(null);
+    const [ tablero, setTablero ] = useState(null);
 
-    //const {fetchAmbienteDetails} = useFetchGetDetailsAmbiente(id);
+    const mapBooleanToYesOrNo = (value) => {
+        return value ? 'Si' : 'No';
+    };
 
     useEffect(() => {
         if (id) {
@@ -58,15 +39,15 @@ export const FormUpdateAmbiente = () => {
                     setCapacidad(Data.capacidad);
                     setMesas(Data.cantidadMesas);
                     setComputadores(Data.cantidadComputadores);
-                    setAireacondicionado(Data.aireAcondicionado);
-                    setVideoBeam(Data.videoBeam);
                     setSede(Data.sede);
-                    setTablero(Data.tablero);
+                    setAireacondicionado(mapBooleanToYesOrNo(Data.aireAcondicionado));
+                    setVideoBeam(mapBooleanToYesOrNo(Data.videoBeam));
+                    setTablero(mapBooleanToYesOrNo(Data.tablero));
 
-                    dropdown1.setSelectedOption(Data.aireAcondicionado);
-                    dropdown2.setSelectedOption(Data.videoBeam);
+                    dropdown1.setSelectedOption(mapBooleanToYesOrNo(Data.aireAcondicionado));
+                    dropdown2.setSelectedOption(mapBooleanToYesOrNo(Data.videoBeam));
                     dropdown3.setSelectedOption(Data.sede);
-                    dropdown4.setSelectedOption(Data.tablero);
+                    dropdown4.setSelectedOption(mapBooleanToYesOrNo(Data.tablero));
                 })
                 .catch((error) => {
                     console.error("Error al cargar los detalles del producto:", error);
@@ -74,6 +55,30 @@ export const FormUpdateAmbiente = () => {
         }
     }, [id])
 
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+    const { N_AMBIENTE, CAPACIDAD_AMBIENTE, C_MESAS, C_COMPUTADORES, AIRE_ACONDICIONADO, VIDEO_BEAM, SEDE, TABLERO } = useValidationForm();
+
+    const dropdown1 = useDropdown(setValue, 'aireAcondicionado');
+    const dropdown2 = useDropdown(setValue, 'videoBeam');
+    const dropdown3 = useDropdown(setValue, 'sede');
+    const dropdown4 = useDropdown(setValue, 'tablero');
+
+    const { fetchPutEnvironment } = useFetchPutEnvironment(id);
+
+    const onSubmit = async(data) => {
+        await fetchPutEnvironment(
+            data.ambiente,
+            data.cantidadMesas,
+            data.capacidad,
+            data.catidadComputadores,
+            data.aireAcondicionados,
+            data.tableros,
+            data.videoBeams,
+            data.sede,
+        )
+    };
+
+    const {} = useFetchPutEnvironment();
 
     return (
         <>

@@ -49,14 +49,14 @@ function App() {
                     <Route path='/AddHorario' element={<AddSchedule/>}/>
                     <Route path='/UpdateAmbiente/:id' element={<UpdateEnvironments/>}/>
                     <Route path='/modal' element={<ModalAsignar/>}/>
-x
+                    <Route path='/CrudAmbientes' element={<CrudEnvironments />} />
+
                 {/* Vistas del coordinador */}
                     <Route element={ <ProtectedRoute role={'coordinador'} userRole={role} />}  >
                         <Route path='/Panel' element={<ControlPanel />} /> 
                         <Route path='/HorariosFichas' element={<WatchSchedules />} />
                         <Route path='/CrudInstructor' element={<CrudInstructor />} />
                         <Route path='/CrudCoordinadores' element={<CrudCoordinators />} />
-                        <Route path='/CrudAmbientes' element={<CrudEnvironments />} />
                         <Route path='/CrudFichas' element={<CrudRecords />} />
                         {/* <Route path='UpdateFucha/:id' element={<} */}
                         <Route path='/CrudTrimestres' element={<CrudQuarters />} />

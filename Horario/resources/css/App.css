@@ -88,6 +88,8 @@
 
 .desplegable .desplegable-options{
     display: none;
+    height: 10rem;
+    overflow-y: auto;
 }
 
 .desplegable .open{
@@ -96,7 +98,6 @@
     width: 100%;
     background-color: #FFF;
     border-radius: 5px;
-    overflow: hidden;
     box-shadow: 6px 9px 18px 0px rgba(83, 83, 83, 0.45);
     z-index: 2;
     display: block;

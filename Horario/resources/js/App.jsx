@@ -26,6 +26,9 @@ import { UpdateEnvironments } from './pages/Update/UpdateEnvironments.jsx';
 import ProtectedRoute from './components/utils/ProtectedRoute.jsx';
 import "../css/App.css";
 import { AddProgram } from './pages/Add/AddProgram.jsx';
+import { DetailsAmbiente } from '../js/pages/Details/DetailsAmbiente.jsx'
+import { DetailsFicha } from '../js/pages/Details/DetailsFicha.jsx'
+import { DetailsCoordinador } from '../js/pages/Details/DetailsCoordinador.jsx'
 
 
 
@@ -49,8 +52,7 @@ function App() {
                     <Route path='/AddHorario' element={<AddSchedule/>}/>
                     <Route path='/UpdateAmbiente/:id' element={<UpdateEnvironments/>}/>
                     <Route path='/modal' element={<ModalAsignar/>}/>
-                    <Route path='/DetallesInstructor' element={<DetailsInstructor/>} />
-x
+                    <Route path='/DetallesCoordinador' element={<DetailsCoordinador/>} />
                 {/* Vistas del coordinador */}
                     <Route element={ <ProtectedRoute role={'coordinador'} userRole={role} />}  >
                         <Route path='/Panel' element={<ControlPanel />} /> 
@@ -59,7 +61,7 @@ x
                         <Route path='/CrudCoordinadores' element={<CrudCoordinators />} />
                         <Route path='/CrudAmbientes' element={<CrudEnvironments />} />
                         <Route path='/CrudFichas' element={<CrudRecords />} />
-                        {/* <Route path='UpdateFucha/:id' element={<} */}
+                        {/* <Route path='UpdateFicha/:id' element={< />} />*/}
                         <Route path='/CrudTrimestres' element={<CrudQuarters />} />
                         <Route path='/AddCoordinador' element={<AddCoordinator />} />
                         <Route path='/AddInstructor' element={<AddInstructors />} />
@@ -67,6 +69,9 @@ x
                         <Route path='/AddPrograma' element={<AddProgram/>} />
                         <Route path='/AddFicha' element={<AddRecords />} />
                         <Route path='/AddTrimestre' element={<AddQuarter />} />
+                        <Route path='/DetallesInstructor' element={<DetailsInstructor/>} />
+                        <Route path='/DetallesAmbiente' element={<DetailsAmbiente/>} />
+                        <Route path='/DetallesFicha' element={<DetailsFicha/>} />
                     </Route>
                 </Routes>
             </Router>

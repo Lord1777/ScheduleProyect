@@ -3,6 +3,7 @@ import { NavBar } from '../../components/NavBar/NavBar';
 import '../../../css/Details/DetailsFicha.css';
 import '../../../css/Form/BoxContainerFormAdd.css';
 import useDropdown from '../../hooks/useDropdown';
+import { useParams } from 'react-router-dom';
 
 export const DetailsFicha = () => {
 

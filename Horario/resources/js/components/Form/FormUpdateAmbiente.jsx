@@ -11,35 +11,35 @@ export const FormUpdateAmbiente = () => {
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const {
-      N_AMBIENTE,
-      CAPACIDAD_AMBIENTE,
-      C_MESAS,
-      C_COMPUTADORES,
-      AIRE_ACONDICIONADO,
-      VIDEO_BEAM,
-      SEDE,
-      TABLERO
+        N_AMBIENTE,
+        CAPACIDAD_AMBIENTE,
+        C_MESAS,
+        C_COMPUTADORES,
+        AIRE_ACONDICIONADO,
+        VIDEO_BEAM,
+        SEDE,
+        TABLERO
     } = useValidationForm();
-  
+
     const dropdown1 = useDropdown(setValue, "aireAcondicionado");
     const dropdown2 = useDropdown(setValue, "videoBeam");
     const dropdown3 = useDropdown(setValue, "sede");
     const dropdown4 = useDropdown(setValue, "tablero");
-  
+
     const onSubmit = (data) => {
-      console.log(data);
+        console.log(data);
     };
-  
+
     const { id } = useParams();
     //const { ambienteDetails } = useFetchGetDetailsAmbiente(id);
-    const  [ ambiente, setAmbiente ] = useState(null);
-    const [ capacidad, setCapacidad ] = useState(null);
-    const [ mesas, setMesas ] = useState(null);
-    const [ computadores, setComputadores ] = useState(null);
-    const [ aireacondicionado, setAireacondicionado ] = useState(null);
-    const [ videoBeam, setVideoBeam ] = useState(null);
-    const [ sede, setSede ] = useState(null);
-    const [ tablero, setTablero ] = useState(null);
+    const [ambiente, setAmbiente] = useState(null);
+    const [capacidad, setCapacidad] = useState(null);
+    const [mesas, setMesas] = useState(null);
+    const [computadores, setComputadores] = useState(null);
+    const [aireacondicionado, setAireacondicionado] = useState(null);
+    const [videoBeam, setVideoBeam] = useState(null);
+    const [sede, setSede] = useState(null);
+    const [tablero, setTablero] = useState(null);
 
     //const {fetchAmbienteDetails} = useFetchGetDetailsAmbiente(id);
 
@@ -73,7 +73,7 @@ export const FormUpdateAmbiente = () => {
                 });
         }
     }, [id])
-    
+
 
     return (
         <>
@@ -90,7 +90,7 @@ export const FormUpdateAmbiente = () => {
                                         placeholder='Numero del Ambiente'
                                         {...register("ambiente", N_AMBIENTE)}
                                         value={ambiente}
-                                        onChange={(e)=>setAmbiente(e.target.value)}     
+                                        onChange={(e) => setAmbiente(e.target.value)}
                                     />
                                     {errors.ambiente && <p className='errors_forms'>{errors.ambiente.message}</p>}
                                 </div>
@@ -122,7 +122,7 @@ export const FormUpdateAmbiente = () => {
                                         placeholder='Capadidad del Ambiente'
                                         {...register("capacidad", CAPACIDAD_AMBIENTE)}
                                         value={capacidad}
-                                        onChange={(e)=>setCapacidad(e.target.value)} 
+                                        onChange={(e) => setCapacidad(e.target.value)}
                                     />
                                     {errors.capacidad && <p className='errors_forms'>{errors.capacidad.message}</p>}
                                 </div>
@@ -154,11 +154,11 @@ export const FormUpdateAmbiente = () => {
                                         placeholder='Cantidad Mesas'
                                         {...register("cantidadMesas", C_MESAS)}
                                         value={mesas}
-                                        onChange={(e)=>setMesas(e.target.value)} 
+                                        onChange={(e) => setMesas(e.target.value)}
                                     />
                                     {errors.cantidadMesas && <p className='errors_forms'>{errors.cantidadMesas.message}</p>}
                                 </div>
-                                
+
 
                                 <div>
                                     <div className={`Dropdown ${dropdown3.isDropdown ? 'open' : ''}`}>
@@ -187,7 +187,7 @@ export const FormUpdateAmbiente = () => {
                                         placeholder='Cantidad Computadores'
                                         {...register("catidadComputadores", C_COMPUTADORES)}
                                         value={computadores}
-                                        onChange={(e)=>setComputadores(e.target.value)} 
+                                        onChange={(e) => setComputadores(e.target.value)}
                                     />
                                     {errors.cantidadComputadores && <p className='errors_forms'>{errors.cantidadComputadores.message}</p>}
                                 </div>
@@ -211,7 +211,7 @@ export const FormUpdateAmbiente = () => {
                                     </div>
                                     {errors.tablero && <p className='errors_forms'>{errors.tablero.message}</p>}
                                 </div>
-                                
+
 
 
                             </div>

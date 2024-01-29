@@ -58,6 +58,7 @@ x
                         <Route path='/CrudCoordinadores' element={<CrudCoordinators />} />
                         <Route path='/CrudAmbientes' element={<CrudEnvironments />} />
                         <Route path='/CrudFichas' element={<CrudRecords />} />
+                        {/* <Route path='UpdateFucha/:id' element={<} */}
                         <Route path='/CrudTrimestres' element={<CrudQuarters />} />
                         <Route path='/AddCoordinador' element={<AddCoordinator />} />
                         <Route path='/AddInstructor' element={<AddInstructors />} />

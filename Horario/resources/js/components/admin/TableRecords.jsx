@@ -5,6 +5,7 @@ import '../../../css/admin/TableInstructors.css';
 import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
 import useFetchGetRecord from '../../hooks/FetchGET/useFetchGetRecord';
+import { Link } from 'react-router-dom';
 
 export const TableRecords = () => {
 
@@ -66,9 +67,11 @@ export const TableRecords = () => {
                                     </td>
                                     {disabled ? (
                                         <td>
+                                            <Link to={`/DetallesFicha/${record.id}`}>
                                             <button>
                                                 <FontAwesomeIcon icon={faUserCheck} className='iconHabilitar' />
                                             </button>
+                                            </Link>
                                         </td>
                                     ) : (
                                         <td>

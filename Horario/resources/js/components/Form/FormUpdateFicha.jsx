@@ -1,11 +1,11 @@
-import React from 'react';
-import { useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import '../../../css/Form/BoxContainerFormAdd.css';
 import '../../../css/Form/FormAddFicha.css';
 import useDropdown from '../../hooks/useDropdown';
 import useValidationForm from '../../hooks/useValidationForm';
 import { useForm } from 'react-hook-form';
-import {useFetchPostRecord} from '../../hooks/FetchPOST/useFetchPostRecord';
+import { API_URL } from '../../const/api';
+
 
 export const FormAddFicha = () => {
     
@@ -15,19 +15,43 @@ export const FormAddFicha = () => {
     const dropdown3 = useDropdown(setValue, 'JornadaAcademica');
     const { NFICHA, DURACION, PROGRAMA, MODALIDAD, NIVEL_FORMACION, JORNADA_ACADEMICA } = useValidationForm()
 
-    const {fetchSubmitRecord} = useFetchPostRecord();
-
-    const onSubmit = async(data) => {
-        
-        await fetchSubmitRecord(
-            data.ficha, 
-            data.duracion, 
-            data.programa,
-            data.modalidad,
-            data.nivelFormacion,
-            data.jornada,
-        )
+    const onSubmit = (data) => {
+        console.log(data);
     }
+
+    const {id} = useParams();
+    const [ficha, setFicha] = useState(null);
+    const [duracion, setDuracion] = useState(null);
+    const [programa, setPrograma] = useState(null);
+    const [modalidad, setModalidad] = useState(null);
+    const [nivelFormacion, setNivelFormacion] = useState(null);
+    const [jornada, setJornada] = useState(null);
+
+    useEffect(() =>{
+        if (id){
+            fetch(`${API_URL}/getRecord/${id}`)
+            .then((response) => {
+                if(!response.ok) {
+                    throw new Error(`Network response was not ok: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then((Data) => {
+                console.log(Data)
+                setFicha(Data.ficha);
+                setDuracion(Data.duracion);
+                setPrograma(Data.programa);
+
+                dropdown1.setSelectedOption(Data.modalidad);
+                dropdown2.selectedOption(Data.nivelFormacion);
+                dropdown3.selectedOption(Data.jornada);
+            })
+            .catch((error) =>{
+                console.error('Error al cargar los detalles de la ficha', error);
+            })
+        }
+    }, [id])
+ 
 
     return (
         <>

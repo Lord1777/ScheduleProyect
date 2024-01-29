@@ -23,6 +23,23 @@ export const getNivelDeFormacionByName = (name) =>{
     return niveles[name]
 }
 
+export const getModalidadByName = (name) =>{
+    const modalidad = {
+        Virtual: 1,
+        Presencial: 2,
+        Complementaria: 3,
+    }
+    return modalidad[name]
+}
+
+export const getJornadaByName = (name) =>{
+    const jornada = {
+        Diurna: 1,
+        Nocturna: 2,
+    }
+    return jornada[name]
+}
+
 export const getRolByName = (name) => {
     const roles = {
         coordinador: 1,
@@ -46,4 +63,3 @@ export const getTrueOrFalseByYesOrNot = ( string ) =>{
     }
     return boolean[string]
 }
-

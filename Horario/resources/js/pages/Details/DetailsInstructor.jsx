@@ -45,7 +45,6 @@ export const DetailsInstructor = () => {
                     <div className='container_form_add_elements'>
                         <div className='container_image_form_instructor'>
                             <img src={logoSena} alt='Logo SENA' />
-
                             <form method='POST' onSubmit={handleSubmit}>
                                 <div className="grid-column">
                                     <input

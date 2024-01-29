@@ -49,6 +49,7 @@ function App() {
                     <Route path='/AddHorario' element={<AddSchedule/>}/>
                     <Route path='/UpdateAmbiente/:id' element={<UpdateEnvironments/>}/>
                     <Route path='/modal' element={<ModalAsignar/>}/>
+                    <Route path='/DetallesInstructor' element={<DetailsInstructor/>} />
 x
                 {/* Vistas del coordinador */}
                     <Route element={ <ProtectedRoute role={'coordinador'} userRole={role} />}  >
@@ -66,7 +67,6 @@ x
                         <Route path='/AddPrograma' element={<AddProgram/>} />
                         <Route path='/AddFicha' element={<AddRecords />} />
                         <Route path='/AddTrimestre' element={<AddQuarter />} />
-                        <Route path='/DetallesInstructor' element={<DetailsInstructor/>} />
                     </Route>
                 </Routes>
             </Router>

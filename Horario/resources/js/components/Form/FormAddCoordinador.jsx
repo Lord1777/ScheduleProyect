@@ -22,7 +22,7 @@ export const FormAddCoordinador = () => {
     const dropdown2 = useDropdown(setValue, "TipoContrato");
     const dropdown3 = useDropdown(setValue, "Sede");
 
-    const { fetchSubmitCoordinator } = useFetchPostCoordinator();
+    const { fetchSubmitCoordinator } = useFetchPostCoordinator('/register');
 
     const onSubmit = async (data) => {
 

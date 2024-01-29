@@ -13,7 +13,7 @@ function FormAddTrimestre() {
     const { control, register, handleSubmit, setValue, formState: { errors } } = useForm();
     const { N_TRIMESTRE, FECHA_INI, FECHA_FIN } = useValidationForm();
 
-    const { fetchSubmitQuarter } = useFetchPostQuarter();
+    const { fetchSubmitQuarter } = useFetchPostQuarter('/createQuarters');
 
     const onSubmit = async(data) => {
         console.log(data);

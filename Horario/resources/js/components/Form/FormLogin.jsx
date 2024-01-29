@@ -22,7 +22,7 @@ export const FormLogin = () => {
     const { TIPO_DOCUMENTO, DOCUMENTO, PASSWORD } = useValidationForm();
 
 
-    const { authUser } = useFetchLogin();
+    const { authUser } = useFetchLogin('/login');
 
 
     const onSubmit = async (data) => {
@@ -77,7 +77,7 @@ export const FormLogin = () => {
                                     name="password"
                                     placeholder='Contraseña'
                                     autoComplete='false'
-                                //{...register("password", PASSWORD)}
+                                    {...register("password", PASSWORD)}
                                 />
                                 <img src={showPassword ? OpenEye : CloseEye} onClick={handleTogglePassword} />
                             </div>

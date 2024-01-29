@@ -3,7 +3,7 @@ import { API_URL, csrf_token } from '../../const/api';
 import { getNivelDeFormacionByName } from '../useObjectMapping';
 
 
-const useFetchPostProgram = () => {
+const useFetchPostProgram = (route) => {
 
     const fetchSubmitProgram = async( nombre, duracion, nivelDeFormacion ) =>{
 
@@ -11,7 +11,7 @@ const useFetchPostProgram = () => {
         let idNivelFormacion = getNivelDeFormacionByName(nivelDeFormacion);
 
         try {
-            const response = await fetch(`${API_URL}/createProgram`, {
+            const response = await fetch(`${API_URL}${route}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

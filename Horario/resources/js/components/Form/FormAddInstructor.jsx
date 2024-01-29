@@ -23,7 +23,7 @@ const FormAddInstructor = () => {
     const dropdown2 = useDropdown(setValue, "TipoContrato");
     const dropdown3 = useDropdown(setValue, "Sede");
 
-    const { fetchSubmitInstructor } = useFetchPostInstructor()
+    const { fetchSubmitInstructor } = useFetchPostInstructor('/register')
 
     const onSubmit = async (data) => {
 

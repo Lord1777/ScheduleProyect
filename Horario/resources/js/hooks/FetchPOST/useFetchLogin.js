@@ -1,14 +1,17 @@
 import React from 'react';
-import { API_URL } from '../../const/api';
+import { API_URL, csrf_token } from '../../const/api';
 
-const useFetchLogin = () => {
+const useFetchLogin = (route) => {
 
     const authUser = async (documento, password) => {
 
         try {
-            const response = await fetch(`${API_URL}/login`, {
+            const response = await fetch(`${API_URL}${route}`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf_token,
+                 },
                 body: JSON.stringify({ documento, password }),
             });
 

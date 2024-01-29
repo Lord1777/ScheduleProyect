@@ -18,8 +18,8 @@ export const ScheduleAdd = () => {
     const { TRIMESTRE } = useValidationForm();
     const { register, setValue, handleSubmit } = useForm();
 
-    const { fetchSubmitSchedule } = useFetchPostSchedule();
-    const { dataQuarters } = useFetchGetQuarters();
+    const { fetchSubmitSchedule } = useFetchPostSchedule('/createSchedule');
+    const { dataQuarters } = useFetchGetQuarters('/getQuarters');
 
     // Almacena todos los índices, id-instructor, id-ambiente asignados,
     const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());

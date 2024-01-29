@@ -24,7 +24,7 @@ export const FormAddAmbiente = () => {
     const dropdown3 = useDropdown(setValue, "sede");
     const dropdown4 = useDropdown(setValue, "tablero");
 
-    const { fetchSubmitEnvironment } = useFetchPostEnvironment();
+    const { fetchSubmitEnvironment } = useFetchPostEnvironment('/createEnvironment');
 
     const onSubmit = async(data) => {
 

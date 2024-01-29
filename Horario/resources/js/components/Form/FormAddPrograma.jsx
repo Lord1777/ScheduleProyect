@@ -12,7 +12,7 @@ export const FormAddPrograma = () => {
 
     const { DURACION, PROGRAMA, NIVEL_FORMACION } = useValidationForm();
 
-    const { fetchSubmitProgram } = useFetchPostProgram();
+    const { fetchSubmitProgram } = useFetchPostProgram('/createProgram');
 
     const onSubmit = async(data) => {
 

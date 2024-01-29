@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { getLimiteHorasByTypeContrato, getRolByName, getContratoByName, getSedeByName } from '../useObjectMapping';
-import { API_URL } from '../../const/api';
+import { API_URL, csrf_token } from '../../const/api';
 
-const useFetchPostCoordinator = () => {
+const useFetchPostCoordinator = (route) => {
 
     const fetchSubmitCoordinator = async (sede, tipoContrato, tipoDocumento, ciudad, documento, email, experiencia, nombreCompleto, profesion, telefono) => {
 
@@ -19,9 +19,12 @@ const useFetchPostCoordinator = () => {
         let idSede = getSedeByName(sede);
 
         try {
-            const response = await fetch(`${API_URL}/register`,{
+            const response = await fetch(`${API_URL}${route}`,{
                 method: "POST",
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf_token,
+                 },
                 body: JSON.stringify({
                     tipoDocumento,
                     ciudad,

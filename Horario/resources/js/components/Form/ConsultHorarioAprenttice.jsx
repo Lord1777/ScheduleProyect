@@ -1,7 +1,7 @@
 import React from 'react'
-import '../../../css/Form/ConsultHorarioAprenttice.css'
 import logosena from '../../assets/img/LogoSena.png'
 import useDropdown from '../../hooks/useDropdown'
+import '../../../css/Form/ConsultHorarioAprenttice.css'
 
 export const ConsultHorarioAprenttice = () => {
 

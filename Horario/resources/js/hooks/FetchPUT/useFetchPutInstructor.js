@@ -6,10 +6,10 @@ export const useFetchPutInstructor = () => {
 
     const { requestOptionsPut } = useRequestOptionsPut();
 
-    const fetchPutInstructor = async(route, idUsario) =>{
+    const fetchPutInstructor = async(route, idUsuario) =>{
 
         try {
-            const response = await fetch(`${API_URL}${route}/${idUsario}`, useRequestOptionsPut)
+            const response = await fetch(`${API_URL}${route}/${idUsuario}`, useRequestOptionsPut)
 
             if (response.ok) {
                 const data = await response.json();

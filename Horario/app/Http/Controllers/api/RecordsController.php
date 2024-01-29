@@ -6,6 +6,7 @@ use App\Models\Ficha;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
 class RecordsController extends Controller
 {
@@ -61,6 +62,41 @@ class RecordsController extends Controller
 
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'ficha' => 'required|unique:fichas|numeric',
+            'idPrograma' => 'required|exists:programas,idPrograma',
+            'idModalidad' => 'required|exists:modalidades,idModalidad',
+            'idJornada' => 'required|exists:jornadas,idJornada'
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                'error' => $validator->errors()
+            ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
+        }
+
+        try{
+            Ficha::create([
+                'ficha' => intval($request->ficha),
+                'idPrograma' => intval($request->idPrograma),
+                'idModalidad' => intval($request->idModalidad),
+                'idJornada' => intval($request->idJornada),
+                'estado' => 'habilitado',
+                'limiteHoras' => 40,
+                'horasAsignadas' => 0,
+            ]);
+
+            return response()->json([
+                'status' => 1,
+                'message' => 'Record Created Succesfully'
+            ], Response::HTTP_CREATED); //201
+
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => "Register Instructor Error: $e"
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
     }
 
     public function show(Request $request)

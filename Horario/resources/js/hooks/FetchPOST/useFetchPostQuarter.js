@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
+import { API_URL, csrf_token } from '../../const/api';
 
-const useFetchPostQuarter = () => {
+
+const useFetchPostQuarter = (route) => {
 
     const fetchSubmitQuarter = async (trimestre, fechaInicio, fechaFinal) => {
 
         try {
-            const response = await fetch(`http://localhost:8000/api/createQuarters`, {
+            const response = await fetch(`${API_URL}${route}`, {
                 method: "POST",
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf_token,
+                 },
                 body: JSON.stringify({
                     trimestre,
                     fechaInicio,

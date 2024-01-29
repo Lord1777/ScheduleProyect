@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { API_URL } from '../../const/api';
 import useRequestOptionsGet from '../FetchGET/useRequestOptionsGet';
 
-const useFetchGetQuarters = () => {
+const useFetchGetQuarters = (route) => {
     const [dataQuarters, setDataQuarters] = useState([]);
 
     const { requestOptionsGet } = useRequestOptionsGet();
@@ -10,7 +10,7 @@ const useFetchGetQuarters = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${API_URL}/getQuarters`, requestOptionsGet)
+                const response = await fetch(`${API_URL}${route}`, requestOptionsGet)
                 const data = await response.json();
                 setDataQuarters(data);
             } catch (err) {

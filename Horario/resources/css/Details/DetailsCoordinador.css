@@ -92,6 +92,16 @@ form .grid-column-add textarea {
 
 /*Resposive*/
 
+@media (max-width:1024px){
+    .container_form_add_instructor{
+        background-color: #fff;
+    }
+
+    .box_form_instructor{
+        margin-top: -2rem;
+    }
+}
+
 @media(max-width:1010px){
 
     .container_image_form_instructor img{
@@ -99,6 +109,16 @@ form .grid-column-add textarea {
     }
     #widthDropdown{
         width: 18rem;
+    }
+}
+
+@media(max-width:912px){
+    .container_form_add_instructor img{
+        width: 15rem;
+    }
+
+    .container_form_add_instructor{
+        margin-left: -1rem;
     }
 }
 
@@ -123,6 +143,28 @@ form .grid-column-add textarea {
 
     .box_form_instructor{
         height: 55rem;
+    }
+}
+
+@media (max-width:820px){
+    .container_form_add_instructor{
+        background-color: #fff;
+        margin-left: -3rem;
+    }
+
+    .container_form_add_instructor img{
+        width: 10rem;
+    }
+}
+
+@media (max-width:768px){
+    .container_form_add_instructor{
+        margin-left: -6rem;
+        background-color: #fff;
+    }
+
+    .container_form_add_instructor img{
+        width: 10rem;
     }
 }
 
@@ -160,6 +202,18 @@ form .grid-column-add textarea {
     }
 }
 
+@media (max-width:540px){
+    .container_form_add_instructor img{
+        margin-top: -11rem;
+        margin-right: 4rem;
+    }
+
+    .box_form_instructor{
+        margin-top: 5rem;
+        margin-left: 16rem;
+    }
+}
+
 @media(max-width:500px){
 
     .container_image_form_instructor{
@@ -180,6 +234,119 @@ form .grid-column-add textarea {
     }
 }
 
+@media (max-width:430px){
+    .container_form_add_instructor{
+        background-color: #fff;
+        
+    }
+
+    .box_form_instructor{
+        margin-left: 30rem;
+        margin-top: -1rem;
+    }
+
+    .container_form_add_instructor img{
+        margin-right: 20rem;
+        margin-top: -2rem;
+    }
+
+    .container-btns{
+        margin-left: -1rem;
+        margin-top: -0.5rem;
+    }
+
+    .container-btns .guardar{
+        padding: 12.5px 13px;
+        width: 36%;
+    }
+
+    .container-btns .cancelar{
+        padding: 12.5px 9px;
+        width: 34%;
+    }
+}
+
+@media (max-width:414px){
+    .container_form_add_instructor{
+        background-color: #fff;
+    }
+
+    .container_form_add_instructor img{
+        margin-top: 6rem;
+        margin-left: 18rem;
+    }
+
+    .box_form_instructor{
+        margin-top: -6rem;
+        margin-left: 13rem;
+    }
+
+    .container-btns{
+        margin-left: -1rem;
+        margin-top: -0.5rem;
+    }
+
+    .container-btns .guardar{
+        padding: 12.5px 13px;
+        width: 36%;
+    }
+
+    .container-btns .cancelar{
+        padding: 12.5px 9px;
+        width: 34%;
+    }
+}
+
+@media (max-width:412px){
+    .container_form_add_instructor img{
+        margin-left: 18rem;
+        margin-top: 7rem;
+    }
+
+    .box_form_instructor{
+        margin-left: 13rem;
+    }
+}
+
+@media (max-width:375px){
+    .container_form_add_instructor{
+        background-color: #fff;
+    }
+
+    .box_form_instructor{
+        margin-top: -7rem;
+    }
+
+    .container-btns{
+        margin-left: -1rem;
+        margin-top: -0.5rem;
+    }
+
+    .container-btns .guardar{
+        padding: 12.5px 13px;
+        width: 36%;
+    }
+
+    .container-btns .cancelar{
+        padding: 12.5px 9px;
+        width: 34%;
+    }
+}
+
+@media (max-width:360px){
+    .container_form_add_instructor{
+        margin-left: 2.5rem;
+    }
+
+    .container_form_add_instructor img{
+        margin-top: 9rem;
+    }
+
+    .box_form_instructor{
+        margin-right: 8rem;
+    }
+}
+
 @media(max-width:330px){
 
     .container_form_add_elements form .grid-column-add input {
@@ -189,5 +356,19 @@ form .grid-column-add textarea {
         border: none;
         background-color: #D9D9D9;
         outline: none;
+    }
+}
+
+@media (max-width:280px){
+    .container_form_add_instructor img{
+        margin-left: 20rem;
+    }
+
+    .box_form_instructor{
+        margin-right: 18rem;
+    }
+
+    .container-btns{
+        margin-left: 0.1rem;
     }
 }

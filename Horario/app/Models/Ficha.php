@@ -10,7 +10,18 @@ class Ficha extends Model
     use HasFactory;
 
     protected $primaryKey = 'idFicha';
+
     public $timestamps = false;
+
+    protected $fillable = [
+        'ficha',
+        'limiteHoras',
+        'horasAsignadas',
+        'idPrograma',
+        'estado',
+        'idModalidad',
+        'idJornada',
+    ];
 
     public function programa()
     {

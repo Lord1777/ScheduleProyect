@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import logoSena from "../../assets/img/LogoSena.png";
-import useFetchPostInstructor from '../../hooks/FetchPOST/useFetchPostInstructor';
+import React from 'react';
+import logoSena from '../../assets/img/LogoSena.png';
+import useFetchPostCoordinator from '../../hooks/FetchPOST/useFetchPostCoordinator';
 import useValidationForm from '../../hooks/useValidationForm';
-import { useForm } from 'react-hook-form';
 import useDropdown from '../../hooks/useDropdown';
-import "../../../css/Form/FormAddInstructor.css";
+import { useForm } from 'react-hook-form';
+import { NavBar } from '../../components/NavBar/NavBar';
+import '../../../css/Details/DetailsCoordinador.css'
 
-const FormAddInstructor = () => {
+export const DetailsCoordinador = () => {
 
     const { register, setValue, handleSubmit, formState: { errors } } = useForm();
     const { NOMBRE,
@@ -19,15 +20,16 @@ const FormAddInstructor = () => {
         PROFESION,
         EXPERIENCIA,
         SEDE } = useValidationForm();
+    
     const dropdown1 = useDropdown(setValue, "TipoDocumento");
     const dropdown2 = useDropdown(setValue, "TipoContrato");
     const dropdown3 = useDropdown(setValue, "Sede");
 
-    const { fetchSubmitInstructor } = useFetchPostInstructor('/register')
+    const { fetchSubmitCoordinator } = useFetchPostCoordinator();
 
     const onSubmit = async (data) => {
 
-        await fetchSubmitInstructor(
+        await fetchSubmitCoordinator(
             data.Sede,
             data.TipoContrato,
             data.TipoDocumento,
@@ -43,9 +45,9 @@ const FormAddInstructor = () => {
 
     return (
         <>
-
-            {/* //FormAddCoordinador usa las mismas clases
+            {/* //FormAddCoordinador usa las mismas clases que FormAddInstructor
                 //La interfaz es igual */}
+                <NavBar></NavBar>
             <main className='container_form_add_instructor'>
                 <div className='box_form_instructor'>
                     <div className='container_form_add_elements'>
@@ -60,45 +62,45 @@ const FormAddInstructor = () => {
                                             type="text"
                                             name="nombreCompleto"
                                             className='long'
-                                            placeholder='Nombre Completo'
+                                            value='Andrea Potes'
                                             {...register("nombreCompleto", NOMBRE)}
                                         />
                                         {errors.nombreCompleto && <p className='errors_forms'>{errors.nombreCompleto.message}</p>}
                                     </div>
 
-
-                                    <div className='container-input-error'>
-                                        <div className={`Dropdown ${dropdown1.isDropdown ? 'open' : ''}`} id='widthDropdown'>
-                                            <input
-                                                type='text'
-                                                name='tipoDocumento'
-                                                className='textBox'
-                                                placeholder='Tipo de Documento'
-                                                readOnly
-                                                onClick={dropdown1.handleDropdown}
-                                                value={dropdown1.selectedOption}
-                                                {...register("TipoDocumento", TIPO_DOCUMENTO)}
-                                            />
-                                            <div className={`options ${dropdown1.isDropdown ? 'open' : ''}`}>
-                                                <div onClick={() => dropdown1.handleOptionClick('tarjeta identidad', setValue, 'TipoDocumento')}>Tarjeta Identidad</div>
-                                                <div onClick={() => dropdown1.handleOptionClick('cedula ciudadania', setValue, 'TipoDocumento')}>Cédula Ciudadanía</div>
-                                                <div onClick={() => dropdown1.handleOptionClick('cedula extrangeria', setValue, 'TipoDocumento')}>Cédula Extranjería</div>
+                                    
+                                        <div className='container-input-error'>
+                                            <div className={`Dropdown ${dropdown1.isDropdown ? 'open' : ''}`} id='widthDropdown'>
+                                                <input
+                                                    type='text'
+                                                    name='TipoDocumento'
+                                                    className='textBox'
+                                                    placeholder='Tipo de Documento'
+                                                    readOnly
+                                                    onClick={dropdown1.handleDropdown}
+                                                    value={dropdown1.selectedOption}
+                                                    {...register("TipoDocumento", TIPO_DOCUMENTO)}
+                                                />
+                                                <div className={`options ${dropdown1.isDropdown ? 'open' : ''}`}>
+                                                    <div onClick={() => dropdown1.handleOptionClick('tarjeta identidad', setValue, 'TipoDocumento')}>Tarjeta Identidad</div>
+                                                    <div onClick={() => dropdown1.handleOptionClick('cedula ciudadania', setValue, 'TipoDocumento')}>Cédula Ciudadanía</div>
+                                                    <div onClick={() => dropdown1.handleOptionClick('cedula extrangeria', setValue, 'TipoDocumento')}>Cédula Extranjería</div>
+                                                </div>
                                             </div>
+                                            {errors.TipoDocumento && <p className='errors_forms'>{errors.TipoDocumento.message}</p>}
                                         </div>
-                                        {errors.TipoDocumento && <p className='errors_forms'>{errors.TipoDocumento.message}</p>}
-                                    </div>
 
-                                    <div className='container-input-error'>
-                                        <input
-                                            type="number"
-                                            name="documento"
-                                            id=""
-                                            placeholder='Número de Documento'
-                                            {...register("documento", DOCUMENTO)}
-                                        />
-                                        {errors.documento && <p className='errors_forms'>{errors.documento.message}</p>}
-                                    </div>
-
+                                        <div className='container-input-error'>
+                                            <input
+                                                type="number"
+                                                name="documento"
+                                                id=""
+                                                placeholder='Número de Documento'
+                                                {...register("documento", DOCUMENTO)}
+                                            />
+                                            {errors.documento && <p className='errors_forms'>{errors.documento.message}</p>}
+                                        </div>
+                                    
 
 
                                     <div className='container-input-error'>
@@ -127,13 +129,12 @@ const FormAddInstructor = () => {
                                         <div className={`Dropdown ${dropdown2.isDropdown ? 'open' : ''}`} id='widthDropdown'>
                                             <input
                                                 type='text'
-                                                name='contrato'
+                                                name='TipoContrato'
                                                 className='textBox'
-                                                placeholder='Tipo de Contrato'
                                                 readOnly
                                                 onClick={dropdown2.handleDropdown}
-                                                value={dropdown2.selectedOption}
-                                                {...register("TipoContrato", TIPO_CONTRATO)}
+                                                value='Coordinador'
+                                                // {...register("TipoContrato", TIPO_CONTRATO)}
                                             />
                                             <div className={`options ${dropdown2.isDropdown ? 'open' : ''}`}>
                                                 <div onClick={() => dropdown2.handleOptionClick('contratista', setValue, 'TipoContrato')}>Contratista</div>
@@ -184,7 +185,7 @@ const FormAddInstructor = () => {
                                         <div className={`Dropdown ${dropdown3.isDropdown ? 'open' : ''}`} id='widthDropdown'>
                                             <input
                                                 type='text'
-                                                name='sede'
+                                                name='Sede'
                                                 className='textBox'
                                                 placeholder='Sede'
                                                 readOnly
@@ -215,4 +216,4 @@ const FormAddInstructor = () => {
     )
 }
 
-export default FormAddInstructor
+export default DetailsCoordinador;

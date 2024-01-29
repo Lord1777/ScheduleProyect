@@ -5,7 +5,7 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-.container_form_add_instructor{
+.container_form_add_instructor {
     width: 100%;
     height: 100%;
     display: flex;
@@ -15,7 +15,7 @@
     padding-top: 5rem;
 }
 
-.box_form_instructor{
+.box_form_instructor {
     margin-top: 2rem;
     margin-bottom: 2rem;
     background-color: #fff;
@@ -25,7 +25,22 @@
     padding: 3.5rem 5rem;
 }
 
-.container_form_add_elements{
+textarea{
+    max-width: 100%;
+    max-height: 12rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: #D9D9D9;
+    outline: none;
+    padding: 1.1rem;
+    font-size: 0.8rem;
+    overflow: auto;
+    box-sizing: border-box;
+    resize: none;
+    transition: all 1s;
+}
+
+.container_form_add_elements {
     display: flex;
     justify-content: center;
     align-items: start;
@@ -33,20 +48,21 @@
     height: 100%;
 }
 
-.container_image_form_instructor{
+.container_image_form_instructor {
     width: 100%;
     height: 27rem;
     margin-top: 2rem;
     display: flex;
     justify-content: space-evenly;
 
-    img{
+    img {
         width: 16rem;
         height: 15rem;
     }
 
-    #long{
-        grid-column: span 2; /* Esta propiedad indica que debe abarcar dos columnas */
+    #long {
+        grid-column: span 2;
+        /* Esta propiedad indica que debe abarcar dos columnas */
         width: calc(100%);
     }
 }
@@ -60,20 +76,45 @@
     background-color: #D9D9D9;
     outline: none;
 }
+
 .container_form_add_elements form .grid-column input[type="number"]::-webkit-inner-spin-button,
-.container_form_add_elements form .grid-column input[type="number"]::-webkit-outer-spin-button{
+.container_form_add_elements form .grid-column input[type="number"]::-webkit-outer-spin-button {
     appearance: none;
     -webkit-appearance: none;
 }
 
-.container_form_add_elements form .grid-column input[type="number"]{
+.container_form_add_elements form .grid-column input[type="number"] {
     appearance: textfield;
     -moz-appearance: textfield;
 }
 
 /*Responsive*/
 
-@media(max-width:830px){
+@media (max-width:1024px){
+    .container_form_add_instructor{
+        background-color: #fff;
+    }
+
+    .container_form_add_instructor img{
+        margin-right: 1rem;
+    }
+
+    .box_form_instructor{
+        margin-right: 4rem;
+    }
+}
+
+@media (max-width:912px){
+    .box_form_instructor{
+        margin-left: 2rem;
+    }
+
+    .container_form_add_instructor img{
+        margin-left: 2rem;
+    }
+}
+
+@media(max-width:830px) {
     .box_form_ambiente {
         margin-top: 2rem;
         margin-bottom: 2rem;
@@ -85,7 +126,49 @@
     }
 }
 
-@media(max-width:760px){
+@media(max-width:830px) {
+    .container_form_add_instructor{
+        background-color: #fff;
+    }
+
+    .container_form_add_instructor img{
+        margin-left: 5rem;
+    }
+}
+
+@media (max-width:768px) {
+    .container_form_add_instructor {
+        background-color: #fff;
+    }
+
+    .container_form_add_instructor img {
+        margin-top: 0.5rem;
+        margin-left: 9rem;
+        /* display: none; */
+    }
+
+    .box_form_instructor {
+        margin-top: 2rem;
+        margin-right: 0.5rem;
+    }
+
+    textarea {
+        max-width: 100%;
+        max-height: 12rem;
+        border: none;
+        border-radius: 0.5rem;
+        background-color: #D9D9D9;
+        outline: none;
+        padding: 1.1rem;
+        font-size: 0.8rem;
+        overflow: auto;
+        box-sizing: border-box;
+        resize: none;
+        transition: all 1s;
+    }
+}
+
+@media(max-width:760px) {
     .container_form_add_elements form .grid-column input {
         padding: 1.2rem;
         border-radius: 0.3rem;
@@ -97,7 +180,7 @@
     }
 }
 
-@media(max-width:670px){
+@media(max-width:670px) {
     .box_form_ambiente {
         margin-top: 2rem;
         margin-bottom: 2rem;
@@ -109,7 +192,7 @@
     }
 }
 
-@media(max-width:550px){
+@media(max-width:550px) {
     .box_form_ambiente {
         margin-top: 2rem;
         margin-bottom: 2rem;
@@ -120,7 +203,7 @@
         padding: 3rem 5rem;
     }
 
-    .container_form_add_elements{
+    .container_form_add_elements {
         height: auto;
         margin-top: 5rem;
         display: flex;
@@ -128,7 +211,35 @@
     }
 }
 
-@media(max-width:420px){
+@media (max-width:540px){
+    .container_form_add_instructor{
+        margin-left: 1rem;
+    }
+
+    .container_form_add_instructor img{
+        width: 13rem;
+        height: 13rem;
+        margin-left: 1rem;
+        margin-top: -14rem;
+    }
+
+    form{
+        margin-left: -19rem;
+    }
+}
+
+@media (max-width:430px) {
+    .container_form_add_instructor {
+        background-color: #fff;
+    }
+
+    .container_form_add_instructor img {
+        margin-top: 8rem;
+        width: 10rem;
+    }
+}
+
+@media (max-width:420px) {
     .box_form_ambiente {
         margin-top: 2rem;
         margin-bottom: 2rem;
@@ -140,13 +251,63 @@
     }
 }
 
-@media (max-width:375px){
-    .container_form_add_instructor img{
-        display: none;
+@media (max-width:414px) {
+    .container_form_add_instructor img {
+        margin-top: 9rem;
+        width: 10rem;
+        margin-right: 2rem;
+    }
+
+    .container_form_add_instructor {
+        background-color: #fff;
+    }
+
+    form{
+        margin-left: -1rem;
     }
 }
 
-@media(max-width:330px){
+@media (max-width:375px) {
+    .container_form_add_instructor img {
+        margin-top: 9rem;
+        width: 10rem;
+        margin-left: 1rem;
+    }
+
+    .container_form_add_instructor {
+        background-color: #fff;
+    }
+
+    .box_form_instructor {
+        margin-left: -1rem;
+    }
+
+    .container-btns {
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width:360px) {
+
+    .container_form_add_instructor{
+        width: 8rem;
+    }
+
+    .box_form_instructor {
+        margin-left: 18rem;
+    }
+
+    textarea {
+        margin-top: 0.5rem;
+    }
+
+    .container_form_add_instructor img{
+        margin-right: 9rem;
+        margin-top: 10rem;
+    }
+}
+
+@media(max-width:330px) {
     .box_form_ambiente {
         margin-top: 2rem;
         margin-bottom: 2rem;
@@ -165,5 +326,15 @@
         border: none;
         background-color: #D9D9D9;
         outline: none;
+    }
+}
+
+@media (max-width:280px){
+    .container_form_add_instructor img{
+        margin-left: 9rem;
+    }
+
+    form{
+        margin-left: 0.5rem;
     }
 }

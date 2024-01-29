@@ -5,26 +5,32 @@ import '../../../css/Form/FormAddFicha.css';
 import useDropdown from '../../hooks/useDropdown';
 import useValidationForm from '../../hooks/useValidationForm';
 import { useForm } from 'react-hook-form';
-import useFetchPostRecord  from '../../hooks/FetchPOST/useFetchPostRecord';
+import useFetchPostRecord from '../../hooks/FetchPOST/useFetchPostRecord';
+import useFetchGetPrograms from '../../hooks/FetchGetResources/useFetchGetPrograms';
 
 export const FormAddFicha = () => {
     
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
-    const dropdown1 = useDropdown(setValue, 'Modalidad');
-    const dropdown2 = useDropdown(setValue, 'NivelFormacion');
-    const dropdown3 = useDropdown(setValue, 'JornadaAcademica');
-    const { NFICHA, DURACION, PROGRAMA, MODALIDAD, NIVEL_FORMACION, JORNADA_ACADEMICA } = useValidationForm()
+    const dropdown1 = useDropdown(setValue, 'modalidad');
+    const dropdown2 = useDropdown(setValue, 'programa');
+    const dropdown3 = useDropdown(setValue, 'jornada');
+    const { PROGRAMA, NFICHA, MODALIDAD, JORNADA_ACADEMICA } = useValidationForm();
 
-    const {fetchSubmitRecord} = useFetchPostRecord();
+    const { fetchSubmitRecord } = useFetchPostRecord('/createRecord');
+    const { dataPrograms } = useFetchGetPrograms('/getPrograms');
+
+    const getProgramId = (programName) => {
+        const programa = dataPrograms.find((programa) => programa.nombre === programName);
+        return programa ? programa.idPrograma : null
+    }
 
     const onSubmit = async(data) => {
         
+        // console.log(data)
         await fetchSubmitRecord(
-            data.ficha, 
-            data.duracion, 
-            data.programa,
+            parseInt(data.ficha),
+            getProgramId(data.programa),
             data.modalidad,
-            data.nivelFormacion,
             data.jornada,
         )
     }
@@ -38,58 +44,51 @@ export const FormAddFicha = () => {
                         <form method='POST' onSubmit={handleSubmit(onSubmit)}>
                             <div className='grid-column'>
                                 <div>
-                                    <input type='number' name='NFicha' placeholder='N° Ficha' {...register("NFicha", NFICHA)} />
-                                    {errors.NFicha && <p className='errors_forms'>{errors.NFicha.message}</p>}
+                                    <input type='number' name='ficha' placeholder='N° Ficha' {...register("ficha", NFICHA)} />
+                                    {errors.ficha && <p className='errors_forms'>{errors.ficha.message}</p>}
                                 </div>
-
-                                <div>
-                                    <input type='number' name='Duracion' placeholder='Duración' {...register("Duracion", DURACION)} />
-                                    {errors.Duracion && <p className='errors_forms'>{errors.Duracion.message}</p>}
-                                </div>
-
-                                <div>
-                                    <input type='text' name='Programa' placeholder='Programa' {...register("Programa", PROGRAMA)} />
-                                    {errors.Programa && <p className='errors_forms'>{errors.Programa.message}</p>}
-                                </div>
-
+                                
                                 <div>
                                     <div className={`Dropdown ${dropdown1.isDropdown ? 'open' : ''}`}>
                                         <input
                                             type='text'
                                             className='textBox'
                                             placeholder='Modalidad'
+                                            name='modalidad'
                                             readOnly
                                             onClick={dropdown1.handleDropdown}
                                             value={dropdown1.selectedOption}
-                                            {...register("Modalidad", MODALIDAD)}
+                                            {...register("modalidad", MODALIDAD)}
                                         />
                                         <div className={`options ${dropdown1.isDropdown ? 'open' : ''}`}>
-                                            <div onClick={() => dropdown1.handleOptionClick('Presencial', setValue, 'Modalidad')}>Presencial</div>
-                                            <div onClick={() => dropdown1.handleOptionClick('Virtual', setValue, 'Modalidad')}>Virtual</div>
+                                            <div onClick={() => dropdown1.handleOptionClick('Presencial', setValue, 'modalidad')}>Presencial</div>
+                                            <div onClick={() => dropdown1.handleOptionClick('Virtual', setValue, 'modalidad')}>Virtual</div>
                                         </div>
                                     </div>
-                                    {errors.Modalidad && <p className='errors_forms'>{errors.Modalidad.message}</p>}
+                                    {errors.modalidad && <p className='errors_forms'>{errors.modalidad.message}</p>}
                                 </div>
-
 
                                 <div>
                                     <div className={`Dropdown ${dropdown2.isDropdown ? 'open' : ''}`}>
                                         <input
                                             type='text'
                                             className='textBox'
-                                            placeholder='Nivel de Formación'
-                                            name='NivelFormacion'
+                                            placeholder='Programa de Formación'
+                                            name='programa'
                                             readOnly
                                             onClick={dropdown2.handleDropdown}
                                             value={dropdown2.selectedOption}
-                                            {...register("NivelFormacion", NIVEL_FORMACION)}
+                                            {...register("programa", PROGRAMA)}
                                         />
                                         <div className={`options ${dropdown2.isDropdown ? 'open' : ''}`}>
-                                            <div onClick={() => dropdown2.handleOptionClick('Tecnico', setValue, 'NivelFormacion')}>Técnico</div>
-                                            <div onClick={() => dropdown2.handleOptionClick('Tecnologo', setValue, 'NivelFormacion')}>Tecnólogo</div>
+                                            {
+                                                dataPrograms && dataPrograms.length > 0 && dataPrograms.map((program) => (
+                                                    <div key={program.idPrograma} onClick={() => dropdown2.handleOptionClick(`${program.nombre}`, setValue, 'programa')}>{program.nombre}</div>
+                                                ))
+                                            }
                                         </div>
                                     </div>
-                                    {errors.NivelFormacion && <p className='errors_forms'>{errors.NivelFormacion.message}</p>}
+                                    {errors.programa && <p className='errors_forms'>{errors.programa.message}</p>}
                                 </div>
 
                                 <div>
@@ -98,18 +97,18 @@ export const FormAddFicha = () => {
                                             type='text'
                                             className='textBox'
                                             placeholder='Jornada Académica'
-                                            name='JornadaAcademica'
+                                            name='jornada'
                                             readOnly
                                             onClick={dropdown3.handleDropdown}
                                             value={dropdown3.selectedOption}
-                                            {...register("JornadaAcademica", JORNADA_ACADEMICA)}
+                                            {...register("jornada", JORNADA_ACADEMICA)}
                                         />
                                         <div className={`options ${dropdown3.isDropdown ? 'open' : ''}`}>
-                                            <div onClick={() => dropdown3.handleOptionClick('Diurna', setValue, 'JornadaAcademica')}>Diurna</div>
-                                            <div onClick={() => dropdown3.handleOptionClick('Nocturna', setValue, 'JornadaAcademica')}>Nocturna</div>
+                                            <div onClick={() => dropdown3.handleOptionClick('Diurna', setValue, 'jornada')}>Diurna</div>
+                                            <div onClick={() => dropdown3.handleOptionClick('Nocturna', setValue, 'jornada')}>Nocturna</div>
                                         </div>
                                     </div>
-                                    {errors.JornadaAcademica && <p className='errors_forms'>{errors.JornadaAcademica.message}</p>}
+                                    {errors.jornada && <p className='errors_forms'>{errors.jornada.message}</p>}
                                 </div>
 
                             </div>

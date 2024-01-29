@@ -10,8 +10,21 @@ use Illuminate\Support\Facades\Validator;
 
 class ProgramsController extends Controller
 {
+    public function getPrograms()
+    {
+        try{
+            $programa = Programa::where('estado', 'habilitado')->get();
+            return response()->json($programa, Response::HTTP_OK); //200
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Request Instructors Error: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
     public function indexEnabled()
     {
+        
     }
 
     public function indexDisable()
@@ -37,7 +50,7 @@ class ProgramsController extends Controller
                 'nombre' => strval($request->nombre),
                 'duracion' => intval($request->duracion),
                 'estado' => 'habilitado',
-                'idNivelFormacion' => $request->idNivelFormacion,
+                'idNivelFormacion' => intval($request->idNivelFormacion),
             ]);
 
             return response()->json([

@@ -1,12 +1,9 @@
-import {getNivelDeFormacionByName, getModalidadByName, getJornadaByName} from '../useObjectMapping';
-import { API_URL } from '../../const/api';
+import {getModalidadByName, getJornadaByName} from '../useObjectMapping';
+import { API_URL, csrf_token } from '../../const/api';
 
-const useFetchPostRecord = () => {
+const useFetchPostRecord = (route) => {
 
-    const fetchSubmitRecord = async (ficha, duracion, programa, modalidad, nivelFormacion, jornada) =>{
-
-        //Id del nivelFormación
-        let idNivelFormacion = getNivelDeFormacionByName(nivel);
+    const fetchSubmitRecord = async (ficha, idPrograma, modalidad, jornada) => {
 
         //id de la Modalidad
         let idModalidad = getModalidadByName(modalidad);
@@ -14,16 +11,23 @@ const useFetchPostRecord = () => {
         // id de la Jornada
         let idJornada = getJornadaByName(jornada);
 
+        console.log(
+            ficha, 
+            idPrograma, 
+            idModalidad, 
+            idJornada)
+
         try {
-            const response = await fetch(`${API_URL}/createRecord`, {
-                method: "POST", 
-                headers: { 'Content-Type': 'application/json'},
+            const response = await fetch(`${API_URL}${route}`, {
+                method: 'POST', 
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf_token,
+                },
                 body: JSON.stringify({
                     ficha, 
-                    duracion,
-                    programa, 
+                    idPrograma, 
                     idModalidad, 
-                    idNivelFormacion, 
                     idJornada,
                 })
             })

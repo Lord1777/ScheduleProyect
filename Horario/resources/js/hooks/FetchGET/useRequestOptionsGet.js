@@ -1,8 +1,7 @@
 import React,{useState} from 'react'
+import { csrf_token } from '../../const/api';
 
 export const useRequestOptionsGet = () => {
-
-  const csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     let myHeaders = new Headers();
     myHeaders.set('Cookie', csrf_token);

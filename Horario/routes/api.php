@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 
 //'cors' es el alias de Middleware para las cors
 
-
 //Sanctum - Autenticacion
 Route::group(['middleware' => ['cors']], function(){
     Route::post('/register', [AuthController::class, 'register']);
@@ -48,10 +47,12 @@ Route::group(['middleware' => ['cors']], function(){
 
 
     //Programas
+    Route::get('/getPrograms', [ProgramsController::class, 'getPrograms']);
     Route::post('/createProgram', [ProgramsController::class, 'store']);
 
 
     //Fichas
+    Route::post('/createRecord', [RecordsController::class, 'store']);
     Route::get('/getEnabledRecords', [RecordsController::class, 'indexEnabled']);
     Route::get('/getDisableRecords', [RecordsController::class, 'indexDisable']);
 

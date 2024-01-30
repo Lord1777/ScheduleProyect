@@ -34,7 +34,7 @@ export const ScheduleAdd = () => {
 
     const onSubmit = async (data) => {
 
-        if(globalStoreBoxes.length > 0){
+        if (globalStoreBoxes.length > 0) {
             await fetchSubmitSchedule({
                 idTrimestre: getQuarterId(data.trimestre),
                 idFicha: idFicha,
@@ -60,8 +60,8 @@ export const ScheduleAdd = () => {
                     <div className={`desplegable-options ${isDropdown ? 'open' : ''}`}>
                         {dataQuarters && dataQuarters.length > 0 && dataQuarters.map((quarter) => (
                             <div key={quarter.idTrimestre} onClick={() =>
-                                 handleOptionClick(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`)}>
-                                    {quarter.trimestre} | {quarter.fechaInicio} - {quarter.fechaFinal} 
+                                handleOptionClick(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`)}>
+                                {quarter.trimestre} | {quarter.fechaInicio} - {quarter.fechaFinal}
                             </div>
                         ))}
                     </div>
@@ -110,16 +110,17 @@ export const ScheduleAdd = () => {
                     ))}
                 </div>
 
-                <form method="post" onSubmit={handleSubmit(onSubmit)}>
-                    <div className="container-buttons">
-                        {selectedBoxes.size > 0 && (
-                            <button className='asignar' onClick={openModal}>
-                                Asignar
-                            </button>
-                        )}
+                <div className="container-buttons">
+                    {selectedBoxes.size > 0 && (
+                        <button className='asignar' onClick={openModal}>
+                            Asignar
+                        </button>
+                    )}
+                    <form method="post" onSubmit={handleSubmit(onSubmit)}>
                         <button className='guardar' type='submit'>Guardar</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+
             </div>
             <ModalAsignar
                 openModal={isModal}

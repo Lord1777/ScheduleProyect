@@ -30,11 +30,14 @@ export const ScheduleAdd = () => {
         return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
     };
 
+    let idFicha = 5;
+
     const onSubmit = async (data) => {
 
-        if(globalStoreBoxes.size > 0){
+        if(globalStoreBoxes.length > 0){
             await fetchSubmitSchedule({
-                trimestre: getQuarterId(data.trimestre),
+                idTrimestre: getQuarterId(data.trimestre),
+                idFicha: idFicha,
                 globalStoreBoxes
             })
         }

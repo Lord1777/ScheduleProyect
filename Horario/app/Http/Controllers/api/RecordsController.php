@@ -94,7 +94,7 @@ class RecordsController extends Controller
             
         } catch (\Exception $e) {
             return response()->json([
-                'error' => "Register Instructor Error: $e"
+                'error' => "Register Record Error: $e"
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }

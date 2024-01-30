@@ -4,11 +4,9 @@ import { API_URL, csrf_token } from '../../const/api';
 
 export const useFetchPostSchedule = (route) => {
 
-    const fetchSubmitSchedule = async({ trimestre, globalStoreBoxes}) =>{
+    const fetchSubmitSchedule = async({ idTrimestre, idFicha, globalStoreBoxes}) =>{
+        console.log(idTrimestre, idFicha, globalStoreBoxes);
         try {
-
-            console.log(trimestre, globalStoreBoxes);
-
             const response = await fetch(`${API_URL}${route}`, {
                 method: "POST",
                 headers: { 
@@ -16,14 +14,18 @@ export const useFetchPostSchedule = (route) => {
                     'X-CSRF-TOKEN': csrf_token,
                  },
                 body: JSON.stringify({
-                    trimestre,
+                    idTrimestre,
+                    idFicha,
                     globalStoreBoxes: Array.from(globalStoreBoxes)
                 })
             });
 
-            if (response.ok) {
-                const data = await response.json();
-                console.log(data.message); // Mensaje definido en Laravel
+            const data = await response.json();
+
+            if (data.error) {
+                console.error('Error:', data.error);
+            } else {
+                console.log(data.message);
             }
         } catch (error) {
             console.log(` Error Creating Schedule: ${error}`);

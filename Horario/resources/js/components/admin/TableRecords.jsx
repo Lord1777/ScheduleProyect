@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faPenToSquare, faCircle, faUserCheck, faUserSlash } from '@fortawesome/free-solid-svg-icons';
-import '../../../css/admin/TableInstructors.css';
-import '../../../css/admin/SearchButtons.css'
-import '../../../css/admin/Board.css'
-import useFetchGetRecord from '../../hooks/FetchGET/useFetchGetRecord';
 import { Link } from 'react-router-dom';
+import '../../../css/admin/Board.css';
+import '../../../css/admin/SearchButtons.css';
+import '../../../css/admin/TableInstructors.css';
+import useFetchGetRecord from '../../hooks/FetchGET/useFetchGetRecord';
 
 export const TableRecords = () => {
 
@@ -54,27 +54,27 @@ export const TableRecords = () => {
                         {dataRecord.data && dataRecord.data.length > 0 && dataRecord.data.map((record) => {
 
                             return (
-                                <tr>
+                                <tr key={record.id}>
                                     <td>{record.ficha}</td>
                                     <td>{record.nombre}</td>
                                     <td>{record.nivel}</td>
                                     <td>{record.jornada}</td>
                                     <td>{record.modalidad}</td>
                                     <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faPenToSquare} className='iconEdit' />
-                                        </button>
+                                        <Link to={`/UpdateFicha/${record.idFicha}`}>
+                                            <button>
+                                                <FontAwesomeIcon icon={faPenToSquare} className='iconEdit' />
+                                            </button>
+                                        </Link>
                                     </td>
                                     {disabled ? (
-                                        <td>
-                                            <Link to={`/DetallesFicha/${record.id}`}>
+                                        <td key={`habilitar-${record.id}`}>
                                             <button>
                                                 <FontAwesomeIcon icon={faUserCheck} className='iconHabilitar' />
                                             </button>
-                                            </Link>
                                         </td>
                                     ) : (
-                                        <td>
+                                        <td key={`inhabilitar-${record.id}`}>
                                             <button>
                                                 <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar' />
                                             </button>

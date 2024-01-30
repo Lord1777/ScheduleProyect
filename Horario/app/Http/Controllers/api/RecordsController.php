@@ -18,6 +18,7 @@ class RecordsController extends Controller
                 ->join('niveles_de_formacion', 'programas.idNivelFormacion', '=', 'niveles_de_formacion.idNivelFormacion')
                 ->join('jornadas', 'fichas.idJornada', '=', 'jornadas.idJornada')
                 ->select(
+                    'fichas.idFicha',
                     'fichas.ficha',
                     'fichas.limiteHoras',
                     'fichas.horasAsignadas',
@@ -43,6 +44,7 @@ class RecordsController extends Controller
                 ->join('niveles_de_formacion', 'programas.idNivelFormacion', '=', 'niveles_de_formacion.idNivelFormacion')
                 ->join('jornadas', 'fichas.idJornada', '=', 'jornadas.idJornada')
                 ->select(
+                    'fichas.idFicha',
                     'fichas.ficha',
                     'fichas.limiteHoras',
                     'fichas.horasAsignadas',
@@ -99,15 +101,82 @@ class RecordsController extends Controller
         }
     }
 
-    public function show(Request $request)
+    public function show(string $idFicha)
     {
-    }
+        try {
+            $record = Ficha::join('programas', 'fichas.idPrograma', '=', 'programas.idPrograma')
+                           ->select(
+                               'fichas.*',
+                               'programas.nombre as programa'
+                           )
+                           ->findOrFail($idFicha);
+    
+            return response()->json($ficha, Response::HTTP_OK);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'status' => 0,
+                'error' => 'Record Not Found'
+            ], Response::HTTP_NOT_FOUND); //404
+    
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Error Getting Record: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    } 
 
-    public function update()
+    public function update(Request $request, string $idFicha)
     {
+        $validator = Validator::make($request->all(), [
+            'NFicha' => 'required|numeric',
+            'Duracion' => 'required|numeric',
+            'Programa' => 'required|string',
+            'Modalidad' => 'required|string', // Ajusta según lo que espera el servidor
+            'NivelFormacion' => 'required|string', // Ajusta según lo que espera el servidor
+            'JornadaAcademica' => 'required|string', // Ajusta según lo que espera el servidor
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 0,
+                'errors' => $validator->errors()
+            ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
+        }
+    
+        try {
+            $ficha = Fichas::findOrFail($idFicha);
+    
+            $ficha->update([
+                'NFicha' => intval($request->NFicha),
+                'Duracion' => intval($request->Duracion),
+                'Programa' => $request->Programa,
+                'Modalidad' => $request->Modalidad,
+                'NivelFormacion' => $request->NivelFormacion,
+                'JornadaAcademica' => $request->JornadaAcademica,
+                // Agrega otros campos según sea necesario
+            ]);
+    
+            return response()->json([
+                'status' => 1,
+                'message' => 'Successfully Updated Ficha',
+            ], Response::HTTP_OK); //200
+    
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'status' => 0,
+                'error' => 'Ficha Not Found'
+            ], Response::HTTP_NOT_FOUND); //404
+    
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 0,
+                'error' => 'Error Updating Ficha: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
     }
 
     public function destroy()
     {
     }
+
 }

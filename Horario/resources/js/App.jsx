@@ -30,6 +30,7 @@ import { DetailsAmbiente } from '../js/pages/Details/DetailsAmbiente.jsx'
 import { DetailsFicha } from '../js/pages/Details/DetailsFicha.jsx'
 import { DetailsCoordinador } from '../js/pages/Details/DetailsCoordinador.jsx'
 import { DetailsTrimestre } from '../js/pages/Details/DetailsTrimestre.jsx'
+import { UpdateRecors } from './pages/Update/UpdateRecors';
 
 
 
@@ -52,6 +53,7 @@ function App() {
                     <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
                     <Route path='/AddHorario' element={<AddSchedule />} />
                     <Route path='/UpdateAmbiente/:id' element={<UpdateEnvironments />} />
+                    <Route path='/UpdateFicha/:id' element={<UpdateRecors />} />
                     <Route path='/modal' element={<ModalAsignar />} />
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={role} />}  >
@@ -61,6 +63,7 @@ function App() {
                         <Route path='/CrudCoordinadores' element={<CrudCoordinators />} />
                         <Route path='/CrudFichas' element={<CrudRecords />} />
                         <Route path='/CrudTrimestres' element={<CrudQuarters />} />
+                        <Route path='/CrudAmbientes' element={<CrudEnvironments/>} />
                         <Route path='/AddCoordinador' element={<AddCoordinator />} />
                         <Route path='/AddInstructor' element={<AddInstructors />} />
                         <Route path='/AddAmbiente' element={<AddEnvironments />} />

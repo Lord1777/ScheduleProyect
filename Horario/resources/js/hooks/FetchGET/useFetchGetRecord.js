@@ -12,6 +12,7 @@ const useFetchGetRecord = (route, page) => {
             .then((response) => response.json())
             .then((result) => setDataRecord(result))
             .catch((err) => console.log(err));
+            console.log(dataRecord);
     }, [route, page]);
 
     return ({

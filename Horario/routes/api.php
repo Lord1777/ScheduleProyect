@@ -11,6 +11,7 @@ use App\Http\Controllers\api\ProgramsController;
 use App\Http\Controllers\api\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
+
 //'cors' es el alias de Middleware para las cors
 
 //Sanctum - Autenticacion
@@ -56,6 +57,8 @@ Route::group(['middleware' => ['cors']], function(){
     Route::post('/createRecord', [RecordsController::class, 'store']);
     Route::get('/getEnabledRecords', [RecordsController::class, 'indexEnabled']);
     Route::get('/getDisableRecords', [RecordsController::class, 'indexDisable']);
+    Route::get('/GetFicha/{id}', [RecordsController::class, 'show']);
+
 
 
     //Trimestres

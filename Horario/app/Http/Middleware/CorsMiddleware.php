@@ -30,5 +30,5 @@ class CorsMiddleware
         $response->header('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-csrf-token');
 
         return $response;
-    }
+    } 
 }

@@ -24,8 +24,11 @@ export const useFetchPostSchedule = (route) => {
 
             if (data.error) {
                 console.error('Error:', data.error);
+                //alert(data.error);
+                alert(data.message);
             } else {
                 console.log(data.message);
+                alert(data.message);
             }
         } catch (error) {
             console.log(` Error Creating Schedule: ${error}`);

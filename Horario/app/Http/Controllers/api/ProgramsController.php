@@ -17,7 +17,7 @@ class ProgramsController extends Controller
             return response()->json($programa, Response::HTTP_OK); //200
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'Request Instructors Error: ' . $e->getMessage()
+                'error' => 'Request Program Error: ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
@@ -61,7 +61,7 @@ class ProgramsController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 0,
-                'error' => 'Request Instructors Error: ' . $e->getMessage()
+                'error' => 'Request Program Error: ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }

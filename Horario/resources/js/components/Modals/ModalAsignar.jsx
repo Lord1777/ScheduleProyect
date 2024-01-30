@@ -56,8 +56,9 @@ export const ModalAsignar = ({
             const boxIndex = boxIndexArray[0];
 
             setStoreBoxes((prevStoreBoxes) => {
-                const newStoreBoxes = new Set(prevStoreBoxes);
-                newStoreBoxes.add({
+                // Cambiando de Set a Array
+                const newStoreBoxes = [...prevStoreBoxes];
+                newStoreBoxes.push({
                     boxIndex,
                     idInstructor: getInstructorId(data.instructor),
                     idAmbiente: getAmbienteId(parseInt(data.ambiente)),

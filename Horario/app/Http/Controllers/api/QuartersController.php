@@ -13,7 +13,9 @@ class QuartersController extends Controller
     public function getQuarters()
     {
         try{
-            $quarter = Trimestre::where('estado', 'habilitado')->get();
+            $quarter = Trimestre::where('estado', 'habilitado')
+            ->orderBy('fechaInicio', 'asc')
+            ->get();
             return response()->json($quarter, Response::HTTP_OK); //200
         } catch (\Exception $e) {
             return response()->json(['error' => "Request quarters error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500

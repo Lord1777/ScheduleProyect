@@ -11,7 +11,12 @@ class HorarioAcademico extends Model
 
     protected $primaryKey = 'idHorario';
 
+    protected $table = 'horarios_academicos';
+
+    public $timestamps = false;
+
     protected $fillable = [
+        'idHorario',
         'estado',
         'idFicha',
         'idTrimestre',

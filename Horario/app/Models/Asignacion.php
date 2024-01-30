@@ -11,6 +11,10 @@ class Asignacion extends Model
 
     protected $primaryKey = 'idAsignacion';
 
+    protected $table = 'asignaciones';
+
+    public $timestamps = false;
+
     protected $fillable = [
         'boxIndex',
         'idAmbiente',

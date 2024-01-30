@@ -10,6 +10,8 @@ class NivelDeFormacion extends Model
     use HasFactory;
 
     protected $primaryKey = 'idNivelFormacion';
+
     public $timestamps = false;
+    
     protected $table = 'niveles_de_formacion';
 }

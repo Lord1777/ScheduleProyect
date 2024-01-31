@@ -58,6 +58,7 @@ Route::group(['middleware' => ['cors']], function(){
     Route::get('/getEnabledRecords', [RecordsController::class, 'indexEnabled']);
     Route::get('/getDisableRecords', [RecordsController::class, 'indexDisable']);
     Route::get('/GetFicha/{id}', [RecordsController::class, 'show']);
+    Route::put('/updateRecord/{id}', [RecordsController::class, 'update']);
 
 
 

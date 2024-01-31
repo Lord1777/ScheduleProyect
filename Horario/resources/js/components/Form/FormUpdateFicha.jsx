@@ -16,14 +16,13 @@ export const FormUpdateFicha = () => {
         formState: { errors },
     } = useForm();
     const dropdown1 = useDropdown(setValue, "Modalidad");
-    const dropdown2 = useDropdown(setValue, "NivelFormacion");
-    const dropdown3 = useDropdown(setValue, "JornadaAcademica");
+    const dropdown2 = useDropdown(setValue, "JornadaAcademica");
+    
     const {
         NFICHA,
         DURACION,
         PROGRAMA,
         MODALIDAD,
-        NIVEL_FORMACION,
         JORNADA_ACADEMICA,
     } = useValidationForm();
 
@@ -32,26 +31,9 @@ export const FormUpdateFicha = () => {
     const [duracion, setDuracion] = useState(null);
     const [programa, setPrograma] = useState(null);
     const [modalidad, setModalidad] = useState(null);
-    const [nivelFormacion, setNivelFormacion] = useState(null);
     const [jornada, setJornada] = useState(null);
 
-    const { fetchPutRecord } = useFetchPutRecord(id);
 
-    const onSubmit = async (data) => {
-        try {
-            await fetchPutRecord(
-                id,
-                data.ficha,
-                data.duracion,
-                data.programa,
-                data.modalidad,
-                data.nivelFormacion,
-                data.jornada
-            );
-        } catch (error) {
-            console.error("Error al actualizar la ficha:", error);
-        }
-    };
 
     useEffect(() => {
         if (id) {
@@ -70,9 +52,14 @@ export const FormUpdateFicha = () => {
                     setDuracion(Data.duracion);
                     setPrograma(Data.nombre);
 
+                    setValue("NFicha", Data.ficha )
+                    setValue("Duracion", Data.duracion)
+                    setValue("Programa", Data.nombre)
+                    setValue("Modalidad", Data.modalidad)
+                    setValue("JornadaAcademica", Data.jornada)
+
                     dropdown1.setSelectedOption(Data.modalidad);
-                    dropdown2.setSelectedOption(Data.nivel);
-                    dropdown3.setSelectedOption(Data.jornada);
+                    dropdown2.setSelectedOption(Data.jornada);
                 })
                 .catch((error) => {
                     console.error(
@@ -83,7 +70,21 @@ export const FormUpdateFicha = () => {
         }
     }, [id]);
 
-    const { } = useFetchPutRecord();
+    const { fetchPutRecord } = useFetchPutRecord(id);
+
+    const onSubmit = async (data) => {
+        try {
+            await fetchPutRecord(
+                data.NFicha,
+                data.Duracion,
+                data.Programa,
+                data.Modalidad,
+                data.JornadaAcademica
+            );
+        } catch (error) {
+            console.error("Error al actualizar la ficha:", error);
+        }
+    };
 
     return (
         <>
@@ -91,7 +92,7 @@ export const FormUpdateFicha = () => {
                 <div className="box_form">
                     <h2 className="title_underline">Detalles de la Ficha</h2>
                     <div className="container_form_add">
-                        <form method="POST" onSubmit={handleSubmit(onSubmit)}>
+                        <form method="PUT" onSubmit={handleSubmit(onSubmit)}>
                             <div className="grid-column">
                                 <div>
                                     <input
@@ -201,6 +202,7 @@ export const FormUpdateFicha = () => {
                                     )}
                                 </div>
 
+
                                 <div>
                                     <div
                                         className={`Dropdown ${dropdown2.isDropdown ? "open" : ""
@@ -209,14 +211,14 @@ export const FormUpdateFicha = () => {
                                         <input
                                             type="text"
                                             className="textBox"
-                                            placeholder="Nivel de Formación"
-                                            name="NivelFormacion"
+                                            placeholder="Jornada Académica"
+                                            name="JornadaAcademica"
                                             readOnly
                                             onClick={dropdown2.handleDropdown}
                                             value={dropdown2.selectedOption}
                                             {...register(
-                                                "NivelFormacion",
-                                                NIVEL_FORMACION
+                                                "JornadaAcademica",
+                                                JORNADA_ACADEMICA
                                             )}
                                         />
                                         <div
@@ -228,61 +230,6 @@ export const FormUpdateFicha = () => {
                                             <div
                                                 onClick={() =>
                                                     dropdown2.handleOptionClick(
-                                                        "Tecnico",
-                                                        setValue,
-                                                        "NivelFormacion"
-                                                    )
-                                                }
-                                            >
-                                                Técnico
-                                            </div>
-                                            <div
-                                                onClick={() =>
-                                                    dropdown2.handleOptionClick(
-                                                        "Tecnologo",
-                                                        setValue,
-                                                        "NivelFormacion"
-                                                    )
-                                                }
-                                            >
-                                                Tecnólogo
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {errors.NivelFormacion && (
-                                        <p className="errors_forms">
-                                            {errors.NivelFormacion.message}
-                                        </p>
-                                    )}
-                                </div>
-
-                                <div>
-                                    <div
-                                        className={`Dropdown ${dropdown3.isDropdown ? "open" : ""
-                                            }`}
-                                    >
-                                        <input
-                                            type="text"
-                                            className="textBox"
-                                            placeholder="Jornada Académica"
-                                            name="JornadaAcademica"
-                                            readOnly
-                                            onClick={dropdown3.handleDropdown}
-                                            value={dropdown3.selectedOption}
-                                            {...register(
-                                                "JornadaAcademica",
-                                                JORNADA_ACADEMICA
-                                            )}
-                                        />
-                                        <div
-                                            className={`options ${dropdown3.isDropdown
-                                                    ? "open"
-                                                    : ""
-                                                }`}
-                                        >
-                                            <div
-                                                onClick={() =>
-                                                    dropdown3.handleOptionClick(
                                                         "Diurna",
                                                         setValue,
                                                         "JornadaAcademica"
@@ -293,7 +240,7 @@ export const FormUpdateFicha = () => {
                                             </div>
                                             <div
                                                 onClick={() =>
-                                                    dropdown3.handleOptionClick(
+                                                    dropdown2.handleOptionClick(
                                                         "Nocturna",
                                                         setValue,
                                                         "JornadaAcademica"

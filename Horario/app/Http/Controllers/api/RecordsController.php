@@ -135,12 +135,13 @@ class RecordsController extends Controller
 
     public function update(Request $request, string $idFicha)
     {
+
         $validator = Validator::make($request->all(), [
-            'NFicha' => 'required|numeric',
-            'Duracion' => 'required|numeric',
-            'Programa' => 'required|string',
-            'Modalidad' => 'required|string', // Ajusta según lo que espera el servidor
-            'NivelFormacion' => 'required|string', // Ajusta según lo que espera el servidor
+            'ficha' => 'required|numeric',
+            'duracion' => 'required|numeric',
+            'programa' => 'required|string',
+            'modalidad' => 'required|string', // Ajusta según lo que espera el servidor
+            'nivelFormacion' => 'required|string', // Ajusta según lo que espera el servidor
             'JornadaAcademica' => 'required|string', // Ajusta según lo que espera el servidor
         ]);
     
@@ -155,11 +156,11 @@ class RecordsController extends Controller
             $ficha = Ficha::findOrFail($idFicha);
     
             $ficha->update([
-                'NFicha' => intval($request->NFicha),
-                'Duracion' => intval($request->Duracion),
-                'Programa' => $request->Programa,
-                'Modalidad' => $request->Modalidad,
-                'NivelFormacion' => $request->NivelFormacion,
+                'ficha' => intval($request->ficha),
+                'duracion' => intval($request->duracion),
+                'programa' => $request->programa,
+                'modalidad' => $request->modalidad,
+                'nivelFormacion' => $request->nivelFormacion,
                 'JornadaAcademica' => $request->JornadaAcademica,
                 // Agrega otros campos según sea necesario
             ]);

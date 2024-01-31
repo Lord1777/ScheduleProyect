@@ -30,7 +30,7 @@ export const ScheduleAdd = () => {
         return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
     };
 
-    let idFicha = 5;
+    let idFicha = 1;
 
     const onSubmit = async (data) => {
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Models\Ambiente;
 use App\Models\Asignacion;
+use App\Models\Ficha;
 use App\Models\HorarioAcademico;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -50,9 +51,9 @@ class ScheduleController extends Controller
             ]);
 
             $asignaciones = [];
-
             $horasAntesInstructores = [];
             $horasAntesAmbientes = [];
+            $horasAntesFicha = null;
 
             foreach ($globalStoreBoxes as $box) {
 
@@ -68,24 +69,32 @@ class ScheduleController extends Controller
                     $horasAntesAmbientes[$idAmbiente] = Ambiente::where('idAmbiente', $idAmbiente)->value('horasAsignadas');
                 }
 
+                if ($horasAntesFicha == null) {
+                    $horasAntesFicha = Ficha::where('idFicha', $idFicha)->value('horasAsignadas');
+                }
+
                 $nombreInstructor = Usuario::where('idUsuario', $idInstructor)->value('nombreCompleto');
                 $numeroAmbiente = Ambiente::where('idAmbiente', $idAmbiente)->value('ambiente');
+                $numeroFicha = Ficha::where('idFicha', $idFicha)->value('ficha');
 
                 // Obtener el límite de horas para el instructor y ambiente
                 $limiteHorasInstructor = Usuario::where('idUsuario', $idInstructor)->value('limiteHoras');
                 $limiteHorasAmbiente = Ambiente::where('idAmbiente', $idAmbiente)->value('limiteHoras');
+                $limiteHorasFicha = Ficha::where('idFicha', $idFicha)->value('limiteHoras');
 
                 $disponibilidadInstructor = $limiteHorasInstructor - $horasAntesInstructores[$idInstructor];
                 $disponibilidadAmbiente = $limiteHorasAmbiente - $horasAntesAmbientes[$idAmbiente];
+                $disponibilidadFicha = $limiteHorasFicha - $horasAntesFicha;
 
                 if ($limiteHorasInstructor !== null && $limiteHorasAmbiente !== null) {
 
                     $nuevasHorasInstructor = Usuario::where('idUsuario', $idInstructor)->value('horasAsignadas') + 1;
                     $nuevasHorasAmbiente = Ambiente::where('idAmbiente', $idAmbiente)->value('horasAsignadas') + 1;
+                    $nuevasHorasFicha = Ficha::where('idFicha', $idFicha)->value('horasAsignadas') + 1;
 
                     if ($nuevasHorasInstructor > $limiteHorasInstructor) {
 
-                        // Si el incremento supera el límite:
+                        // Si el incremento supera el límite: 
                         DB::rollBack();
 
                         return response()->json([
@@ -106,6 +115,18 @@ class ScheduleController extends Controller
                             'error' => "The action cannot be performed. The limit of assigned hours is exceeded",
                         ], Response::HTTP_BAD_REQUEST); //400
                     }
+
+                    if ($nuevasHorasFicha > $limiteHorasFicha) {
+
+                        //Si el incremento supera el limite:
+                        DB::rollBack();
+
+                        return response()->json([
+                            'status' => 0,
+                            'message' => "La ficha '{$numeroFicha}' ha alcanzado el límite de horas permitido: '{$limiteHorasFicha} horas'. Por favor, revise la cantidad de veces que dicha ficha recibe asignaciones, considerando que dispone de '{$disponibilidadFicha} horas'.",
+                            'error' => 'The action cannot be performed. The limit of assigned hours is exceeded',
+                        ]);
+                    }
                 }
 
                 Usuario::where('idUsuario', $idInstructor)->update([
@@ -114,6 +135,11 @@ class ScheduleController extends Controller
                 ]);
 
                 Ambiente::where('idAmbiente', $idAmbiente)->update([
+                    'horasAsignadas' => DB::raw('horasAsignadas + 1'),
+                    //Mas columnas...
+                ]);
+
+                Ficha::where('idFicha', $idFicha)->update([
                     'horasAsignadas' => DB::raw('horasAsignadas + 1'),
                     //Mas columnas...
                 ]);

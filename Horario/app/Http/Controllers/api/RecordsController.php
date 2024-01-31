@@ -22,7 +22,7 @@ class RecordsController extends Controller
                     'fichas.ficha',
                     'fichas.limiteHoras',
                     'fichas.horasAsignadas',
-                    'programas.nombre as programa_nombre',
+                    'programas.nombre',
                     'niveles_de_formacion.nivel',
                     'jornadas.jornada',
                     'modalidades.modalidad'
@@ -48,7 +48,7 @@ class RecordsController extends Controller
                     'fichas.ficha',
                     'fichas.limiteHoras',
                     'fichas.horasAsignadas',
-                    'programas.nombre as programa_nombre',
+                    'programas.nombre',
                     'niveles_de_formacion.nivel',
                     'jornadas.jornada',
                     'modalidades.modalidad'
@@ -111,7 +111,7 @@ class RecordsController extends Controller
                            )
                            ->findOrFail($idFicha);
     
-            return response()->json($ficha, Response::HTTP_OK);
+            return response()->json($record, Response::HTTP_OK);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
                 'status' => 0,
@@ -144,7 +144,7 @@ class RecordsController extends Controller
         }
     
         try {
-            $ficha = Fichas::findOrFail($idFicha);
+            $ficha = Ficha::findOrFail($idFicha);
     
             $ficha->update([
                 'NFicha' => intval($request->NFicha),

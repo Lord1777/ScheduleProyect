@@ -15,9 +15,9 @@ const useFetchGetRecord = (route, page) => {
             console.log(dataRecord);
     }, [route, page]);
 
-    return ({
+    return {
         dataRecord,
-    })
+    }
 
 }
 

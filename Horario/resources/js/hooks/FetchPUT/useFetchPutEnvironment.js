@@ -1,12 +1,28 @@
 import React from 'react';
 import { API_URL } from '../../const/api';
 import useRequestOptionsPut from './useRequestOptionsPut';
+import { getSedeByName, getTrueOrFalseByYesOrNot } from '../useObjectMapping';
 
-export const useFetchPutEnvironment = () => {
+export const useFetchPutEnvironment = (id) => {
 
     const { requestOptionsPut } = useRequestOptionsPut();
 
-    const fetchPutEnvironment = async(route, id, ambiente, cantidadMesas, capacidad, cantidadComputadores, aireAcondicionado, tablero, videoBeam, idSede) =>{
+    const fetchPutEnvironment = async( ambiente, cantidadMesas, capacidad, cantidadComputadores, AireAcondicionadoS, TableroS, VideoBeamS, sede,  ) =>{
+
+        let idSede = getSedeByName(sede);
+        let aireAcondicionado = getTrueOrFalseByYesOrNot(AireAcondicionadoS);
+        let videoBeam = getTrueOrFalseByYesOrNot(VideoBeamS);
+        let tablero = getTrueOrFalseByYesOrNot(TableroS);
+
+        console.log(
+            `ambiente: ${ambiente}`,
+            `mesas: ${cantidadMesas}`,
+            `capacidad: ${capacidad}`,
+            `cantidadComputadores: ${cantidadComputadores}`,
+            `aireAcondicionado: ${AireAcondicionadoS}`,
+            `tablero: ${TableroS}`,
+            `videoBeam: ${VideoBeamS}`,
+            `idSede: ${sede}`,)
 
         try {
             const response = await fetch(`${API_URL}/updateEnvironment/${id}`,{

@@ -55,12 +55,12 @@ function App() {
                     <Route path='/UpdateAmbiente/:id' element={<UpdateEnvironments />} />
                     <Route path='/UpdateFicha/:id' element={<UpdateRecors />} />
                     <Route path='/modal' element={<ModalAsignar />} />
+                    
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={role} />}  >
                         <Route path='/Panel' element={<ControlPanel />} />
                         <Route path='/HorariosFichas' element={<WatchSchedules />} />
                         <Route path='/CrudInstructor' element={<CrudInstructor />} />
-                        <Route path='/CrudCoordinadores' element={<CrudCoordinators />} />
                         <Route path='/CrudFichas' element={<CrudRecords />} />
                         <Route path='/CrudTrimestres' element={<CrudQuarters />} />
                         <Route path='/CrudAmbientes' element={<CrudEnvironments/>} />

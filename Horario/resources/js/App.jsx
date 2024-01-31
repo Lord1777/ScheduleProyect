@@ -53,7 +53,6 @@ function App() {
                     <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
                     <Route path='/AddHorario' element={<AddSchedule />} />
                     <Route path='/UpdateAmbiente/:id' element={<UpdateEnvironments />} />
-                    <Route path='/UpdateFicha/:id' element={<UpdateRecors />} />
                     <Route path='/modal' element={<ModalAsignar />} />
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={role} />}  >
@@ -64,17 +63,18 @@ function App() {
                         <Route path='/CrudFichas' element={<CrudRecords />} />
                         <Route path='/CrudTrimestres' element={<CrudQuarters />} />
                         <Route path='/CrudAmbientes' element={<CrudEnvironments/>} />
-                        <Route path='/AddCoordinador' element={<AddCoordinator />} />
                         <Route path='/AddInstructor' element={<AddInstructors />} />
                         <Route path='/AddAmbiente' element={<AddEnvironments />} />
                         <Route path='/AddPrograma' element={<AddProgram />} />
                         <Route path='/AddFicha' element={<AddRecords />} />
                         <Route path='/AddTrimestre' element={<AddQuarter />} />
+                        <Route path='/AddCoordinador' element={<AddCoordinator />} />
                         <Route path='/DetallesAmbiente' element={<DetailsAmbiente />} />
                         <Route path='/DetallesTrimestre' element={<DetailsTrimestre />} />
                         <Route path='/DetallesInstructor' element={<DetailsInstructor />} />
                         <Route path='/DetallesFicha' element={<DetailsFicha />} />
                         <Route path='/DetallesCoordinador' element={<DetailsCoordinador />} />
+                        <Route path='/UpdateFicha/:id' element={<UpdateRecors />} />
                     </Route>
                 </Routes>
             </Router>

@@ -105,9 +105,17 @@ class RecordsController extends Controller
     {
         try {
             $record = Ficha::join('programas', 'fichas.idPrograma', '=', 'programas.idPrograma')
+                           ->join('modalidades', 'fichas.idModalidad', '=', 'modalidades.idModalidad')
+                           ->join('niveles_de_formacion', 'programas.idNivelFormacion', '=', 'niveles_de_formacion.idNivelFormacion')
+                           ->join('jornadas', 'fichas.idJornada', '=', 'jornadas.idJornada')
+
                            ->select(
                                'fichas.*',
-                               'programas.nombre as programa'
+                               'programas.nombre',
+                               'niveles_de_formacion.nivel',
+                               'jornadas.jornada',
+                               'modalidades.modalidad', 
+                               'programas.duracion',
                            )
                            ->findOrFail($idFicha);
     

@@ -52,7 +52,7 @@ export const FormUpdateFicha = () => {
             console.error("Error al actualizar la ficha:", error);
         }
     };
-    
+
     useEffect(() => {
         if (id) {
             fetch(`${API_URL}/GetFicha/${id}`)
@@ -68,11 +68,11 @@ export const FormUpdateFicha = () => {
                     console.log(Data);
                     setFicha(Data.ficha);
                     setDuracion(Data.duracion);
-                    setPrograma(Data.programa);
+                    setPrograma(Data.nombre);
 
                     dropdown1.setSelectedOption(Data.modalidad);
-                    dropdown2.selectedOption(Data.nivelFormacion);
-                    dropdown3.selectedOption(Data.jornada);
+                    dropdown2.setSelectedOption(Data.nivel);
+                    dropdown3.setSelectedOption(Data.jornada);
                 })
                 .catch((error) => {
                     console.error(
@@ -83,7 +83,7 @@ export const FormUpdateFicha = () => {
         }
     }, [id]);
 
-    const {} = useFetchPutRecord();
+    const { } = useFetchPutRecord();
 
     return (
         <>
@@ -149,9 +149,8 @@ export const FormUpdateFicha = () => {
 
                                 <div>
                                     <div
-                                        className={`Dropdown ${
-                                            dropdown1.isDropdown ? "open" : ""
-                                        }`}
+                                        className={`Dropdown ${dropdown1.isDropdown ? "open" : ""
+                                            }`}
                                     >
                                         <input
                                             type="text"
@@ -166,11 +165,10 @@ export const FormUpdateFicha = () => {
                                             )}
                                         />
                                         <div
-                                            className={`options ${
-                                                dropdown1.isDropdown
+                                            className={`options ${dropdown1.isDropdown
                                                     ? "open"
                                                     : ""
-                                            }`}
+                                                }`}
                                         >
                                             <div
                                                 onClick={() =>
@@ -205,9 +203,8 @@ export const FormUpdateFicha = () => {
 
                                 <div>
                                     <div
-                                        className={`Dropdown ${
-                                            dropdown2.isDropdown ? "open" : ""
-                                        }`}
+                                        className={`Dropdown ${dropdown2.isDropdown ? "open" : ""
+                                            }`}
                                     >
                                         <input
                                             type="text"
@@ -223,11 +220,10 @@ export const FormUpdateFicha = () => {
                                             )}
                                         />
                                         <div
-                                            className={`options ${
-                                                dropdown2.isDropdown
+                                            className={`options ${dropdown2.isDropdown
                                                     ? "open"
                                                     : ""
-                                            }`}
+                                                }`}
                                         >
                                             <div
                                                 onClick={() =>
@@ -262,9 +258,8 @@ export const FormUpdateFicha = () => {
 
                                 <div>
                                     <div
-                                        className={`Dropdown ${
-                                            dropdown3.isDropdown ? "open" : ""
-                                        }`}
+                                        className={`Dropdown ${dropdown3.isDropdown ? "open" : ""
+                                            }`}
                                     >
                                         <input
                                             type="text"
@@ -280,11 +275,10 @@ export const FormUpdateFicha = () => {
                                             )}
                                         />
                                         <div
-                                            className={`options ${
-                                                dropdown3.isDropdown
+                                            className={`options ${dropdown3.isDropdown
                                                     ? "open"
                                                     : ""
-                                            }`}
+                                                }`}
                                         >
                                             <div
                                                 onClick={() =>

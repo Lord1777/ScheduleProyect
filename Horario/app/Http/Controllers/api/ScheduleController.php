@@ -16,9 +16,48 @@ use Illuminate\Support\Facades\Validator;
 
 class ScheduleController extends Controller
 {
-    public function index()
+    public function indexRecord(string $idFicha)
+    {
+        try {
+
+            $recordInfo = HorarioAcademico::join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+                ->join('programas', 'fichas.idPrograma', '=', 'programas.idPrograma')
+                ->join('trimestres', 'horarios_academicos.idTrimestre', '=', 'trimestres.idTrimestre')
+                ->select(
+                    'fichas.ficha',
+                    'fichas.horasAsignadas',
+                    'trimestres.trimestre',
+                    'trimestres.fechaInicio',
+                    'trimestres.fechaFinal',
+                    'programas.nombre',
+                )
+                ->where('fichas.idFicha', $idFicha)
+                ->first();
+
+            if (!$recordInfo) {
+                return response()->json([
+                    'error' => 'Ficha not found'
+                ], Response::HTTP_NOT_FOUND); //404
+            }
+
+            return response()->json($recordInfo, Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => "Register Schedule Error: " . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
+
+    public function indexInstructor()
     {
     }
+
+
+    public function indexEnvironment()
+    {
+    }
+
 
     public function store(Request $request)
     {

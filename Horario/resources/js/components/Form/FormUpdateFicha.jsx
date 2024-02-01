@@ -5,7 +5,7 @@ import useDropdown from "../../hooks/useDropdown";
 import useValidationForm from "../../hooks/useValidationForm";
 import { useForm } from "react-hook-form";
 import { API_URL } from "../../const/api";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useFetchPutRecord } from "../../hooks/FetchPUT/useFetchPutRecord";
 
 export const FormUpdateFicha = () => {
@@ -15,9 +15,10 @@ export const FormUpdateFicha = () => {
         setValue,
         formState: { errors },
     } = useForm();
+
     const dropdown1 = useDropdown(setValue, "Modalidad");
     const dropdown2 = useDropdown(setValue, "JornadaAcademica");
-    
+
     const {
         NFICHA,
         DURACION,
@@ -52,7 +53,7 @@ export const FormUpdateFicha = () => {
                     setDuracion(Data.duracion);
                     setPrograma(Data.nombre);
 
-                    setValue("NFicha", Data.ficha )
+                    setValue("NFicha", Data.ficha)
                     setValue("Duracion", Data.duracion)
                     setValue("Programa", Data.nombre)
                     setValue("Modalidad", Data.modalidad)
@@ -167,8 +168,8 @@ export const FormUpdateFicha = () => {
                                         />
                                         <div
                                             className={`options ${dropdown1.isDropdown
-                                                    ? "open"
-                                                    : ""
+                                                ? "open"
+                                                : ""
                                                 }`}
                                         >
                                             <div
@@ -223,8 +224,8 @@ export const FormUpdateFicha = () => {
                                         />
                                         <div
                                             className={`options ${dropdown2.isDropdown
-                                                    ? "open"
-                                                    : ""
+                                                ? "open"
+                                                : ""
                                                 }`}
                                         >
                                             <div
@@ -262,7 +263,17 @@ export const FormUpdateFicha = () => {
                                 <button className="guardar" type="submit">
                                     Guardar
                                 </button>
-                                <button className="cancelar">Cancelar</button>
+
+                                <button className="cancelar">
+                                    Cancelar
+                                </button>
+
+                                <Link to={`/AddHorario/${id}`} >
+                                    <button className="horario">
+                                        Crear horario
+                                    </button>
+                                </Link>
+
                             </div>
                         </form>
                     </div>

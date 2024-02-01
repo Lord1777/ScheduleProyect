@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import useValidationForm from '../../hooks/useValidationForm';
 import { useFetchPostSchedule } from '../../hooks/FetchPOST/useFetchPostSchedule';
 import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
-
+import { useParams } from 'react-router-dom';
 
 export const ScheduleAdd = () => {
 
@@ -21,6 +21,8 @@ export const ScheduleAdd = () => {
     const { fetchSubmitSchedule } = useFetchPostSchedule('/createSchedule');
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
 
+    const { id } = useParams();
+
     // Almacena todos los índices, id-instructor, id-ambiente asignados,
     const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
 
@@ -30,14 +32,12 @@ export const ScheduleAdd = () => {
         return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
     };
 
-    let idFicha = 1;
-
     const onSubmit = async (data) => {
 
         if (globalStoreBoxes.length > 0) {
             await fetchSubmitSchedule({
                 idTrimestre: getQuarterId(data.trimestre),
-                idFicha: idFicha,
+                idFicha: id,
                 globalStoreBoxes
             })
         }

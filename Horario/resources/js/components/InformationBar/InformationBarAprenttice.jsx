@@ -1,7 +1,18 @@
 import React from 'react'
 import '../../../css/InformationBar/InformationBarAprenttice.css'
+import useFetchGetInfoBarRecord from '../../hooks/FetchSchedule/useFetchGetInfoBarRecord'
+import { useParams } from 'react-router-dom'
 
 export const InformationBarAprenttice = () => {
+
+    const { idFicha } = useParams();
+
+    console.log(idFicha)
+
+    const { dataInfoRecord } = useFetchGetInfoBarRecord('/getInfoBarRecord', idFicha);
+
+    console.log(dataInfoRecord);
+
   return (
     <>
         <div className="informationBarAprenttice">
@@ -18,7 +29,10 @@ export const InformationBarAprenttice = () => {
                     <p>Trimestre: 3</p>
                 </div>
                 <div>
-                    <p>Jornada: Diurna</p>
+                    <p>Fecha inicio: Diurna</p>
+                </div>
+                <div>
+                    <p>Fecha final: Nocturna</p>
                 </div>
                 <div>
                     <p>Horas Semanales: 32</p>

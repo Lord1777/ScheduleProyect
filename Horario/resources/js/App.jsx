@@ -47,11 +47,11 @@ function App() {
                     <Route path='/' element={<Login />} />
                     <Route path='/ConsultaAprendiz' element={<ConsultAprenttice />} />
                     <Route path='/403-forbidden' element={<Forbidden />} />
-                    <Route path='/HorarioAprediz' element={<ScheduleAprenttice />} />
+                    <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />
                     <Route path='/HorarioFichas' element={<SeeScheduleFichas />} />
                     <Route path='/HorarioInstructor' element={<SeeScheduleInstructors />} />
                     <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
-                    <Route path='/AddHorario' element={<AddSchedule />} />
+                    <Route path='/AddHorario/:id' element={<AddSchedule />} />
                     <Route path='/UpdateAmbiente/:id' element={<UpdateEnvironments />} />
                     <Route path='/modal' element={<ModalAsignar />} />
                     <Route path='/UpdateInstructor/:id'element={<UpdateInstructor/>}/>

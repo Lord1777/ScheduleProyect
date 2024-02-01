@@ -25,8 +25,11 @@ export const getNivelDeFormacionByName = (name) =>{
 
 export const getModalidadByName = (name) =>{
     const modalidad = {
-        Virtual: 1,
+        virtual: 1,
         Presencial: 2,
+        complementaria: 3,
+        Virtual: 1, 
+        presencial: 2,
         Complementaria: 3,
     }
     return modalidad[name]
@@ -34,6 +37,8 @@ export const getModalidadByName = (name) =>{
 
 export const getJornadaByName = (name) =>{
     const jornada = {
+        diurna: 1,
+        nocturna: 2,
         Diurna: 1,
         Nocturna: 2,
     }

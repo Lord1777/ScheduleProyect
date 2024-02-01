@@ -73,17 +73,16 @@ export const FormUpdateFicha = () => {
     const { fetchPutRecord } = useFetchPutRecord(id);
 
     const onSubmit = async (data) => {
-        try {
-            await fetchPutRecord(
-                data.NFicha,
-                data.Duracion,
-                data.Programa,
+        
+        console.log(data)
+        
+        await fetchPutRecord(
+                data.ficha,
+                data.duracion,
+                data.programa,
                 data.Modalidad,
-                data.JornadaAcademica
+                data.Jornada
             );
-        } catch (error) {
-            console.error("Error al actualizar la ficha:", error);
-        }
     };
 
     return (
@@ -99,7 +98,7 @@ export const FormUpdateFicha = () => {
                                         type="number"
                                         name="NFicha"
                                         placeholder="N° Ficha"
-                                        {...register("NFicha", NFICHA)}
+                                        {...register("ficha", NFICHA)}
                                         value={ficha}
                                         onChange={(e) =>
                                             setFicha(e.target.value)
@@ -117,7 +116,7 @@ export const FormUpdateFicha = () => {
                                         type="number"
                                         name="Duracion"
                                         placeholder="Duración"
-                                        {...register("Duracion", DURACION)}
+                                        {...register("duracion", DURACION)}
                                         value={duracion}
                                         onChange={(e) =>
                                             setDuracion(e.target.value)
@@ -135,7 +134,7 @@ export const FormUpdateFicha = () => {
                                         type="text"
                                         name="Programa"
                                         placeholder="Programa"
-                                        {...register("Programa", PROGRAMA)}
+                                        {...register("programa", PROGRAMA)}
                                         value={programa}
                                         onChange={(e) =>
                                             setPrograma(e.target.value)
@@ -217,7 +216,7 @@ export const FormUpdateFicha = () => {
                                             onClick={dropdown2.handleDropdown}
                                             value={dropdown2.selectedOption}
                                             {...register(
-                                                "JornadaAcademica",
+                                                "Jornada",
                                                 JORNADA_ACADEMICA
                                             )}
                                         />

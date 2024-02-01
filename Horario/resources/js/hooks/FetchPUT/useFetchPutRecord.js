@@ -1,18 +1,24 @@
-import React from 'react';
 import { API_URL } from '../../const/api';
+import { getJornadaByName, getModalidadByName } from '../useObjectMapping';
 import useRequestOptionsPut from './useRequestOptionsPut';
 
 export const useFetchPutRecord = (id) => {
     const { requestOptionsPut } = useRequestOptionsPut();
 
-    const fetchPutRecord = async ( ficha, duracion, programa, modalidad, jornada ) => {
+    const fetchPutRecord = async (ficha, duracion, programa, modalidad, jornada) => {
+
+
+        let idJornada = getJornadaByName(jornada);
+        let idModalidad = getModalidadByName(modalidad);
+
         console.log(
             `NumeroF: ${ficha},
             duracion: ${duracion},
             Programa: ${programa},
-            Modalidad: ${modalidad},
-            JornadaAcademica: ${jornada}`
+            idModalidad: ${idModalidad},
+            idJornadaAcademica: ${idJornada}`
         )
+        
         try {
             const response = await fetch(`${API_URL}/updateRecord/${id}`, {
                 method: 'PUT',
@@ -21,8 +27,8 @@ export const useFetchPutRecord = (id) => {
                     ficha,
                     duracion,
                     programa,
-                    modalidad,
-                    jornada
+                    idModalidad,
+                    idJornada
                 }),
             });
 
@@ -32,7 +38,6 @@ export const useFetchPutRecord = (id) => {
             } else {
                 // Manejar errores aquí si es necesario
                 console.error(`Error updating record: ${response.statusText}`);
-                console.log(data.error);
             }
         } catch (error) {
             console.error(`Error updating record: ${error}`);

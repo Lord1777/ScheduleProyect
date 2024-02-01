@@ -140,9 +140,8 @@ class RecordsController extends Controller
             'ficha' => 'required|numeric',
             'duracion' => 'required|numeric',
             'programa' => 'required|string',
-            'modalidad' => 'required|string', // Ajusta según lo que espera el servidor
-            'nivelFormacion' => 'required|string', // Ajusta según lo que espera el servidor
-            'JornadaAcademica' => 'required|string', // Ajusta según lo que espera el servidor
+            'idModalidad' => 'required|integer', 
+            'idJornada' => 'required|integer', 
         ]);
     
         if ($validator->fails()) {
@@ -159,10 +158,8 @@ class RecordsController extends Controller
                 'ficha' => intval($request->ficha),
                 'duracion' => intval($request->duracion),
                 'programa' => $request->programa,
-                'modalidad' => $request->modalidad,
-                'nivelFormacion' => $request->nivelFormacion,
-                'JornadaAcademica' => $request->JornadaAcademica,
-                // Agrega otros campos según sea necesario
+                'idModalidad' => $request->idModalidad,
+                'idJornada' => $request->idJornada,
             ]);
     
             return response()->json([

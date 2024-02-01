@@ -137,7 +137,7 @@ class InstructorController extends Controller
 
             return response()->json([
                 'status' => 1,
-                'message' => 'Successfully Updated Environment',
+                'message' => 'Successfully Updated Instructor',
             ], Response::HTTP_OK); //200
 
         }  catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

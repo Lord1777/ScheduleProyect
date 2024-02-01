@@ -25,7 +25,7 @@ export const TableInstructors = () => {
         fetchData();
     }
 
-    const disableInstructor = (idUsuario) =>{
+    const disableInstructor = (idUsuario) => {
         fetchPutInstructor('/disableInstructor', idUsuario);
         fetchData();
     }
@@ -75,13 +75,15 @@ export const TableInstructors = () => {
                                     <td>{instructor.tipoContrato}</td>
                                     <td>{instructor.profesion}</td>
                                     <td>
-                                        <button>
-                                            <FontAwesomeIcon icon={faUserPen} className='iconEdit' />
-                                        </button>
+                                        <Link to={`/UpdateInstructor/${instructor.idUsuario}`}>
+                                            <button>
+                                                <FontAwesomeIcon icon={faUserPen} className='iconEdit' />
+                                            </button>
+                                        </Link>
                                     </td>
                                     {disabled ? (
                                         <td>
-                                            <button onClick={ () => enableInstructor(instructor.idUsuario)}>
+                                            <button onClick={() => enableInstructor(instructor.idUsuario)}>
                                                 <FontAwesomeIcon icon={faUserCheck} className='iconHabilitar' />
                                             </button>
                                         </td>

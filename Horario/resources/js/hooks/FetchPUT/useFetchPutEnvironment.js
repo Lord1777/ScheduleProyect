@@ -14,16 +14,6 @@ export const useFetchPutEnvironment = (id) => {
         let videoBeam = getTrueOrFalseByYesOrNot(VideoBeamS);
         let tablero = getTrueOrFalseByYesOrNot(TableroS);
 
-        console.log(
-            `ambiente: ${ambiente}`,
-            `mesas: ${cantidadMesas}`,
-            `capacidad: ${capacidad}`,
-            `cantidadComputadores: ${cantidadComputadores}`,
-            `aireAcondicionado: ${AireAcondicionadoS}`,
-            `tablero: ${TableroS}`,
-            `videoBeam: ${VideoBeamS}`,
-            `idSede: ${sede}`,)
-
         try {
             const response = await fetch(`${API_URL}/updateEnvironment/${id}`,{
                 method: "PUT",

@@ -31,7 +31,7 @@ import { DetailsFicha } from '../js/pages/Details/DetailsFicha.jsx'
 import { DetailsCoordinador } from '../js/pages/Details/DetailsCoordinador.jsx'
 import { DetailsTrimestre } from '../js/pages/Details/DetailsTrimestre.jsx'
 import { UpdateRecors } from './pages/Update/UpdateRecors';
-
+import { UpdateInstructor } from './pages/Update/UpdateInstructor.jsx';
 
 
 function App() {
@@ -54,6 +54,7 @@ function App() {
                     <Route path='/AddHorario' element={<AddSchedule />} />
                     <Route path='/UpdateAmbiente/:id' element={<UpdateEnvironments />} />
                     <Route path='/modal' element={<ModalAsignar />} />
+                    <Route path='/UpdateInstructor/:id'element={<UpdateInstructor/>}/>
                     
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={role} />}  >

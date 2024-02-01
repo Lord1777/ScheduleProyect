@@ -110,9 +110,7 @@ class EnvironmentsController extends Controller
     {
         try {
             $ambiente = Ambiente::join('sedes', 'ambientes.idSede', '=', 'sedes.idSede')
-                            ->select(
-                                'ambientes.*',
-                                'sedes.sede')
+                            ->select('ambientes.*','sedes.sede')
                             ->findOrFail($idAmbiente);
 
             return response()->json($ambiente, Response::HTTP_OK);

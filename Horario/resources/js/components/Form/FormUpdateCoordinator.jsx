@@ -6,8 +6,9 @@ import { useParams } from 'react-router-dom';
 import useDropdown from "../../hooks/useDropdown";
 import logoSena from "../../assets/img/LogoSena.png";
 import { useFetchPutInstructor } from '../../hooks/FetchPUT/useFetchPutInstructor';
+import { useFetchPutCoordinator } from '../../hooks/FetchPUT/useFetchPutCoordinator';
 
-export const FormUpdateInstructor = () => {
+export const FormUpdateCoordinator = () => {
 
     const { register, setValue, handleSubmit, formState: { errors } } = useForm();
     const { NOMBRE,
@@ -40,7 +41,7 @@ export const FormUpdateInstructor = () => {
 
     useEffect(() => {
         if (id) {
-            fetch(`${API_URL}/getInstructor/${id}`)
+            fetch(`${API_URL}/getCoordinator/${id}`)
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error(
@@ -81,11 +82,11 @@ export const FormUpdateInstructor = () => {
         }
     }, [id]);
 
-    const { fetchPutInstructor } = useFetchPutInstructor(id);
+    const { fetchPutCoordinator } = useFetchPutCoordinator( id );
 
     const onSubmit = async (data) => {
         console.log("Valores del formulario:", data);
-        await fetchPutInstructor(
+        await fetchPutCoordinator(
             data.nombreCompleto,
             data.TipoDocumento,
             data.documento,
@@ -107,7 +108,7 @@ export const FormUpdateInstructor = () => {
                         <div className='container_image_form_instructor'>
                             <img src={logoSena} alt='Logo SENA' />
 
-                            <form method='PUT' onSubmit={handleSubmit(onSubmit)}>
+                            <form method='POST' onSubmit={handleSubmit(onSubmit)}>
                                 <div className="grid-column-add">
 
                                     <div className='container-input-error'>
@@ -130,7 +131,7 @@ export const FormUpdateInstructor = () => {
                                         <div className={`Dropdown ${dropdown1.isDropdown ? 'open' : ''}`} id='widthDropdown'>
                                             <input
                                                 type='text'
-                                                name='tipoDocumento'
+                                                name='TipoDocumento'
                                                 className='textBox'
                                                 placeholder='Tipo de Documento'
                                                 readOnly
@@ -151,6 +152,7 @@ export const FormUpdateInstructor = () => {
                                         <input
                                             type="number"
                                             name="documento"
+                                            id=""
                                             placeholder='Número de Documento'
                                             {...register("documento", DOCUMENTO)}
                                             value={documento}
@@ -182,6 +184,7 @@ export const FormUpdateInstructor = () => {
                                         <input
                                             type="text"
                                             name="telefono"
+                                            id=""
                                             placeholder='Telefono'
                                             {...register("telefono", TELEFONO_CELULAR)}
                                             value={telefono}
@@ -196,7 +199,7 @@ export const FormUpdateInstructor = () => {
                                         <div className={`Dropdown ${dropdown2.isDropdown ? 'open' : ''}`} id='widthDropdown'>
                                             <input
                                                 type='text'
-                                                name='contrato'
+                                                name='TipoContrato'
                                                 className='textBox'
                                                 placeholder='Tipo de Contrato'
                                                 readOnly

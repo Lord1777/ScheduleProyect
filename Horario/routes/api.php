@@ -36,6 +36,7 @@ Route::group(['middleware' => ['cors']], function(){
     Route::get('/getCoordinator/{idUsuario}', [CoordinatorsController::class, 'show']);
     Route::match(['get','put'],'/disableCoordinator/{idUsuario}', [CoordinatorsController::class, 'disable']);
     Route::match(['get','put'],'/enableCoordinator/{idUsuario}', [CoordinatorsController::class, 'enabled']);
+    Route::put('/UpdateCoordinator/{idUsuario}', [CoordinatorsController::class, 'update']);
 
 
     //Ambientes

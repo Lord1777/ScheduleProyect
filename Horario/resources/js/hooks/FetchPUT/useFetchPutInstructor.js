@@ -8,7 +8,7 @@ export const useFetchPutInstructor = (idUsuario) => {
     const { requestOptionsPut } = useRequestOptionsPut();
 
     const fetchPutInstructor = async (nombreCompleto, tipoDocumento, documento, email, telefono, tipoContrato, ciudad, profesion, experiencia, sede) => {
-        console.log("Valores en fetchPutInstructor:", nombreCompleto, tipoDocumento, documento, email, telefono, tipoContrato, ciudad, profesion, experiencia, sede);
+        //console.log("Valores en fetchPutInstructor:", nombreCompleto, tipoDocumento, documento, email, telefono, tipoContrato, ciudad, profesion, experiencia, sede);
         let idContrato = getContratoByName(tipoContrato);
         let idSede = getSedeByName(sede);
 

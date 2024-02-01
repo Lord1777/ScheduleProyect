@@ -72,9 +72,11 @@ export const TableCoodinators = () => {
                                     <td>{coordinator.telefono}</td>
                                     <td>{coordinator.email}</td>
                                     <td>
+                                        <Link to={`/UpdateCoordinador/${coordinator.idUsuario}`}>
                                         <button>
                                             <FontAwesomeIcon icon={faUserPen} className='iconEdit' />
                                         </button>
+                                        </Link>
                                     </td>
                                     {disabled ? (
                                         <td>

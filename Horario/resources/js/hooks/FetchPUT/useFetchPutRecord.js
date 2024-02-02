@@ -34,9 +34,8 @@ export const useFetchPutRecord = (id) => {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data.message); // Mensaje definido en el servidor
+                console.log(data.message); 
             } else {
-                // Manejar errores aquí si es necesario
                 console.error(`Error updating record: ${response.statusText}`);
             }
         } catch (error) {

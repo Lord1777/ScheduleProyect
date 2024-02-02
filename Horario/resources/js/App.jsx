@@ -33,6 +33,7 @@ import { DetailsTrimestre } from '../js/pages/Details/DetailsTrimestre.jsx'
 import { UpdateRecors } from './pages/Update/UpdateRecors';
 import { UpdateInstructor } from './pages/Update/UpdateInstructor.jsx';
 import { UpdateCoordinator } from './pages/Update/UpdateCoordinator.jsx';
+import { UpdateQuaters } from '../js/pages/Update/UpdateQuaters';
 
 
 function App() {
@@ -53,10 +54,7 @@ function App() {
                     <Route path='/HorarioInstructor' element={<SeeScheduleInstructors />} />
                     <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
                     <Route path='/AddHorario' element={<AddSchedule />} />
-                    <Route path='/UpdateAmbiente/:id' element={<UpdateEnvironments />} />
                     <Route path='/modal' element={<ModalAsignar />} />
-                    <Route path='/UpdateInstructor/:id' element={<UpdateInstructor/>}/>
-                    <Route path='/UpdateCoordinador/:id' element={<UpdateCoordinator/>}/>
                     
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={role} />}  >
@@ -79,6 +77,10 @@ function App() {
                         <Route path='/DetallesFicha' element={<DetailsFicha />} />
                         <Route path='/DetallesCoordinador' element={<DetailsCoordinador />} />
                         <Route path='/UpdateFicha/:id' element={<UpdateRecors />} />
+                        <Route path='/UpdateInstructor/:id' element={<UpdateInstructor/>}/>
+                        <Route path='/UpdateCoordinador/:id' element={<UpdateCoordinator/>}/>
+                        <Route path='/UpdateAmbiente/:id' element={<UpdateEnvironments />} />
+                        <Route path='/UpdateTrimestre/:id' element={<UpdateQuaters/>} />
                     </Route>
                 </Routes>
             </Router>

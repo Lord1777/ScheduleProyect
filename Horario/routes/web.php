@@ -38,11 +38,9 @@ Route::match(['get','put'], '/UpdateAmbiente/{id}', fn() => view('welcome'));
 Route::match(['get','put'], '/UpdateFicha/{id}', fn() => view('welcome'));
 Route::match(['get','put'], '/UpdateInstructor/{id}', fn() => view('welcome'));
 Route::match(['get','put'], '/UpdateCoordinador/{id}', fn() => view('welcome'));
+Route::match(['get', 'put'], '/UpdateTrimestre/{id}', fn() => view('welcome'));
 
 // Route::get('/{any}', function () {
 //     //Todas las rutas retornan welcome porque ahí es donde se está renderizando React
 //     return view('welcome');
 // })->where('any', '.*');
-
-
-

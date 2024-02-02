@@ -6,6 +6,7 @@ import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
 import useFetchGetQuarter from '../../hooks/FetchGET/useFetchGetQuarter';
 import { useFetchPutQuarter } from '../../hooks/FetchPUT/useFetchPutQuarter';
+import { Link } from 'react-router-dom';
 
 
 export const TableQuarter = () => {
@@ -16,7 +17,6 @@ export const TableQuarter = () => {
     const { dataQuarter, fetchData } = useFetchGetQuarter(disabled ? '/getDisableQuarters' : '/getEnabledQuarters', currentPage);
     const { fetchPutQuarter} = useFetchPutQuarter();
 
-    console.log(dataQuarter);
 
     let totalPage = dataQuarter.last_page;
 
@@ -70,9 +70,11 @@ export const TableQuarter = () => {
                                     <td>{quarter.fechaInicio}</td>
                                     <td>{quarter.fechaFinal}</td>
                                     <td>
+                                    <Link to={`/UpdateTrimestre/${quarter.idTrimestre}`}>
                                         <button>
                                             <FontAwesomeIcon icon={faPenToSquare} className='iconEdit' />
                                         </button>
+                                    </Link>
                                     </td>
                                     {disabled ? (
                                         <td>

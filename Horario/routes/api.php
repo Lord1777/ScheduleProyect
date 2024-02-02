@@ -71,6 +71,7 @@ Route::group(['middleware' => ['cors']], function(){
     Route::post('/createQuarters', [QuartersController::class, 'store']);
     Route::match(['get', 'put'], '/disableQuarter/{idAmbiente}', [QuartersController::class, 'disable']);
     Route::match(['get', 'put'], '/enableQuarter/{idAmbiente}', [QuartersController::class, 'enabled']);
+    Route::get('/GetTrimestre/{id}', [QuartersController::class, 'show']);
 
 
     //Horarios academicos

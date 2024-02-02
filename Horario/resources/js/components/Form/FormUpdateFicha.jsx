@@ -9,12 +9,14 @@ import { useParams } from "react-router-dom";
 import { useFetchPutRecord } from "../../hooks/FetchPUT/useFetchPutRecord";
 
 export const FormUpdateFicha = () => {
+
     const {
         register,
         handleSubmit,
         setValue,
         formState: { errors },
     } = useForm();
+    
     const dropdown1 = useDropdown(setValue, "Modalidad");
     const dropdown2 = useDropdown(setValue, "JornadaAcademica");
     
@@ -121,6 +123,7 @@ export const FormUpdateFicha = () => {
                                         onChange={(e) =>
                                             setDuracion(e.target.value)
                                         }
+                                        readOnly
                                     />
                                     {errors.Duracion && (
                                         <p className="errors_forms">

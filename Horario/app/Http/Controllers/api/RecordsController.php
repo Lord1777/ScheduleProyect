@@ -181,8 +181,4 @@ class RecordsController extends Controller
         }
     }
 
-    public function destroy()
-    {
-    }
-
 }

@@ -63,8 +63,69 @@ class QuartersController extends Controller
         }
     }
 
-    public function update()
+    public function show(string $idTrimestre)
+    {   
+        try {
+            $quarter = Trimestre::select(
+                                    'trimestres.*',
+                                    'trimestres.idTrimestre',
+                                    'trimestres.fechaInicio',
+                                    'trimestres.fechaFinal',
+                                )
+                                ->findOrFail($idTrimestre);
+    
+            return response()->json($quarter, Response::HTTP_OK);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'status' => 0,
+                'error' => 'Trimestre Not Found'
+            ], Response::HTTP_NOT_FOUND);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Error Getting Trimester: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function update(Request $request, string $idTrimestre)
     {
+        $validator = Validator::make($request->all(), [
+            'fechaInicio' => 'required|date_format:Y-m-d',
+            'fechaFinal' => 'required|date_format:Y-m-d',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 0,
+                'errors' => $validator->errors()
+            ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
+        }
+    
+        try {
+            $quarter = Trimestre::findOrFail($idTrimestre);
+    
+            $quarter->update([
+                'fechaInicio' => Carbon::parse($request->fechaInicio)->format('Y-m-d'),
+                'fechaFinal' => Carbon::parse($request->fechaFinal)->format('Y-m-d'),
+            ]);
+    
+            return response()->json([
+                'status' => 1,
+                'message' => 'Quarter Successfully Updated',
+            ], Response::HTTP_OK); //200
+    
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'status' => 0,
+                'error' => 'Quarter Not Found'
+            ], Response::HTTP_NOT_FOUND); //404
+    
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 0,
+                'error' => 'Error Updating Quarter: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
     }
 
     public function enabled(string $idTrimestre)

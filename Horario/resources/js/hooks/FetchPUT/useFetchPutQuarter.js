@@ -6,14 +6,30 @@ export const useFetchPutQuarter = () => {
 
     const { requestOptionsPut } = useRequestOptionsPut();
 
-    const fetchPutQuarter = async(route, idTrimestre) =>{
+    const fetchPutQuarter = async(idTrimestre, fechaIni, fechaFin) =>{
+
+        console.log(
+            `idTrimestre: ${idTrimestre},
+            Fecha Inicial: ${fechaIni},
+            Fecha Final: ${fechaFin}`
+        )
 
         try {
-            const response = await fetch(`${API_URL}${route}/${idTrimestre}`, useRequestOptionsPut)
+            const response = await fetch(`${API_URL}/updateQuater/${idTrimestre}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    idTrimestre,
+                    fechaIni,
+                    fechaFin,
+                }),
+            })
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data.message); // Mensaje definido en Laravel
+                console.log(data.message);
+            } else {
+                console.error(`Error updating quater: ${response.statusText}`);
             }
 
         } catch (error) {

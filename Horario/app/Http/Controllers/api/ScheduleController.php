@@ -242,5 +242,21 @@ class ScheduleController extends Controller
 
     public function show()
     {
+        try {
+            // Validar que el número de ficha esté presente
+            if (!$numeroFicha) {
+                return response()->json([
+                    'error' => 'Ficha number is required'
+                ], Response::HTTP_BAD_REQUEST); //400
+            }
+
+            // Llamar al método scheduleApprentice para obtener los horarios del aprendiz
+            return $this->scheduleApprentice($numeroFicha);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => "Show Schedule Error: " . $e->getMessage(),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
     }
 }

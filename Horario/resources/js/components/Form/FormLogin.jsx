@@ -21,9 +21,7 @@ export const FormLogin = () => {
     const [tipoDocumentoValue, setTipoDocumentoValue] = React.useState('');
     const { TIPO_DOCUMENTO, DOCUMENTO, PASSWORD } = useValidationForm();
 
-
     const { authUser } = useFetchLogin('/login');
-
 
     const onSubmit = async (data) => {
         await authUser(data.documento, password);
@@ -91,9 +89,7 @@ export const FormLogin = () => {
                         <button type="submit">Ingresar</button>
                     </form>
                 </div>
-                <Link to={'/ConsultaAprendiz'} >
-                    <TooltipHorario></TooltipHorario>
-                </Link>
+                <TooltipHorario></TooltipHorario>
             </main>
         </>
     );

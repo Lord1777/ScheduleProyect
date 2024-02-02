@@ -1,12 +1,13 @@
 import React from 'react';
 import '../../../css/Schedule/SeeSchedule.css';
 import useFetchGetScheduleRecord from '../../hooks/FetchSchedule/useFetchGetScheduleRecord';
+import { useParams } from 'react-router-dom';
 
-export const SeeSchedule = (props) => {
+export const SeeSchedule = (route) => {
 
-    const { idFicha } = props;
+    const { id } = useParams
 
-    const { dataSchedule } = useFetchGetScheduleRecord('/getscheduleApprentice', idFicha);
+    const { dataSchedule } = useFetchGetScheduleRecord(route, id);
 
     console.log(dataSchedule);
 

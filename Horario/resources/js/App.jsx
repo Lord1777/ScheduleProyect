@@ -85,8 +85,8 @@ function App() {
                         <Route path='/UpdateCoordinador/:id' element={<UpdateCoordinator />} />
                         <Route path='/UpdateAmbiente/:id' element={<UpdateEnvironments />} />
                         <Route path='/UpdateTrimestre/:id' element={<UpdateQuaters />} />
-                        <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />
-                        <Route path='/HorarioInstructor:idFicha' element={<SeeScheduleInstructors />} />
+                        <Route path='/HorarioAprendiz/:id' element={<ScheduleAprenttice />} />
+                        <Route path='/HorarioInstructor/:id' element={<SeeScheduleInstructors />} />
                         <Route path='/HorarioFichas' element={<SeeScheduleFichas />} />
                         <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
                         <Route path='/AddHorario/:id' element={<AddSchedule />} />

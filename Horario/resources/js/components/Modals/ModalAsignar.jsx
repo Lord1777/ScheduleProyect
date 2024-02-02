@@ -84,6 +84,10 @@ export const ModalAsignar = ({
 
     console.log(storeBoxes);
 
+    const [searchInstructor, setSearchInstructor] = useState("");
+    const [searchAmbiente, setSearchAmbiente] = useState("");
+
+
     return (
         <>
             <div className="shadow_box">
@@ -91,7 +95,7 @@ export const ModalAsignar = ({
                     <h3>Asignar Instructores y Ambientes</h3>
                     <form method='POST' onSubmit={handleSubmit(onSubmit)} >
 
-                        <div className={`desplegable ${dropdown1.isDropdown ? 'open' : ''}`}>
+                        <div className={`desplegable1 ${dropdown1.isDropdown ? 'open' : ''}`}>
                             <input
                                 type="text"
                                 className='textBox'
@@ -102,16 +106,33 @@ export const ModalAsignar = ({
                                 value={dropdown1.selectedOption}
                                 {...register("instructor", INSTRUCTOR)}
                             />
-                            <div className={`desplegable-options ${dropdown1.isDropdown ? 'open' : ''}`}>
-                                { dataInstructors && dataInstructors.length > 0 && dataInstructors.map((instructor) => (
-                                    <div key={instructor.idUsuario}
-                                    onClick={() => dropdown1.handleOptionClick(`${instructor.nombreCompleto}`)}
-                                    >{instructor.nombreCompleto}</div>
-                                ))} 
+                            <div className={`desplegable-options1 ${dropdown1.isDropdown ? 'open' : ''}`}>
+                                <div className="search-bar">
+                                    <input
+                                        type="text"
+                                        className='buscador-desplegables'
+                                        id='buscador'
+                                        value={searchInstructor}
+                                        onChange={(e) => setSearchInstructor(e.target.value)} />
+                                </div>
+
+                                <div className="contenedor-options">
+                                    {dataInstructors && dataInstructors.length > 0 && dataInstructors
+                                        .filter((instructor) =>
+                                            instructor.nombreCompleto.toLowerCase().startsWith(searchInstructor.toLowerCase())
+                                        )
+                                        .map((instructor) => (
+                                            <div key={instructor.idUsuario}
+                                                onClick={() => dropdown1.handleOptionClick(`${instructor.nombreCompleto}`)}
+                                            >
+                                                {instructor.nombreCompleto}
+                                            </div>
+                                        ))}
+                                </div>
                             </div>
                         </div>
 
-                        <div className={`desplegable ${dropdown2.isDropdown ? 'open' : ''}`}>
+                        <div className={`desplegable1 ${dropdown2.isDropdown ? 'open' : ''}`}>
                             <input
                                 type="text"
                                 className='textBox'
@@ -122,12 +143,28 @@ export const ModalAsignar = ({
                                 value={dropdown2.selectedOption}
                                 {...register("ambiente", AMBIENTE)}
                             />
-                            <div className={`desplegable-options ${dropdown2.isDropdown ? 'open' : ''}`}>
-                            { dataEnvironments && dataEnvironments.length > 0 && dataEnvironments.map((environment) => (
-                                    <div key={environment.idAmbiente}
-                                    onClick={() => dropdown2.handleOptionClick(`${environment.ambiente}`)}
-                                    >{environment.ambiente}</div>
-                                ))} 
+                            <div className={`desplegable-options1 ${dropdown2.isDropdown ? 'open' : ''}`}>
+                                <div className="search-bar">
+                                    <input
+                                        type="text"
+                                        className='buscador-desplegables'
+                                        id='buscador'
+                                        value={searchAmbiente}
+                                        onChange={(e) => setSearchAmbiente(e.target.value)}
+                                    />
+                                </div>
+
+                                <div className="contenedor-options">
+                                    {dataEnvironments && dataEnvironments.length > 0 && dataEnvironments
+                                        .filter((environment) =>
+                                            String(environment.ambiente).toLowerCase().startsWith(searchAmbiente.toLowerCase())
+                                        )
+                                        .map((environment) => (
+                                            <div key={environment.idAmbiente}
+                                                onClick={() => dropdown2.handleOptionClick(`${environment.ambiente}`)}
+                                            >{environment.ambiente}</div>
+                                        ))}
+                                </div>
                             </div>
                         </div>
 

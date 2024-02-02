@@ -239,4 +239,8 @@ class ScheduleController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
+
+    public function show()
+    {
+    }
 }

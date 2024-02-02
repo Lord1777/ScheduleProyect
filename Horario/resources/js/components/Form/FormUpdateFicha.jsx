@@ -32,8 +32,6 @@ export const FormUpdateFicha = () => {
     const [ficha, setFicha] = useState(null);
     const [duracion, setDuracion] = useState(null);
     const [programa, setPrograma] = useState(null);
-    const [modalidad, setModalidad] = useState(null);
-    const [jornada, setJornada] = useState(null);
 
 
 

@@ -53,9 +53,7 @@ function App() {
                     <Route path='/HorarioFichas' element={<SeeScheduleFichas />} />
                     <Route path='/HorarioInstructor' element={<SeeScheduleInstructors />} />
                     <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
-                    <Route path='/modal' element={<ModalAsignar />} />
-                    <Route path='/CrudTrimestres' element={<CrudQuarters />} />
-                    <Route path='/UpdateTrimestre/:id' element={<UpdateQuaters/>} />
+                    <Route path='/AddHorario/:id' element={<AddSchedule />} />
                     
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={role} />}  >
@@ -63,6 +61,7 @@ function App() {
                         <Route path='/HorariosFichas' element={<WatchSchedules />} />
                         <Route path='/CrudInstructor' element={<CrudInstructor />} />
                         <Route path='/CrudFichas' element={<CrudRecords />} />
+                        <Route path='/CrudTrimestres' element={<CrudQuarters />} />
                         <Route path='/CrudCoordinadores' element={<CrudCoordinators/>}/>
                         <Route path='/CrudAmbientes' element={<CrudEnvironments/>} />
                         <Route path='/AddInstructor' element={<AddInstructors />} />
@@ -72,7 +71,6 @@ function App() {
                         <Route path='/AddFicha' element={<AddRecords />} />
                         <Route path='/AddTrimestre' element={<AddQuarter />} />
                         <Route path='/AddCoordinador' element={<AddCoordinator />} />
-                        <Route path='/AddHorario/:id' element={<AddSchedule />} />
                         <Route path='/DetallesAmbiente' element={<DetailsAmbiente />} />
                         <Route path='/DetallesTrimestre' element={<DetailsTrimestre />} />
                         <Route path='/DetallesInstructor' element={<DetailsInstructor />} />
@@ -82,6 +80,8 @@ function App() {
                         <Route path='/UpdateInstructor/:id' element={<UpdateInstructor/>}/>
                         <Route path='/UpdateCoordinador/:id' element={<UpdateCoordinator/>}/>
                         <Route path='/UpdateAmbiente/:id' element={<UpdateEnvironments />} />
+                        <Route path='/UpdateTrimestre/:id' element={<UpdateQuaters/>} />
+                        <Route path='/modal' element={<ModalAsignar />} />
                     </Route>
                 </Routes>
             </Router>

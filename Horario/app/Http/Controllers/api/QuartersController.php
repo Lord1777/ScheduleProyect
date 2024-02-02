@@ -90,8 +90,6 @@ class QuartersController extends Controller
         }
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////
-
     public function update(Request $request, string $idTrimestre)
     {
         $validator = Validator::make($request->all(), [
@@ -108,25 +106,17 @@ class QuartersController extends Controller
         }
     
         try {
-
-            Log::info($request->all());
-
             $quarter = Trimestre::findOrFail($idTrimestre);
 
 
             $fechaInicio = Carbon::parse($request->fechaInicio)->format('Y-m-d');
             $fechaFinal = Carbon::parse($request->fechaFinal)->format('Y-m-d');
 
-            Log::info($fechaInicio);
-            Log::info($fechaFinal);
-    
             $quarter->update([
                 'trimestre' => intval($request->trimestre),
                 'fechaInicio' => strval($fechaInicio),
                 'fechaFinal' => strval($fechaFinal),
             ]);
-
-            Log::info("despues". $quarter);
     
             return response()->json([
                 'status' => 1,
@@ -146,8 +136,6 @@ class QuartersController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
-
-    ///////////////////////////////////////////////////////////////////////////////////////
 
     public function enabled(string $idTrimestre)
     {

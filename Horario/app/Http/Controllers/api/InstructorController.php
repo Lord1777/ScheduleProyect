@@ -26,9 +26,10 @@ class InstructorController extends Controller
     }
 
 
-    public function indexEnabled()
+    public function indexEnabled(Request $request)
     {
         try {
+            $search = $request->input('search', '');  // Obtener el parámetro de búsqueda desde la solicitud
             $instructors = Usuario::join('contratos', 'usuarios.idContrato', '=', 'contratos.idContrato')
                 ->select(
                     'usuarios.idUsuario',
@@ -39,6 +40,11 @@ class InstructorController extends Controller
                 )
                 ->where('usuarios.estado', 'habilitado')
                 ->where('usuarios.idRol', 2)
+                ->where(function ($query) use ($search) {
+                    //Lógica de búsqueda aquí
+                    $query->where('documento', 'like', '%' . $search . '%')
+                        ->orWhere('nombreCompleto', 'like', '%' . $search . '%');
+                })
                 ->paginate(15);
             return response()->json($instructors, Response::HTTP_OK); //200
 
@@ -50,9 +56,10 @@ class InstructorController extends Controller
     }
 
 
-    public function indexDisable()
+    public function indexDisable(Request $request)
     {
         try {
+            $search = $request->input('search', '');  // Obtener el parámetro de búsqueda desde la solicitud
             $instructors = Usuario::join('contratos', 'usuarios.idContrato', '=', 'contratos.idContrato')
                 ->select(
                     'usuarios.idUsuario',
@@ -63,6 +70,11 @@ class InstructorController extends Controller
                 )
                 ->where('usuarios.estado', 'inhabilitado')
                 ->where('usuarios.idRol', 2)
+                ->where(function ($query) use ($search) {
+                    //Lógica de búsqueda aquí
+                    $query->where('documento', 'like', '%' . $search . '%')
+                        ->orWhere('nombreCompleto', 'like', '%' . $search . '%');
+                })
                 ->paginate(15);
             return response()->json($instructors, Response::HTTP_OK); //200
 

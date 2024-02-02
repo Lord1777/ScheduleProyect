@@ -28,6 +28,7 @@
 }
 
 .grid_schedule .box {
+    caret-color: transparent;
     background-color: #D9D9D9;
     width: 9rem;
     height: 3rem;

@@ -10,25 +10,40 @@ use Illuminate\Support\Facades\Validator;
 
 class CoordinatorsController extends Controller
 {
-    public function indexEnabled()
+    public function indexEnabled(Request $request)
     {
-        try{
-            $coordinators = Usuario::where('idRol', 1)->where('estado', 'habilitado')->paginate(15);
+        try {
+            $search = $request->input('search', '');  // Obtener el parámetro de búsqueda desde la solicitud
+            $coordinators = Usuario::where('idRol', 1)
+                ->where('estado', 'habilitado')
+                ->where(function ($query) use ($search) {
+                    //Lógica de búsqueda aquí
+                    $query->where('documento', 'like', '%' . $search . '%')
+                        ->orWhere('nombreCompleto', 'like', '%' . $search . '%');
+                })
+                ->paginate(15);
+    
             return response()->json($coordinators, Response::HTTP_OK); //200
-
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return response()->json(['error' => "Request coordinator error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
-
     }
 
-    public function indexDisable()
+    public function indexDisable(Request $request)
     {
-        try{
-            $coordinators = Usuario::where('idRol', 1)->where('estado', 'inhabilitado')->paginate(15);
-            return response()->json($coordinators, Response::HTTP_OK); //200
+        try {
+            $search = $request->input('search', ''); //Obtener el parametro de búsqueda desde la solicitud
+            $coordinators = Usuario::where('idRol', 1)
+                ->where('estado', 'inhabilitado')
+                ->where(function($query) use ($search){
+                    //Lógica de busqueda
+                    $query->where('documento', 'like', '%' . $search . '%')
+                        ->orWhere('nombreCompleto', 'like', '%' . $search . '%');
+                })
+                ->paginate(15);
 
-        }catch(\Exception $e){
+            return response()->json($coordinators, Response::HTTP_OK); //200
+        } catch (\Exception $e) {
             return response()->json(['error' => "Request coordinator error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }

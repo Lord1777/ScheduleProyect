@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faUserAlt, faUserCheck, faUserPen, faUserSlash } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/admin/TableInstructors.css';
@@ -14,8 +14,13 @@ export const TableInstructors = () => {
 
     const [disabled, setDisabled] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
+    const [Instructor, setInstructor] = useState('');
 
-    const { dataInstructor, fetchData } = useFetchGetInstructor(disabled ? '/getDisableInstructors' : '/getEnabledInstructors', currentPage);
+    const { dataInstructor, fetchData } = useFetchGetInstructor(
+        disabled ? '/getDisableInstructors' : '/getEnabledInstructors',
+        currentPage,
+        Instructor
+        );
     const { fetchPutInstructor } = useFetchPutInstructor();
 
     let totalPage = dataInstructor.last_page;
@@ -30,12 +35,28 @@ export const TableInstructors = () => {
         fetchData();
     }
 
+    /*Buscador*/
+
+    const filteredInstructor = dataInstructor && dataInstructor.data
+        ? dataInstructor.data.filter((instructor) => {
+            return (
+                `${instructor.documento}`.toLowerCase().startsWith(Instructor.toLowerCase()) ||
+                instructor.nombreCompleto.toLowerCase().startsWith(Instructor.toLowerCase())
+            );
+        })
+        : [];
+
+    useEffect(() => {
+        fetchData();
+    }, [currentPage, Instructor]);
+
     return (
         <>
             <h2 className='title'>Administrar Instructores {disabled ? 'Inhabilitados' : 'Habilitados'}</h2>
             <div className="container-search-buttons">
                 <div className="search-input">
-                    <input type="search" name="search" id="search" placeholder="Buscar" />
+                    <input type="search" name="search" id="search" placeholder="Buscar" value={Instructor}
+                    onChange={(e) => setInstructor(e.target.value)}/>
                     <FontAwesomeIcon icon={faSearch} className="search-icon" />
                 </div>
 
@@ -66,7 +87,7 @@ export const TableInstructors = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {dataInstructor.data && dataInstructor.data.length > 0 && dataInstructor.data.map((instructor) => {
+                        {filteredInstructor.map((instructor) => {
 
                             return (
                                 <tr key={instructor.idUsuario}>

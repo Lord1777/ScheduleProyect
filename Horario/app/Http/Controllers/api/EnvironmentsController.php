@@ -22,9 +22,10 @@ class EnvironmentsController extends Controller
     }
 
 
-    public function indexEnabled()
+    public function indexEnabled(Request $request)
     {
         try {
+            $search = $request->input('search', '');  // Obtener el parámetro de búsqueda desde la solicitud
             $environment = Ambiente::join('sedes', 'ambientes.idSede', '=', 'sedes.idSede')
                 ->select(
                     'ambientes.idAmbiente',
@@ -33,8 +34,12 @@ class EnvironmentsController extends Controller
                     'sedes.sede',
                 )
                 ->where('ambientes.estado', 'habilitado')
+                ->where(function ($query) use ($search) {
+                    // Lógica de búsqueda 
+                    $query->where('ambientes.ambiente', 'like', '%' . $search . '%');
+                })
                 ->paginate(15);
-
+    
             return response()->json($environment, Response::HTTP_OK); //200
         } catch (\Exception $e) {
             return response()->json(['error' => "Request environment error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500

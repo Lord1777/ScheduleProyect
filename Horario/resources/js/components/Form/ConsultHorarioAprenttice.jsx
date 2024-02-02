@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logosena from '../../assets/img/LogoSena.png'
 import useDropdown from '../../hooks/useDropdown'
 import '../../../css/Form/ConsultHorarioAprenttice.css'
@@ -10,7 +10,7 @@ export const ConsultHorarioAprenttice = () => {
 
     const { register, setValue, handleSubmit } = useForm();
 
-    const { isDropdown, selectedOption, handleDropdown, handleOptionClick } = useDropdown();
+    const { isDropdown, selectedOption, handleDropdown, handleOptionClick } = useDropdown(setValue, "ficha");
 
     const { dataRecords } = useFetchGetRecords('/getRecords');
     //console.log(dataRecords);
@@ -25,6 +25,8 @@ export const ConsultHorarioAprenttice = () => {
     const onSubmit = (data) => {
         navigate(`/HorarioAprendiz/${getRecordId(data.ficha)}`);
     }
+    /*Bucador*/
+    const [fichaPrograma, setFichaPrograma] = useState("");
 
     return (
         <>
@@ -38,6 +40,7 @@ export const ConsultHorarioAprenttice = () => {
                             <input type="text"
                                 className='textBox'
                                 placeholder='Seleccionar Ficha'
+                                autoComplete='off'
                                 onClick={handleDropdown}
                                 value={selectedOption}
                                 id='select-ficha'
@@ -45,14 +48,26 @@ export const ConsultHorarioAprenttice = () => {
                             />
                             <div className={`container-options ${isDropdown ? 'open' : ''}`}>
                                 <div className="container-search">
-                                    <input type="search" placeholder='Buscar' id='search' />
+                                    <input
+                                        type="search"
+                                        placeholder='Buscar'
+                                        id='search'
+                                        value={fichaPrograma}
+                                        onChange={(e) => setFichaPrograma(e.target.value)}
+                                        autoComplete='off'
+                                    />
                                 </div>
                                 <div className="options">
-                                    {dataRecords && dataRecords.length > 0 && dataRecords.map((record) => (
-                                        <div className='option' onClick={() => handleOptionClick(`${record.ficha} - ${record.nombre}`)}>
-                                            {record.ficha} - {record.nombre}
-                                        </div>
-                                    ))}
+                                    {dataRecords && dataRecords.length > 0 && dataRecords
+                                        .filter((record) =>
+                                            `${record.nombre}`.toLowerCase().startsWith(fichaPrograma.toLowerCase()) ||
+                                            `${record.ficha}`.toLowerCase().startsWith(fichaPrograma.toLowerCase())
+                                        )
+                                        .map((record) => (
+                                            <div className='option' onClick={() => handleOptionClick(`${record.ficha} - ${record.nombre}`)}>
+                                                {record.ficha} - {record.nombre}
+                                            </div>
+                                        ))}
                                 </div>
                             </div>
                         </div>

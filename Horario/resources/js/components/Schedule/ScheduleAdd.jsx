@@ -9,14 +9,15 @@ import useValidationForm from '../../hooks/useValidationForm';
 import { useFetchPostSchedule } from '../../hooks/FetchPOST/useFetchPostSchedule';
 import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
 import { useParams } from 'react-router-dom';
+import useDropdown from '../../hooks/useDropdown';
 
 export const ScheduleAdd = () => {
 
     const { selectedBoxes, handleBoxClick, resetSelectedBoxes } = useSelectedBoxes();
     const { isModal, openModal, closeModal, asignaciones, setAsignaciones } = useModalAsignar();
-    const { isDropdown, selectedOption, handleDropdown, handleOptionClick } = useDropdownGet();
     const { TRIMESTRE } = useValidationForm();
     const { register, setValue, handleSubmit } = useForm();
+    const { isDropdown, selectedOption, handleDropdown, handleOptionClick } = useDropdown(setValue, "trimestre");
 
     const { fetchSubmitSchedule } = useFetchPostSchedule('/createSchedule');
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');

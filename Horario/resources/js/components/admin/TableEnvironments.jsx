@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faPenToSquare, faCircle, faUserCheck, faUserSlash } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/admin/TableInstructors.css';
@@ -13,8 +13,13 @@ export const TableEnvironments = () => {
 
     const [disabled, setDisabled] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
+    const [ambiente, setAmbiente] = useState("")
 
-    const { dataEnvironment, fetchData } = useFetchGetEnvironment(disabled ? '/getDisableEnvironments' : '/getEnabledEnvironments', currentPage);
+    const { dataEnvironment, fetchData } = useFetchGetEnvironment(
+        disabled ? '/getDisableEnvironments' : '/getEnabledEnvironments',
+        currentPage,
+        ambiente
+        );
     const { fetchPutEnvironment } = useFetchPutEnvironment()
 
     let totalPage = dataEnvironment.last_page;
@@ -29,12 +34,33 @@ export const TableEnvironments = () => {
         fetchData();
     }
 
+    /*Buscador*/
+
+    const filteredAmbiente = dataEnvironment && dataEnvironment.data
+        ? dataEnvironment.data.filter((environment) => {
+            return (
+                `${environment.ambiente}`.toLowerCase().startsWith(ambiente.toLowerCase())
+            );
+        })
+        : [];
+
+    useEffect(() => {
+        fetchData();
+    }, [currentPage, ambiente]);
+
     return (
         <>
             <h2 className='title'>Administrar Ambientes {disabled ? 'Inhabilitados' : 'Habilitados'}</h2>
             <div className="container-search-buttons">
                 <div className="search-input">
-                    <input type="search" name="search" id="search" placeholder="Buscar" />
+                    <input 
+                    type="search" 
+                    name="search" 
+                    id="search" 
+                    placeholder="Buscar" 
+                    value={ambiente}
+                    onChange={(e) => setAmbiente(e.target.value)}
+                    />
                     <FontAwesomeIcon icon={faSearch} className="search-icon" />
                 </div>
 
@@ -62,7 +88,7 @@ export const TableEnvironments = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {dataEnvironment.data && dataEnvironment.data.length > 0 && dataEnvironment.data.map((environment) => {
+                        {filteredAmbiente.map((environment) => {
 
                             return (
                                 <tr>

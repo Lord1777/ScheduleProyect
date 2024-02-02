@@ -65,6 +65,7 @@ function App() {
                         <Route path='/CrudTrimestres' element={<CrudQuarters />} />
                         <Route path='/CrudAmbientes' element={<CrudEnvironments/>} />
                         <Route path='/AddInstructor' element={<AddInstructors />} />
+                        <Route path='/CrudCoordinadores' element={<CrudCoordinators/>} />
                         <Route path='/AddAmbiente' element={<AddEnvironments />} />
                         <Route path='/AddPrograma' element={<AddProgram />} />
                         <Route path='/AddFicha' element={<AddRecords />} />

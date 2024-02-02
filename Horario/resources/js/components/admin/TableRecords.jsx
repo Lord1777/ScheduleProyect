@@ -18,7 +18,7 @@ export const TableRecords = () => {
 
     return (
         <>
-            <h2 className='title'>Administrar Fichas</h2>
+            <h2 className='title'>Administrar Fichas {disabled ? 'Inhabilitadas' : 'Habilitadas'}</h2>
             <div className="container-search-buttons">
                 <div className="search-input">
                     <input type="search" name="search" id="search" placeholder="Buscar" />

@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import logosena from '../../assets/img/LogoSena.png'
 import useDropdown from '../../hooks/useDropdown'
 import '../../../css/Form/ConsultHorarioAprenttice.css'
 import { useFetchGetRecords } from '../../hooks/FetchGetResources/useFetchGetRecords'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
 export const ConsultHorarioAprenttice = () => {

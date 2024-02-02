@@ -1,41 +1,36 @@
 import React from 'react'
 import '../../../css/InformationBar/InformationBarAprenttice.css'
 import useFetchGetInfoBarRecord from '../../hooks/FetchSchedule/useFetchGetInfoBarRecord'
-import { useParams } from 'react-router-dom'
 
-export const InformationBarAprenttice = () => {
+export const InformationBarAprenttice = (props) => {
 
-    const { idFicha } = useParams();
-
-    console.log(idFicha)
+    const { idFicha } = props
 
     const { dataInfoRecord } = useFetchGetInfoBarRecord('/getInfoBarRecord', idFicha);
-
-    console.log(dataInfoRecord);
 
   return (
     <>
         <div className="informationBarAprenttice">
             <div className="programa-nFicha">
                 <div>
-                    <p>Programa de Formación: Analisis y Desarrollo de Software</p>
+                    <p><b>Programa de Formación:</b> {dataInfoRecord.nombre}</p>
                 </div>
                 <div>
-                    <p>Ficha: 2560354</p>
+                    <p><b>Ficha:</b> {dataInfoRecord.ficha}</p>
                 </div>
             </div>
             <div className="trimestre-jornada-horas">
                 <div>
-                    <p>Trimestre: 3</p>
+                    <p><b>Trimestre:</b> {dataInfoRecord.trimestre}</p>
                 </div>
                 <div>
-                    <p>Fecha inicio: Diurna</p>
+                    <p><b>Fecha inicio:</b> {dataInfoRecord.fechaInicio}</p>
                 </div>
                 <div>
-                    <p>Fecha final: Nocturna</p>
+                    <p><b>Fecha final:</b> {dataInfoRecord.fechaFinal}</p>
                 </div>
                 <div>
-                    <p>Horas Semanales: 32</p>
+                    <p><b>Horas semanales:</b> {dataInfoRecord.horasAsignadas}</p>
                 </div>
             </div>
         </div>

@@ -32,6 +32,13 @@ export const ScheduleAdd = () => {
         return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
     };
 
+    //Funcion para sacar las iniciales del instructor
+    function initialsName(nombreCompleto) {
+        const words = nombreCompleto.split(' ');
+        const initials = words.map((word) => word.charAt(0).toUpperCase());
+        return initials.join('');
+    }
+
     const onSubmit = async (data) => {
 
         if (globalStoreBoxes.length > 0) {
@@ -99,7 +106,7 @@ export const ScheduleAdd = () => {
                                     >
                                         {boxData && (
                                             <>
-                                                <span>{boxData.instructor}</span>
+                                                <span>{initialsName(boxData.instructor)}</span>
                                                 <span>{boxData.ambiente}</span>
                                             </>
                                         )}

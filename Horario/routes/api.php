@@ -76,6 +76,7 @@ Route::group(['middleware' => ['cors']], function(){
     //Horarios academicos
     Route::match(['get', 'post'], '/createSchedule', [ScheduleController::class, 'store']);
     Route::get('/getInfoBarRecord/{idFicha}', [ScheduleController::class, 'indexRecord']);
+    Route::get('/getscheduleApprentice/{idFicha}', [ScheduleController::class, 'scheduleApprentice']);
 
 });
 

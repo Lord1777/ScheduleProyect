@@ -115,6 +115,7 @@
     transition: all 0.1s ease;
     display: none;
     box-shadow: 0px 5px 30px -10px rgba(0,0,0,0.75);
+    background-color: #fff;
 }
 
 .container-options.open{

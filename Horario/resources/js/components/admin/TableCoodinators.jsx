@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faUserCheck, faUserPen, faUserSlash } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/admin/TableInstructors.css';
@@ -13,8 +13,14 @@ export const TableCoodinators = () => {
 
     const [disabled, setDisabled] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
+    const [coordinador, setCoordinador] = useState('');  // Asegúrate de inicializar el estado de búsqueda
 
-    const { dataCoordinator, fetchData} = useFetchGetCoordinator(disabled ? '/getDisableCoordinators' : '/getEnabledCoordinators', currentPage);
+    const { dataCoordinator, fetchData } = useFetchGetCoordinator(
+        disabled ? '/getDisableCoordinators' : '/getEnabledCoordinators',
+        currentPage,
+        coordinador  // Asegúrate de pasar el estado de búsqueda al hook
+    );
+
     const { fetchPutCoordinator } = useFetchPutCoordinator();
 
     let totalPage = dataCoordinator.last_page;
@@ -22,24 +28,44 @@ export const TableCoodinators = () => {
     const enableCoordinator = (idUsuario) => {
         fetchPutCoordinator('/enableCoordinator', idUsuario);
         fetchData();
-    }
+    };
 
-    const disableCoordinator = (idUsuario) =>{
+    const disableCoordinator = (idUsuario) => {
         fetchPutCoordinator('/disableCoordinator', idUsuario);
         fetchData();
-    }
+    };
+
+    const filteredCoordinators = dataCoordinator && dataCoordinator.data
+        ? dataCoordinator.data.filter((coordinator) => {
+            return (
+                `${coordinator.documento}`.toLowerCase().startsWith(coordinador.toLowerCase()) ||
+                coordinator.nombreCompleto.toLowerCase().startsWith(coordinador.toLowerCase())
+            );
+        })
+        : [];
+
+    useEffect(() => {
+        fetchData();
+    }, [currentPage, coordinador]);
 
     return (
         <>
             <h2 className='title'>Administrar Coordinadores {disabled ? 'Inhabilitados' : 'Habilitados'}</h2>
             <div className="container-search-buttons">
                 <div className="search-input">
-                    <input type="search" name="search" id="search" placeholder="Buscar" />
+                    <input
+                        type="search"
+                        name="search"
+                        id="search"
+                        placeholder="Buscar"
+                        value={coordinador}
+                        onChange={(e) => setCoordinador(e.target.value)}
+                    />
                     <FontAwesomeIcon icon={faSearch} className="search-icon" />
                 </div>
 
                 <div className="buttons">
-                <button
+                    <button
                         type="button"
                         onClick={() => {
                             disabled ? setDisabled(false) : setDisabled(true);
@@ -63,38 +89,34 @@ export const TableCoodinators = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {dataCoordinator.data && dataCoordinator.data.length > 0 && dataCoordinator.data.map((coordinator) => {
-
-                            return (
-                                <tr>
-                                    <td>{coordinator.documento}</td>
-                                    <td>{coordinator.nombreCompleto}</td>
-                                    <td>{coordinator.telefono}</td>
-                                    <td>{coordinator.email}</td>
-                                    <td>
-                                        <Link to={`/UpdateCoordinador/${coordinator.idUsuario}`}>
+                        {filteredCoordinators.map((coordinator) => (
+                            <tr key={coordinator.idUsuario}>
+                                <td>{coordinator.documento}</td>
+                                <td>{coordinator.nombreCompleto}</td>
+                                <td>{coordinator.telefono}</td>
+                                <td>{coordinator.email}</td>
+                                <td>
+                                    <Link to={`/UpdateCoordinador/${coordinator.idUsuario}`}>
                                         <button>
                                             <FontAwesomeIcon icon={faUserPen} className='iconEdit' />
                                         </button>
-                                        </Link>
+                                    </Link>
+                                </td>
+                                {disabled ? (
+                                    <td>
+                                        <button onClick={() => enableCoordinator(coordinator.idUsuario)}>
+                                            <FontAwesomeIcon icon={faUserCheck} className='iconHabilitar' />
+                                        </button>
                                     </td>
-                                    {disabled ? (
-                                        <td>
-                                            <button onClick={() => {enableCoordinator(coordinator.idUsuario)}}>
-                                                <FontAwesomeIcon icon={faUserCheck} className='iconHabilitar' />
-                                            </button>
-                                        </td>
-                                    ) : (
-                                        <td>
-                                            <button onClick={() => disableCoordinator(coordinator.idUsuario)} >
-                                                <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar' />
-                                            </button>
-                                        </td>
-
-                                    )}
-                                </tr>
-                            )
-                        })}
+                                ) : (
+                                    <td>
+                                        <button onClick={() => disableCoordinator(coordinator.idUsuario)} >
+                                            <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar' />
+                                        </button>
+                                    </td>
+                                )}
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>

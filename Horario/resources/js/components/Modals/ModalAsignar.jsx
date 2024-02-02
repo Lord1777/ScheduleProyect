@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import '../../../css/Modals/ModalAsignar.css'
-import useDropdownGet from '../../hooks/useDropdownGet'
+import useDropdown from '../../hooks/useDropdown'
 import { useForm } from 'react-hook-form'
 import useValidationForm from '../../hooks/useValidationForm'
 import useModalAsignar from '../../hooks/useModalAsignar'
@@ -25,8 +25,8 @@ export const ModalAsignar = ({
     const { register, setValue, handleSubmit } = useForm();
     const { INSTRUCTOR, AMBIENTE } = useValidationForm();
 
-    const dropdown1 = useDropdownGet(setValue, "instructor");
-    const dropdown2 = useDropdownGet(setValue, "ambiente");
+    const dropdown1 = useDropdown(setValue, "instructor");
+    const dropdown2 = useDropdown(setValue, "ambiente");
 
     const { dataInstructors } = useFetchGetInstructors('/getInstructors');
     const { dataEnvironments } = useFetchGetEnvironments('/getEnvironments');

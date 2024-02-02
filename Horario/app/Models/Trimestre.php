@@ -17,6 +17,9 @@ class Trimestre extends Model
     ];
 
     protected $fillable = [
+        'trimestre',
+        'fechaInicio',
+        'fechaFinal',
         'estado',
     ];
 }

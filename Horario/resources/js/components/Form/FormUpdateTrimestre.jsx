@@ -39,7 +39,7 @@ export const FormUpdateTrimestre = () => {
                     return response.json();
                 })
                 .then((Data) => {
-                    console.log(Data);
+                    // console.log(Data);
                     setFechaIni(Data.fechaInicio);
                     setFechaFin(Data.fechaFinal)
 
@@ -68,9 +68,10 @@ export const FormUpdateTrimestre = () => {
         console.log(data);
 
         await fetchPutQuarter(
-            data.trimestre,
-            data.fechaIni,
-            data.fechaFin,
+            id,
+            data.N_TRIMESTRE,
+            data.FECHA_INI,
+            data.FECHA_FIN,
         );
     }
 

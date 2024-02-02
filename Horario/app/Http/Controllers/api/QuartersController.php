@@ -7,6 +7,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
+
 
 class QuartersController extends Controller
 {
@@ -87,27 +90,43 @@ class QuartersController extends Controller
         }
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////
+
     public function update(Request $request, string $idTrimestre)
     {
         $validator = Validator::make($request->all(), [
-            'fechaInicio' => 'required|date_format:Y-m-d',
-            'fechaFinal' => 'required|date_format:Y-m-d',
+            'fechaInicio' => 'required',
+            'fechaFinal' => 'required',
+            'trimestre' => 'required|numeric'
         ]);
     
         if ($validator->fails()) {
             return response()->json([
                 'status' => 0,
-                'errors' => $validator->errors()
+                'errors' => 'Invalid date format or missing dates in the request.'
             ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
         }
     
         try {
+
+            Log::info($request->all());
+
             $quarter = Trimestre::findOrFail($idTrimestre);
+
+
+            $fechaInicio = Carbon::parse($request->fechaInicio)->format('Y-m-d');
+            $fechaFinal = Carbon::parse($request->fechaFinal)->format('Y-m-d');
+
+            Log::info($fechaInicio);
+            Log::info($fechaFinal);
     
             $quarter->update([
-                'fechaInicio' => Carbon::parse($request->fechaInicio)->format('Y-m-d'),
-                'fechaFinal' => Carbon::parse($request->fechaFinal)->format('Y-m-d'),
+                'trimestre' => intval($request->trimestre),
+                'fechaInicio' => strval($fechaInicio),
+                'fechaFinal' => strval($fechaFinal),
             ]);
+
+            Log::info("despues". $quarter);
     
             return response()->json([
                 'status' => 1,
@@ -127,6 +146,8 @@ class QuartersController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////
 
     public function enabled(string $idTrimestre)
     {

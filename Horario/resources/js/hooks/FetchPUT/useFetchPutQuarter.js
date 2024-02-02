@@ -5,13 +5,15 @@ import useRequestOptionsPut from './useRequestOptionsPut';
 export const useFetchPutQuarter = () => {
 
     const { requestOptionsPut } = useRequestOptionsPut();
+    
 
-    const fetchPutQuarter = async(idTrimestre, fechaIni, fechaFin) =>{
+    const fetchPutQuarter = async(idTrimestre, trimestre, fechaInicio, fechaFinal) =>{
 
         console.log(
-            `idTrimestre: ${idTrimestre},
-            Fecha Inicial: ${fechaIni},
-            Fecha Final: ${fechaFin}`
+            idTrimestre,
+            `idTrimestre: ${trimestre},
+            Fecha Inicial: ${fechaInicio},
+            Fecha Final: ${fechaFinal}`
         )
 
         try {
@@ -19,9 +21,9 @@ export const useFetchPutQuarter = () => {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json'},
                 body: JSON.stringify({
-                    idTrimestre,
-                    fechaIni,
-                    fechaFin,
+                    trimestre,
+                    fechaInicio,
+                    fechaFinal
                 }),
             })
 
@@ -30,6 +32,8 @@ export const useFetchPutQuarter = () => {
                 console.log(data.message);
             } else {
                 console.error(`Error updating quater: ${response.statusText}`);
+                const data = await response.json();
+                console.log(data.error);
             }
 
         } catch (error) {

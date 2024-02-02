@@ -1,4 +1,4 @@
-.container_all_hoario {
+.container_all_horario2 {
     max-width: 100%;
     height: 100%;
     display: flex;
@@ -10,7 +10,7 @@
     padding-bottom: 3rem;
 }
 
-.grid_hoario {
+.grid_horario2 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 1rem;
@@ -28,7 +28,7 @@
     height: 2.5rem;
 }
 
-.grid_hoario .hora {
+.grid_horario2 .hora {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,7 +36,7 @@
     height: 3rem;
 }
 
-.grid_hoario .cuadricula {
+.grid_horario2 .cuadricula {
     background-color: #D9D9D9;
     width: 9rem;
     height: 3rem;
@@ -47,8 +47,19 @@
     border-radius: 0.3rem;
 }
 
+.grid_horario2 .selected{
+    background-color: var(--selected-box);
+    width: 9rem;
+    height: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.3rem;
+}
+
 @media (max-width:1230px) {
-    .grid_hoario {
+    .grid_horario2 {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
         gap: 1rem;
@@ -68,7 +79,7 @@
         height: 2.5rem;
     }
     
-    .grid_hoario .hora {
+    .grid_horario2 .hora {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -76,8 +87,12 @@
         height: 3rem;
     }
     
-    .grid_hoario .cuadricula {
-        background-color: #D9D9D9;
+    .grid_horario2 .cuadricula {
+        width: 8rem;
+        height: 3rem;
+    }
+
+    .grid_horario2 .selected {
         width: 8rem;
         height: 3rem;
     }
@@ -85,7 +100,7 @@
 
 
 @media (max-width: 1040px) {
-    .grid_hoario {
+    .grid_horario2 {
         width: 61rem;
         padding: 3rem 1rem;
         gap: 0.5rem;
@@ -93,7 +108,7 @@
 }
 
 @media (max-width: 985px) {
-    .grid_hoario {
+    .grid_horario2 {
         grid-template-columns: repeat(7, 1fr);
         width: 90%;
         padding: 2rem;
@@ -102,7 +117,7 @@
 }
 
 @media (max-width: 480px) {
-    .grid_hoario {
+    .grid_horario2 {
         grid-template-columns: repeat(7, 1fr);
         width: 90%;
         padding: 2rem;

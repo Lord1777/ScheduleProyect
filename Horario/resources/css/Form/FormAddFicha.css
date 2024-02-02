@@ -143,6 +143,11 @@
     color: var(--color-text-btn);
 }
 
+.container-btns .horario{
+    background-color: var(--color-btn-save);
+    color: var(--color-text-btn);
+}
+
 @media(max-width:760px){
     .container_form_add form .grid-column input {
         padding: 1.2rem;

@@ -91,7 +91,9 @@ export const FormLogin = () => {
                         <button type="submit">Ingresar</button>
                     </form>
                 </div>
-                <TooltipHorario></TooltipHorario>
+                <Link to={'/ConsultaAprendiz'} >
+                    <TooltipHorario></TooltipHorario>
+                </Link>
             </main>
         </>
     );

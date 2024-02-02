@@ -31,7 +31,7 @@ export const TableCoodinators = () => {
 
     return (
         <>
-            <h2 className='title'>Administrar Coordinadores</h2>
+            <h2 className='title'>Administrar Coordinadores {disabled ? 'Inhabilitados' : 'Habilitados'}</h2>
             <div className="container-search-buttons">
                 <div className="search-input">
                     <input type="search" name="search" id="search" placeholder="Buscar" />

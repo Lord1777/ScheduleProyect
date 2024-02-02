@@ -16,9 +16,77 @@ use Illuminate\Support\Facades\Validator;
 
 class ScheduleController extends Controller
 {
-    public function index()
+    public function indexRecord(string $idFicha)
+    {
+        try {
+            $recordInfo = HorarioAcademico::join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+                ->join('programas', 'fichas.idPrograma', '=', 'programas.idPrograma')
+                ->join('trimestres', 'horarios_academicos.idTrimestre', '=', 'trimestres.idTrimestre')
+                ->select(
+                    'fichas.ficha',
+                    'fichas.horasAsignadas',
+                    'trimestres.trimestre',
+                    'trimestres.fechaInicio',
+                    'trimestres.fechaFinal',
+                    'programas.nombre',
+                )
+                ->where('fichas.idFicha', $idFicha)
+                ->first();
+
+            if (!$recordInfo) {
+                return response()->json([
+                    'error' => 'Record not found'
+                ], Response::HTTP_NOT_FOUND); //404
+            }
+
+            return response()->json($recordInfo, Response::HTTP_OK); //200
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => "Get Schedule Data Error: " . $e->getMessage(),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
+    public function scheduleApprentice(string $idFicha)
+    {
+        try{
+            $schedule = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
+                ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
+                ->select(
+                    'asignaciones.boxIndex',
+                    'ambientes.ambiente',
+                    'usuarios.nombreCompleto',
+                )
+                ->where('horarios_academicos.idFicha', $idFicha)
+                ->get();
+
+            if (!$schedule) {
+                return response()->json([
+                    'error' => 'Schedule not found'
+                ], Response::HTTP_NOT_FOUND); //404
+            }
+
+            return response()->json($schedule, Response::HTTP_OK); //200
+
+        }catch (\Exception $e){
+            return response()->json([
+                'error' => "Get Schedule Apprentice Error ".$e->getMessage(),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
+
+    public function indexInstructor()
     {
     }
+
+
+    public function indexEnvironment()
+    {
+    }
+
 
     public function store(Request $request)
     {

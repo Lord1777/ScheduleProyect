@@ -45,7 +45,7 @@
 .container-consult-form form button{
     width: 20rem;
     height: 3.5rem;
-    margin-top: 15rem;
+    margin-top: 8rem;
     border: none;
     border-radius: 5px;
     background-color: var(--primary-color);
@@ -152,6 +152,10 @@
     margin-top: 1rem;
 }
 
+#sena{
+    width: 10rem;
+}
+
 /*Responsive*/
 
 @media(max-width:1320px){
@@ -178,7 +182,7 @@
     .container-consult-form form button {
         width: 20rem;
         height: 3.5rem;
-        margin-top: 8rem;
+        margin-top: 6rem;
         border: none;
         border-radius: 5px;
         background-color: var(--primary-color);
@@ -264,7 +268,7 @@
     .container-consult-form form button {
         width: 13rem;
         height: 3rem;
-        margin-top: 8rem;
+        margin-top: 4rem;
         border: none;
         border-radius: 5px;
         background-color: var(--primary-color);
@@ -392,7 +396,7 @@
     .container-consult-form form button {
         width: 10rem;
         height: 2.5rem;
-        margin-top: 8rem;
+        margin-top: 3rem;
         border: none;
         border-radius: 5px;
         background-color: var(--primary-color);

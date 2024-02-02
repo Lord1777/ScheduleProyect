@@ -49,11 +49,12 @@ function App() {
                     <Route path='/' element={<Login />} />
                     <Route path='/ConsultaAprendiz' element={<ConsultAprenttice />} />
                     <Route path='/403-forbidden' element={<Forbidden />} />
-                    <Route path='/HorarioAprediz' element={<ScheduleAprenttice />} />
+                    <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />
                     <Route path='/HorarioFichas' element={<SeeScheduleFichas />} />
                     <Route path='/HorarioInstructor' element={<SeeScheduleInstructors />} />
                     <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
-                    <Route path='/AddHorario' element={<AddSchedule />} />
+                    <Route path='/AddHorario/:id' element={<AddSchedule />} />
+                    <Route path='/UpdateAmbiente/:id' element={<UpdateEnvironments />} />
                     <Route path='/modal' element={<ModalAsignar />} />
                     
                     {/* Vistas del coordinador */}
@@ -66,6 +67,7 @@ function App() {
                         <Route path='/CrudCoordinadores' element={<CrudCoordinators/>}/>
                         <Route path='/CrudAmbientes' element={<CrudEnvironments/>} />
                         <Route path='/AddInstructor' element={<AddInstructors />} />
+                        <Route path='/CrudCoordinadores' element={<CrudCoordinators/>} />
                         <Route path='/AddAmbiente' element={<AddEnvironments />} />
                         <Route path='/AddPrograma' element={<AddProgram />} />
                         <Route path='/AddFicha' element={<AddRecords />} />

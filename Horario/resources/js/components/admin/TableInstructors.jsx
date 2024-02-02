@@ -32,7 +32,7 @@ export const TableInstructors = () => {
 
     return (
         <>
-            <h2 className='title'>Administrar Instructores</h2>
+            <h2 className='title'>Administrar Instructores {disabled ? 'Inhabilitados' : 'Habilitados'}</h2>
             <div className="container-search-buttons">
                 <div className="search-input">
                     <input type="search" name="search" id="search" placeholder="Buscar" />

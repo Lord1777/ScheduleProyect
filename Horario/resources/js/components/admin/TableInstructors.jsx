@@ -55,7 +55,13 @@ export const TableInstructors = () => {
             <h2 className='title'>Administrar Instructores {disabled ? 'Inhabilitados' : 'Habilitados'}</h2>
             <div className="container-search-buttons">
                 <div className="search-input">
-                    <input type="search" name="search" id="search" placeholder="Buscar" value={Instructor}
+                    <input 
+                    type="search" 
+                    name="search" 
+                    id="search" 
+                    placeholder="Buscar" 
+                    autoComplete='off'
+                    value={Instructor}
                     onChange={(e) => setInstructor(e.target.value)}/>
                     <FontAwesomeIcon icon={faSearch} className="search-icon" />
                 </div>

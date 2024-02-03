@@ -8,6 +8,7 @@ const useFetchGetRecord = (route, page) => {
     const [dataRecord, setDataRecord] = useState([]);
 
     useEffect(() => {
+        console.log(dataRecord)
         fetch(`${API_URL}${route}?page=${page}`, requestOptionsGet)
             .then((response) => response.json())
             .then((result) => setDataRecord(result))

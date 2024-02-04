@@ -66,7 +66,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        Log::info('Datos de la solicitud:', $request->all());
+        // Log::info('Datos de la solicitud:', $request->all());
 
         if (!Auth::attempt($request->only('documento', 'password'))) {
             return response([
@@ -80,7 +80,7 @@ class AuthController extends Controller
             $token = $user->createToken('auth_token')->plainTextToken;
 
             return response()->json([
-                // 'data' => $user,
+                'data' => $user,
                 'status' => 1,
                 'access_token' => $token,
                 'token_type' => 'Bearer',

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faPenToSquare, faCircle, faUserCheck, faUserSlash } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
@@ -11,17 +11,45 @@ export const TableRecords = () => {
 
     const [disabled, setDisabled] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
+    const [Ficha, setFicha] = useState("");
 
-    const { dataRecord } = useFetchGetRecord(disabled ? '/getDisableRecords' : '/getEnabledRecords', currentPage);
+    const { dataRecord } = useFetchGetRecord(
+        disabled ? '/getDisableRecords' : '/getEnabledRecords',
+        currentPage,
+        Ficha
+        );
 
     let totalPage = dataRecord.last_page;
+
+    /* Buscador */
+
+    const filteredFicha = dataRecord && dataRecord.data
+        ? dataRecord.data.filter((record) => {
+            return (
+                `${record.ficha}`.toLowerCase().startsWith(Ficha.toLowerCase()) ||
+                record.nombre.toLowerCase().startsWith(Ficha.toLowerCase())
+            );
+        })
+        : [];
+
+    useEffect(() => {
+        
+    }, [currentPage, Ficha]);
 
     return (
         <>
             <h2 className='title'>Administrar Fichas {disabled ? 'Inhabilitadas' : 'Habilitadas'}</h2>
             <div className="container-search-buttons">
                 <div className="search-input">
-                    <input type="search" name="search" id="search" placeholder="Buscar" autoComplete='off' />
+                    <input 
+                    type="search"
+                    name="search"
+                    id="search" 
+                    placeholder="Buscar" 
+                    autoComplete='off' 
+                    value={Ficha}
+                    onChange={(e)=>setFicha(e.target.value)}
+                    />
                     <FontAwesomeIcon icon={faSearch} className="search-icon" />
                 </div>
 
@@ -51,7 +79,7 @@ export const TableRecords = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {dataRecord.data && dataRecord.data.length > 0 && dataRecord.data.map((record) => {
+                        {filteredFicha.map((record) => {
 
                             return (
                                 <tr key={record.id}>

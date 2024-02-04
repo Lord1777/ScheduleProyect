@@ -40,9 +40,10 @@ class RecordsController extends Controller
 
 
 
-    public function indexEnabled()
+    public function indexEnabled(Request $request)
     {
         try {
+            $search = $request->input('search', '');  // Obtener el parámetro de búsqueda desde la solicitud
             $records = Ficha::join('programas', 'fichas.idPrograma', '=', 'programas.idPrograma')
                 ->join('modalidades', 'fichas.idModalidad', '=', 'modalidades.idModalidad')
                 ->join('niveles_de_formacion', 'programas.idNivelFormacion', '=', 'niveles_de_formacion.idNivelFormacion')
@@ -58,6 +59,11 @@ class RecordsController extends Controller
                     'modalidades.modalidad'
                 )
                 ->where('fichas.estado', 'habilitado')
+                ->where(function ($query) use ($search) {
+                    // Lógica de búsqueda 
+                    $query->where('fichas.ficha', 'like', '%' . $search . '%')
+                    ->orWhere('programas.nombre', 'like', '%' . $search . '%');
+                })
                 ->paginate(15);
             return response()->json($records, Response::HTTP_OK); //200
 
@@ -66,9 +72,10 @@ class RecordsController extends Controller
         }
     }
 
-    public function indexDisable()
+    public function indexDisable(Request $request)
     {
         try {
+            $search = $request->input('search', '');  // Obtener el parámetro de búsqueda desde la solicitud
             $records = Ficha::join('programas', 'fichas.idPrograma', '=', 'programas.idPrograma')
                 ->join('modalidades', 'fichas.idModalidad', '=', 'modalidades.idModalidad')
                 ->join('niveles_de_formacion', 'programas.idNivelFormacion', '=', 'niveles_de_formacion.idNivelFormacion')
@@ -84,6 +91,11 @@ class RecordsController extends Controller
                     'modalidades.modalidad'
                 )
                 ->where('fichas.estado', 'inhabilitado')
+                ->where(function ($query) use ($search) {
+                    // Lógica de búsqueda 
+                    $query->where('fichas.ficha', 'like', '%' . $search . '%')
+                    ->orWhere('programas.nombre', 'like', '%' . $search . '%');
+                })
                 ->paginate(15);
             return response()->json($records, Response::HTTP_OK); //200
 

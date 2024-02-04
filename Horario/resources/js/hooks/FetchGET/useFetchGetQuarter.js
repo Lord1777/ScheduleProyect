@@ -3,7 +3,7 @@ import useRequestOptionsGet from './useRequestOptionsGet';
 import { API_URL } from '../../const/api';
 
 
-export const useFetchGetQuarter = (route, page) => {
+export const useFetchGetQuarter = (route, page, search) => {
 
   const { requestOptionsGet } = useRequestOptionsGet();
   const [dataQuarter, setDataQuarter] = useState([]);
@@ -12,7 +12,7 @@ export const useFetchGetQuarter = (route, page) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${API_URL}${route}?page=${page}`, requestOptionsGet);
+        const response = await fetch(`${API_URL}${route}?page=${page}&search=${search}`, requestOptionsGet);
         const result = await response.json();
         setDataQuarter(result);
       } catch (err) {
@@ -24,7 +24,7 @@ export const useFetchGetQuarter = (route, page) => {
     fetchDataRef.current = fetchData;
 
     fetchData();
-  }, [route, page]);
+  }, [route, page, search]);
 
 
   return (

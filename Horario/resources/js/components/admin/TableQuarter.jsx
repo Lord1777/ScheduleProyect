@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faPenToSquare, faCircle, faUserCheck, faUserSlash } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/admin/TableInstructors.css';
@@ -13,9 +13,14 @@ export const TableQuarter = () => {
 
     const [disabled, setDisabled] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
+    const [fecha, setFecha] = useState("")
 
-    const { dataQuarter, fetchData } = useFetchGetQuarter(disabled ? '/getDisableQuarters' : '/getEnabledQuarters', currentPage);
-    const { fetchPutQuarter} = useFetchPutQuarter();
+    const { dataQuarter, fetchData } = useFetchGetQuarter(
+        disabled ? '/getDisableQuarters' : '/getEnabledQuarters', 
+        currentPage,
+        fecha
+        );
+    const { fetchPutQuarter } = useFetchPutQuarter();
 
 
     let totalPage = dataQuarter.last_page;
@@ -25,17 +30,39 @@ export const TableQuarter = () => {
         fetchData();
     }
 
-    const disableQuarter = (idTrimestre) =>{
+    const disableQuarter = (idTrimestre) => {
         fetchPutQuarter('/disableQuarter', idTrimestre);
         fetchData();
     }
+
+    /* Buscador */
+
+    const filteredTrimestre = dataQuarter && dataQuarter.data
+        ? dataQuarter.data.filter((quarter) => {
+            return (
+                `${quarter.fechaInicio}`.toLowerCase().startsWith(fecha.toLowerCase())
+            );
+        })
+        : [];
+
+    useEffect(() => {
+        fetchData();
+    }, [currentPage, fecha]);
 
     return (
         <>
             <h2 className='title'>Administrar Trimestres {disabled ? 'Inhabilitados' : 'Habilitados'}</h2>
             <div className="container-search-buttons">
                 <div className="search-input">
-                    <input type="search" name="search" id="search" placeholder="Buscar" autoComplete='off' />
+                    <input 
+                    type="search" 
+                    name="search" 
+                    id="search" 
+                    placeholder="Buscar" 
+                    autoComplete='off' 
+                    value={fecha}
+                    onChange={(e)=>setFecha(e.target.value)}
+                    />
                     <FontAwesomeIcon icon={faSearch} className="search-icon" />
                 </div>
 
@@ -63,18 +90,18 @@ export const TableQuarter = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {dataQuarter.data && dataQuarter.data.length > 0 && dataQuarter.data.map((quarter) => {
+                        {filteredTrimestre.map((quarter) => {
                             return (
                                 <tr>
                                     <td>{quarter.trimestre}</td>
                                     <td>{quarter.fechaInicio}</td>
                                     <td>{quarter.fechaFinal}</td>
                                     <td>
-                                    <Link to={`/UpdateTrimestre/${quarter.idTrimestre}`}>
-                                        <button>
-                                            <FontAwesomeIcon icon={faPenToSquare} className='iconEdit' />
-                                        </button>
-                                    </Link>
+                                        <Link to={`/UpdateTrimestre/${quarter.idTrimestre}`}>
+                                            <button>
+                                                <FontAwesomeIcon icon={faPenToSquare} className='iconEdit' />
+                                            </button>
+                                        </Link>
                                     </td>
                                     {disabled ? (
                                         <td>

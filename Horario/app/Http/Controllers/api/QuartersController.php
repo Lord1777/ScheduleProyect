@@ -26,21 +26,34 @@ class QuartersController extends Controller
     }
 
     
-    public function indexEnabled()
+    public function indexEnabled(Request $request)
     {
         try {
-            $quarter = Trimestre::where('estado', 'habilitado')->paginate(15);
-            return response()->json($quarter, Response::HTTP_OK); //200
+            $search = $request->input('search', '');  // Obtener el parámetro de búsqueda desde la solicitud
+            $quarter = Trimestre::where('estado', 'habilitado')
+                ->where(function ($query) use ($search) {
+                    // Lógica de búsqueda 
+                    $query->where('trimestres.fechaInicio', 'like', '%' . $search . '%');
+                })
+                ->paginate(15);
+    
+            return response()->json($quarter, Response::HTTP_OK); // 200
         } catch (\Exception $e) {
-            return response()->json(['error' => "Request quarters error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+            return response()->json(['error' => "Request quarters error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); // 500
         }
     }
 
 
-    public function indexDisable()
+    public function indexDisable(Request $request)
     {
         try {
-            $quarter = Trimestre::where('estado', 'inhabilitado')->paginate(15);
+            $search = $request->input('search', '');  // Obtener el parámetro de búsqueda desde la solicitud
+            $quarter = Trimestre::where('estado', 'inhabilitado')
+            ->where(function ($query) use ($search) {
+                // Lógica de búsqueda 
+                $query->where('trimestres.fechaInicio', 'like', '%' . $search . '%');
+            })
+            ->paginate(15);
             return response()->json($quarter, Response::HTTP_OK); //200
         } catch (\Exception $e) {
             return response()->json(['error' => "Request quarters error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500

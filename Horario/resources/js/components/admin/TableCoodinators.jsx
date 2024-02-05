@@ -7,6 +7,7 @@ import '../../../css/admin/Board.css'
 import useFetchGetCoordinator from "../../hooks/FetchGET/useFetchGetCoordinator";
 import { Link } from 'react-router-dom';
 import { useFetchPutCoordinator } from '../../hooks/FetchPUT/useFetchPutCoordinator';
+import { Loading } from '../Loading/Loading';
 
 
 export const TableCoodinators = () => {
@@ -15,7 +16,7 @@ export const TableCoodinators = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [coordinador, setCoordinador] = useState('');  // Asegúrate de inicializar el estado de búsqueda
 
-    const { dataCoordinator, fetchData } = useFetchGetCoordinator(
+    const { dataCoordinator, fetchData, loading } = useFetchGetCoordinator(
         disabled ? '/getDisableCoordinators' : '/getEnabledCoordinators',
         currentPage,
         coordinador  // Asegúrate de pasar el estado de búsqueda al hook
@@ -47,6 +48,10 @@ export const TableCoodinators = () => {
     useEffect(() => {
         fetchData();
     }, [currentPage, coordinador]);
+
+    if (loading) {
+        return <Loading/>
+    }
 
     return (
         <>

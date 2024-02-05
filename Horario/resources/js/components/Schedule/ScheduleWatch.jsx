@@ -2,29 +2,30 @@ import React, { useState, useEffect } from "react";
 import "../../../css/Schedule/ScheduleWatch.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { Link } from "react-router-dom";
 
 export const ScheduleWatch = () => {
 
-    const [fichaInfo, setFichaInfo] = useState(null);
+  const [fichaInfo, setFichaInfo] = useState(null);
 
-    useEffect(() => {
-        
-        const fetchFichaInfo = async () => {
-          try {
-            
-            const fichaNumber = 2560354;
-    
-            const response = await fetch(`/api/schedule/show/${fichaNumber}`);
-            const data = await response.json();
-    
-            setFichaInfo(data);
-          } catch (error) {
-            console.error('Error fetching ficha information:', error);
-          }
-        };
+  useEffect(() => {
 
-        fetchFichaInfo();
-      }, []);
+    const fetchFichaInfo = async () => {
+      try {
+
+        const fichaNumber = 2560354;
+
+        const response = await fetch(`/api/schedule/show/${fichaNumber}`);
+        const data = await response.json();
+
+        setFichaInfo(data);
+      } catch (error) {
+        console.error('Error fetching ficha information:', error);
+      }
+    };
+
+    fetchFichaInfo();
+  }, []);
 
   return (
     <>
@@ -47,11 +48,13 @@ export const ScheduleWatch = () => {
       <div className="main-container">
         <div className="schedule">
           <FontAwesomeIcon icon={faCalendar} className="calendar-icon" />
+          {/* <Link to={`/UpdateFicha/${record.idFicha}`}> */}
           <div className="ficha-and-number">
             <h2>Ficha</h2>
-            <h2> <h2>{fichaInfo ? fichaInfo.numeroFicha : 'Cargando...'}</h2></h2>
+            <h2>{fichaInfo ? fichaInfo.numeroFicha : 'Cargando...'}</h2>
           </div>
-        </div>{/*Contenedor de prueba*/}
+          {/* </Link> */}
+        </div>
       </div>{/*Contenedor principal*/}
       <div className="Space"></div>
     </>

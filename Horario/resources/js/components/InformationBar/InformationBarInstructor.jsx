@@ -3,7 +3,7 @@ import '../../../css/InformationBar/InformationBar.css'
 import useDropdownGet from '../../hooks/useDropdownGet'
 import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
 
-export const InformationBarInstructor = (route) => {
+export const InformationBarInstructor = () => {
 
     const dropdown1 = useDropdownGet();
     const dropdown2 = useDropdownGet();

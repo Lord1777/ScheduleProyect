@@ -58,6 +58,11 @@ function App() {
                     <Route path='/' element={<Login />} />
                     <Route path='/ConsultaAprendiz' element={<ConsultAprenttice />} />
                     <Route path='/403-forbidden' element={<Forbidden />} />
+                    <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />
+                    {/* <Route path='/HorarioFichas' element={<SeeScheduleFichas />} /> */}
+                    <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
+                    <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
+                    <Route path='/AddHorario/:id' element={<AddSchedule />} />
 
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={storedRole} />}  >

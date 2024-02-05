@@ -1,22 +1,16 @@
 import React from 'react';
-import '../../../css/Schedule/SeeSchedule.css';
-import useFetchGetScheduleRecord from '../../hooks/FetchSchedule/useFetchGetScheduleRecord';
 import { useParams } from 'react-router-dom';
+import { useFetchGetScheduleInstructor } from '../../hooks/FetchSchedule/useFetchGetScheduleInstructor';
 
-export const SeeSchedule = () => {
+export const ScheduleInstructor = () => {
 
-    const { idFicha } = useParams();
+    const { idUsuario } = useParams();
 
-    const { dataSchedule } = useFetchGetScheduleRecord('/getscheduleApprentice', idFicha);
+    console.log(idUsuario);
+
+    const { dataSchedule } = useFetchGetScheduleInstructor('', idUsuario);
 
     console.log(dataSchedule);
-
-    function initialsName(nombreCompleto) {
-        const words = nombreCompleto.split(' ');
-        const initials = words.map((word) => word.charAt(0).toUpperCase());
-        return initials.join('');
-    }
-
     return (
         <>
             <div className="grid_horario2">

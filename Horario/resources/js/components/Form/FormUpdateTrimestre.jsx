@@ -10,6 +10,7 @@ import { useFetchPutQuarter } from '../../hooks/FetchPUT/useFetchPutQuarter';
 import { useParams } from "react-router-dom";
 import { API_URL } from '../../const/api';
 import useDropdown from "../../hooks/useDropdown";
+import { Loading } from '../Loading/Loading';
 
 export const FormUpdateTrimestre = () => {
 
@@ -24,46 +25,42 @@ export const FormUpdateTrimestre = () => {
     const [trimestre, setTrimestre] = useState(null);
     const [fechaIni, setFechaIni] = useState(null);
     const [fechaFin, setFechaFin] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`${API_URL}/GetTrimestre/${id}`)
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.statusText}`);
+            }
+            const Data = await response.json();
+            setFechaIni(Data.fechaInicio);
+            setFechaFin(Data.fechaFinal)
+            setValue('N_TRIMESTRE', Data.trimestre);
+            setValue('FECHA_INI', Data.fechaIni);
+            setValue('FECHA_FIN', Data.fechaFin);
+            dropdown1.setSelectedOption(Data.fechaIni);
+            dropdown2.setSelectedOption(Data.fechaFin);
+            setLoading(false);
+        } catch (error) {
+            console.error("Error al cargar los detalles ficha:", error);
+            setLoading(false);
+        }
+    }
 
     useEffect(() => {
         if (id) {
-            fetch(`${API_URL}/GetTrimestre/${id}`)
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error(
-                            `Network response was not ok: ${response.statusText}`
-                        );
-                    }
-                    return response.json();
-                })
-                .then((Data) => {
-                    // console.log(Data);
-                    setFechaIni(Data.fechaInicio);
-                    setFechaFin(Data.fechaFinal)
-
-                    setValue('N_TRIMESTRE', Data.trimestre);
-                    setValue('FECHA_INI', Data.fechaIni);
-                    setValue('FECHA_FIN', Data.fechaFin);
-
-                   
-
-                    dropdown1.setSelectedOption(Data.fechaIni);
-                    dropdown2.setSelectedOption(Data.fechaFin);
-                })
-                .catch((error) => {
-                    console.error(
-                        "Error al cargar los detalles del producto:",
-                        error
-                    );
-                });
+            fetchData();
         }
-    }, [id]);
-    
+    }, [id, setValue]);
+
+    if(loading){
+        return <Loading/>
+    }
+
     const { fetchPutQuarter } = useFetchPutQuarter(id);
 
-    const onSubmit = async(data) => {
+    const onSubmit = async (data) => {
 
         console.log(data);
 

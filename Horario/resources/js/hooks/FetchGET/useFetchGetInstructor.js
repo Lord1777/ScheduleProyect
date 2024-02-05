@@ -6,6 +6,7 @@ const useFetchGetInstructor = (route, page, search) => {
     const { requestOptionsGet } = useRequestOptionsGet();
     const [dataInstructor, setDataInstructor] = useState([]);
     const fetchDataRef = useRef();
+    const [ loading, setLoading ] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -15,6 +16,9 @@ const useFetchGetInstructor = (route, page, search) => {
                 setDataInstructor(result);
             } catch (err) {
                 console.error('Error al obtener datos:', err);
+            }
+            finally{
+                setLoading(false);
             }
         };
 
@@ -27,6 +31,7 @@ const useFetchGetInstructor = (route, page, search) => {
     return {
         dataInstructor,
         fetchData: () => fetchDataRef.current(), // Llamada a la función fetchData almacenada en el ref
+        loading,
     };
 };
 

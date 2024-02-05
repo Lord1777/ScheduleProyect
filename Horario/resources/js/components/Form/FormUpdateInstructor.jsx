@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import useDropdown from "../../hooks/useDropdown";
 import logoSena from "../../assets/img/LogoSena.png";
 import { useFetchPutInstructor } from '../../hooks/FetchPUT/useFetchPutInstructor';
+import { Loading } from '../Loading/Loading';
 
 export const FormUpdateInstructor = () => {
 
@@ -37,49 +38,54 @@ export const FormUpdateInstructor = () => {
     const [profesion, setProfesion] = useState(null);
     const [experiencia, setExperiencia] = useState(null);
     const [sede, setSede] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`${API_URL}/getInstructor/${id}`)
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.statusText}`);
+            }
+            const Data = await response.json();
+            setNombre(Data.nombreCompleto)
+            setTipoDocument(Data.tipoDocumento)
+            setDocumento(Data.documento)
+            setEmail(Data.email)
+            setTelefono(Data.telefono)
+            setTipoContrato(Data.tipoContrato)
+            setCiudad(Data.ciudad)
+            setProfesion(Data.profesion)
+            setExperiencia(Data.experiencia)
+            setSede(Data.sede)
+            setValue("nombreCompleto", Data.nombreCompleto)
+            setValue("TipoDocumento", Data.tipoDocumento)
+            setValue("documento", Data.documento)
+            setValue("email", Data.email)
+            setValue("telefono", Data.telefono)
+            setValue("TipoContrato", Data.tipoContrato)
+            setValue("ciudad", Data.ciudad)
+            setValue("profesion", Data.profesion)
+            setValue("experiencia", Data.experiencia)
+            setValue("Sede", Data.sede)
+            dropdown1.setSelectedOption(Data.tipoDocumento);
+            dropdown2.setSelectedOption(Data.tipoContrato);
+            dropdown3.setSelectedOption(Data.sede);
+            setLoading(false);
+        } catch (error) {
+            console.error("Error al cargar los detalles instructor:", error);
+            setLoading(false);
+        }
+    }
 
     useEffect(() => {
         if (id) {
-            fetch(`${API_URL}/getInstructor/${id}`)
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error(
-                            `Network response was not ok: ${response.statusText}`
-                        );
-                    }
-                    return response.json();
-                })
-                .then((Data) => {
-                    console.log(Data);
-                    setNombre(Data.nombreCompleto)
-                    setTipoDocument(Data.tipoDocumento)
-                    setDocumento(Data.documento)
-                    setEmail(Data.email)
-                    setTelefono(Data.telefono)
-                    setTipoContrato(Data.tipoContrato)
-                    setCiudad(Data.ciudad)
-                    setProfesion(Data.profesion)
-                    setExperiencia(Data.experiencia)
-                    setSede(Data.sede)
-                    setValue("nombreCompleto", Data.nombreCompleto)
-                    setValue("TipoDocumento", Data.tipoDocumento)
-                    setValue("documento", Data.documento)
-                    setValue("email", Data.email)
-                    setValue("telefono", Data.telefono)
-                    setValue("TipoContrato", Data.tipoContrato)
-                    setValue("ciudad", Data.ciudad)
-                    setValue("profesion", Data.profesion)
-                    setValue("experiencia", Data.experiencia)
-                    setValue("Sede", Data.sede)
-                    dropdown1.setSelectedOption(Data.tipoDocumento);
-                    dropdown2.setSelectedOption(Data.tipoContrato);
-                    dropdown3.setSelectedOption(Data.sede);
-                })
-                .catch((error) => {
-                    console.error("Error al cargar los detalles del producto:", error);
-                });
+            fetchData();
         }
-    }, [id]);
+    }, [id,setValue]);
+
+    if(loading){
+        return <Loading/>
+    }
 
     const { fetchPutInstructor } = useFetchPutInstructor(id);
 

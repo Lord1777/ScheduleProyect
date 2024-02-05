@@ -6,6 +6,7 @@ const useFetchGetEnvironment = (route, page, search) => {
     const { requestOptionsGet } = useRequestOptionsGet();
     const [dataEnvironment, setDataEnvironment] = useState([]);
     const fetchDataRef = useRef();
+    const [ loading, setLoading ] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -15,6 +16,9 @@ const useFetchGetEnvironment = (route, page, search) => {
                 setDataEnvironment(result);
             } catch (err) {
                 console.error('Error al obtener datos:', err);
+            }
+            finally{
+                setLoading(false);
             }
         };
 
@@ -28,6 +32,7 @@ const useFetchGetEnvironment = (route, page, search) => {
     return ({
         dataEnvironment,
         fetchData: () => fetchDataRef.current(), // Llamada a la función fetchData almacenada en el ref
+        loading,
     })
 
 }

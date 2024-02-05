@@ -7,6 +7,7 @@ import '../../../css/admin/Board.css'
 import useFetchGetEnvironment from '../../hooks/FetchGET/useFetchGetEnvironment';
 import { useFetchPutEnvironment } from '../../hooks/FetchPUT/useFetchPutEnvironment';
 import { Link } from 'react-router-dom';
+import { Loading } from '../Loading/Loading';
 
 
 export const TableEnvironments = () => {
@@ -15,7 +16,7 @@ export const TableEnvironments = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [ambiente, setAmbiente] = useState("")
 
-    const { dataEnvironment, fetchData } = useFetchGetEnvironment(
+    const { dataEnvironment, fetchData, loading } = useFetchGetEnvironment(
         disabled ? '/getDisableEnvironments' : '/getEnabledEnvironments',
         currentPage,
         ambiente
@@ -47,6 +48,10 @@ export const TableEnvironments = () => {
     useEffect(() => {
         fetchData();
     }, [currentPage, ambiente]);
+
+    if(loading){
+        return <Loading/>
+    }
 
     return (
         <>

@@ -7,6 +7,7 @@ import '../../../css/admin/Board.css'
 import useFetchGetQuarter from '../../hooks/FetchGET/useFetchGetQuarter';
 import { useFetchPutQuarter } from '../../hooks/FetchPUT/useFetchPutQuarter';
 import { Link } from 'react-router-dom';
+import { Loading } from '../Loading/Loading';
 
 
 export const TableQuarter = () => {
@@ -15,7 +16,7 @@ export const TableQuarter = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [fecha, setFecha] = useState("")
 
-    const { dataQuarter, fetchData } = useFetchGetQuarter(
+    const { dataQuarter, fetchData, loading } = useFetchGetQuarter(
         disabled ? '/getDisableQuarters' : '/getEnabledQuarters', 
         currentPage,
         fecha
@@ -48,6 +49,10 @@ export const TableQuarter = () => {
     useEffect(() => {
         fetchData();
     }, [currentPage, fecha]);
+
+    if(loading){
+        return <Loading/>
+    }
 
     return (
         <>

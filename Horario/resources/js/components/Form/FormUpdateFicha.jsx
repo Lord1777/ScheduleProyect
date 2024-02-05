@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { API_URL } from "../../const/api";
 import { Link, useParams } from "react-router-dom";
 import { useFetchPutRecord } from "../../hooks/FetchPUT/useFetchPutRecord";
+import { Loading } from "../Loading/Loading";
 
 export const FormUpdateFicha = () => {
 
@@ -32,57 +33,52 @@ export const FormUpdateFicha = () => {
     const [ficha, setFicha] = useState(null);
     const [duracion, setDuracion] = useState(null);
     const [programa, setPrograma] = useState(null);
+    const [loading, setLoading] = useState(true)
 
 
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`${API_URL}/GetFicha/${id}`)
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.statusText}`);
+            }
+            const Data = await response.json();
+            setFicha(Data.ficha);
+            setDuracion(Data.duracion);
+            setPrograma(Data.nombre);
+            setValue("NFicha", Data.ficha)
+            setValue("Duracion", Data.duracion)
+            setValue("Programa", Data.nombre)
+            setValue("Modalidad", Data.modalidad)
+            setValue("JornadaAcademica", Data.jornada)
+            dropdown1.setSelectedOption(Data.modalidad);
+            dropdown2.setSelectedOption(Data.jornada);
+            setLoading(false);
+        } catch (error) {
+            console.error("Error al cargar los detalles ficha:", error);
+            setLoading(false);
+        }
+    }
 
     useEffect(() => {
         if (id) {
-            fetch(`${API_URL}/GetFicha/${id}`)
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error(
-                            `Network response was not ok: ${response.statusText}`
-                        );
-                    }
-                    return response.json();
-                })
-                .then((Data) => {
-                    console.log(Data);
-                    setFicha(Data.ficha);
-                    setDuracion(Data.duracion);
-                    setPrograma(Data.nombre);
-
-                    setValue("NFicha", Data.ficha)
-                    setValue("Duracion", Data.duracion)
-                    setValue("Programa", Data.nombre)
-                    setValue("Modalidad", Data.modalidad)
-                    setValue("JornadaAcademica", Data.jornada)
-
-                    dropdown1.setSelectedOption(Data.modalidad);
-                    dropdown2.setSelectedOption(Data.jornada);
-                })
-                .catch((error) => {
-                    console.error(
-                        "Error al cargar los detalles del producto:",
-                        error
-                    );
-                });
+            fetchData();
         }
-    }, [id]);
+    }, [id,setValue]);
+
+    if(loading){
+        return <Loading/>
+    }
 
     const { fetchPutRecord } = useFetchPutRecord(id);
-
     const onSubmit = async (data) => {
-        
-        console.log(data)
-        
         await fetchPutRecord(
-                data.ficha,
-                data.duracion,
-                data.programa,
-                data.Modalidad,
-                data.Jornada
-            );
+            data.ficha,
+            data.duracion,
+            data.programa,
+            data.Modalidad,
+            data.Jornada
+        );
     };
 
     return (

@@ -8,7 +8,7 @@ export const ScheduleInstructor = () => {
 
     console.log(idUsuario);
 
-    const { dataSchedule } = useFetchGetScheduleInstructor('', idUsuario);
+    const { dataSchedule } = useFetchGetScheduleInstructor('/getScheduleInstructor', idUsuario);
 
     console.log(dataSchedule);
     return (
@@ -43,7 +43,7 @@ export const ScheduleInstructor = () => {
                                     {infoSchedule ? (
                                         // Si hay información específica del backend
                                         <>
-                                            <span>{initialsName(infoSchedule.nombreCompleto)}</span>
+                                            <span>{infoSchedule.ficha}</span>
                                             <span>{infoSchedule.ambiente}</span>
                                         </>
                                     ) : (

@@ -13,7 +13,7 @@ export const SeeScheduleInstructors = () => {
         <>
             <NavBar />
             {/*los estilos del container horarios estan en SeeSchedule.css*/}
-            <main className="container_all_hoario">
+            <main className="container_all_horario2">
                 <InformationBarInstructor />
                 <ScheduleInstructor/>
             </main>

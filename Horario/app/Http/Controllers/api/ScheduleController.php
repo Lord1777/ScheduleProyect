@@ -82,6 +82,36 @@ class ScheduleController extends Controller
     {
     }
 
+    public function scheduleInstructor(string $idUsuario)
+    {
+        try{
+            $schedule = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
+            ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+            ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
+            ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
+            ->select(
+                'fichas.ficha',
+                'ambientes.ambiente',
+                'asignaciones.boxIndex',
+            )
+            ->where('usuarios.idUsuario', $idUsuario)
+            ->get();
+
+            if (!$schedule) {
+                return response()->json([
+                    'error' => 'Schedule not found'
+                ], Response::HTTP_NOT_FOUND); //404
+            }
+
+            return response()->json($schedule, Response::HTTP_OK);
+
+        } catch( \Exception $e ) {
+            return response()->json([
+                'error' => "Get Schedule Instructor Error ".$e->getMessage(),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
 
     public function indexEnvironment()
     {
@@ -145,7 +175,7 @@ class ScheduleController extends Controller
                 $numeroAmbiente = Ambiente::where('idAmbiente', $idAmbiente)->value('ambiente');
                 $numeroFicha = Ficha::where('idFicha', $idFicha)->value('ficha');
 
-                // Obtener el límite de horas para el instructor y ambiente
+                // Obtener el límite de horas para el instructor, ambiente y ficha
                 $limiteHorasInstructor = Usuario::where('idUsuario', $idInstructor)->value('limiteHoras');
                 $limiteHorasAmbiente = Ambiente::where('idAmbiente', $idAmbiente)->value('limiteHoras');
                 $limiteHorasFicha = Ficha::where('idFicha', $idFicha)->value('limiteHoras');
@@ -153,6 +183,10 @@ class ScheduleController extends Controller
                 $disponibilidadInstructor = $limiteHorasInstructor - $horasAntesInstructores[$idInstructor];
                 $disponibilidadAmbiente = $limiteHorasAmbiente - $horasAntesAmbientes[$idAmbiente];
                 $disponibilidadFicha = $limiteHorasFicha - $horasAntesFicha;
+
+                // Evitar asignaciones simultaneas en la misma casilla
+                $instructorAsignado = Asignacion::where('idUsuario', $idInstructor);
+                $ambienteAsignado = Asignacion::where('idAmbiente', $idAmbiente);
 
                 if ($limiteHorasInstructor !== null && $limiteHorasAmbiente !== null) {
 
@@ -240,23 +274,23 @@ class ScheduleController extends Controller
         }
     }
 
-    public function show()
-    {
-        try {
-            // Validar que el número de ficha esté presente
-            if (!$numeroFicha) {
-                return response()->json([
-                    'error' => 'Ficha number is required'
-                ], Response::HTTP_BAD_REQUEST); //400
-            }
+    // public function show()
+    // {
+    //     try {
+    //         // Validar que el número de ficha esté presente
+    //         if (!$numeroFicha) {
+    //             return response()->json([
+    //                 'error' => 'Ficha number is required'
+    //             ], Response::HTTP_BAD_REQUEST); //400
+    //         }
 
-            // Llamar al método scheduleApprentice para obtener los horarios del aprendiz
-            return $this->scheduleApprentice($numeroFicha);
+    //         // Llamar al método scheduleApprentice para obtener los horarios del aprendiz
+    //         return $this->scheduleApprentice($numeroFicha);
 
-        } catch (\Exception $e) {
-            return response()->json([
-                'error' => "Show Schedule Error: " . $e->getMessage(),
-            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
-        }
-    }
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'error' => "Show Schedule Error: " . $e->getMessage(),
+    //         ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+    //     }
+    // }
 }

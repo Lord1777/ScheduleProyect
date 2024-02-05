@@ -7,7 +7,7 @@ export const SeeSchedule = () => {
 
     const { idFicha } = useParams();
 
-    const { dataSchedule } = useFetchGetScheduleRecord('/getscheduleApprentice', idFicha);
+    const { dataSchedule } = useFetchGetScheduleRecord('/getScheduleApprentice', idFicha);
 
     console.log(dataSchedule);
 

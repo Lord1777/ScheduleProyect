@@ -2,12 +2,15 @@ import React from 'react';
 import { API_URL } from '../../const/api';
 import useRequestOptionsPut from './useRequestOptionsPut';
 import { getSedeByName, getTrueOrFalseByYesOrNot } from '../useObjectMapping';
+import useModal from '../useModal';
 
 export const useFetchPutEnvironment = (id) => {
 
     const { requestOptionsPut } = useRequestOptionsPut();
+    const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
+    const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
 
-    const fetchPutEnvironment = async( ambiente, cantidadMesas, capacidad, cantidadComputadores, AireAcondicionadoS, TableroS, VideoBeamS, sede,  ) =>{
+    const fetchPutEnvironment = async (ambiente, cantidadMesas, capacidad, cantidadComputadores, AireAcondicionadoS, TableroS, VideoBeamS, sede,) => {
 
         let idSede = getSedeByName(sede);
         let aireAcondicionado = getTrueOrFalseByYesOrNot(AireAcondicionadoS);
@@ -15,33 +18,39 @@ export const useFetchPutEnvironment = (id) => {
         let tablero = getTrueOrFalseByYesOrNot(TableroS);
 
         try {
-            const response = await fetch(`${API_URL}/updateEnvironment/${id}`,{
+            const response = await fetch(`${API_URL}/updateEnvironment/${id}`, {
                 method: "PUT",
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                  ambiente,
-                  cantidadMesas,
-                  capacidad,
-                  cantidadComputadores,
-                  aireAcondicionado,
-                  tablero,
-                  videoBeam,
-                  idSede,
+                body: JSON.stringify({
+                    ambiente,
+                    cantidadMesas,
+                    capacidad,
+                    cantidadComputadores,
+                    aireAcondicionado,
+                    tablero,
+                    videoBeam,
+                    idSede,
                 })
             })
 
             if (response.ok) {
                 const data = await response.json();
                 console.log(data.message); // Mensaje definido en Laravel
+                openSuccessModal();
             }
 
         } catch (error) {
-            console.log(`Error Updating Environment: ${error}`)
+            console.log(`Error Updating Environment: ${error}`);
+            openErrorModal();
         }
     }
-  return (
-   {
-        fetchPutEnvironment
-   }
-  )
+    return (
+        {
+            fetchPutEnvironment,
+            successModalOpen,
+            errorModalOpen,
+            closeSuccessModal,
+            closeErrorModal
+        }
+    )
 }

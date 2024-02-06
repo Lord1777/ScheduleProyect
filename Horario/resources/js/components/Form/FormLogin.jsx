@@ -29,7 +29,7 @@ export const FormLogin = () => {
     };
 
     if(loading){
-        return <Loading/>
+        //return <Loading/>
     }
 
     return (

@@ -7,13 +7,16 @@ import '../../../css/Form/FormAddTrimestre.css';
 import useFetchPostQuarter from '../../hooks/FetchPOST/useFetchPostQuarter';
 import useValidationForm from '../../hooks/useValidationForm';
 import { useForm, Controller } from 'react-hook-form';
+import exito from '../../assets/img/Exito.png'
+import error from '../../assets/img/Advertencia.png'
+import { Modal } from '../Modals/Modal';
 
 function FormAddTrimestre() {
 
     const { control, register, handleSubmit, setValue, formState: { errors } } = useForm();
     const { N_TRIMESTRE, FECHA_INI, FECHA_FIN } = useValidationForm();
 
-    const { fetchSubmitQuarter } = useFetchPostQuarter('/createQuarters');
+    const { fetchSubmitQuarter, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, } = useFetchPostQuarter('/createQuarters');
 
     const onSubmit = async(data) => {
         console.log(data);
@@ -107,6 +110,29 @@ function FormAddTrimestre() {
                     </div>
                 </div>
             </main>
+            <Modal
+                tittle="Actualización Exitosa"
+                imagen={exito}
+                message="Los datos se actualizaron correctamente."
+                route="CrudTrimestres"
+                open={successModalOpen}
+                close={() => {
+                    closeSuccessModal();
+                    ShowCloseModal();
+                }}
+            />
+            {/* Modal de error */}
+            <Modal
+                tittle="Error en la Actualización"
+                imagen={error}
+                message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
+                route="CrudTrimestres"
+                open={errorModalOpen}
+                close={() => {
+                    closeErrorModal();
+                    ShowCloseModal();
+                }}
+            />
         </>
     );
 }

@@ -1,7 +1,11 @@
 import {getModalidadByName, getJornadaByName} from '../useObjectMapping';
 import { API_URL, csrf_token } from '../../const/api';
+import useModal from '../useModal';
 
 const useFetchPostRecord = (route) => {
+
+    const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
+    const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
 
     const fetchSubmitRecord = async (ficha, idPrograma, modalidad, jornada) => {
 
@@ -35,16 +39,22 @@ const useFetchPostRecord = (route) => {
             if(response.ok){
                 const data = await response.json()
                 console.log(data.message)
+                openSuccessModal();
             }
 
         } catch (err) {
             console.log(`Error Creating Environment: ${err}`)
+            openErrorModal();
         }
     }
 
     return (
         {
             fetchSubmitRecord,
+            successModalOpen,
+            errorModalOpen,
+            closeSuccessModal,
+            closeErrorModal,
         }
     )
 }

@@ -8,6 +8,9 @@ import { API_URL } from "../../const/api";
 import { Link, useParams } from "react-router-dom";
 import { useFetchPutRecord } from "../../hooks/FetchPUT/useFetchPutRecord";
 import { Loading } from "../Loading/Loading";
+import exito from '../../assets/img/Exito.png'
+import error from '../../assets/img/Advertencia.png'
+import { Modal } from '../Modals/Modal';
 
 export const FormUpdateFicha = () => {
 
@@ -35,6 +38,7 @@ export const FormUpdateFicha = () => {
     const [programa, setPrograma] = useState(null);
     const [loading, setLoading] = useState(true)
 
+    const { fetchPutRecord, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, } = useFetchPutRecord(id);
 
     const fetchData = async () => {
         try {
@@ -70,7 +74,6 @@ export const FormUpdateFicha = () => {
         return <Loading/>
     }
 
-    const { fetchPutRecord } = useFetchPutRecord(id);
     const onSubmit = async (data) => {
         await fetchPutRecord(
             data.ficha,
@@ -274,6 +277,29 @@ export const FormUpdateFicha = () => {
                     </div>
                 </div>
             </main>
+            <Modal
+                tittle="Actualización Exitosa"
+                imagen={exito}
+                message="Los datos se actualizaron correctamente."
+                route="CrudFichas"
+                open={successModalOpen}
+                close={() => {
+                    closeSuccessModal();
+                    ShowCloseModal();
+                }}
+            />
+            {/* Modal de error */}
+            <Modal
+                tittle="Error en la Actualización"
+                imagen={error}
+                message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
+                route="CrudFichas"
+                open={errorModalOpen}
+                close={() => {
+                    closeErrorModal();
+                    ShowCloseModal();
+                }}
+            />
         </>
     );
 };

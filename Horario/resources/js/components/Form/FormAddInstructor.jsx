@@ -5,6 +5,9 @@ import useValidationForm from '../../hooks/useValidationForm';
 import { useForm } from 'react-hook-form';
 import useDropdown from '../../hooks/useDropdown';
 import "../../../css/Form/FormAddInstructor.css";
+import exito from '../../assets/img/Exito.png'
+import error from '../../assets/img/Advertencia.png'
+import { Modal } from '../Modals/Modal';
 
 const FormAddInstructor = () => {
 
@@ -23,7 +26,7 @@ const FormAddInstructor = () => {
     const dropdown2 = useDropdown(setValue, "TipoContrato");
     const dropdown3 = useDropdown(setValue, "Sede");
 
-    const { fetchSubmitInstructor } = useFetchPostInstructor('/register')
+    const { fetchSubmitInstructor, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, } = useFetchPostInstructor('/register')
 
     const onSubmit = async (data) => {
 
@@ -211,6 +214,29 @@ const FormAddInstructor = () => {
                     </div>
                 </div>
             </main>
+            <Modal
+                tittle="Actualización Exitosa"
+                imagen={exito}
+                message="Los datos se actualizaron correctamente."
+                route="CrudInstructor"
+                open={successModalOpen}
+                close={() => {
+                    closeSuccessModal();
+                    ShowCloseModal();
+                }}
+            />
+            {/* Modal de error */}
+            <Modal
+                tittle="Error en la Actualización"
+                imagen={error}
+                message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
+                route="CrudInstructor"
+                open={errorModalOpen}
+                close={() => {
+                    closeErrorModal();
+                    ShowCloseModal();
+                }}
+            />
         </>
     )
 }

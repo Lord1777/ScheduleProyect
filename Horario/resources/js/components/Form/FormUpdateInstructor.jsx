@@ -7,6 +7,9 @@ import useDropdown from "../../hooks/useDropdown";
 import logoSena from "../../assets/img/LogoSena.png";
 import { useFetchPutInstructor } from '../../hooks/FetchPUT/useFetchPutInstructor';
 import { Loading } from '../Loading/Loading';
+import exito from '../../assets/img/Exito.png'
+import error from '../../assets/img/Advertencia.png'
+import { Modal } from '../Modals/Modal';
 
 export const FormUpdateInstructor = () => {
 
@@ -39,6 +42,8 @@ export const FormUpdateInstructor = () => {
     const [experiencia, setExperiencia] = useState(null);
     const [sede, setSede] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const { fetchPutInstructor, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, } = useFetchPutInstructor(id);
 
     const fetchData = async () => {
         try {
@@ -86,8 +91,6 @@ export const FormUpdateInstructor = () => {
     if(loading){
         return <Loading/>
     }
-
-    const { fetchPutInstructor } = useFetchPutInstructor(id);
 
     const onSubmit = async (data) => {
         console.log("Valores del formulario:", data);
@@ -298,6 +301,29 @@ export const FormUpdateInstructor = () => {
                     </div>
                 </div>
             </main>
+            <Modal
+                tittle="Actualización Exitosa"
+                imagen={exito}
+                message="Los datos se actualizaron correctamente."
+                route="CrudInstructor"
+                open={successModalOpen}
+                close={() => {
+                    closeSuccessModal();
+                    ShowCloseModal();
+                }}
+            />
+            {/* Modal de error */}
+            <Modal
+                tittle="Error en la Actualización"
+                imagen={error}
+                message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
+                route="CrudInstructor"
+                open={errorModalOpen}
+                close={() => {
+                    closeErrorModal();
+                    ShowCloseModal();
+                }}
+            />
         </>
     )
 }

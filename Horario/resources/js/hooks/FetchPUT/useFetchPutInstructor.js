@@ -2,13 +2,16 @@ import React from 'react';
 import { API_URL } from '../../const/api';
 import useRequestOptionsPut from './useRequestOptionsPut';
 import { getContratoByName, getSedeByName } from '../useObjectMapping';
+import useModal from '../useModal';
 
 export const useFetchPutInstructor = (idUsuario) => {
 
     const { requestOptionsPut } = useRequestOptionsPut();
+    const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
+    const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
 
     const fetchPutInstructor = async (nombreCompleto, tipoDocumento, documento, email, telefono, tipoContrato, ciudad, profesion, experiencia, sede) => {
-        //console.log("Valores en fetchPutInstructor:", nombreCompleto, tipoDocumento, documento, email, telefono, tipoContrato, ciudad, profesion, experiencia, sede);
+
         let idContrato = getContratoByName(tipoContrato);
         let idSede = getSedeByName(sede);
 
@@ -46,19 +49,26 @@ export const useFetchPutInstructor = (idUsuario) => {
             if (response.ok) {
                 const data = await response.json();
                 console.log(data.message); // Mensaje definido en Laravel
+                openSuccessModal();
             }
             else {
                 console.log(response.error)
+                openErrorModal();
             }
 
         } catch (error) {
             console.log(`Error Updating Instructor: ${error}`)
+            openErrorModal();
         }
     }
 
     return (
         {
-            fetchPutInstructor
+            fetchPutInstructor,
+            successModalOpen,
+            errorModalOpen,
+            closeSuccessModal,
+            closeErrorModal,
         }
     )
 }

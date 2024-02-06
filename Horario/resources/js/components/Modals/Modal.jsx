@@ -1,7 +1,16 @@
 import React from 'react'
 import '../../../css/Modals/Modal.css'
+import { useNavigate } from 'react-router-dom'
 
-export const Modal = ( { tittle, imagen, message } ) => {
+
+export const Modal = ( { tittle, imagen, message, route, open, close } ) => {
+    if (!open) return null;
+
+    const Navigate = useNavigate()
+    const Navegar = () => {
+        Navigate(`/${route}`)
+    }
+
     return (
         <>
             <main className="box-shadow-modal">
@@ -16,8 +25,8 @@ export const Modal = ( { tittle, imagen, message } ) => {
                         <p>{message}</p>
                     </div>
                     <div className="modal-btns">
-                        <button className='confirmar'>Confirmar</button>
-                        <button className='cancelar'>Cancelar</button>
+                        <button className='confirmar' onClick={Navegar}>Confirmar</button>
+                        <button className='cancelar' onClick={close}>Cancelar</button>
                     </div>
                 </div>
             </main>

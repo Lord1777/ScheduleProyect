@@ -40,17 +40,19 @@ export const ScheduleAdd = () => {
         return initials.join('');
     }
 
-    useEffect(() => {
-        if (duplicatesBox.length > 0 || duplicatesBox.size > 0) {
+    // Función para desasignar un instructor y ambiente al hacer clic en una casilla asignada
+    const handleAssignedBoxClick = (boxIndex) => {
+        setGlobalStoreBoxes(prevStoreBoxes => {
+            const newStoreBoxes = prevStoreBoxes.filter(box => box.boxIndex !== boxIndex);
+            return newStoreBoxes;
+        });
 
-            const timer = setTimeout(() => {
-                setDuplicatesBox([]);
-            }, 2000);
-    
-            // Limpieza del temporizador cuando el componente se desmonta o cuando duplicatesBox cambia nuevamente
-            return () => clearTimeout(timer);
-        }
-    }, [duplicatesBox]);
+        setAsignaciones(prevAsignaciones => {
+            const newAsignaciones = { ...prevAsignaciones };
+            delete newAsignaciones[boxIndex];
+            return newAsignaciones;
+        });
+    };
 
     const onSubmit = async (data) => {
 
@@ -62,6 +64,18 @@ export const ScheduleAdd = () => {
             })
         }
     }
+
+    useEffect(() => {
+        if (duplicatesBox.length > 0 || duplicatesBox.size > 0) {
+
+            const timer = setTimeout(() => {
+                setDuplicatesBox([]);
+            }, 2000);
+
+            // Limpieza del temporizador cuando el componente se desmonta o cuando duplicatesBox cambia nuevamente
+            return () => clearTimeout(timer);
+        }
+    }, [duplicatesBox]);
 
     return (
         <>
@@ -119,7 +133,13 @@ export const ScheduleAdd = () => {
                                             `box ${selectedBoxes.has(rowIndex * 6 + colIndex) ? 'selected' : ''}
                                             ${duplicatesBox && duplicatesBox.some(item => item.boxIndex === rowIndex * 6 + colIndex) ? 'duplicate-box' : ''}
                                             `}
-                                        onClick={() => handleBoxClick(rowIndex * 6 + colIndex)}
+                                        onClick={() => {
+                                            if (boxData) {
+                                                handleAssignedBoxClick(boxIndex);
+                                            } else {
+                                                handleBoxClick(boxIndex);
+                                            }
+                                        }}
                                     >
                                         {boxData && (
                                             <>

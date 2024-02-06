@@ -15,9 +15,9 @@ const useFetchGetScheduleRecord = (route, idFicha) => {
                 const response = await fetch(`${API_URL}${route}/${idFicha}`, requestOptionsGet)
                 const result = await response.json();
 
-                // if(response.status === 404){
-                //     alert('No existe horario academico para esta ficha')
-                // }
+                if(response.status === 404 || result.length === 0){
+                    alert('No existe horario academico para esta ficha')
+                }
 
                 setDataSchedule(result);
             } catch (error) {

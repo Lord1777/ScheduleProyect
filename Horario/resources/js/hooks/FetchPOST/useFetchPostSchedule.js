@@ -28,7 +28,9 @@ export const useFetchPostSchedule = (route) => {
                 console.error('Error:', data.error);
                 //alert(data.error);
                 alert(data.message);
-                setDuplicatesBox(data.duplicates);
+                if(data.duplicates){
+                    setDuplicatesBox(data.duplicates);
+                }
             } else {
                 console.log(data.message);
                 alert(data.message);

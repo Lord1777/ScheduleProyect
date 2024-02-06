@@ -25,6 +25,7 @@ export const ConsultHorarioAprenttice = () => {
     const onSubmit = (data) => {
         navigate(`/HorarioAprendiz/${getRecordId(data.ficha)}`);
     }
+    
     /*Bucador*/
     const [fichaPrograma, setFichaPrograma] = useState("");
 

@@ -1,14 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../../../css/InformationBar/InformationBar.css'
 import useDropdownGet from '../../hooks/useDropdownGet'
 import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
+import { useFetchGetRecords } from '../../hooks/FetchGetResources/useFetchGetRecords';
+import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
+import { useUser } from '../../context/UserContext';
 
 export const InformationBarInstructor = () => {
 
     const dropdown1 = useDropdownGet();
     const dropdown2 = useDropdownGet();
     const trimestreDropdown = useTrimestreDropdown();
-    
+
+    const { user } = useUser();
+
+    const { dataRecords } = useFetchGetRecords('/getRecords');
+    const { dataQuarters } = useFetchGetQuarters('/getQuarters');
+
+    //Buscador
+    const [fichaPrograma, setFichaPrograma] = useState("");
+
+    const getRecordId = (nombreRecord) => {
+        const record = dataRecords.find((record) => `${record.ficha} - ${record.nombre}` === nombreRecord);
+        return record ? record.idFicha : null;
+    }
+    const getQuarterId = (dataTrimestre) => {
+        const quarter = dataQuarters.find((quarter) => `${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}` === dataTrimestre);
+        return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
+    };
+
     return (
         <>
             <div className="information_bar">
@@ -18,15 +38,25 @@ export const InformationBarInstructor = () => {
                         <input
                             type="text"
                             className='textBox'
-                            name='Fichas'
+                            name='fichas'
                             placeholder='Fichas'
                             readOnly
                             onClick={dropdown1.handleDropdown}
+                            onChange={(e) => setFichaPrograma(e.target.value)}
                             value={dropdown1.selectedOption}
                         />
                         <div className={`desplegable-options ${dropdown1.isDropdown ? 'open' : ''}`}>
-                            <div onClick={() => dropdown1.handleOptionClick('Cedula')}>Cédula</div>
-                            <div onClick={() => dropdown1.handleOptionClick('Cedula de Extranjeria')}>Cédula de Extranjería</div>
+                            {dataRecords && dataRecords.length > 0 && dataRecords
+                                .filter((record) =>
+                                    `${record.nombre}`.toLowerCase().startsWith(fichaPrograma.toLowerCase())
+                                    ||
+                                    `${record.ficha}`.toLowerCase().startsWith(fichaPrograma.toLowerCase())
+                                )
+                                .map((record) => (
+                                    <div className='option' onClick={() => handleOptionClick(`${record.ficha} - ${record.nombre}`)}>
+                                        {record.ficha} - {record.nombre}
+                                    </div>
+                                ))}
                         </div>
                     </div>
 
@@ -35,30 +65,34 @@ export const InformationBarInstructor = () => {
                             <input
                                 type="text"
                                 className='textBox'
-                                name='Trimestres'
+                                name='trimestres'
                                 placeholder='Trimestres'
                                 readOnly
                                 onClick={dropdown2.handleDropdown}
                                 value={dropdown2.selectedOption}
                             />
                             <div className={`desplegable-options ${dropdown2.isDropdown ? 'open' : ''}`}>
-                                <div onClick={() => dropdown2.handleOptionClick('Cedula')}>Cédula</div>
-                                <div onClick={() => dropdown2.handleOptionClick('Cedula de Extranjeria')}>Cédula de Extranjería</div>
+                                {dataQuarters && dataQuarters.length > 0 && dataQuarters.map((quarter) => (
+                                    <div key={quarter.idTrimestre} onClick={() =>
+                                        handleOptionClick(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`)}>
+                                        {quarter.trimestre} | {quarter.fechaInicio} - {quarter.fechaFinal}
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     )}
 
                     <div>
-                        <h3>Total de Horas: 36</h3>
+                        <h3>Total de Horas: {user ? user.userData.horasAsignadas : ''}</h3>
                     </div>
                 </div>
                 <div className='check_filter'>
                     <label htmlFor="trimestresCheckbox"><h3>Filtra por Trimestres</h3></label>
-                    <input 
-                    className='custom-checkbox'
-                    id="trimestresCheckbox"
-                    type="checkbox"
-                    onChange={trimestreDropdown.toggleTrimestreDropdown}/>
+                    <input
+                        className='custom-checkbox'
+                        id="trimestresCheckbox"
+                        type="checkbox"
+                        onChange={trimestreDropdown.toggleTrimestreDropdown} />
                 </div>
             </div>
         </>

@@ -64,7 +64,7 @@ function App() {
                     <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
                     <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
                     <Route path='/AddHorario/:id' element={<AddSchedule />} />
-                    <Route path='/cargando' element={<Loading/>}/>
+                    <Route path='/cargando' element={<Loading/>} />
 
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={storedRole} />}  >

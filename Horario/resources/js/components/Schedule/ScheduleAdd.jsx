@@ -41,7 +41,7 @@ export const ScheduleAdd = () => {
     }
 
     useEffect(() => {
-        if (duplicatesBox.length > 0) {
+        if (duplicatesBox.length > 0 || duplicatesBox.size > 0) {
 
             const timer = setTimeout(() => {
                 setDuplicatesBox([]);
@@ -73,6 +73,7 @@ export const ScheduleAdd = () => {
                         name='Trimestres'
                         placeholder='Trimestres'
                         readOnly
+                        autoComplete='off'
                         onClick={handleDropdown}
                         value={selectedOption}
                         {...register("trimestre", TRIMESTRE)}
@@ -116,7 +117,7 @@ export const ScheduleAdd = () => {
                                         key={colIndex}
                                         className={
                                             `box ${selectedBoxes.has(rowIndex * 6 + colIndex) ? 'selected' : ''}
-                                            ${duplicatesBox.some(item => item.boxIndex === rowIndex * 6 + colIndex) ? 'duplicate-box' : ''}
+                                            ${duplicatesBox && duplicatesBox.some(item => item.boxIndex === rowIndex * 6 + colIndex) ? 'duplicate-box' : ''}
                                             `}
                                         onClick={() => handleBoxClick(rowIndex * 6 + colIndex)}
                                     >

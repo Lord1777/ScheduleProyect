@@ -186,14 +186,15 @@ class ScheduleController extends Controller
 
                 // Evitar asignaciones simultaneas en la misma casilla
                 $instructorAsignado = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                    ->where('horarios_academicos.idTrimestre', $idTrimestre)
                     ->where('asignaciones.idUsuario', $idInstructor)
                     ->select('asignaciones.boxIndex')
                     ->get();
                 $ambienteAsignado = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                    ->where('horarios_academicos.idTrimestre', $idTrimestre)
                     ->where('asignaciones.idAmbiente', $idAmbiente)
                     ->select('asignaciones.boxIndex')
                     ->get();
-
                 $fichaAsignadaInstructor = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
                     ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
                     ->where('asignaciones.idUsuario', $idInstructor)
@@ -209,28 +210,44 @@ class ScheduleController extends Controller
 
                 if ($instructorAsignado->isNotEmpty()) {
 
-                    //Si existe superposición de asignación
-                    DB::rollBack();
+                    if ($fichaAsignadaInstructor !== null) {
 
-                    return response()->json([
-                        'status' => 0,
-                        'message' => "El instructor '{$nombreInstructor}' ya está asignado en la ficha '{$fichaAsignadaInstructor['ficha']}' específicamente en las casillas marcadas en rojo",
-                        'error' => 'This action cannot be performed. Duplicate assignment in the same box',
-                        'duplicates' => $instructorAsignado,
-                    ], Response::HTTP_BAD_REQUEST); //400
+                        //Si existe superposición de asignación
+                        DB::rollBack();
+
+                        return response()->json([
+                            'status' => 0,
+                            'message' => "El instructor '{$nombreInstructor}' ya está asignado en la ficha '{$fichaAsignadaInstructor['ficha']}' específicamente en las casillas marcadas en rojo",
+                            'error' => 'This action cannot be performed. Duplicate assignment in the same box',
+                            'duplicates' => $instructorAsignado,
+                        ], Response::HTTP_BAD_REQUEST); //400
+                    }else{
+                        return response()->json([
+                            'status' => 0,
+                            'message' => "No se encontraron asignaciones para el instructor '{$nombreInstructor}' en la(s) caja(s) especificadas.",
+                            'error' => 'No assignments found for the instructor in the specified boxIndex',
+                        ], Response::HTTP_NOT_FOUND); //404
+                    }
                 }
-
                 if ($ambienteAsignado->isNotEmpty()) {
 
-                    //Si existe superposición de asignación
-                    DB::rollBack();
+                    if ($fichaAsignadaAmbiente !== null) {
+                        //Si existe superposición de asignación
+                        DB::rollBack();
 
-                    return response()->json([
-                        'status' => 0,
-                        'message' => "El ambiente '{$numeroAmbiente}' ya está asignado en la ficha '{$fichaAsignadaAmbiente['ficha']}' especificamente en las casillas marcadas en rojo",
-                        'error' => 'This action cannot be performed. Duplicate assignment in the same box',
-                        'duplicates' => $ambienteAsignado,
-                    ], Response::HTTP_BAD_REQUEST); //400
+                        return response()->json([
+                            'status' => 0,
+                            'message' => "El ambiente '{$numeroAmbiente}' ya está asignado en la ficha '{$fichaAsignadaAmbiente['ficha']}' especificamente en las casillas marcadas en rojo",
+                            'error' => 'This action cannot be performed. Duplicate assignment in the same box',
+                            'duplicates' => $ambienteAsignado,
+                        ], Response::HTTP_BAD_REQUEST); //400
+                    } else {
+                        return response()->json([
+                            'status' => 0,
+                            'message' => "No se encontraron asignaciones para el ambiente '{$numeroAmbiente}' en la(s) caja(s) especificadas.",
+                            'error' => 'No assignments found for the instructor in the specified boxIndex',
+                        ], Response::HTTP_NOT_FOUND); //404
+                    }
                 }
 
                 if ($limiteHorasInstructor !== null && $limiteHorasAmbiente !== null) {

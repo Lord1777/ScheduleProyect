@@ -336,23 +336,31 @@ class ScheduleController extends Controller
         }
     }
 
-    // public function show()
+    // public function show(string $idHorario)
     // {
     //     try {
-    //         // Validar que el número de ficha esté presente
-    //         if (!$numeroFicha) {
-    //             return response()->json([
-    //                 'error' => 'Ficha number is required'
-    //             ], Response::HTTP_BAD_REQUEST); //400
-    //         }
+    //         $schedule = Horario::join('programas', 'fichas.idPrograma', '=', 'programas.idPrograma')
+    //             ->join('modalidades', 'fichas.idModalidad', '=', 'modalidades.idModalidad')
+    //             ->join('niveles_de_formacion', 'programas.idNivelFormacion', '=', 'niveles_de_formacion.idNivelFormacion')
+    //             ->join('jornadas', 'fichas.idJornada', '=', 'jornadas.idJornada')
+    //             ->join('', '')
 
-    //         // Llamar al método scheduleApprentice para obtener los horarios del aprendiz
-    //         return $this->scheduleApprentice($numeroFicha);
+    //             ->select(
+                    
+    //             )
+    //             ->findOrFail($idHorario);
+
+    //         return response()->json($schedule, Response::HTTP_OK);
+    //     } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+    //         return response()->json([
+    //             'status' => 0,
+    //             'error' => 'Schedule Not Found'
+    //         ], Response::HTTP_NOT_FOUND); //404
 
     //     } catch (\Exception $e) {
     //         return response()->json([
-    //             'error' => "Show Schedule Error: " . $e->getMessage(),
-    //         ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+    //             'error' => 'Error Getting Schedule: ' . $e->getMessage()
+    //         ], Response::HTTP_INTERNAL_SERVER_ERROR);
     //     }
     // }
 }

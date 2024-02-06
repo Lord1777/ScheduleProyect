@@ -8,6 +8,7 @@ export const useFetchGetScheduleInstructor = (route, idUsuario) => {
     const { requestOptionsGet } = useRequestOptionsGet();
 
     const [dataSchedule, setDataSchedule] = useState([]);
+    const [ loading, setLoading ] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -23,6 +24,9 @@ export const useFetchGetScheduleInstructor = (route, idUsuario) => {
             } catch (error) {
                 console.log(`Error al obtener la información: ${error}`)
             }
+            finally{
+                setLoading(false);
+            }
         }
 
         fetchData();
@@ -30,5 +34,6 @@ export const useFetchGetScheduleInstructor = (route, idUsuario) => {
 
     return {
         dataSchedule,
+        loading
     }
 }

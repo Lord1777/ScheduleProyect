@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { API_URL, csrf_token } from '../../const/api';
 import { useUser } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const useFetchLogin = (route) => {
 
     const { authenticateUser } = useUser();
+    const [ loading, setLoading ] = useState(true);
 
     const navigate = useNavigate();
 
@@ -36,10 +37,14 @@ const useFetchLogin = (route) => {
         } catch (error) {
             console.log(`Server Error: ${error}`);
         }
+        finally{
+            setLoading(false);
+        }
     };
 
     return {
         authUser,
+        loading,
     };
 };
 

@@ -2,12 +2,13 @@ import React from 'react';
 import '../../../css/Schedule/SeeSchedule.css';
 import useFetchGetScheduleRecord from '../../hooks/FetchSchedule/useFetchGetScheduleRecord';
 import { useParams } from 'react-router-dom';
+import { Loading } from '../Loading/Loading';
 
 export const SeeSchedule = () => {
 
     const { idFicha } = useParams();
 
-    const { dataSchedule } = useFetchGetScheduleRecord('/getScheduleApprentice', idFicha);
+    const { dataSchedule, loading } = useFetchGetScheduleRecord('/getScheduleApprentice', idFicha);
 
     console.log(dataSchedule);
 
@@ -15,6 +16,10 @@ export const SeeSchedule = () => {
         const words = nombreCompleto.split(' ');
         const initials = words.map((word) => word.charAt(0).toUpperCase());
         return initials.join('');
+    }
+
+    if(loading){
+        return <Loading/>
     }
 
     return (

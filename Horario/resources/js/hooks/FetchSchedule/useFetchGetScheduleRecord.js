@@ -7,6 +7,7 @@ const useFetchGetScheduleRecord = (route, idFicha) => {
     const { requestOptionsGet } = useRequestOptionsGet();
 
     const [dataSchedule, setDataSchedule] = useState([]);
+    const [ loading, setLoading ] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -23,6 +24,9 @@ const useFetchGetScheduleRecord = (route, idFicha) => {
             } catch (error) {
                 console.log(`Error al obtener informacion del horario academico: ${error}`)
             }
+            finally{
+                setLoading(false);
+            }
         }
 
         fetchData();
@@ -30,6 +34,7 @@ const useFetchGetScheduleRecord = (route, idFicha) => {
 
     return {
         dataSchedule,
+        loading
     }
 }
 

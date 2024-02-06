@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useFetchGetScheduleInstructor } from '../../hooks/FetchSchedule/useFetchGetScheduleInstructor';
+import { Loading } from '../Loading/Loading';
 
 export const ScheduleInstructor = () => {
 
@@ -8,9 +9,12 @@ export const ScheduleInstructor = () => {
 
     console.log(idUsuario);
 
-    const { dataSchedule } = useFetchGetScheduleInstructor('/getScheduleInstructor', idUsuario);
+    const { dataSchedule, loading } = useFetchGetScheduleInstructor('/getScheduleInstructor', idUsuario);
 
-    console.log(dataSchedule);
+    if(loading){
+        return <Loading/>
+    }
+    
     return (
         <>
             <div className="grid_horario2">

@@ -29,12 +29,14 @@ export const InformationBarInstructor = () => {
         return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
     };
 
+    const [ fichas, setFichas ] = useState("");
+
     return (
         <>
             <div className="information_bar">
                 <div className="deplegable-horas">
 
-                    <div className={`desplegable ${dropdown1.isDropdown ? 'open' : ''}`}>
+                    <div className={`desplegable1 ${dropdown1.isDropdown ? 'open' : ''}`}>
                         <input
                             type="text"
                             className='textBox'
@@ -45,18 +47,30 @@ export const InformationBarInstructor = () => {
                             onChange={(e) => setFichaPrograma(e.target.value)}
                             value={dropdown1.selectedOption}
                         />
-                        <div className={`desplegable-options ${dropdown1.isDropdown ? 'open' : ''}`}>
-                            {dataRecords && dataRecords.length > 0 && dataRecords
-                                .filter((record) =>
-                                    `${record.nombre}`.toLowerCase().startsWith(fichaPrograma.toLowerCase())
-                                    ||
-                                    `${record.ficha}`.toLowerCase().startsWith(fichaPrograma.toLowerCase())
-                                )
-                                .map((record) => (
-                                    <div className='option' onClick={() => handleOptionClick(`${record.ficha} - ${record.nombre}`)}>
-                                        {record.ficha} - {record.nombre}
-                                    </div>
-                                ))}
+                        <div className={`desplegable-options1 ${dropdown1.isDropdown ? 'open' : ''}`}>
+                            <div className="search-bar">
+                                <input
+                                    type="text"
+                                    className='buscador-desplegables'
+                                    id='buscador'
+                                    value={fichas}
+                                   onChange={(e) => setFichas(e.target.value)} 
+                                   />
+                            </div>
+
+                            <div className="contenedor-options">
+                                {dataRecords && dataRecords.length > 0 && dataRecords
+                                    .filter((record) =>
+                                        `${record.nombre}`.toLowerCase().startsWith(fichas.toLowerCase())
+                                        ||
+                                        `${record.ficha}`.toLowerCase().startsWith(fichas.toLowerCase())
+                                    )
+                                    .map((record) => (
+                                        <div className='option' onClick={() => handleOptionClick(`${record.ficha} - ${record.nombre}`)}>
+                                            {record.ficha} - {record.nombre}
+                                        </div>
+                                    ))}
+                            </div>
                         </div>
                     </div>
 

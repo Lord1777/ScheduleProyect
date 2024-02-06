@@ -6,6 +6,7 @@ import '../../../css/admin/Board.css';
 import '../../../css/admin/SearchButtons.css';
 import '../../../css/admin/TableInstructors.css';
 import useFetchGetRecord from '../../hooks/FetchGET/useFetchGetRecord';
+import { Loading } from '../Loading/Loading';
 
 export const TableRecords = () => {
 
@@ -13,7 +14,7 @@ export const TableRecords = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [Ficha, setFicha] = useState("");
 
-    const { dataRecord } = useFetchGetRecord(
+    const { dataRecord, loading } = useFetchGetRecord(
         disabled ? '/getDisableRecords' : '/getEnabledRecords',
         currentPage,
         Ficha
@@ -35,6 +36,10 @@ export const TableRecords = () => {
     useEffect(() => {
         
     }, [currentPage, Ficha]);
+
+    if(loading){
+        return <Loading/>
+    }
 
     return (
         <>

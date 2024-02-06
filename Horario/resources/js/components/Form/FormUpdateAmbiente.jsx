@@ -6,9 +6,17 @@ import { useParams } from "react-router-dom";
 import useFetchGetDetailsAmbiente from "../../hooks/FetchGET/useFetchGetDeatilsAmbiente";
 import { API_URL } from "../../const/api";
 import { useFetchPutEnvironment } from "../../hooks/FetchPUT/useFetchPutEnvironment";
+import { Loading } from "../Loading/Loading";
 
 export const FormUpdateAmbiente = () => {
     const { id } = useParams();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+    const { N_AMBIENTE, CAPACIDAD_AMBIENTE, C_MESAS, C_COMPUTADORES, AIRE_ACONDICIONADO, VIDEO_BEAM, SEDE, TABLERO } = useValidationForm();
+    const dropdown1 = useDropdown(setValue, "aireAcondicionado");
+    const dropdown2 = useDropdown(setValue, "videoBeam");
+    const dropdown3 = useDropdown(setValue, "sede");
+    const dropdown4 = useDropdown(setValue, "tablero");
+    const { fetchPutEnvironment } = useFetchPutEnvironment(id);
     const [ambiente, setAmbiente] = useState(null);
     const [capacidad, setCapacidad] = useState(null);
     const [mesas, setMesas] = useState(null);
@@ -17,71 +25,60 @@ export const FormUpdateAmbiente = () => {
     const [videoBeam, setVideoBeam] = useState(null);
     const [sede, setSede] = useState(null);
     const [tablero, setTablero] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const mapBooleanToYesOrNo = (value) => {
         return value ? "Si" : "No";
     };
 
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`${API_URL}/getEnvironment/${id}`);
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.statusText}`);
+            }
+            const Data = await response.json();
+
+            setAmbiente(Data.ambiente);
+            setCapacidad(Data.capacidad);
+            setMesas(Data.cantidadMesas);
+            setComputadores(Data.cantidadComputadores);
+            setSede(Data.sede);
+            setAireacondicionado(mapBooleanToYesOrNo(Data.aireAcondicionado));
+            setVideoBeam(mapBooleanToYesOrNo(Data.videoBeam));
+            setTablero(mapBooleanToYesOrNo(Data.tablero));
+
+            setValue("ambiente", Data.ambiente);
+            setValue("capacidad", Data.capacidad);
+            setValue("cantidadMesas", Data.cantidadMesas);
+            setValue("cantidadComputadores", Data.cantidadComputadores);
+            setValue("aireAcondicionados", mapBooleanToYesOrNo(Data.aireAcondicionado));
+            setValue("videoBeams", mapBooleanToYesOrNo(Data.videoBeam));
+            setValue("sede", Data.sede);
+            setValue("tableros", mapBooleanToYesOrNo(Data.tablero));
+
+            dropdown1.setSelectedOption(mapBooleanToYesOrNo(Data.aireAcondicionado));
+            dropdown2.setSelectedOption(mapBooleanToYesOrNo(Data.videoBeam));
+            dropdown3.setSelectedOption(Data.sede);
+            dropdown4.setSelectedOption(mapBooleanToYesOrNo(Data.tablero));
+
+            setLoading(false);
+        } catch (error) {
+            console.error("Error al cargar los detalles del producto:", error);
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
         if (id) {
-            fetch(`${API_URL}/getEnvironment/${id}`)
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error(
-                            `Network response was not ok: ${response.statusText}`
-                        );
-                    }
-                    return response.json();
-                })
-                .then((Data) => {
-                    //console.log(Data);
-                    setAmbiente(Data.ambiente);
-                    setCapacidad(Data.capacidad);
-                    setMesas(Data.cantidadMesas);
-                    setComputadores(Data.cantidadComputadores);
-                    setSede(Data.sede);
-                    setAireacondicionado(mapBooleanToYesOrNo(Data.aireAcondicionado));
-                    setVideoBeam(mapBooleanToYesOrNo(Data.videoBeam));
-                    setTablero(mapBooleanToYesOrNo(Data.tablero));
-
-                    setValue("ambiente", Data.ambiente);
-                    setValue("capacidad", Data.capacidad);
-                    setValue("cantidadMesas", Data.cantidadMesas);
-                    setValue("cantidadComputadores", Data.cantidadComputadores)                
-                    setValue("aireAcondicionados", mapBooleanToYesOrNo(Data.aireAcondicionado));
-                    setValue("videoBeams", mapBooleanToYesOrNo(Data.videoBeam));
-                    setValue("sede", Data.sede);
-                    setValue("tableros", mapBooleanToYesOrNo(Data.tablero));
-
-                    dropdown1.setSelectedOption(mapBooleanToYesOrNo(Data.aireAcondicionado));
-                    dropdown2.setSelectedOption(mapBooleanToYesOrNo(Data.videoBeam));
-                    dropdown3.setSelectedOption(Data.sede);
-                    dropdown4.setSelectedOption(mapBooleanToYesOrNo(Data.tablero));
-                })
-                .catch((error) => {
-                    console.error("Error al cargar los detalles del producto:", error);
-                });
+            fetchData();
         }
-    }, [id]);
+    }, [id, setValue]);
 
-    const { register,handleSubmit,setValue,formState: { errors },} = useForm();
-    const {
-        N_AMBIENTE,
-        CAPACIDAD_AMBIENTE,
-        C_MESAS,
-        C_COMPUTADORES,
-        AIRE_ACONDICIONADO,
-        VIDEO_BEAM,
-        SEDE,
-        TABLERO,
-    } = useValidationForm();
 
-    const dropdown1 = useDropdown(setValue, "aireAcondicionado");
-    const dropdown2 = useDropdown(setValue, "videoBeam");
-    const dropdown3 = useDropdown(setValue, "sede");
-    const dropdown4 = useDropdown(setValue, "tablero");
-
-    const { fetchPutEnvironment } = useFetchPutEnvironment(id);
+    if (loading) {
+        return <Loading />
+    }
 
     const onSubmit = async (data) => {
         console.log(data)
@@ -134,7 +131,7 @@ export const FormUpdateAmbiente = () => {
                                             readOnly
                                             onClick={dropdown1.handleDropdown}
                                             value={dropdown1.selectedOption}
-                                            {...register("aireAcondicionados",AIRE_ACONDICIONADO)}
+                                            {...register("aireAcondicionados", AIRE_ACONDICIONADO)}
                                         />
                                         <div
                                             className={`options ${dropdown1.isDropdown

@@ -51,6 +51,13 @@ export const ControlPanel = () => {
                         />
                     </Link>
 
+                    <Link to={'/HorariosFichas'}>
+                        <div className='btn-horarios'>
+                            <button>
+                                <h3 className='horario'>Horarios académicos</h3>
+                            </button>
+                        </div>
+                    </Link>
 
                 </div>
             </div>

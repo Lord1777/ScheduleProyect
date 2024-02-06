@@ -1,40 +1,36 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react';
 import useRequestOptionsGet from './useRequestOptionsGet';
 import { API_URL } from '../../const/api';
 
-const useFetchGetEnvironment = (route, page, search) => {
+export const useFetchGetScheduleRecord = (idHorario) => {
     const { requestOptionsGet } = useRequestOptionsGet();
-    const [dataEnvironment, setDataEnvironment] = useState([]);
+    const [scheduleData, setScheduleData] = useState([]);
     const fetchDataRef = useRef();
-    const [ loading, setLoading ] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${API_URL}${route}?page=${page}&search=${search}`, requestOptionsGet);
+                const response = await fetch(`${API_URL}/getScheduleRecord/${idHorario}`);
                 const result = await response.json();
-                setDataEnvironment(result);
+                setScheduleData(result);
             } catch (err) {
                 console.error('Error al obtener datos:', err);
-            }
-            finally{
+            } finally {
                 setLoading(false);
             }
         };
 
-        // Asignar la función fetchData al ref
         fetchDataRef.current = fetchData;
 
         fetchData();
-    }, [route, page, search]);
+    }, [idHorario]);
 
-
-    return ({
-        dataEnvironment,
+    return {
+        scheduleData,
         fetchData: () => fetchDataRef.current(), // Llamada a la función fetchData almacenada en el ref
         loading,
-    })
+    };
+};
 
-}
-
-export default useFetchGetEnvironment;
+export default useFetchGetScheduleRecord;

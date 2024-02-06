@@ -14,6 +14,7 @@
 .container-all-panel h2{
     margin-top: 6rem;
     user-select: none;
+    margin-left: 1rem;
 }
 
 .container-cardsPanel {
@@ -23,7 +24,7 @@
     align-items: center;
     margin: 2rem;
     max-width: 60rem;
-    transition: all 1s ease; 
+    transition: all 1s ease;
 }
 
 .cardPanelControl {
@@ -45,6 +46,7 @@
 .cardPanelControl .container-text-card h3{
     color: #fff;
     text-align: center;
+    text-decoration: none !important;
 }
 
 .cardPanelControl .container-text-card {
@@ -67,6 +69,31 @@
     background-color: rgba(38, 38, 38, 0.85);
     transition: ease-in-out 0.5s;
 }
+
+.container-all-panel button{
+    background-color: var(--primary-color);
+    margin: 1rem;
+    outline: none;
+    width: 10rem;
+    height: 3.8rem;
+    color: var(--color-text-btn);
+    border: none;
+    border-radius: 0.2rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    user-select: none;
+    cursor: pointer;
+    margin-left: 65rem;
+    margin-top: -4.7rem;
+    display: flex;
+}
+
+.horario{
+    color: #fff;
+    margin-top: 0.5rem;
+}
+
+/*Responsive*/
 
 @media (max-width:420px){
     .container-cardsPanel {

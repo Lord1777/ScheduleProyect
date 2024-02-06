@@ -7,6 +7,7 @@ import '../../../css/admin/Board.css'
 import useFetchGetInstructor from '../../hooks/FetchGET/useFetchGetInstructor';
 import { useFetchPutInstructor } from '../../hooks/FetchPUT/useFetchPutInstructor';
 import { Link } from 'react-router-dom';
+import { Loading } from '../Loading/Loading';
 
 
 
@@ -16,7 +17,7 @@ export const TableInstructors = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [Instructor, setInstructor] = useState('');
 
-    const { dataInstructor, fetchData } = useFetchGetInstructor(
+    const { dataInstructor, fetchData, loading } = useFetchGetInstructor(
         disabled ? '/getDisableInstructors' : '/getEnabledInstructors',
         currentPage,
         Instructor
@@ -49,6 +50,10 @@ export const TableInstructors = () => {
     useEffect(() => {
         fetchData();
     }, [currentPage, Instructor]);
+
+    if(loading){
+        return <Loading/>
+    }
 
     return (
         <>

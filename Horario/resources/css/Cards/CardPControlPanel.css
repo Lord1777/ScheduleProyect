@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    text-decoration: none;
 }
 
 .container-all-panel {
@@ -46,7 +47,6 @@
 .cardPanelControl .container-text-card h3{
     color: #fff;
     text-align: center;
-    text-decoration: none !important;
 }
 
 .cardPanelControl .container-text-card {
@@ -70,28 +70,7 @@
     transition: ease-in-out 0.5s;
 }
 
-.container-all-panel button{
-    background-color: var(--primary-color);
-    margin: 1rem;
-    outline: none;
-    width: 10rem;
-    height: 3.8rem;
-    color: var(--color-text-btn);
-    border: none;
-    border-radius: 0.2rem;
-    font-weight: 300;
-    letter-spacing: 1px;
-    user-select: none;
-    cursor: pointer;
-    margin-left: 65rem;
-    margin-top: -4.7rem;
-    display: flex;
-}
 
-.horario{
-    color: #fff;
-    margin-top: 0.5rem;
-}
 
 /*Responsive*/
 

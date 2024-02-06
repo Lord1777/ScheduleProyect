@@ -10,6 +10,8 @@ import trimestres from '../../assets/icons/Trimestres.png'
 import Logout from '../../assets/icons/Logout.png'
 import perfil from '../../assets/icons/perfil.png'
 import ShowNavBar from '../../hooks/ShowNavBar'
+import { Link } from 'react-router-dom'
+
 
 
 export const NavBar = () => {
@@ -32,14 +34,38 @@ export const NavBar = () => {
             <div className={`options-nav ${isNavOpen ? 'open' : ''}`}>
                 <ul className={`options-list ${isNavOpen ? 'open' : ''}`}>
                     <li><img src={perfil} alt="perfil" />Perfil</li>
-                    <li><img src={calendar} alt="calendar" />Horario Instructores</li>
-                    <li><img src={calendar} alt="calendar" />Horario Fichas</li>
-                    <li><img src={panel} alt="panel" />Panel de Control</li>
-                    <li><img src={instructores} alt="instructores" />Instructores</li>
-                    <li><img src={fichas} alt="fichas" />Fichas</li>
-                    <li><img src={ambientes} alt="ambientes" />Ambientes</li>
-                    <li><img src={trimestres} alt="trimestres" />Trimestres</li>
-                    <li><img src={Logout} alt="logout" />Cerrar Sesión</li>
+
+                    <Link to={'/HorarioInstructor/:idUsuario'}>
+                        <li><img src={calendar} alt="calendar" />Horario Instructores</li>
+                    </Link>
+
+                    <Link to={'/HorariosFichas'}>
+                        <li><img src={calendar} alt="calendar" />Horario Fichas</li>
+                    </Link>
+
+                    <Link to={'/Panel'}>
+                        <li><img src={panel} alt="panel" />Panel de Control</li>
+                    </Link>
+
+                    <Link to={'/CrudInstructor'}>
+                        <li><img src={instructores} alt="instructores" />Instructores</li>
+                    </Link>
+
+                    <Link to={'/CrudFichas'}>
+                        <li><img src={fichas} alt="fichas" />Fichas</li>
+                    </Link>
+
+                    <Link to={'/CrudAmbientes'}>
+                        <li><img src={ambientes} alt="ambientes" />Ambientes</li>
+                    </Link>
+
+                    <Link to={'/CrudTrimestres'}>
+                        <li><img src={trimestres} alt="trimestres" />Trimestres</li>
+                    </Link>
+                    
+                    <Link to={'/'}>
+                        <li><img src={Logout} alt="logout" />Cerrar Sesión</li>
+                    </Link>
                 </ul>
             </div>
         </>

@@ -6,6 +6,7 @@ import Fichas from '../assets/img/Fichas.jpg'
 import Coordinadores from '../assets/img/Coordinadores.jpg'
 import Ambientes from '../assets/img/Ambiente.jpg'
 import Tiempo from '../assets/img/Tiempo.jpg'
+import S from '../assets/img/S.jpg'
 import { Link } from 'react-router-dom'
 
 export const ControlPanel = () => {
@@ -51,18 +52,15 @@ export const ControlPanel = () => {
                         />
                     </Link>
 
-                    <Link to={'/HorariosFichas'}>
-                        <div className='btn-horarios'>
-                            <button>
-                                <h3 className='horario'>Horarios académicos</h3>
-                            </button>
-                        </div>
+                    <Link to={'/HorariosFichas'} >
+                        <CardPControlPanel
+                            img={S}
+                            text="Horarios Académicos"
+                        />
                     </Link>
 
                 </div>
             </div>
-
-
         </>
     )
 }

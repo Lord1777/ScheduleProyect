@@ -72,7 +72,11 @@
 }
 
 .box.selected {
-    background-color: var(--selected-box);
+    background-color: var(--selected-box) !important;
+}
+
+.grid_schedule .duplicate-box {
+    background-color: #ff9999; /* Puedes ajustar el color según tu preferencia */
 }
 
 

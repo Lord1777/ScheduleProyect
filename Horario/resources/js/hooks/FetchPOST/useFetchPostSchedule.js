@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { API_URL, csrf_token } from '../../const/api';
 
 
 export const useFetchPostSchedule = (route) => {
+
+    const [duplicatesBox, setDuplicatesBox] = useState([]);
 
     const fetchSubmitSchedule = async({ idTrimestre, idFicha, globalStoreBoxes}) =>{
         console.log(idTrimestre, idFicha, globalStoreBoxes);
@@ -26,6 +28,7 @@ export const useFetchPostSchedule = (route) => {
                 console.error('Error:', data.error);
                 //alert(data.error);
                 alert(data.message);
+                setDuplicatesBox(data.duplicates);
             } else {
                 console.log(data.message);
                 alert(data.message);
@@ -38,6 +41,8 @@ export const useFetchPostSchedule = (route) => {
   return (
     {
         fetchSubmitSchedule,
+        setDuplicatesBox,
+        duplicatesBox,
     }
   )
 }

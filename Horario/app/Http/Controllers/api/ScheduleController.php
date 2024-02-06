@@ -50,7 +50,7 @@ class ScheduleController extends Controller
 
     public function scheduleApprentice(string $idFicha)
     {
-        try{
+        try {
             $schedule = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
                 ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
                 ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
@@ -70,9 +70,9 @@ class ScheduleController extends Controller
 
             return response()->json($schedule, Response::HTTP_OK); //200
 
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
-                'error' => "Get Schedule Apprentice Error ".$e->getMessage(),
+                'error' => "Get Schedule Apprentice Error " . $e->getMessage(),
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
@@ -84,18 +84,18 @@ class ScheduleController extends Controller
 
     public function scheduleInstructor(string $idUsuario)
     {
-        try{
+        try {
             $schedule = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
-            ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
-            ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
-            ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
-            ->select(
-                'fichas.ficha',
-                'ambientes.ambiente',
-                'asignaciones.boxIndex',
-            )
-            ->where('usuarios.idUsuario', $idUsuario)
-            ->get();
+                ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+                ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
+                ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
+                ->select(
+                    'fichas.ficha',
+                    'ambientes.ambiente',
+                    'asignaciones.boxIndex',
+                )
+                ->where('usuarios.idUsuario', $idUsuario)
+                ->get();
 
             if (!$schedule) {
                 return response()->json([
@@ -104,10 +104,9 @@ class ScheduleController extends Controller
             }
 
             return response()->json($schedule, Response::HTTP_OK);
-
-        } catch( \Exception $e ) {
+        } catch (\Exception $e) {
             return response()->json([
-                'error' => "Get Schedule Instructor Error ".$e->getMessage(),
+                'error' => "Get Schedule Instructor Error " . $e->getMessage(),
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
@@ -155,6 +154,7 @@ class ScheduleController extends Controller
 
             foreach ($globalStoreBoxes as $box) {
 
+                $boxIndex = intval($box['boxIndex']);
                 $idInstructor = intval($box['idInstructor']);
                 $idAmbiente = intval($box['idAmbiente']);
 
@@ -185,8 +185,53 @@ class ScheduleController extends Controller
                 $disponibilidadFicha = $limiteHorasFicha - $horasAntesFicha;
 
                 // Evitar asignaciones simultaneas en la misma casilla
-                $instructorAsignado = Asignacion::where('idUsuario', $idInstructor);
-                $ambienteAsignado = Asignacion::where('idAmbiente', $idAmbiente);
+                $instructorAsignado = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                    ->where('asignaciones.idUsuario', $idInstructor)
+                    ->select('asignaciones.boxIndex')
+                    ->get();
+                $ambienteAsignado = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                    ->where('asignaciones.idAmbiente', $idAmbiente)
+                    ->select('asignaciones.boxIndex')
+                    ->get();
+
+                $fichaAsignadaInstructor = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                    ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+                    ->where('asignaciones.idUsuario', $idInstructor)
+                    ->where('asignaciones.boxIndex', $boxIndex)
+                    ->select('fichas.ficha')
+                    ->first();
+                $fichaAsignadaAmbiente = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                    ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+                    ->where('asignaciones.idAmbiente', $idAmbiente)
+                    ->where('asignaciones.boxIndex', $boxIndex)
+                    ->select('fichas.ficha')
+                    ->first();
+
+                if ($instructorAsignado->isNotEmpty()) {
+
+                    //Si existe superposición de asignación
+                    DB::rollBack();
+
+                    return response()->json([
+                        'status' => 0,
+                        'message' => "El instructor '{$nombreInstructor}' ya está asignado en la ficha '{$fichaAsignadaInstructor['ficha']}' específicamente en las casillas marcadas en rojo",
+                        'error' => 'This action cannot be performed. Duplicate assignment in the same box',
+                        'duplicates' => $instructorAsignado,
+                    ], Response::HTTP_BAD_REQUEST); //400
+                }
+
+                if ($ambienteAsignado->isNotEmpty()) {
+
+                    //Si existe superposición de asignación
+                    DB::rollBack();
+
+                    return response()->json([
+                        'status' => 0,
+                        'message' => "El ambiente '{$numeroAmbiente}' ya está asignado en la ficha '{$fichaAsignadaAmbiente['ficha']}' especificamente en las casillas marcadas en rojo",
+                        'error' => 'This action cannot be performed. Duplicate assignment in the same box',
+                        'duplicates' => $ambienteAsignado,
+                    ], Response::HTTP_BAD_REQUEST); //400
+                }
 
                 if ($limiteHorasInstructor !== null && $limiteHorasAmbiente !== null) {
 

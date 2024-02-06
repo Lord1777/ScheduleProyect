@@ -15,7 +15,7 @@ export const useFetchGetScheduleInstructor = (route, idUsuario) => {
                 const response = await fetch(`${API_URL}${route}/${idUsuario}`, requestOptionsGet)
                 const result = await response.json();
 
-                if (response.status === 404) {
+                if (response.status === 404  || result.length === 0) {
                     alert('Estimado instructor, aun no existe un horario academico para usted');
                 }
 

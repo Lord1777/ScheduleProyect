@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import '../../../css/Schedule/ScheduleAdd.css';
+import React, { useState, useEffect } from 'react';
 import useSelectedBoxes from '../../hooks/useSelectedBoxes';
 import { ModalAsignar } from '../Modals/ModalAsignar';
 import useModalAsignar from '../../hooks/useModalAsignar';
@@ -10,6 +9,7 @@ import { useFetchPostSchedule } from '../../hooks/FetchPOST/useFetchPostSchedule
 import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
 import { useParams } from 'react-router-dom';
 import useDropdown from '../../hooks/useDropdown';
+import '../../../css/Schedule/ScheduleAdd.css';
 
 export const ScheduleAdd = () => {
 
@@ -19,7 +19,7 @@ export const ScheduleAdd = () => {
     const { register, setValue, handleSubmit } = useForm();
     const { isDropdown, selectedOption, handleDropdown, handleOptionClick } = useDropdown(setValue, "trimestre");
 
-    const { fetchSubmitSchedule } = useFetchPostSchedule('/createSchedule');
+    const { fetchSubmitSchedule, duplicatesBox, setDuplicatesBox } = useFetchPostSchedule('/createSchedule');
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
 
     const { id } = useParams();
@@ -39,6 +39,18 @@ export const ScheduleAdd = () => {
         const initials = words.map((word) => word.charAt(0).toUpperCase());
         return initials.join('');
     }
+
+    useEffect(() => {
+        if (duplicatesBox.length > 0) {
+
+            const timer = setTimeout(() => {
+                setDuplicatesBox([]);
+            }, 2000);
+    
+            // Limpieza del temporizador cuando el componente se desmonta o cuando duplicatesBox cambia nuevamente
+            return () => clearTimeout(timer);
+        }
+    }, [duplicatesBox]);
 
     const onSubmit = async (data) => {
 
@@ -102,7 +114,10 @@ export const ScheduleAdd = () => {
                                 return (
                                     <div
                                         key={colIndex}
-                                        className={`box ${selectedBoxes.has(rowIndex * 6 + colIndex) ? 'selected' : ''}`}
+                                        className={
+                                            `box ${selectedBoxes.has(rowIndex * 6 + colIndex) ? 'selected' : ''}
+                                            ${duplicatesBox.some(item => item.boxIndex === rowIndex * 6 + colIndex) ? 'duplicate-box' : ''}
+                                            `}
                                         onClick={() => handleBoxClick(rowIndex * 6 + colIndex)}
                                     >
                                         {boxData && (
@@ -111,6 +126,7 @@ export const ScheduleAdd = () => {
                                                 <span>{boxData.ambiente}</span>
                                             </>
                                         )}
+                                        {/* {console.log(`Box at index ${boxIndex} has classes: ${'box'} ${selectedBoxes.has(boxIndex) ? 'selected' : ''} ${duplicateSelectedBoxes.has(boxIndex) ? 'duplicate-box' : ''}`)} */}
                                     </div>
                                 );
                             })}

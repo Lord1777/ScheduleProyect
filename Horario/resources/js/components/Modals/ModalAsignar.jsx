@@ -104,6 +104,7 @@ export const ModalAsignar = ({
                                 readOnly
                                 onClick={dropdown1.handleDropdown}
                                 value={dropdown1.selectedOption}
+                                autoComplete='off'
                                 {...register("instructor", INSTRUCTOR)}
                             />
                             <div className={`desplegable-options1 ${dropdown1.isDropdown ? 'open' : ''}`}>
@@ -139,6 +140,7 @@ export const ModalAsignar = ({
                                 name='Ambiente'
                                 placeholder='Seleccionar Ambientes'
                                 readOnly
+                                autoComplete='off'
                                 onClick={dropdown2.handleDropdown}
                                 value={dropdown2.selectedOption}
                                 {...register("ambiente", AMBIENTE)}

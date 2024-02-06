@@ -7,8 +7,6 @@ import { ScheduleInstructor } from '../components/Schedule/ScheduleInstructor'
 
 export const SeeScheduleInstructors = () => {
 
-    const { idUsuario } = useParams();
-
     return (
         <>
             <NavBar />

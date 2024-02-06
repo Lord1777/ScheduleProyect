@@ -8,6 +8,9 @@ import logoSena from "../../assets/img/LogoSena.png";
 import { useFetchPutInstructor } from '../../hooks/FetchPUT/useFetchPutInstructor';
 import { useFetchPutCoordinator } from '../../hooks/FetchPUT/useFetchPutCoordinator';
 import { Loading } from '../Loading/Loading';
+import exito from '../../assets/img/Exito.png'
+import error from '../../assets/img/Advertencia.png'
+import { Modal } from '../Modals/Modal';
 
 export const FormUpdateCoordinator = () => {
 
@@ -39,7 +42,10 @@ export const FormUpdateCoordinator = () => {
     const [profesion, setProfesion] = useState(null);
     const [experiencia, setExperiencia] = useState(null);
     const [sede, setSede] = useState(null);
-    const [ loading, setLoading ] = useState(true);
+    const [loading, setLoading] = useState(true);
+
+    const { fetchPutCoordinator, successModalOpen, errorModalOpen,closeErrorModal, closeSuccessModal } = useFetchPutCoordinator(id);
+
 
     const fetchData = async () => {
         try {
@@ -79,228 +85,250 @@ export const FormUpdateCoordinator = () => {
         }
     }
     useEffect(() => {
-        if(id){
+        if (id) {
             fetchData();
         }
     }, [id, setValue]);
 
-    if(loading){
-        return <Loading/>
+    if (loading) {
+        return <Loading />
     }
 
-const { fetchPutCoordinator } = useFetchPutCoordinator(id);
 
-const onSubmit = async (data) => {
-    console.log("Valores del formulario:", data);
-    await fetchPutCoordinator(
-        data.nombreCompleto,
-        data.TipoDocumento,
-        data.documento,
-        data.email,
-        data.telefono,
-        data.TipoContrato,
-        data.ciudad,
-        data.profesion,
-        data.experiencia,
-        data.Sede,
-    )
-}
+    const onSubmit = async (data) => {
+        console.log("Valores del formulario:", data);
+        await fetchPutCoordinator(
+            data.nombreCompleto,
+            data.TipoDocumento,
+            data.documento,
+            data.email,
+            data.telefono,
+            data.TipoContrato,
+            data.ciudad,
+            data.profesion,
+            data.experiencia,
+            data.Sede,
+        )
+    }
 
-return (
-    <>
-        <main className='container_form_add_instructor'>
-            <div className='box_form_instructor'>
-                <div className='container_form_add_elements'>
-                    <div className='container_image_form_instructor'>
-                        <img src={logoSena} alt='Logo SENA' />
+    return (
+        <>
+            <main className='container_form_add_instructor'>
+                <div className='box_form_instructor'>
+                    <div className='container_form_add_elements'>
+                        <div className='container_image_form_instructor'>
+                            <img src={logoSena} alt='Logo SENA' />
 
-                        <form method='POST' onSubmit={handleSubmit(onSubmit)}>
-                            <div className="grid-column-add">
+                            <form method='POST' onSubmit={handleSubmit(onSubmit)}>
+                                <div className="grid-column-add">
 
-                                <div className='container-input-error'>
-                                    <input
-                                        type="text"
-                                        name="nombreCompleto"
-                                        className='long'
-                                        placeholder='Nombre Completo'
-                                        {...register("nombreCompleto", NOMBRE)}
-                                        value={nombre}
-                                        onChange={(e) =>
-                                            setNombre(e.target.value)
-                                        }
-                                    />
-                                    {errors.nombreCompleto && <p className='errors_forms'>{errors.nombreCompleto.message}</p>}
-                                </div>
-
-
-                                <div className='container-input-error'>
-                                    <div className={`Dropdown ${dropdown1.isDropdown ? 'open' : ''}`} id='widthDropdown'>
+                                    <div className='container-input-error'>
                                         <input
-                                            type='text'
-                                            name='TipoDocumento'
-                                            className='textBox'
-                                            placeholder='Tipo de Documento'
-                                            readOnly
-                                            onClick={dropdown1.handleDropdown}
-                                            value={dropdown1.selectedOption}
-                                            {...register("TipoDocumento", TIPO_DOCUMENTO)}
+                                            type="text"
+                                            name="nombreCompleto"
+                                            className='long'
+                                            placeholder='Nombre Completo'
+                                            {...register("nombreCompleto", NOMBRE)}
+                                            value={nombre}
+                                            onChange={(e) =>
+                                                setNombre(e.target.value)
+                                            }
                                         />
-                                        <div className={`options ${dropdown1.isDropdown ? 'open' : ''}`}>
-                                            <div onClick={() => dropdown1.handleOptionClick('tarjeta identidad', setValue, 'TipoDocumento')}>Tarjeta Identidad</div>
-                                            <div onClick={() => dropdown1.handleOptionClick('cedula ciudadania', setValue, 'TipoDocumento')}>Cédula Ciudadanía</div>
-                                            <div onClick={() => dropdown1.handleOptionClick('cedula extrangeria', setValue, 'TipoDocumento')}>Cédula Extranjería</div>
-                                        </div>
+                                        {errors.nombreCompleto && <p className='errors_forms'>{errors.nombreCompleto.message}</p>}
                                     </div>
-                                    {errors.TipoDocumento && <p className='errors_forms'>{errors.TipoDocumento.message}</p>}
-                                </div>
-
-                                <div className='container-input-error'>
-                                    <input
-                                        type="number"
-                                        name="documento"
-                                        id=""
-                                        placeholder='Número de Documento'
-                                        {...register("documento", DOCUMENTO)}
-                                        value={documento}
-                                        onChange={(e) =>
-                                            setDocumento(e.target.value)
-                                        }
-                                    />
-                                    {errors.documento && <p className='errors_forms'>{errors.documento.message}</p>}
-                                </div>
 
 
+                                    <div className='container-input-error'>
+                                        <div className={`Dropdown ${dropdown1.isDropdown ? 'open' : ''}`} id='widthDropdown'>
+                                            <input
+                                                type='text'
+                                                name='TipoDocumento'
+                                                className='textBox'
+                                                placeholder='Tipo de Documento'
+                                                readOnly
+                                                onClick={dropdown1.handleDropdown}
+                                                value={dropdown1.selectedOption}
+                                                {...register("TipoDocumento", TIPO_DOCUMENTO)}
+                                            />
+                                            <div className={`options ${dropdown1.isDropdown ? 'open' : ''}`}>
+                                                <div onClick={() => dropdown1.handleOptionClick('tarjeta identidad', setValue, 'TipoDocumento')}>Tarjeta Identidad</div>
+                                                <div onClick={() => dropdown1.handleOptionClick('cedula ciudadania', setValue, 'TipoDocumento')}>Cédula Ciudadanía</div>
+                                                <div onClick={() => dropdown1.handleOptionClick('cedula extrangeria', setValue, 'TipoDocumento')}>Cédula Extranjería</div>
+                                            </div>
+                                        </div>
+                                        {errors.TipoDocumento && <p className='errors_forms'>{errors.TipoDocumento.message}</p>}
+                                    </div>
 
-                                <div className='container-input-error'>
-                                    <input
-                                        type="text"
-                                        name="email"
-                                        className='long'
-                                        placeholder='E-mail'
-                                        {...register("email", EMAIL)}
-                                        value={email}
-                                        onChange={(e) =>
-                                            setEmail(e.target.value)
-                                        }
-                                    />
-                                    {errors.email && <p className='errors_forms'>{errors.email.message}</p>}
-                                </div>
-
-                                <div className='container-input-error'>
-                                    <input
-                                        type="text"
-                                        name="telefono"
-                                        id=""
-                                        placeholder='Telefono'
-                                        {...register("telefono", TELEFONO_CELULAR)}
-                                        value={telefono}
-                                        onChange={(e) =>
-                                            setTelefono(e.target.value)
-                                        }
-                                    />
-                                    {errors.telefono && <p className='errors_forms'>{errors.telefono.message}</p>}
-                                </div>
-
-                                <div className='container-input-error'>
-                                    <div className={`Dropdown ${dropdown2.isDropdown ? 'open' : ''}`} id='widthDropdown'>
+                                    <div className='container-input-error'>
                                         <input
-                                            type='text'
-                                            name='TipoContrato'
-                                            className='textBox'
-                                            placeholder='Tipo de Contrato'
-                                            readOnly
-                                            onClick={dropdown2.handleDropdown}
-                                            value={dropdown2.selectedOption}
-                                            {...register("TipoContrato", TIPO_CONTRATO)}
+                                            type="number"
+                                            name="documento"
+                                            id=""
+                                            placeholder='Número de Documento'
+                                            {...register("documento", DOCUMENTO)}
+                                            value={documento}
+                                            onChange={(e) =>
+                                                setDocumento(e.target.value)
+                                            }
                                         />
-                                        <div className={`options ${dropdown2.isDropdown ? 'open' : ''}`}>
-                                            <div onClick={() => dropdown2.handleOptionClick('contratista', setValue, 'TipoContrato')}>Contratista</div>
-                                            <div onClick={() => dropdown2.handleOptionClick('planta', setValue, 'TipoContrato')}>Planta</div>
-                                        </div>
+                                        {errors.documento && <p className='errors_forms'>{errors.documento.message}</p>}
                                     </div>
-                                    {errors.TipoContrato && <p className='errors_forms'>{errors.TipoContrato.message}</p>}
-                                </div>
-
-                                <div className='container-input-error'>
-                                    <input
-                                        type="text"
-                                        name="ciudad"
-                                        className='long'
-                                        placeholder='Ciudad'
-                                        {...register("ciudad", CIUDAD)}
-                                        value={ciudad}
-                                        onChange={(e) =>
-                                            setCiudad(e.target.value)
-                                        }
-                                    />
-                                    {errors.ciudad && <p className='errors_forms'>{errors.ciudad.message}</p>}
-                                </div>
-
-                                <div className='container-input-error'>
-                                    <input
-                                        type="text"
-                                        name="profesion"
-                                        className='long'
-                                        placeholder='Profesión'
-                                        {...register("profesion", PROFESION)}
-                                        value={profesion}
-                                        onChange={(e) =>
-                                            setProfesion(e.target.value)
-                                        }
-                                    />
-                                    {errors.profesion && <p className='errors_forms'>{errors.profesion.message}</p>}
-
-                                </div>
-
-                                <div className='container-input-error'>
-                                    <textarea
-                                        name="experiencia"
-                                        className='long'
-                                        cols="30"
-                                        rows="10"
-                                        placeholder='Experiencia:'
-                                        {...register("experiencia", EXPERIENCIA)}
-                                        value={experiencia}
-                                        onChange={(e) =>
-                                            setExperiencia(e.target.value)
-                                        }
-                                    ></textarea>
-                                    {errors.experiencia && <p className='errors_forms'>{errors.experiencia.message}</p>}
-
-                                </div>
 
 
-                                <div className='container-input-error'>
-                                    <div className={`Dropdown ${dropdown3.isDropdown ? 'open' : ''}`} id='widthDropdown'>
+
+                                    <div className='container-input-error'>
                                         <input
-                                            type='text'
-                                            name='Sede'
-                                            className='textBox'
-                                            placeholder='Sede'
-                                            readOnly
-                                            onClick={dropdown3.handleDropdown}
-                                            value={dropdown3.selectedOption}
-                                            {...register("Sede", SEDE)}
+                                            type="text"
+                                            name="email"
+                                            className='long'
+                                            placeholder='E-mail'
+                                            {...register("email", EMAIL)}
+                                            value={email}
+                                            onChange={(e) =>
+                                                setEmail(e.target.value)
+                                            }
                                         />
-                                        <div className={`options ${dropdown3.isDropdown ? 'open' : ''}`}>
-                                            <div onClick={() => dropdown3.handleOptionClick('cbi', setValue, 'TipoDocumento')}>CBI</div>
-                                            <div onClick={() => dropdown3.handleOptionClick('industrial', setValue, 'TipoDocumento')}>Industrial</div>
-                                            <div onClick={() => dropdown3.handleOptionClick('ambos', setValue, 'TipoDocumento')}>Ambos</div>
-                                        </div>
+                                        {errors.email && <p className='errors_forms'>{errors.email.message}</p>}
                                     </div>
-                                    {errors.Sede && <p className='errors_forms'>{errors.Sede.message}</p>}
-                                </div>
 
-                            </div>
-                            <div className="container-btns">
-                                <button className='guardar' type="submit">Guardar</button>
-                                <button className='cancelar'>Cancelar</button>
-                            </div>
-                        </form>
+                                    <div className='container-input-error'>
+                                        <input
+                                            type="text"
+                                            name="telefono"
+                                            id=""
+                                            placeholder='Telefono'
+                                            {...register("telefono", TELEFONO_CELULAR)}
+                                            value={telefono}
+                                            onChange={(e) =>
+                                                setTelefono(e.target.value)
+                                            }
+                                        />
+                                        {errors.telefono && <p className='errors_forms'>{errors.telefono.message}</p>}
+                                    </div>
+
+                                    <div className='container-input-error'>
+                                        <div className={`Dropdown ${dropdown2.isDropdown ? 'open' : ''}`} id='widthDropdown'>
+                                            <input
+                                                type='text'
+                                                name='TipoContrato'
+                                                className='textBox'
+                                                placeholder='Tipo de Contrato'
+                                                readOnly
+                                                onClick={dropdown2.handleDropdown}
+                                                value={dropdown2.selectedOption}
+                                                {...register("TipoContrato", TIPO_CONTRATO)}
+                                            />
+                                            <div className={`options ${dropdown2.isDropdown ? 'open' : ''}`}>
+                                                <div onClick={() => dropdown2.handleOptionClick('contratista', setValue, 'TipoContrato')}>Contratista</div>
+                                                <div onClick={() => dropdown2.handleOptionClick('planta', setValue, 'TipoContrato')}>Planta</div>
+                                            </div>
+                                        </div>
+                                        {errors.TipoContrato && <p className='errors_forms'>{errors.TipoContrato.message}</p>}
+                                    </div>
+
+                                    <div className='container-input-error'>
+                                        <input
+                                            type="text"
+                                            name="ciudad"
+                                            className='long'
+                                            placeholder='Ciudad'
+                                            {...register("ciudad", CIUDAD)}
+                                            value={ciudad}
+                                            onChange={(e) =>
+                                                setCiudad(e.target.value)
+                                            }
+                                        />
+                                        {errors.ciudad && <p className='errors_forms'>{errors.ciudad.message}</p>}
+                                    </div>
+
+                                    <div className='container-input-error'>
+                                        <input
+                                            type="text"
+                                            name="profesion"
+                                            className='long'
+                                            placeholder='Profesión'
+                                            {...register("profesion", PROFESION)}
+                                            value={profesion}
+                                            onChange={(e) =>
+                                                setProfesion(e.target.value)
+                                            }
+                                        />
+                                        {errors.profesion && <p className='errors_forms'>{errors.profesion.message}</p>}
+
+                                    </div>
+
+                                    <div className='container-input-error'>
+                                        <textarea
+                                            name="experiencia"
+                                            className='long'
+                                            cols="30"
+                                            rows="10"
+                                            placeholder='Experiencia:'
+                                            {...register("experiencia", EXPERIENCIA)}
+                                            value={experiencia}
+                                            onChange={(e) =>
+                                                setExperiencia(e.target.value)
+                                            }
+                                        ></textarea>
+                                        {errors.experiencia && <p className='errors_forms'>{errors.experiencia.message}</p>}
+
+                                    </div>
+
+
+                                    <div className='container-input-error'>
+                                        <div className={`Dropdown ${dropdown3.isDropdown ? 'open' : ''}`} id='widthDropdown'>
+                                            <input
+                                                type='text'
+                                                name='Sede'
+                                                className='textBox'
+                                                placeholder='Sede'
+                                                readOnly
+                                                onClick={dropdown3.handleDropdown}
+                                                value={dropdown3.selectedOption}
+                                                {...register("Sede", SEDE)}
+                                            />
+                                            <div className={`options ${dropdown3.isDropdown ? 'open' : ''}`}>
+                                                <div onClick={() => dropdown3.handleOptionClick('cbi', setValue, 'TipoDocumento')}>CBI</div>
+                                                <div onClick={() => dropdown3.handleOptionClick('industrial', setValue, 'TipoDocumento')}>Industrial</div>
+                                                <div onClick={() => dropdown3.handleOptionClick('ambos', setValue, 'TipoDocumento')}>Ambos</div>
+                                            </div>
+                                        </div>
+                                        {errors.Sede && <p className='errors_forms'>{errors.Sede.message}</p>}
+                                    </div>
+
+                                </div>
+                                <div className="container-btns">
+                                    <button className='guardar' type="submit">Guardar</button>
+                                    <button className='cancelar'>Cancelar</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </main>
-    </>
-)
+            </main>
+            <Modal
+                tittle="Actualización Exitosa"
+                imagen={exito}
+                message="Los datos se actualizaron correctamente."
+                route="CrudCoordinadores"
+                open={successModalOpen}
+                close={() => {
+                    closeSuccessModal();
+                    ShowCloseModal();
+                }}
+            />
+            {/* Modal de error */}
+            <Modal
+                tittle="Error en la Actualización"
+                imagen={error}
+                message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
+                route="CrudCoordinadores"
+                open={errorModalOpen}
+                close={() => {
+                    closeErrorModal();
+                    ShowCloseModal();
+                }}
+            />
+        </>
+    )
 }

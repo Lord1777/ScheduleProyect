@@ -11,6 +11,9 @@ import { useParams } from "react-router-dom";
 import { API_URL } from '../../const/api';
 import useDropdown from "../../hooks/useDropdown";
 import { Loading } from '../Loading/Loading';
+import exito from '../../assets/img/Exito.png'
+import error from '../../assets/img/Advertencia.png'
+import { Modal } from '../Modals/Modal';
 
 export const FormUpdateTrimestre = () => {
 
@@ -26,6 +29,8 @@ export const FormUpdateTrimestre = () => {
     const [fechaIni, setFechaIni] = useState(null);
     const [fechaFin, setFechaFin] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const { fetchPutQuarter, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, } = useFetchPutQuarter(id);
 
     const fetchData = async () => {
         try {
@@ -58,11 +63,7 @@ export const FormUpdateTrimestre = () => {
         return <Loading/>
     }
 
-    const { fetchPutQuarter } = useFetchPutQuarter(id);
-
     const onSubmit = async (data) => {
-
-        console.log(data);
 
         await fetchPutQuarter(
             id,
@@ -150,8 +151,6 @@ export const FormUpdateTrimestre = () => {
                                     </div>
                                 </div>
 
-
-
                             </div>
                             <div className="container-btns">
                                 <button className='guardar' type="submit">Guardar</button>
@@ -161,6 +160,29 @@ export const FormUpdateTrimestre = () => {
                     </div>
                 </div>
             </main>
+            <Modal
+                tittle="Actualización Exitosa"
+                imagen={exito}
+                message="Los datos se actualizaron correctamente."
+                route="CrudTrimestres"
+                open={successModalOpen}
+                close={() => {
+                    closeSuccessModal();
+                    ShowCloseModal();
+                }}
+            />
+            {/* Modal de error */}
+            <Modal
+                tittle="Error en la Actualización"
+                imagen={error}
+                message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
+                route="CrudTrimestres"
+                open={errorModalOpen}
+                close={() => {
+                    closeErrorModal();
+                    ShowCloseModal();
+                }}
+            />
         </>
     );
 }

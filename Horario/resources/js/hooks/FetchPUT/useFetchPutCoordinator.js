@@ -2,10 +2,13 @@ import React from 'react';
 import { API_URL } from '../../const/api';
 import useRequestOptionsPut from './useRequestOptionsPut';
 import { getContratoByName, getSedeByName } from '../useObjectMapping';
+import useModal from '../useModal';
 
 export const useFetchPutCoordinator = (idUsario) => {
 
     const { requestOptionsPut } = useRequestOptionsPut();
+    const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
+    const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
 
     const fetchPutCoordinator = async (nombreCompleto, tipoDocumento, documento, email, telefono, tipoContrato, ciudad, profesion, experiencia, sede) => {
         
@@ -33,15 +36,21 @@ export const useFetchPutCoordinator = (idUsario) => {
             if (response.ok) {
                 const data = await response.json();
                 console.log(data.message); // Mensaje definido en Laravel
+                openSuccessModal();
             }
 
         } catch (error) {
             console.log(`Error Updating Coordinator: ${error}`);
+            openErrorModal();
         }
     }
     return (
         {
-            fetchPutCoordinator
+            fetchPutCoordinator,
+            successModalOpen,
+            errorModalOpen,
+            closeSuccessModal,
+            closeErrorModal,
         }
     )
 }

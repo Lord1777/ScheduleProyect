@@ -1,11 +1,15 @@
 import React from 'react';
 import { API_URL, csrf_token } from '../../const/api';
 import { getNivelDeFormacionByName } from '../useObjectMapping';
+import useModal from '../useModal';
 
 
 const useFetchPostProgram = (route) => {
 
-    const fetchSubmitProgram = async( nombre, duracion, nivelDeFormacion ) =>{
+    const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
+    const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
+
+    const fetchSubmitProgram = async (nombre, duracion, nivelDeFormacion) => {
 
         // Nivel de formación
         let idNivelFormacion = getNivelDeFormacionByName(nivelDeFormacion);
@@ -23,21 +27,27 @@ const useFetchPostProgram = (route) => {
                     idNivelFormacion
                 })
             });
-    
-            if(response.ok){
+
+            if (response.ok) {
                 const data = await response.json();
                 console.log(data.message); // Mensaje definido en Laravel
+                openSuccessModal();
             }
         } catch (error) {
             console.log(`Error Creating Program: ${error}`);
+            openErrorModal();
         }
     }
 
-  return (
-    {
-        fetchSubmitProgram,
-    }
-  )
+    return (
+        {
+            fetchSubmitProgram,
+            successModalOpen,
+            errorModalOpen,
+            closeSuccessModal,
+            closeErrorModal,
+        }
+    )
 }
 
 export default useFetchPostProgram

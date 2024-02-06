@@ -3,16 +3,18 @@ import { useForm } from 'react-hook-form';
 import useDropdown from '../../hooks/useDropdown';
 import useValidationForm from '../../hooks/useValidationForm';
 import useFetchPostProgram from '../../hooks/FetchPOST/useFetchPostProgram';
+import exito from '../../assets/img/Exito.png'
+import error from '../../assets/img/Advertencia.png'
+import { Modal } from '../Modals/Modal';
 
 export const FormAddPrograma = () => {
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
-    const dropdown1 = useDropdown(setValue, 'NivelFormacion');
-
+    const dropdown1 = useDropdown(setValue, 'nivelDeFormacion');
     const { DURACION, PROGRAMA, NIVEL_FORMACION } = useValidationForm();
 
-    const { fetchSubmitProgram } = useFetchPostProgram('/createProgram');
+    const { fetchSubmitProgram, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, } = useFetchPostProgram('/createProgram');
 
     const onSubmit = async(data) => {
 
@@ -80,6 +82,29 @@ export const FormAddPrograma = () => {
                     </div>
                 </div>
             </main>
+            <Modal
+                tittle="Actualización Exitosa"
+                imagen={exito}
+                message="Los datos se actualizaron correctamente."
+                route="CrudInstructor"
+                open={successModalOpen}
+                close={() => {
+                    closeSuccessModal();
+                    ShowCloseModal();
+                }}
+            />
+            {/* Modal de error */}
+            <Modal
+                tittle="Error en la Actualización"
+                imagen={error}
+                message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
+                route="CrudInstructor"
+                open={errorModalOpen}
+                close={() => {
+                    closeErrorModal();
+                    ShowCloseModal();
+                }}
+            />
         </>
     )
 }

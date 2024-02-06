@@ -4,6 +4,9 @@ import useFetchPostCoordinator from '../../hooks/FetchPOST/useFetchPostCoordinat
 import useValidationForm from '../../hooks/useValidationForm';
 import useDropdown from '../../hooks/useDropdown';
 import { useForm } from 'react-hook-form';
+import exito from '../../assets/img/Exito.png'
+import error from '../../assets/img/Advertencia.png'
+import { Modal } from '../Modals/Modal';
 
 export const FormAddCoordinador = () => {
 
@@ -22,7 +25,7 @@ export const FormAddCoordinador = () => {
     const dropdown2 = useDropdown(setValue, "TipoContrato");
     const dropdown3 = useDropdown(setValue, "Sede");
 
-    const { fetchSubmitCoordinator } = useFetchPostCoordinator('/register');
+    const { fetchSubmitCoordinator, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, } = useFetchPostCoordinator('/register');
 
     const onSubmit = async (data) => {
 
@@ -209,6 +212,29 @@ export const FormAddCoordinador = () => {
                     </div>
                 </div>
             </main>
+            <Modal
+                tittle="Actualización Exitosa"
+                imagen={exito}
+                message="Los datos se actualizaron correctamente."
+                route="CrudCoordinadores"
+                open={successModalOpen}
+                close={() => {
+                    closeSuccessModal();
+                    ShowCloseModal();
+                }}
+            />
+            {/* Modal de error */}
+            <Modal
+                tittle="Error en la Actualización"
+                imagen={error}
+                message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
+                route="CrudCoordinadores"
+                open={errorModalOpen}
+                close={() => {
+                    closeErrorModal();
+                    ShowCloseModal();
+                }}
+            />
         </>
     )
 }

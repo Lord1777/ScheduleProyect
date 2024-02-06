@@ -7,6 +7,10 @@ import useFetchGetDetailsAmbiente from "../../hooks/FetchGET/useFetchGetDeatilsA
 import { API_URL } from "../../const/api";
 import { useFetchPutEnvironment } from "../../hooks/FetchPUT/useFetchPutEnvironment";
 import { Loading } from "../Loading/Loading";
+import useModal from "../../hooks/useModal";
+import { Modal } from "../Modals/Modal";
+import exito from '../../assets/img/Exito.png'
+import error from '../../assets/img/Advertencia.png'
 
 export const FormUpdateAmbiente = () => {
     const { id } = useParams();
@@ -16,7 +20,7 @@ export const FormUpdateAmbiente = () => {
     const dropdown2 = useDropdown(setValue, "videoBeam");
     const dropdown3 = useDropdown(setValue, "sede");
     const dropdown4 = useDropdown(setValue, "tablero");
-    const { fetchPutEnvironment } = useFetchPutEnvironment(id);
+    const { fetchPutEnvironment, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal } = useFetchPutEnvironment(id);
     const [ambiente, setAmbiente] = useState(null);
     const [capacidad, setCapacidad] = useState(null);
     const [mesas, setMesas] = useState(null);
@@ -402,6 +406,29 @@ export const FormUpdateAmbiente = () => {
                     </div>
                 </div>
             </main>
+            <Modal
+                tittle="Actualización Exitosa"
+                imagen={exito}
+                message="Los datos se actualizaron correctamente."
+                route="CrudAmbientes"
+                open={successModalOpen}
+                close={() => {
+                    closeSuccessModal();
+                    ShowCloseModal();
+                }}
+            />
+            {/* Modal de error */}
+            <Modal
+                tittle="Error en la Actualización"
+                imagen={error}
+                message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
+                route="CrudAmbientes"
+                open={errorModalOpen}
+                close={() => {
+                    closeErrorModal();
+                    ShowCloseModal();
+                }}
+            />
         </>
     );
 };

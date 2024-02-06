@@ -7,6 +7,9 @@ import useValidationForm from '../../hooks/useValidationForm';
 import { useForm } from 'react-hook-form';
 import useFetchPostRecord from '../../hooks/FetchPOST/useFetchPostRecord';
 import useFetchGetPrograms from '../../hooks/FetchGetResources/useFetchGetPrograms';
+import exito from '../../assets/img/Exito.png'
+import error from '../../assets/img/Advertencia.png'
+import { Modal } from '../Modals/Modal';
 
 export const FormAddFicha = () => {
     
@@ -16,7 +19,7 @@ export const FormAddFicha = () => {
     const dropdown3 = useDropdown(setValue, 'jornada');
     const { PROGRAMA, NFICHA, MODALIDAD, JORNADA_ACADEMICA } = useValidationForm();
 
-    const { fetchSubmitRecord } = useFetchPostRecord('/createRecord');
+    const { fetchSubmitRecord, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, } = useFetchPostRecord('/createRecord');
     const { dataPrograms } = useFetchGetPrograms('/getPrograms');
 
     const getProgramId = (programName) => {
@@ -120,6 +123,29 @@ export const FormAddFicha = () => {
                     </div>
                 </div>
             </main>
+            <Modal
+                tittle="Actualización Exitosa"
+                imagen={exito}
+                message="Los datos se actualizaron correctamente."
+                route="CrudFichas"
+                open={successModalOpen}
+                close={() => {
+                    closeSuccessModal();
+                    ShowCloseModal();
+                }}
+            />
+            {/* Modal de error */}
+            <Modal
+                tittle="Error en la Actualización"
+                imagen={error}
+                message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
+                route="CrudFichas"
+                open={errorModalOpen}
+                close={() => {
+                    closeErrorModal();
+                    ShowCloseModal();
+                }}
+            />
         </>
     );
 };

@@ -10,6 +10,7 @@ import S from '../assets/img/S.jpg'
 import { Link } from 'react-router-dom'
 
 export const ControlPanel = () => {
+
     return (
         <>
             <NavBar />

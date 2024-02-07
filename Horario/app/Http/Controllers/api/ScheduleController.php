@@ -51,6 +51,13 @@ class ScheduleController extends Controller
     public function scheduleApprentice(string $idFicha)
     {
         try {
+            $idTrimestre = HorarioAcademico::join('trimestres', 'horarios_academicos.idTrimestre', '=', 'trimestres.idTrimestre')
+                ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+                ->where('horarios_academicos.idFicha', $idFicha)
+                ->orderBy('trimestres.fechaInicio', 'desc')
+                ->select('trimestres.idTrimestre')
+                ->first();
+
             $schedule = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
                 ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
                 ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
@@ -60,6 +67,7 @@ class ScheduleController extends Controller
                     'usuarios.nombreCompleto',
                 )
                 ->where('horarios_academicos.idFicha', $idFicha)
+                ->where('horarios_academicos.idTrimestre', $idTrimestre['idTrimestre'])
                 ->get();
 
             if (!$schedule) {
@@ -221,7 +229,7 @@ class ScheduleController extends Controller
                             'error' => 'This action cannot be performed. Duplicate assignment in the same box',
                             'duplicates' => $instructorAsignado,
                         ], Response::HTTP_BAD_REQUEST); //400
-                    }else{
+                    } else {
                         return response()->json([
                             'status' => 0,
                             'message' => "No se encontraron asignaciones para el instructor '{$nombreInstructor}' en la(s) caja(s) especificadas.",
@@ -346,7 +354,7 @@ class ScheduleController extends Controller
     //             ->join('', '')
 
     //             ->select(
-                    
+
     //             )
     //             ->findOrFail($idHorario);
 

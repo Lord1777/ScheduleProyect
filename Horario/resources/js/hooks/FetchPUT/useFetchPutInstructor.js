@@ -56,6 +56,8 @@ export const useFetchPutInstructor = (idUsuario) => {
             }
             else {
                 console.log(response.error)
+                const errorData = await response.json();
+                console.log(errorData); // Aquí puedes ver los detalles del error devueltos por Laravel
                 openErrorModal();
             }
 

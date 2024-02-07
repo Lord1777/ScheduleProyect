@@ -53,6 +53,10 @@ Route::group(['middleware' => ['cors']], function(){
     //Programas
     Route::get('/getPrograms', [ProgramsController::class, 'getPrograms']);
     Route::post('/createProgram', [ProgramsController::class, 'store']);
+    Route::get('/getEnableProgram', [ProgramsController::class, 'indexEnabled']);
+    Route::get('/getDisableProgram', [ProgramsController::class, 'indexDisabled']);
+    Route::get('/GetProgram/{id}', [ProgramsController::class, 'show']);
+    Route::put('/UpdateProgram/{id}', [ProgramsController::class, 'update']);
 
 
     //Fichas

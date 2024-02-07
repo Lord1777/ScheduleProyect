@@ -1,12 +1,10 @@
 import React from 'react';
-import { API_URL } from '../../const/api';
-import useRequestOptionsPut from './useRequestOptionsPut';
+import { API_URL, access_token } from '../../const/api';
 import { getSedeByName, getTrueOrFalseByYesOrNot } from '../useObjectMapping';
 import useModal from '../useModal';
 
 export const useFetchPutEnvironment = (id) => {
 
-    const { requestOptionsPut } = useRequestOptionsPut();
     const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
     const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
 
@@ -20,7 +18,10 @@ export const useFetchPutEnvironment = (id) => {
         try {
             const response = await fetch(`${API_URL}/updateEnvironment/${id}`, {
                 method: "PUT",
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${access_token}`
+                 },
                 body: JSON.stringify({
                     ambiente,
                     cantidadMesas,

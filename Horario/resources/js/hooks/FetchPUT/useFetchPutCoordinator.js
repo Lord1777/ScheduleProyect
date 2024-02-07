@@ -1,12 +1,10 @@
 import React from 'react';
-import { API_URL } from '../../const/api';
-import useRequestOptionsPut from './useRequestOptionsPut';
+import { API_URL, access_token } from '../../const/api';
 import { getContratoByName, getSedeByName } from '../useObjectMapping';
 import useModal from '../useModal';
 
 export const useFetchPutCoordinator = (idUsario) => {
 
-    const { requestOptionsPut } = useRequestOptionsPut();
     const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
     const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
 
@@ -18,7 +16,10 @@ export const useFetchPutCoordinator = (idUsario) => {
         try {
             const response = await fetch(`${API_URL}/UpdateCoordinator/${idUsario}`, {
                 method: "PUT",
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${access_token}`
+                },
                 body: JSON.stringify({
                     nombreCompleto,
                     tipoDocumento,

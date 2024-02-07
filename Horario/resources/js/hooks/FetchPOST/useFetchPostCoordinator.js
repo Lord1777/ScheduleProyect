@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { getLimiteHorasByTypeContrato, getRolByName, getContratoByName, getSedeByName } from '../useObjectMapping';
-import { API_URL, csrf_token } from '../../const/api';
+import { API_URL, csrf_token, access_token } from '../../const/api';
 import useModal from '../useModal';
 
 const useFetchPostCoordinator = (route) => {
@@ -28,6 +28,7 @@ const useFetchPostCoordinator = (route) => {
                 headers: { 
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': csrf_token,
+                    'Authorization': `Bearer ${access_token}`
                  },
                 body: JSON.stringify({
                     tipoDocumento,

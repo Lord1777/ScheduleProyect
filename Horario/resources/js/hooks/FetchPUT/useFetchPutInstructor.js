@@ -1,5 +1,5 @@
 import React from 'react';
-import { API_URL } from '../../const/api';
+import { API_URL, access_token } from '../../const/api';
 import useRequestOptionsPut from './useRequestOptionsPut';
 import { getContratoByName, getSedeByName } from '../useObjectMapping';
 import useModal from '../useModal';
@@ -31,7 +31,10 @@ export const useFetchPutInstructor = (idUsuario) => {
         try {
             const response = await fetch(`${API_URL}/UpdateInstructor/${idUsuario}`, {
                 method: "PUT",
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${access_token}`
+                 },
                 body: JSON.stringify({
                     nombreCompleto,
                     tipoDocumento,

@@ -79,7 +79,10 @@ export const TableQuarter = () => {
                             setCurrentPage(1);
                         }}
                     >{disabled ? 'Habilitados' : 'Inhabilitados'}</button>
-                    <button type="button">Añadir Trimestre</button>
+                    <Link to={'/AddTrimestre'} >
+                        <button type="button">Añadir Trimestre</button>
+                    </Link>
+
                 </div>
             </div>
 

@@ -1,4 +1,4 @@
-import { API_URL } from '../../const/api';
+import { API_URL, access_token } from '../../const/api';
 import useModal from '../useModal';
 import { getJornadaByName, getModalidadByName } from '../useObjectMapping';
 import useRequestOptionsPut from './useRequestOptionsPut';
@@ -25,7 +25,10 @@ export const useFetchPutRecord = (id) => {
         try {
             const response = await fetch(`${API_URL}/updateRecord/${id}`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${access_token}`
+                 },
                 body: JSON.stringify({
                     ficha,
                     duracion,

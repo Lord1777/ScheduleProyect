@@ -20,7 +20,7 @@ export const TableEnvironments = () => {
         disabled ? '/getDisableEnvironments' : '/getEnabledEnvironments',
         currentPage,
         ambiente
-        );
+    );
     const { fetchPutEnvironment } = useFetchPutEnvironment()
 
     let totalPage = dataEnvironment.last_page;
@@ -49,8 +49,8 @@ export const TableEnvironments = () => {
         fetchData();
     }, [currentPage, ambiente]);
 
-    if(loading){
-        return <Loading/>
+    if (loading) {
+        return <Loading />
     }
 
     return (
@@ -58,14 +58,14 @@ export const TableEnvironments = () => {
             <h2 className='title'>Administrar Ambientes {disabled ? 'Inhabilitados' : 'Habilitados'}</h2>
             <div className="container-search-buttons">
                 <div className="search-input">
-                    <input 
-                    type="search" 
-                    name="search" 
-                    id="search" 
-                    placeholder="Buscar" 
-                    autoComplete='off'
-                    value={ambiente}
-                    onChange={(e) => setAmbiente(e.target.value)}
+                    <input
+                        type="search"
+                        name="search"
+                        id="search"
+                        placeholder="Buscar"
+                        autoComplete='off'
+                        value={ambiente}
+                        onChange={(e) => setAmbiente(e.target.value)}
                     />
                     <FontAwesomeIcon icon={faSearch} className="search-icon" />
                 </div>
@@ -78,7 +78,9 @@ export const TableEnvironments = () => {
                             setCurrentPage(1);
                         }}
                     >{disabled ? 'Habilitados' : 'Inhabilitados'}</button>
-                    <button type="button">Añadir Ambiente</button>
+                    <Link to={'/AddAmbiente'} >
+                        <button type="button">Añadir Ambiente</button>
+                    </Link>
                 </div>
             </div>
 

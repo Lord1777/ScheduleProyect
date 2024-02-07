@@ -83,10 +83,10 @@ export const FormAddPrograma = () => {
                 </div>
             </main>
             <Modal
-                tittle="Actualización Exitosa"
+                tittle="¡Exito!"
                 imagen={exito}
-                message="Los datos se actualizaron correctamente."
-                route="CrudInstructor"
+                message="Los datos se guardaron correctamente."
+                route="CrudProgramas"
                 open={successModalOpen}
                 close={() => {
                     closeSuccessModal();
@@ -98,7 +98,7 @@ export const FormAddPrograma = () => {
                 tittle="Error en la Actualización"
                 imagen={error}
                 message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
-                route="CrudInstructor"
+                route="CrudProgramas"
                 open={errorModalOpen}
                 close={() => {
                     closeErrorModal();

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
+
 class ScheduleController extends Controller
 {
     public function indexRecord(string $idFicha)
@@ -336,31 +337,30 @@ class ScheduleController extends Controller
         }
     }
 
-    // public function show(string $idHorario)
-    // {
-    //     try {
-    //         $schedule = Horario::join('programas', 'fichas.idPrograma', '=', 'programas.idPrograma')
-    //             ->join('modalidades', 'fichas.idModalidad', '=', 'modalidades.idModalidad')
-    //             ->join('niveles_de_formacion', 'programas.idNivelFormacion', '=', 'niveles_de_formacion.idNivelFormacion')
-    //             ->join('jornadas', 'fichas.idJornada', '=', 'jornadas.idJornada')
-    //             ->join('', '')
+    public function show(string $idHorario)
+  { 
+    try {
+        $records = Horario::join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
 
-    //             ->select(
-                    
-    //             )
-    //             ->findOrFail($idHorario);
+            ->select(
+                'fichas.ficha',
+                'horarios_academicos.idHorario'
+            )
+            ->where('horarios_academicos.idHorario', $idHorario)
+            ->get();
 
-    //         return response()->json($schedule, Response::HTTP_OK);
-    //     } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-    //         return response()->json([
-    //             'status' => 0,
-    //             'error' => 'Schedule Not Found'
-    //         ], Response::HTTP_NOT_FOUND); //404
+        if ($records->isEmpty()) {
+            return response()->json([
+                'status' => 0,
+                'error' => 'Schedule Not Found'
+            ], Response::HTTP_NOT_FOUND); //404
+        }
 
-    //     } catch (\Exception $e) {
-    //         return response()->json([
-    //             'error' => 'Error Getting Schedule: ' . $e->getMessage()
-    //         ], Response::HTTP_INTERNAL_SERVER_ERROR);
-    //     }
-    // }
+        return response()->json($records, Response::HTTP_OK);
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Error Getting Schedule: ' . $e->getMessage()
+        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+  }
 }

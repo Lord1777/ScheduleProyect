@@ -2,30 +2,14 @@ import React, { useState, useEffect } from "react";
 import "../../../css/Schedule/ScheduleWatch.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faCalendar } from '@fortawesome/free-solid-svg-icons';
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import useFetchGetSchedule from '../../hooks/FetchGET/useFetchGetSchedule';
+import { Loading } from '../Loading/Loading';
 
 export const ScheduleWatch = () => {
 
-  const [fichaInfo, setFichaInfo] = useState(null);
-
-  useEffect(() => {
-
-    const fetchFichaInfo = async () => {
-      try {
-
-        const fichaNumber = 2560354;
-
-        const response = await fetch(`/api/schedule/show/${fichaNumber}`);
-        const data = await response.json();
-
-        setFichaInfo(data);
-      } catch (error) {
-        console.error('Error fetching ficha information:', error);
-      }
-    };
-
-    fetchFichaInfo();
-  }, []);
+  const { idHorario } = useParams();
+  const { horarios, loading } = useFetchGetSchedule(idHorario);
 
   return (
     <>
@@ -46,15 +30,21 @@ export const ScheduleWatch = () => {
         </div>
       </div>{/*Titulo y buscador*/}
       <div className="main-container">
-        <div className="schedule">
-          <FontAwesomeIcon icon={faCalendar} className="calendar-icon" />
-          {/* <Link to={`/UpdateFicha/${record.idFicha}`}> */}
-          <div className="ficha-and-number">
-            <h2>Ficha</h2>
-            <h2>{fichaInfo ? fichaInfo.numeroFicha : 'Cargando...'}</h2>
-          </div>
-          {/* </Link> */}
-        </div>
+        {loading ? (
+          <Loading />
+        ) : (
+          horarios.map((horario) => {
+            <div key={horario.id} className="schedule">
+              <FontAwesomeIcon icon={faCalendar} className="calendar-icon" />
+              <Link to={`/HorarioAprendiz/${horario.id}`}>
+                <div className="ficha-and-number">
+                  <h2>Ficha</h2>
+                  <h2>{horario.ficha}</h2>
+                </div>
+              </Link>
+            </div>
+          })
+        )}
       </div>{/*Contenedor principal*/}
       <div className="Space"></div>
     </>

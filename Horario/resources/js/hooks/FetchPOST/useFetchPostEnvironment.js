@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { getSedeByName, getTrueOrFalseByYesOrNot } from '../useObjectMapping';
-import { API_URL, csrf_token, access_token } from '../../const/api';
+import { API_URL, csrf_token} from '../../const/api';
 
 const useFetchPostEnvironment = (route) => {
   
@@ -25,7 +25,6 @@ const useFetchPostEnvironment = (route) => {
           headers: { 
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': csrf_token,
-            'Authorization': `Bearer ${access_token}`
            },
           body: JSON.stringify({ 
             ambiente,

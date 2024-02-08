@@ -9,18 +9,19 @@ use App\Http\Controllers\api\RecordsController;
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\ProgramsController;
 use App\Http\Controllers\api\ScheduleController;
-use App\Http\Middleware\AuthenticateWithToken;
 use Illuminate\Support\Facades\Route;
 
 
 //'cors' es el alias de Middleware para las cors
-//'auth.token' es el alias del Middleware para verificar el token de acceso
-//Sanctum - Autenticacion
-Route::middleware(['auth:sanctum', 'auth.token', 'cors'])->group(function () {
 
-    //Obtener usuario y cerrar sesión
+Route::middleware(['cors'])->group(function () {
+
+    //Sanctum - Autenticacion
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::match(['get', 'post'], '/login', [AuthController::class, 'login']);
     Route::get('/user', [AuthController::class, 'user']);
     Route::get('/logout', [AuthController::class, 'logout']);
+
 
     //Instructores
     Route::get('getInstructors', [InstructorController::class, 'getInstructors']);
@@ -58,12 +59,12 @@ Route::middleware(['auth:sanctum', 'auth.token', 'cors'])->group(function () {
 
 
     //Fichas
+    Route::get('/getRecords', [RecordsController::class, 'getRecords']);
     Route::post('/createRecord', [RecordsController::class, 'store']);
     Route::get('/getEnabledRecords', [RecordsController::class, 'indexEnabled']);
     Route::get('/getDisableRecords', [RecordsController::class, 'indexDisable']);
     Route::get('/GetFicha/{id}', [RecordsController::class, 'show']);
     Route::put('/updateRecord/{id}', [RecordsController::class, 'update']);
-
 
 
     //Trimestres
@@ -79,22 +80,10 @@ Route::middleware(['auth:sanctum', 'auth.token', 'cors'])->group(function () {
 
     //Horarios academicos
     Route::match(['get', 'post'], '/createSchedule', [ScheduleController::class, 'store']);
+    Route::get('/getInfoBarRecord/{idFicha}', [ScheduleController::class, 'indexRecord']);
+    Route::get('/getScheduleApprentice/{idFicha}', [ScheduleController::class, 'scheduleApprentice']);
     Route::get('/getScheduleInstructor/{idUsuario}', [ScheduleController::class, 'scheduleInstructor']);
     // Route::get('/getScheduleRecord/{idHorario}', [ScheduleController::class, 'show']);
 });
 
-Route::group(['middleware' => ['cors']], function () {
-
-    //Registro y Autenticación
-    Route::post('/register', [AuthController::class, 'register']);
-    Route::match(['get', 'post'], '/login', [AuthController::class, 'login'])
-        ->withoutMiddleware([AuthenticateWithToken::class])
-        ->name('login');
-        
-
-    //Horario Aprendices
-    Route::get('/getRecords', [RecordsController::class, 'getRecords']);
-    Route::get('/getInfoBarRecord/{idFicha}', [ScheduleController::class, 'indexRecord']);
-    Route::get('/getScheduleApprentice/{idFicha}', [ScheduleController::class, 'scheduleApprentice']);
-});
 

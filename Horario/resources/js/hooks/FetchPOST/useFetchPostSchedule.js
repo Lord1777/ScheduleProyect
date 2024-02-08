@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { API_URL, csrf_token, access_token } from '../../const/api';
+import { API_URL, csrf_token  } from '../../const/api';
 
 
 export const useFetchPostSchedule = (route) => {
@@ -14,7 +14,6 @@ export const useFetchPostSchedule = (route) => {
                 headers: { 
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': csrf_token,
-                    'Authorization': `Bearer ${access_token}`
                  },
                 body: JSON.stringify({
                     idTrimestre,

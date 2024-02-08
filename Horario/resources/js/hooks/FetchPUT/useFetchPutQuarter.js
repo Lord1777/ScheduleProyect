@@ -1,5 +1,5 @@
 import React from 'react';
-import { API_URL, access_token } from '../../const/api';
+import { API_URL  } from '../../const/api';
 import useRequestOptionsPut from './useRequestOptionsPut';
 import useModal from '../useModal';
 
@@ -23,7 +23,6 @@ export const useFetchPutQuarter = () => {
                 method: 'PUT',
                 headers: { 
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${access_token}`
                  },
                 body: JSON.stringify({
                     trimestre,

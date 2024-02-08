@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { API_URL, csrf_token, access_token } from '../../const/api';
+import { API_URL, csrf_token } from '../../const/api';
 import { getContratoByName, getLimiteHorasByTypeContrato, getRolByName, getSedeByName } from '../useObjectMapping';
 import useModal from '../useModal';
 
@@ -28,7 +28,6 @@ const useFetchPostInstructor = (route) => {
                 headers: { 
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': csrf_token,
-                    'Authorization': `Bearer ${access_token}`
                  },
                 body: JSON.stringify({
                     tipoDocumento,

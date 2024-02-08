@@ -213,9 +213,9 @@ export const FormAddCoordinador = () => {
                 </div>
             </main>
             <Modal
-                tittle="Actualización Exitosa"
+                tittle="¡Exito!"
                 imagen={exito}
-                message="Los datos se actualizaron correctamente."
+                message="Los datos se guardaron correctamente."
                 route="CrudCoordinadores"
                 open={successModalOpen}
                 close={() => {
@@ -225,9 +225,9 @@ export const FormAddCoordinador = () => {
             />
             {/* Modal de error */}
             <Modal
-                tittle="Error en la Actualización"
+                tittle="¡Error!"
                 imagen={error}
-                message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
+                message="Ocurrió un error al guardar los datos. Por favor, inténtalo de nuevo."
                 route="CrudCoordinadores"
                 open={errorModalOpen}
                 close={() => {

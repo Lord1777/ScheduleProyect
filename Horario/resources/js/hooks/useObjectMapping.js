@@ -19,6 +19,8 @@ export const getNivelDeFormacionByName = (name) =>{
     const niveles = {
         Tecnico: 1,
         Tecnologo: 2,
+        tecnico: 1,
+        tecnologo: 2,
     }
     return niveles[name]
 }

@@ -36,6 +36,8 @@ import { UpdateQuaters } from '../js/pages/Update/UpdateQuaters';
 import { useUser } from './context/UserContext.jsx';
 import "../css/App.css";
 import { Loading } from './components/Loading/Loading.jsx';
+import { CrudPrograms } from './pages/CRUD/CrudPrograms.jsx';
+import { UpdateProgram } from './pages/Update/UpdateProgram.jsx';
 
 
 function App() {
@@ -64,7 +66,8 @@ function App() {
                     <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
                     <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
                     <Route path='/AddHorario/:id' element={<AddSchedule />} />
-                    <Route path='/cargando' element={<Loading/>} />
+                    <Route path='/CrudProgramas' element={<CrudPrograms/>}/>
+                    <Route path='/UpdatePrograma/:id' element={<UpdateProgram/>}/>
 
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={storedRole} />}  >

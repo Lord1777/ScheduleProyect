@@ -215,9 +215,9 @@ const FormAddInstructor = () => {
                 </div>
             </main>
             <Modal
-                tittle="Actualización Exitosa"
+                tittle="¡Exito!"
                 imagen={exito}
-                message="Los datos se actualizaron correctamente."
+                message="Los datos se guardaron correctamente."
                 route="CrudInstructor"
                 open={successModalOpen}
                 close={() => {
@@ -227,9 +227,9 @@ const FormAddInstructor = () => {
             />
             {/* Modal de error */}
             <Modal
-                tittle="Error en la Actualización"
+                tittle="¡Error!"
                 imagen={error}
-                message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
+                message="Ocurrió un error al guardar los datos. Por favor, inténtalo de nuevo."
                 route="CrudInstructor"
                 open={errorModalOpen}
                 close={() => {

@@ -1,27 +1,71 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import useDropdown from '../../hooks/useDropdown';
 import useValidationForm from '../../hooks/useValidationForm';
-import useFetchPostProgram from '../../hooks/FetchPOST/useFetchPostProgram';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
 import { Modal } from '../Modals/Modal';
+import { Loading } from '../Loading/Loading';
+import { API_URL } from '../../const/api';
+import { useParams } from 'react-router-dom';
+import { useFecthPutProgram } from '../../hooks/FetchPUT/useFecthPutProgram';
 
-export const FormAddPrograma = () => {
+export const FormUpdateProgram = () => {
+
+    const [ nombrePrograma, setNombrePrograma ] = useState('')
+    const [ duracion, setDuracion ] = useState(0)
+    const [ nivelFormacion, setNivelFormacion ] = useState(null)
+    const [loading, setLoading] = useState(true);
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
-
     const dropdown1 = useDropdown(setValue, 'nivelDeFormacion');
     const { DURACION, PROGRAMA, NIVEL_FORMACION } = useValidationForm();
+    const { id } = useParams();
 
-    const { fetchSubmitProgram, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, } = useFetchPostProgram('/createProgram');
+    const { fetchPutProgram,
+        successModalOpen,
+        errorModalOpen,
+        closeSuccessModal,
+        closeErrorModal } = useFecthPutProgram(id);
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`${API_URL}/GetProgram/${id}`)
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.statusText}`);
+            }
+            const Data = await response.json();
+            setNombrePrograma(Data.nombre);
+            setDuracion(Data.duracion);
+            setNivelFormacion(Data.nivel);
+
+            setValue("programa", Data.nombre);
+            setValue("duracion", Data.duracion);
+            setValue("nivelDeFormacion", Data.nivel)
+
+            dropdown1.setSelectedOption(Data.nivel);
+            setLoading(false);
+        } catch (error) {
+            console.error("Error al cargar los detalles ficha:", error);
+            setLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        if (id) {
+            fetchData();
+        }
+    }, [id,setValue]);
+
+    if(loading){
+        return <Loading/>
+    };
 
     const onSubmit = async(data) => {
-
-        await fetchSubmitProgram(
+        await fetchPutProgram(
             data.programa,
             data.duracion,
-            data.nivelDeFormacion,
+            data.nivelDeFormacion
         )
     }
 
@@ -29,7 +73,7 @@ export const FormAddPrograma = () => {
         <>
             <main className='container_all_form'>
                 <div className='box_form'>
-                    <h2 className='title_underline'>Registro de Programa</h2>
+                    <h2 className='title_underline'>Detalles del Programa</h2>
                     <div className='container_form_add'>
                         <form method='POST' onSubmit={handleSubmit(onSubmit)}>
                             <div className='grid-column'>
@@ -40,6 +84,8 @@ export const FormAddPrograma = () => {
                                         id='long'
                                         placeholder='Nombre del programa'
                                         {...register("programa", PROGRAMA)}
+                                        value={nombrePrograma}
+                                        onChange={(e) => setNombrePrograma(e.target.value)}
                                     />
                                     {errors.Programa && <p className='errors_forms'>{errors.Programa.message}</p>}
                                 </div>
@@ -50,6 +96,8 @@ export const FormAddPrograma = () => {
                                         name='duracion'
                                         placeholder='Horas de duración'
                                         {...register("duracion", DURACION)}
+                                        value={duracion}
+                                        onChange={(e) => setDuracion(e.target.value)}
                                     />
                                     {errors.Duracion && <p className='errors_forms'>{errors.Duracion.message}</p>}
                                 </div>
@@ -83,9 +131,9 @@ export const FormAddPrograma = () => {
                 </div>
             </main>
             <Modal
-                tittle="¡Exito!"
+                tittle="Actualización Exitosa"
                 imagen={exito}
-                message="Los datos se guardaron correctamente."
+                message="Los datos se actualizaron correctamente."
                 route="CrudProgramas"
                 open={successModalOpen}
                 close={() => {

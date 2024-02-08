@@ -22,13 +22,124 @@ class ProgramsController extends Controller
         }
     }
 
-    public function indexEnabled()
+    public function indexEnabled(Request $request)
     {
-        
+        try {
+            $search = $request->input('search', '');  // Obtener el parámetro de búsqueda desde la solicitud
+            $programa = Programa::join('niveles_de_formacion', 'programas.idNivelFormacion', '=', 'niveles_de_formacion.idNivelFormacion')
+                ->select(
+                    'programas.idPrograma',
+                    'programas.nombre',
+                    'programas.duracion',
+                    'niveles_de_formacion.nivel'
+                )
+                ->where('programas.estado', 'habilitado')
+                ->where(function ($query) use ($search) {
+                    //Lógica de búsqueda aquí
+                    $query->where('nombre', 'like', '%' . $search . '%');
+                })
+                ->paginate(15);
+            return response()->json($programa, Response::HTTP_OK); //200;
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Request Programs Error: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
     }
 
     public function indexDisable()
     {
+        try {
+            $search = $request->input('search', '');  // Obtener el parámetro de búsqueda desde la solicitud
+            $programa = Programa::join('niveles_de_formacion', 'programas.idNivelFormacion', '=', 'niveles_de_formacion.idNivelFormacion')
+                ->select(
+                    'programas.idPrograma',
+                    'programas.nombre',
+                    'programas.duracion',
+                    'niveles_de_formacion.nivel'
+                )
+                ->where('programas.estado', 'inhabilitado')
+                ->where(function ($query) use ($search) {
+                    //Lógica de búsqueda aquí
+                    $query->where('nombre', 'like', '%' . $search . '%');
+                })
+                ->paginate(15);
+            return response()->json($programa, Response::HTTP_OK); //200;
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Request Programs Error: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
+    public function show(string $idPrograma){
+        try {
+            $programa = Programa::join('niveles_de_formacion', 'programas.idNivelFormacion', '=', 'niveles_de_formacion.idNivelFormacion')
+        ->select(
+            'programas.idPrograma',
+            'programas.nombre',
+            'programas.duracion',
+            'programas.idNivelFormacion',
+            'niveles_de_formacion.nivel'
+        )
+        ->findOrFail($idPrograma);
+
+            return response()->json($programa, Response::HTTP_OK);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'status' => 0,
+                'error' => 'Program Not Found'
+            ], Response::HTTP_NOT_FOUND); //404
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Error Getting Program: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function update(Request $request, string $idPrograma)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'duracion' => 'required|numeric',
+            'nombre' => 'required|string',
+            'idNivelFormacion' => 'required|numeric'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 0,
+                'errors' => $validator->errors()
+            ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
+        }
+
+        try {
+            $programa = Programa::findOrFail($idPrograma);
+
+            $programa->update([
+                'nombre' => strval($request->nombre),
+                'duracion' => intval($request->duracion),
+                'idNivelFormacion' => intval($request->idNivelFormacion),
+            ]);
+
+            return response()->json([
+                'status' => 1,
+                'message' => 'Successfully Updated Ficha',
+            ], Response::HTTP_OK); //200
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'status' => 0,
+                'error' => 'Ficha Not Found'
+            ], Response::HTTP_NOT_FOUND); //404
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 0,
+                'error' => 'Error Updating Ficha: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
     }
 
     public function store(Request $request)

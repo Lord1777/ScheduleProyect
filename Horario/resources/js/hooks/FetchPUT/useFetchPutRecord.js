@@ -25,7 +25,9 @@ export const useFetchPutRecord = (id) => {
         try {
             const response = await fetch(`${API_URL}/updateRecord/${id}`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                 },
                 body: JSON.stringify({
                     ficha,
                     duracion,

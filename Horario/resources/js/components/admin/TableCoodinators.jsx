@@ -78,7 +78,9 @@ export const TableCoodinators = () => {
                             setCurrentPage(1);
                         }}
                     >{disabled ? 'Habilitados' : 'Inhabilitados'}</button>
-                    <Link><button type="button">Añadir Coordinador</button></Link>
+                    <Link to={'/AddCoordinador'} >
+                        <button type="button">Añadir Coordinador</button>
+                    </Link>
                 </div>
             </div>
 

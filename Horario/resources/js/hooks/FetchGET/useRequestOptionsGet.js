@@ -1,20 +1,21 @@
-import React,{useState} from 'react'
-import { csrf_token } from '../../const/api';
+import React, { useState } from 'react'
+import { csrf_token} from '../../const/api';
 
 export const useRequestOptionsGet = () => {
 
-    let myHeaders = new Headers();
-    myHeaders.set('Cookie', csrf_token);
+  let myHeaders = new Headers();
 
-    let requestOptionsGet = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow",
-    };
+  myHeaders.set('Cookie', csrf_token);
+
+  let requestOptionsGet = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow",
+  };
 
   return (
     {
-        requestOptionsGet,
+      requestOptionsGet,
     }
   )
 }

@@ -34,13 +34,15 @@ import { UpdateInstructor } from './pages/Update/UpdateInstructor.jsx';
 import { UpdateCoordinator } from './pages/Update/UpdateCoordinator.jsx';
 import { UpdateQuaters } from '../js/pages/Update/UpdateQuaters';
 import { useUser } from './context/UserContext.jsx';
-import "../css/App.css";
 import { Loading } from './components/Loading/Loading.jsx';
 import { CrudPrograms } from './pages/CRUD/CrudPrograms.jsx';
 import { UpdateProgram } from './pages/Update/UpdateProgram.jsx';
-
+import useSessionControl from "./hooks/useSessionControl.js";
+import "../css/App.css";
 
 function App() {
+
+    useSessionControl();
 
     const { authenticateUser } = useUser();
 

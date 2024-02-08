@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { getSedeByName, getTrueOrFalseByYesOrNot } from '../useObjectMapping';
-import { API_URL, csrf_token } from '../../const/api';
+import { API_URL, csrf_token} from '../../const/api';
 
 const useFetchPostEnvironment = (route) => {
   

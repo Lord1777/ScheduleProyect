@@ -1,5 +1,5 @@
 import React from 'react';
-import { API_URL } from '../../const/api';
+import { API_URL} from '../../const/api';
 import useRequestOptionsPut from './useRequestOptionsPut';
 import { getContratoByName, getSedeByName } from '../useObjectMapping';
 import useModal from '../useModal';
@@ -31,7 +31,9 @@ export const useFetchPutInstructor = (idUsuario) => {
         try {
             const response = await fetch(`${API_URL}/UpdateInstructor/${idUsuario}`, {
                 method: "PUT",
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                 },
                 body: JSON.stringify({
                     nombreCompleto,
                     tipoDocumento,
@@ -53,6 +55,8 @@ export const useFetchPutInstructor = (idUsuario) => {
             }
             else {
                 console.log(response.error)
+                const errorData = await response.json();
+                console.log(errorData); // Aquí puedes ver los detalles del error devueltos por Laravel
                 openErrorModal();
             }
 

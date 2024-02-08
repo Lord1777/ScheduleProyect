@@ -1,5 +1,5 @@
 import React from 'react';
-import { API_URL } from '../../const/api';
+import { API_URL  } from '../../const/api';
 import useRequestOptionsPut from './useRequestOptionsPut';
 import useModal from '../useModal';
 
@@ -21,7 +21,9 @@ export const useFetchPutQuarter = () => {
         try {
             const response = await fetch(`${API_URL}/updateQuater/${idTrimestre}`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                 },
                 body: JSON.stringify({
                     trimestre,
                     fechaInicio,

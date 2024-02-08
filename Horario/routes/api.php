@@ -14,10 +14,13 @@ use Illuminate\Support\Facades\Route;
 
 //'cors' es el alias de Middleware para las cors
 
-//Sanctum - Autenticacion
-Route::group(['middleware' => ['cors']], function(){
+Route::middleware(['cors'])->group(function () {
+
+    //Sanctum - Autenticacion
     Route::post('/register', [AuthController::class, 'register']);
-    Route::match(['get', 'post'],'/login', [AuthController::class, 'login']);
+    Route::match(['get', 'post'], '/login', [AuthController::class, 'login']);
+    Route::get('/user', [AuthController::class, 'user']);
+    Route::get('/logout', [AuthController::class, 'logout']);
 
 
     //Instructores
@@ -34,8 +37,8 @@ Route::group(['middleware' => ['cors']], function(){
     Route::get('/getEnabledCoordinators', [CoordinatorsController::class, 'indexEnabled']);
     Route::get('/getDisableCoordinators', [CoordinatorsController::class, 'indexDisable']);
     Route::get('/getCoordinator/{idUsuario}', [CoordinatorsController::class, 'show']);
-    Route::match(['get','put'],'/disableCoordinator/{idUsuario}', [CoordinatorsController::class, 'disable']);
-    Route::match(['get','put'],'/enableCoordinator/{idUsuario}', [CoordinatorsController::class, 'enabled']);
+    Route::match(['get', 'put'], '/disableCoordinator/{idUsuario}', [CoordinatorsController::class, 'disable']);
+    Route::match(['get', 'put'], '/enableCoordinator/{idUsuario}', [CoordinatorsController::class, 'enabled']);
     Route::put('/UpdateCoordinator/{idUsuario}', [CoordinatorsController::class, 'update']);
 
 
@@ -45,7 +48,7 @@ Route::group(['middleware' => ['cors']], function(){
     Route::get('/getDisableEnvironments', [EnvironmentsController::class, 'indexDisable']);
     Route::get('/getEnvironment/{idAmbiente}', [EnvironmentsController::class, 'show']);
     Route::post('/createEnvironment', [EnvironmentsController::class, 'store']);
-    Route::put('/updateEnvironment/{idAmbiente}',[EnvironmentsController::class, 'update']);
+    Route::put('/updateEnvironment/{idAmbiente}', [EnvironmentsController::class, 'update']);
     Route::match(['get', 'put'], '/disableEnvironment/{idAmbiente}', [EnvironmentsController::class, 'disable']);
     Route::match(['get', 'put'], '/enableEnvironment/{idAmbiente}', [EnvironmentsController::class, 'enabled']);
 
@@ -68,7 +71,6 @@ Route::group(['middleware' => ['cors']], function(){
     Route::put('/updateRecord/{id}', [RecordsController::class, 'update']);
 
 
-
     //Trimestres
     Route::get('/getQuarters', [QuartersController::class, 'getQuarters']);
     Route::get('/getEnabledQuarters', [QuartersController::class, 'indexEnabled']);
@@ -85,11 +87,7 @@ Route::group(['middleware' => ['cors']], function(){
     Route::get('/getInfoBarRecord/{idFicha}', [ScheduleController::class, 'indexRecord']);
     Route::get('/getScheduleApprentice/{idFicha}', [ScheduleController::class, 'scheduleApprentice']);
     Route::get('/getScheduleInstructor/{idUsuario}', [ScheduleController::class, 'scheduleInstructor']);
-    Route::get('/getScheduleRecord/{idHorario}', [ScheduleController::class, 'show']);
-
+    // Route::get('/getScheduleRecord/{idHorario}', [ScheduleController::class, 'show']);
 });
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', [AuthController::class, 'user']);
-    Route::get('/logout', [AuthController::class, 'logout']);
-});
+

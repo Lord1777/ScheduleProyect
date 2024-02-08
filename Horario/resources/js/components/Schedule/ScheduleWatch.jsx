@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "../../../css/Schedule/ScheduleWatch.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faCalendar } from '@fortawesome/free-solid-svg-icons';
@@ -12,11 +12,9 @@ export const ScheduleWatch = () => {
   const { horarios, loading } = useFetchGetSchedule(idHorario);
   console.log(horarios);
 
-  if(loading) {
+  if (loading) {
     return <Loading />
   }
-
-
 
   return (
     <>
@@ -38,15 +36,15 @@ export const ScheduleWatch = () => {
       </div>{/*Titulo y buscador*/}
       <div className="main-container">
         {horarios && horarios.map((horario) => (
-          <div className="schedule">
-            <FontAwesomeIcon icon={faCalendar} className="calendar-icon" />
-            <Link to={`/HorarioAprendiz/${horario.idFicha}`}>
+          <Link to={`/HorarioAprendiz/${horario.idFicha}`}>
+            <div  className="schedule">
+              <FontAwesomeIcon icon={faCalendar} className="calendar-icon" />
               <div className="ficha-and-number">
-                <h2>Ficha</h2>
-                <h2>{horario.ficha}</h2>
+                <h3>Ficha</h3>
+                <h3>{horario.ficha}</h3>
               </div>
-            </Link>
-          </div>
+            </div>
+          </Link>
         ))}
       </div>{/*Contenedor principal*/}
       <div className="Space"></div>

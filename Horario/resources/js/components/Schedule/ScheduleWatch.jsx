@@ -10,6 +10,13 @@ export const ScheduleWatch = () => {
 
   const { idHorario } = useParams();
   const { horarios, loading } = useFetchGetSchedule(idHorario);
+  console.log(horarios);
+
+  if(loading) {
+    return <Loading />
+  }
+
+
 
   return (
     <>
@@ -30,21 +37,17 @@ export const ScheduleWatch = () => {
         </div>
       </div>{/*Titulo y buscador*/}
       <div className="main-container">
-        {loading ? (
-          <Loading />
-        ) : (
-          horarios.map((horario) => {
-            <div key={horario.id} className="schedule">
-              <FontAwesomeIcon icon={faCalendar} className="calendar-icon" />
-              <Link to={`/HorarioAprendiz/${horario.id}`}>
-                <div className="ficha-and-number">
-                  <h2>Ficha</h2>
-                  <h2>{horario.ficha}</h2>
-                </div>
-              </Link>
-            </div>
-          })
-        )}
+        {horarios && horarios.map((horario) => (
+          <div className="schedule">
+            <FontAwesomeIcon icon={faCalendar} className="calendar-icon" />
+            <Link to={`/HorarioAprendiz/${horario.idFicha}`}>
+              <div className="ficha-and-number">
+                <h2>Ficha</h2>
+                <h2>{horario.ficha}</h2>
+              </div>
+            </Link>
+          </div>
+        ))}
       </div>{/*Contenedor principal*/}
       <div className="Space"></div>
     </>

@@ -12,7 +12,7 @@ const useSessionControl = () => {
   
       const checkUserActivity = () => {
         const lastActivity = localStorage.getItem('lastActivity');
-        const sessionTimeout = 1 * 60 * 1000; // 1 minutos en milisegundos
+        const sessionTimeout = 10 * 60 * 1000; // 1 minutos en milisegundos
   
         if (lastActivity && Date.now() - lastActivity > sessionTimeout) {
           alert('Sesión cerrada debido a inactividad');

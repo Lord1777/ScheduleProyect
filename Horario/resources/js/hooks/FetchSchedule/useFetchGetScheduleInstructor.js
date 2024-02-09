@@ -16,11 +16,13 @@ export const useFetchGetScheduleInstructor = (route, idUsuario, idTrimestre, idF
                 const response = await fetch(`${API_URL}${route}/${idUsuario}/${idTrimestre}/${idFicha}`, requestOptionsGet)
                 const result = await response.json();
 
-                if (response.status === 404  || result.length === 0) {
-                    alert('Estimado instructor, aun no existe un horario academico para usted');
+                if(response.ok){
+                    setDataSchedule(result);
+
+                } else if (response.status === 404  || result.length === 0) {
+                    alert(result.error);
                 }
 
-                setDataSchedule(result);
             } catch (error) {
                 console.log(`Error al obtener la información: ${error}`)
             }

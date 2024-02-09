@@ -3,15 +3,12 @@ import { useParams } from 'react-router-dom';
 import { useFetchGetScheduleInstructor } from '../../hooks/FetchSchedule/useFetchGetScheduleInstructor';
 import { Loading } from '../Loading/Loading';
 import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
+import { initialsName } from '../../hooks/useObjectFunction';
 
 export const ScheduleInstructor = () => {
 
-    const { idTrimestre, idFicha } = useContext(FilterScheduleInstructorContext);
-
-    console.log(idTrimestre, idFicha)
-
     const { idUsuario } = useParams();
-
+    const { idTrimestre, idFicha } = useContext(FilterScheduleInstructorContext);
     const { dataSchedule, loading } = useFetchGetScheduleInstructor('/getScheduleInstructor', idUsuario, idTrimestre, idFicha);
 
     if(loading){
@@ -40,22 +37,19 @@ export const ScheduleInstructor = () => {
                             const boxIndex = rowIndex * 6 + colIndex;
 
                             // Busca la información específica para este índice en la solicitud del backend
-                            const infoSchedule = dataSchedule.find((data) => data.boxIndex === boxIndex);
-
+                            const infoSchedule = dataSchedule && Array.isArray(dataSchedule) ? dataSchedule.find((data) => data.boxIndex === boxIndex) : false;
                             return (
                                 <div
                                     key={colIndex}
                                     className={`${infoSchedule ? 'selected' : 'cuadricula'}`}
                                 >
                                     {infoSchedule ? (
-                                        // Si hay información específica del backend
                                         <>
                                             <span>{infoSchedule.ficha}</span>
                                             <span>{infoSchedule.ambiente}</span>
                                             <span>{infoSchedule.nombreCompleto}</span>
                                         </>
                                     ) : (
-                                        // Si no hay información del backend
                                         (
                                             <>
                                                 <span></span>

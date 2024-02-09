@@ -76,7 +76,5 @@ export const getYesOrNotByNumber = ( number ) => {
         1: Si,
         0: No,
     }
-
     return boolean [ number ]
-
 }

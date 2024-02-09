@@ -10,6 +10,7 @@ import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarte
 import { useParams } from 'react-router-dom';
 import useDropdown from '../../hooks/useDropdown';
 import '../../../css/Schedule/ScheduleAdd.css';
+import { initialsName } from '../../hooks/useObjectFunction';
 
 export const ScheduleAdd = () => {
 
@@ -36,13 +37,6 @@ export const ScheduleAdd = () => {
         const quarter = dataQuarters.find((quarter) => `${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}` === dataTrimestre);
         return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
     };
-
-    //Funcion para sacar las iniciales del instructor
-    function initialsName(nombreCompleto) {
-        const words = nombreCompleto.split(' ');
-        const initials = words.map((word) => word.charAt(0).toUpperCase());
-        return initials.join('');
-    }
 
     // Función para des-asignar un instructor y ambiente al hacer clic en una casilla asignada
     const handleAssignedBoxClick = (boxIndex) => {

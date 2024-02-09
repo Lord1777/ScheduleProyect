@@ -14,6 +14,7 @@ export const InformationBarInstructor = () => {
     const trimestreDropdown = useTrimestreDropdown();
 
     const { user } = useUser();
+    console.log(user);
     const { setIdTrimestreValue, setIdFichaValue } = useContext(FilterScheduleInstructorContext);
 
     const { dataRecords } = useFetchGetRecords('/getRecords');

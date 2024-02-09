@@ -31,7 +31,7 @@ Route::middleware(['cors'])->group(function () {
     Route::match(['get', 'put'], '/disableInstructor/{idUsuario}', [InstructorController::class, 'disable']);
     Route::match(['get', 'put'], '/enableInstructor/{idUsuario}', [InstructorController::class, 'enabled']);
     Route::put('/UpdateInstructor/{idUsuario}', [InstructorController::class, 'update']);
-
+    Route::get('/getScheduleInstructor', [ScheduleController::class, 'EnableSchedulesInstructors']);
 
     //Coordinadores
     Route::get('/getEnabledCoordinators', [CoordinatorsController::class, 'indexEnabled']);

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useDropdown from "../../hooks/useDropdown";
 import { useForm } from "react-hook-form";
 import useValidationForm from "../../hooks/useValidationForm";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useFetchGetDetailsAmbiente from "../../hooks/FetchGET/useFetchGetDeatilsAmbiente";
 import { API_URL } from "../../const/api";
 import { useFetchPutEnvironment } from "../../hooks/FetchPUT/useFetchPutEnvironment";
@@ -400,7 +400,10 @@ export const FormUpdateAmbiente = () => {
                                 <button type="submit" className="guardar">
                                     Guardar
                                 </button>
-                                <button className="cancelar">Cancelar</button>
+                                <Link to={'/CrudAmbientes'}>
+                                    <button className="cancelar">Cancelar</button>
+                                </Link>
+
                             </div>
                         </form>
                     </div>

@@ -447,4 +447,33 @@ class ScheduleController extends Controller
         ], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
   }
+
+  public function EnableSchedulesInstructors()
+  { 
+    try {
+        $asign = Asignacion::join('horarios_academicos', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
+                           ->join('usuarios', 'usuarios.idUsuario', '=', 'asignaciones.idUsuario')
+
+            ->select(
+                'usuarios.nombreCompleto',
+                'horarios_academicos.idHorario', 
+                'usuarios.idUsuario',
+            )
+            ->where('horarios_academicos.estado', 'habilitado')
+            ->get();
+
+        if ($asign->isEmpty()) {
+            return response()->json([
+                'status' => 0,
+                'error' => 'Schedule Not Found'
+            ], Response::HTTP_NOT_FOUND); //404
+        }
+
+        return response()->json($records, Response::HTTP_OK);
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Error Getting Schedule: ' . $e->getMessage()
+        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+  }
 }

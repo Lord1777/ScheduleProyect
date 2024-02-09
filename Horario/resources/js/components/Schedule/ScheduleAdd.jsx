@@ -10,6 +10,9 @@ import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarte
 import { useParams } from 'react-router-dom';
 import useDropdown from '../../hooks/useDropdown';
 import '../../../css/Schedule/ScheduleAdd.css';
+import { ContinuoModal } from '../Modals/ContinuoModal'
+import exito from '../../assets/img/Exito.png'
+import error from '../../assets/img/Advertencia.png'
 
 export const ScheduleAdd = () => {
 
@@ -19,7 +22,7 @@ export const ScheduleAdd = () => {
     const { register, setValue, handleSubmit } = useForm();
     const { isDropdown, selectedOption, handleDropdown, handleOptionClick } = useDropdown(setValue, "trimestre");
 
-    const { fetchSubmitSchedule, duplicatesBox, setDuplicatesBox } = useFetchPostSchedule('/createSchedule');
+    const { fetchSubmitSchedule, duplicatesBox, setDuplicatesBox, modalOpen, setModalOpen, alertMessage, succesfullyModal, setSuccesfullyModal } = useFetchPostSchedule('/createSchedule');
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
 
     const { id } = useParams();
@@ -217,6 +220,21 @@ export const ScheduleAdd = () => {
                 resetSelectedBoxes={resetSelectedBoxes}
                 storeBoxes={globalStoreBoxes}
                 setStoreBoxes={setGlobalStoreBoxes}
+            />
+            <ContinuoModal
+                tittle="Error"
+                imagen={error}
+                message={alertMessage}
+                open={modalOpen}
+                close={() => setModalOpen(false)}
+            />
+            <ContinuoModal
+                tittle="¡Exito!"
+                imagen={exito}
+                message={alertMessage}
+                open={succesfullyModal}
+                close={() => setSuccesfullyModal(false)}
+                route="/CrudFichas"
             />
         </>
     );

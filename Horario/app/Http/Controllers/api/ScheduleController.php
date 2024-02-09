@@ -408,7 +408,7 @@ class ScheduleController extends Controller
 
             return response()->json([
                 'status' => 1,
-                'message' => 'Successfully created academic schedule'
+                'message' => 'Horario Académico creado ¡Exitosamente!.'
             ], Response::HTTP_CREATED); //201
         } catch (\Exception $e) {
 
@@ -447,4 +447,29 @@ class ScheduleController extends Controller
         ], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
   }
+
+  public function scheduleEnableEnvironments()
+    {
+        try {
+            $ambiente =  HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
+            ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
+            ->select(
+                'ambientes.idAmbiente',
+                'ambientes.ambiente',
+                'horarios_academicos.idHorario'
+            )
+            ->where('ambientes.estado', 'habilitado')
+            ->distinct()
+            ->get();
+    
+            return response()->json($ambiente, Response::HTTP_OK);
+        } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Error Getting Schedule: ' . $e->getMessage()
+        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+    }
+
 }
+
+    

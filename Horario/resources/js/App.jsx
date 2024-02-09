@@ -39,6 +39,7 @@ import { CrudPrograms } from './pages/CRUD/CrudPrograms.jsx';
 import { UpdateProgram } from './pages/Update/UpdateProgram.jsx';
 import useSessionControl from "./hooks/useSessionControl.js";
 import "../css/App.css";
+import { WatchScheduleAmbiente } from './pages/WatchScheduleAmbiente.jsx';
 
 function App() {
 
@@ -71,6 +72,7 @@ function App() {
                     <Route path='/CrudProgramas' element={<CrudPrograms/>}/>
                     <Route path='/UpdatePrograma/:id' element={<UpdateProgram/>}/>
                     <Route path='/AddCoordinador' element={<AddCoordinator />} />
+                    <Route path='/HorariosAmbientes' element={<WatchScheduleAmbiente/>}/>
 
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={storedRole} />}  >

@@ -88,6 +88,7 @@ Route::middleware(['cors'])->group(function () {
     Route::get('/getScheduleApprentice/{idFicha}', [ScheduleController::class, 'scheduleApprentice']);
     Route::get('/getScheduleInstructor/{idUsuario}/{idTrimestre}/{idFicha}', [ScheduleController::class, 'scheduleInstructor']);
     Route::get('/getScheduleRecord', [ScheduleController::class, 'indexEnable']);
+    Route::get('/getSchedulesEnvironments', [ScheduleController::class, 'scheduleEnableEnvironments']);
 });
 
 

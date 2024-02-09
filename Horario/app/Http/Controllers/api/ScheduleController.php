@@ -451,25 +451,17 @@ class ScheduleController extends Controller
   public function EnableSchedulesInstructors()
   { 
     try {
-        $asign = Asignacion::join('horarios_academicos', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
-                           ->join('usuarios', 'usuarios.idUsuario', '=', 'asignaciones.idUsuario')
-
+        $asign = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
+            ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
             ->select(
                 'usuarios.nombreCompleto',
-                'horarios_academicos.idHorario', 
                 'usuarios.idUsuario',
+                'horarios_academicos.idHorario',
             )
-            ->where('horarios_academicos.estado', 'habilitado')
+            ->distinct()
             ->get();
 
-        if ($asign->isEmpty()) {
-            return response()->json([
-                'status' => 0,
-                'error' => 'Schedule Not Found'
-            ], Response::HTTP_NOT_FOUND); //404
-        }
-
-        return response()->json($records, Response::HTTP_OK);
+        return response()->json($asign, Response::HTTP_OK);
     } catch (\Exception $e) {
         return response()->json([
             'error' => 'Error Getting Schedule: ' . $e->getMessage()

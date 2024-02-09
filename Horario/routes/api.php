@@ -31,7 +31,7 @@ Route::middleware(['cors'])->group(function () {
     Route::match(['get', 'put'], '/disableInstructor/{idUsuario}', [InstructorController::class, 'disable']);
     Route::match(['get', 'put'], '/enableInstructor/{idUsuario}', [InstructorController::class, 'enabled']);
     Route::put('/UpdateInstructor/{idUsuario}', [InstructorController::class, 'update']);
-
+    
 
     //Coordinadores
     Route::get('/getEnabledCoordinators', [CoordinatorsController::class, 'indexEnabled']);
@@ -88,6 +88,7 @@ Route::middleware(['cors'])->group(function () {
     Route::get('/getScheduleApprentice/{idFicha}', [ScheduleController::class, 'scheduleApprentice']);
     Route::get('/getScheduleInstructor/{idUsuario}/{idTrimestre}/{idFicha}', [ScheduleController::class, 'scheduleInstructor']);
     Route::get('/getScheduleRecord', [ScheduleController::class, 'indexEnable']);
+    Route::get('/getScheduleInstructor', [ScheduleController::class, 'EnableSchedulesInstructors']);
     Route::get('/getSchedulesEnvironments', [ScheduleController::class, 'scheduleEnableEnvironments']);
 });
 

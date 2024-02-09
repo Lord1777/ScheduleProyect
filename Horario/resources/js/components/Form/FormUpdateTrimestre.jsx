@@ -7,7 +7,7 @@ import '../../../css/Form/FormAddTrimestre.css';
 import useValidationForm from '../../hooks/useValidationForm';
 import { useForm, Controller } from 'react-hook-form';
 import { useFetchPutQuarter } from '../../hooks/FetchPUT/useFetchPutQuarter';
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { API_URL } from '../../const/api';
 import useDropdown from "../../hooks/useDropdown";
 import { Loading } from '../Loading/Loading';
@@ -59,8 +59,8 @@ export const FormUpdateTrimestre = () => {
         }
     }, [id, setValue]);
 
-    if(loading){
-        return <Loading/>
+    if (loading) {
+        return <Loading />
     }
 
     const onSubmit = async (data) => {
@@ -154,7 +154,10 @@ export const FormUpdateTrimestre = () => {
                             </div>
                             <div className="container-btns">
                                 <button className='guardar' type="submit">Guardar</button>
-                                <button className='cancelar'>Cancelar</button>
+                                <Link to={'/CrudTrimestres'}>
+                                    <button className='cancelar'>Cancelar</button>
+                                </Link>
+
                             </div>
                         </form>
                     </div>

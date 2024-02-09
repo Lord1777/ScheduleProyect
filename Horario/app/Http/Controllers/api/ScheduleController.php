@@ -448,6 +448,27 @@ class ScheduleController extends Controller
     }
   }
 
+  public function EnableSchedulesInstructors()
+  { 
+    try {
+        $asign = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
+            ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
+            ->select(
+                'usuarios.nombreCompleto',
+                'usuarios.idUsuario',
+                'horarios_academicos.idHorario',
+            )
+            ->distinct()
+            ->get();
+
+        return response()->json($asign, Response::HTTP_OK);
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Error Getting Schedule: ' . $e->getMessage()
+        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+  }
+
   public function scheduleEnableEnvironments()
     {
         try {

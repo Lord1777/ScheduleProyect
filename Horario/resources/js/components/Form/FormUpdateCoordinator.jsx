@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import useValidationForm from '../../hooks/useValidationForm'
 import { useForm } from 'react-hook-form'
 import { API_URL } from '../../const/api';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import useDropdown from "../../hooks/useDropdown";
 import logoSena from "../../assets/img/LogoSena.png";
 import { useFetchPutInstructor } from '../../hooks/FetchPUT/useFetchPutInstructor';
@@ -44,7 +44,7 @@ export const FormUpdateCoordinator = () => {
     const [sede, setSede] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const { fetchPutCoordinator, successModalOpen, errorModalOpen,closeErrorModal, closeSuccessModal } = useFetchPutCoordinator(id);
+    const { fetchPutCoordinator, successModalOpen, errorModalOpen, closeErrorModal, closeSuccessModal } = useFetchPutCoordinator(id);
 
 
     const fetchData = async () => {
@@ -299,7 +299,10 @@ export const FormUpdateCoordinator = () => {
                                 </div>
                                 <div className="container-btns">
                                     <button className='guardar' type="submit">Guardar</button>
-                                    <button className='cancelar'>Cancelar</button>
+                                    <Link to={'/CrudCoordinadores'}>
+                                        <button className='cancelar'>Cancelar</button>
+                                    </Link>
+
                                 </div>
                             </form>
                         </div>

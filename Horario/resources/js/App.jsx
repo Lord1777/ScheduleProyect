@@ -39,6 +39,8 @@ import { CrudPrograms } from './pages/CRUD/CrudPrograms.jsx';
 import { UpdateProgram } from './pages/Update/UpdateProgram.jsx';
 import useSessionControl from "./hooks/useSessionControl.js";
 import "../css/App.css";
+import { WatchSchedulesInstructor } from './pages/WatchSchedulesInstructor.jsx';
+import { WatchScheduleAmbiente } from './pages/WatchScheduleAmbiente.jsx';
 
 function App() {
 
@@ -64,13 +66,13 @@ function App() {
                     <Route path='/ConsultaAprendiz' element={<ConsultAprenttice />} />
                     <Route path='/403-forbidden' element={<Forbidden />} />
                     <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />
-                    {/* <Route path='/HorarioFichas' element={<SeeScheduleFichas />} /> */}
                     <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
                     <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
                     <Route path='/AddHorario/:id' element={<AddSchedule />} />
                     <Route path='/CrudProgramas' element={<CrudPrograms/>}/>
                     <Route path='/UpdatePrograma/:id' element={<UpdateProgram/>}/>
                     <Route path='/AddCoordinador' element={<AddCoordinator />} />
+                    <Route path='/HorariosAmbientes' element={<WatchScheduleAmbiente/>}/>
 
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={storedRole} />}  >
@@ -97,6 +99,7 @@ function App() {
                         <Route path='/UpdateCoordinador/:id' element={<UpdateCoordinator />} />
                         <Route path='/UpdateAmbiente/:id' element={<UpdateEnvironments />} />
                         <Route path='/UpdateTrimestre/:id' element={<UpdateQuaters/>} />
+                        <Route path='/HorariosInstructores' element={<WatchSchedulesInstructor/>} />
                     </Route>
                 </Routes>
             </Router>

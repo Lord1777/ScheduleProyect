@@ -35,7 +35,7 @@ export const NavBar = () => {
                 <ul className={`options-list ${isNavOpen ? 'open' : ''}`}>
                     <li><img src={perfil} alt="perfil" />Perfil</li>
 
-                    <Link to={'/HorarioInstructor/:idUsuario'}>
+                    <Link to={'/HorariosInstructores'}>
                         <li><img src={calendar} alt="calendar" />Horario Instructores</li>
                     </Link>
 

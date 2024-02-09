@@ -68,10 +68,10 @@ export const FormUpdateFicha = () => {
         if (id) {
             fetchData();
         }
-    }, [id,setValue]);
+    }, [id, setValue]);
 
-    if(loading){
-        return <Loading/>
+    if (loading) {
+        return <Loading />
     }
 
     const onSubmit = async (data) => {
@@ -261,10 +261,12 @@ export const FormUpdateFicha = () => {
                                 <button className="guardar" type="submit">
                                     Guardar
                                 </button>
+                                <Link to={'/CrudFichas'}>
+                                    <button className="cancelar">
+                                        Cancelar
+                                    </button>
+                                </Link>
 
-                                <button className="cancelar">
-                                    Cancelar
-                                </button>
 
                                 <Link to={`/AddHorario/${id}`} >
                                     <button className="horario">

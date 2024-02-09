@@ -10,7 +10,6 @@ export const ScheduleWatch = () => {
 
   const { idHorario } = useParams();
   const { horarios, loading } = useFetchGetSchedule(idHorario);
-  console.log(horarios);
 
   if (loading) {
     return <Loading />
@@ -27,6 +26,7 @@ export const ScheduleWatch = () => {
             name="search"
             id="search"
             placeholder="Buscar"
+            autoComplete="off"
           />
           <FontAwesomeIcon
             icon={faSearch}

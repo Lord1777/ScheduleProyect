@@ -31,14 +31,14 @@
     gap: 5rem;
 }
 
-.nav-bar .username{
+/* .nav-bar .username{
     padding-left: 2rem;
     margin-right: 2rem;
-}
+} */
 
-.nav-bar .username h2{
+/* .nav-bar .username h2{
     color: var(--color-text-white);
-}
+} */
 
 .name-proyect-toggle .name-Coordinator{
     margin-left: 40rem;
@@ -108,10 +108,10 @@
 /*Responsive*/
 
 @media (max-width:540px){
-    .nav-bar .username h2{
+    /* .nav-bar .username h2{
         white-space: nowrap;
         font-size: 1rem;
-    }
+    } */
 
     .nav-bar .Title{
         white-space: nowrap;
@@ -129,10 +129,10 @@
         gap: 5rem;
     }
 
-    .nav-bar .username {
+    /* .nav-bar .username {
         padding-left: 2rem;
         display: none;
-    }
+    } */
 }
 
 @media (max-width:420px){

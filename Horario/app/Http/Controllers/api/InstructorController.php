@@ -15,6 +15,7 @@ class InstructorController extends Controller
         try {
             $instructors = Usuario::where('usuarios.estado', 'habilitado')
                 ->where('usuarios.idRol', 2)
+                ->whereColumn('limiteHoras', '!=', 'horasAsignadas')
                 ->get();
             return response()->json($instructors, Response::HTTP_OK); //200
 

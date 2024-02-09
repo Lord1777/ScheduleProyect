@@ -3,7 +3,7 @@ import { API_URL } from '../../const/api';
 import useRequestOptionsGet from '../FetchGET/useRequestOptionsGet';
 
 
-export const useFetchGetScheduleInstructor = (route, idUsuario) => {
+export const useFetchGetScheduleInstructor = (route, idUsuario, idTrimestre, idFicha) => {
 
     const { requestOptionsGet } = useRequestOptionsGet();
 
@@ -13,7 +13,7 @@ export const useFetchGetScheduleInstructor = (route, idUsuario) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${API_URL}${route}/${idUsuario}`, requestOptionsGet)
+                const response = await fetch(`${API_URL}${route}/${idUsuario}/${idTrimestre}/${idFicha}`, requestOptionsGet)
                 const result = await response.json();
 
                 if (response.status === 404  || result.length === 0) {
@@ -30,7 +30,7 @@ export const useFetchGetScheduleInstructor = (route, idUsuario) => {
         }
 
         fetchData();
-    }, [])
+    }, [idTrimestre, idFicha])
 
     return {
         dataSchedule,

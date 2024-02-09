@@ -91,9 +91,83 @@ class ScheduleController extends Controller
     {
     }
 
-    public function scheduleInstructor(string $idUsuario)
+    public function scheduleInstructor(string $idUsuario, string $idTrimestre, string $idFicha)
     {
         try {
+            if ($idFicha && $idTrimestre) {
+
+                $schedule = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                    ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
+                    ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
+                    ->select(
+                        'asignaciones.boxIndex',
+                        'ambientes.ambiente',
+                        'usuarios.nombreCompleto',
+                    )
+                    ->where('horarios_academicos.idFicha', $idFicha)
+                    ->where('horarios_academicos.idTrimestre', $idTrimestre)
+                    ->get();
+
+                if (!$schedule) {
+                    return response()->json([
+                        'error' => 'Schedule not found'
+                    ], Response::HTTP_NOT_FOUND); //404
+                }
+                return response()->json($schedule, Response::HTTP_OK); //200
+
+            } else if ($idFicha) {
+
+                $trimestre = HorarioAcademico::join('trimestres', 'horarios_academicos.idTrimestre', '=', 'trimestres.idTrimestre')
+                    ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+                    ->where('horarios_academicos.idFicha', $idFicha)
+                    ->orderBy('trimestres.fechaInicio', 'desc')
+                    ->select('trimestres.idTrimestre')
+                    ->first();
+
+                $schedule = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                    ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
+                    ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
+                    ->select(
+                        'asignaciones.boxIndex',
+                        'ambientes.ambiente',
+                        'usuarios.nombreCompleto',
+                    )
+                    ->where('horarios_academicos.idFicha', $idFicha)
+                    ->where('horarios_academicos.idTrimestre', $trimestre['idTrimestre'])
+                    ->get();
+
+                if (!$schedule) {
+                    return response()->json([
+                        'error' => 'Schedule not found'
+                    ], Response::HTTP_NOT_FOUND); //404
+                }
+                return response()->json($schedule, Response::HTTP_OK); //200
+
+            } else if ($idTrimestre) {
+
+                $schedule = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
+                    ->join('trimestres', 'horarios_academicos.idTrimestre', '=', 'trimestres.idTrimestre')
+                    ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+                    ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
+                    ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
+                    ->select(
+                        'fichas.ficha',
+                        'ambientes.ambiente',
+                        'asignaciones.boxIndex',
+                        'usuarios.nombreCompleto',
+                    )
+                    ->where('usuarios.idUsuario', $idUsuario)
+                    ->where('trimestres.idTrimestre', $idTrimestre)
+                    ->get();
+
+                if (!$schedule) {
+                    return response()->json([
+                        'error' => 'Schedule not found'
+                    ], Response::HTTP_NOT_FOUND); //404
+                }
+                return response()->json($schedule, Response::HTTP_OK); //200
+            }
+
             $schedule = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
                 ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
                 ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
@@ -111,8 +185,8 @@ class ScheduleController extends Controller
                     'error' => 'Schedule not found'
                 ], Response::HTTP_NOT_FOUND); //404
             }
+            return response()->json($schedule, Response::HTTP_OK); //200
 
-            return response()->json($schedule, Response::HTTP_OK);
         } catch (\Exception $e) {
             return response()->json([
                 'error' => "Get Schedule Instructor Error " . $e->getMessage(),
@@ -186,6 +260,7 @@ class ScheduleController extends Controller
 
                 // Obtener el límite de horas para el instructor, ambiente y ficha
                 $limiteHorasInstructor = Usuario::where('idUsuario', $idInstructor)->value('limiteHoras');
+                $limiteHorasDiarioInstructor = 10;
                 $limiteHorasAmbiente = Ambiente::where('idAmbiente', $idAmbiente)->value('limiteHoras');
                 $limiteHorasFicha = Ficha::where('idFicha', $idFicha)->value('limiteHoras');
 
@@ -345,30 +420,30 @@ class ScheduleController extends Controller
         }
     }
 
-//     public function show(string $idHorario)
-//   { 
-//     try {
-//         $records = Horario::join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+    //     public function show(string $idHorario)
+    //   { 
+    //     try {
+    //         $records = Horario::join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
 
-//             ->select(
-//                 'fichas.ficha',
-//                 'horarios_academicos.idHorario'
-//             )
-//             ->where('horarios_academicos.idHorario', $idHorario)
-//             ->get();
+    //             ->select(
+    //                 'fichas.ficha',
+    //                 'horarios_academicos.idHorario'
+    //             )
+    //             ->where('horarios_academicos.idHorario', $idHorario)
+    //             ->get();
 
-//         if ($records->isEmpty()) {
-//             return response()->json([
-//                 'status' => 0,
-//                 'error' => 'Schedule Not Found'
-//             ], Response::HTTP_NOT_FOUND); //404
-//         }
+    //         if ($records->isEmpty()) {
+    //             return response()->json([
+    //                 'status' => 0,
+    //                 'error' => 'Schedule Not Found'
+    //             ], Response::HTTP_NOT_FOUND); //404
+    //         }
 
-//         return response()->json($records, Response::HTTP_OK);
-//     } catch (\Exception $e) {
-//         return response()->json([
-//             'error' => 'Error Getting Schedule: ' . $e->getMessage()
-//         ], Response::HTTP_INTERNAL_SERVER_ERROR);
-//     }
-//   }
+    //         return response()->json($records, Response::HTTP_OK);
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'error' => 'Error Getting Schedule: ' . $e->getMessage()
+    //         ], Response::HTTP_INTERNAL_SERVER_ERROR);
+    //     }
+    //   }
 }

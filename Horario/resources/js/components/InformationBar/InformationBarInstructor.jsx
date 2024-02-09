@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import '../../../css/InformationBar/InformationBar.css'
 import useDropdownGet from '../../hooks/useDropdownGet'
 import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
 import { useFetchGetRecords } from '../../hooks/FetchGetResources/useFetchGetRecords';
 import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
 import { useUser } from '../../context/UserContext';
+import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
 
 export const InformationBarInstructor = () => {
 
@@ -13,12 +14,10 @@ export const InformationBarInstructor = () => {
     const trimestreDropdown = useTrimestreDropdown();
 
     const { user } = useUser();
+    const { setIdTrimestreValue, setIdFichaValue } = useContext(FilterScheduleInstructorContext);
 
     const { dataRecords } = useFetchGetRecords('/getRecords');
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
-
-    //Buscador
-    const [fichaPrograma, setFichaPrograma] = useState("");
 
     const getRecordId = (nombreRecord) => {
         const record = dataRecords.find((record) => `${record.ficha} - ${record.nombre}` === nombreRecord);
@@ -29,7 +28,18 @@ export const InformationBarInstructor = () => {
         return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
     };
 
-    const [ fichas, setFichas ] = useState("");
+    //Buscador
+    const [fichaPrograma, setFichaPrograma] = useState("");
+    const [fichas, setFichas] = useState("");
+
+    const handleOptionClickTrimestre = (selectedOption) => {
+        setIdTrimestreValue(getQuarterId(selectedOption));
+    }
+
+    const handleOptionClickFicha = (selectedOption) =>{
+        setIdFichaValue(getRecordId(selectedOption));
+    }
+
 
     return (
         <>
@@ -54,8 +64,8 @@ export const InformationBarInstructor = () => {
                                     className='buscador-desplegables'
                                     id='buscador'
                                     value={fichas}
-                                   onChange={(e) => setFichas(e.target.value)} 
-                                   />
+                                    onChange={(e) => setFichas(e.target.value)}
+                                />
                             </div>
 
                             <div className="contenedor-options">
@@ -66,7 +76,7 @@ export const InformationBarInstructor = () => {
                                         `${record.ficha}`.toLowerCase().startsWith(fichas.toLowerCase())
                                     )
                                     .map((record) => (
-                                        <div className='option' onClick={() => handleOptionClick(`${record.ficha} - ${record.nombre}`)}>
+                                        <div className='option' onClick={() => handleOptionClickFicha(`${record.ficha} - ${record.nombre}`)}>
                                             {record.ficha} - {record.nombre}
                                         </div>
                                     ))}
@@ -88,7 +98,7 @@ export const InformationBarInstructor = () => {
                             <div className={`desplegable-options ${dropdown2.isDropdown ? 'open' : ''}`}>
                                 {dataQuarters && dataQuarters.length > 0 && dataQuarters.map((quarter) => (
                                     <div key={quarter.idTrimestre} onClick={() =>
-                                        handleOptionClick(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`)}>
+                                        handleOptionClickTrimestre(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`)}>
                                         {quarter.trimestre} | {quarter.fechaInicio} - {quarter.fechaFinal}
                                     </div>
                                 ))}

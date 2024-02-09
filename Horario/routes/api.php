@@ -24,7 +24,7 @@ Route::middleware(['cors'])->group(function () {
 
 
     //Instructores
-    Route::get('getInstructors', [InstructorController::class, 'getInstructors']);
+    Route::get('/getInstructors', [InstructorController::class, 'getInstructors']);
     Route::get('/getEnabledInstructors', [InstructorController::class, 'indexEnabled']);
     Route::get('/getDisableInstructors', [InstructorController::class, 'indexDisable']);
     Route::get('/getInstructor/{idUsuario}', [InstructorController::class, 'show']);
@@ -86,7 +86,7 @@ Route::middleware(['cors'])->group(function () {
     Route::match(['get', 'post'], '/createSchedule', [ScheduleController::class, 'store']);
     Route::get('/getInfoBarRecord/{idFicha}', [ScheduleController::class, 'indexRecord']);
     Route::get('/getScheduleApprentice/{idFicha}', [ScheduleController::class, 'scheduleApprentice']);
-    Route::get('/getScheduleInstructor/{idUsuario}', [ScheduleController::class, 'scheduleInstructor']);
+    Route::get('/getScheduleInstructor/{idUsuario}/{idTrimestre}/{idFicha}', [ScheduleController::class, 'scheduleInstructor']);
     // Route::get('/getScheduleRecord/{idHorario}', [ScheduleController::class, 'show']);
 });
 

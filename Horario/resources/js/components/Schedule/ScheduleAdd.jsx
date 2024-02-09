@@ -27,6 +27,10 @@ export const ScheduleAdd = () => {
     // Almacena todos los índices, id-instructor, id-ambiente asignados,
     const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
 
+    // Inicializa el registro de horas asignadas por día para cada instructor
+    const [horasAsignadasPorDia, setHorasAsignadasPorDia] = useState({})
+    const diaSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];;
+
     //Funcion que retorna el id del trimestre
     const getQuarterId = (dataTrimestre) => {
         const quarter = dataQuarters.find((quarter) => `${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}` === dataTrimestre);
@@ -40,7 +44,7 @@ export const ScheduleAdd = () => {
         return initials.join('');
     }
 
-    // Función para desasignar un instructor y ambiente al hacer clic en una casilla asignada
+    // Función para des-asignar un instructor y ambiente al hacer clic en una casilla asignada
     const handleAssignedBoxClick = (boxIndex) => {
         setGlobalStoreBoxes(prevStoreBoxes => {
             const newStoreBoxes = prevStoreBoxes.filter(box => box.boxIndex !== boxIndex);
@@ -57,6 +61,29 @@ export const ScheduleAdd = () => {
     const onSubmit = async (data) => {
 
         if (globalStoreBoxes.length > 0) {
+
+            // Actualiza el registro de horas asignadas por día
+            const newHorasAsignadasPorDia = { ...horasAsignadasPorDia };
+            globalStoreBoxes.forEach(box => {
+                const idInstructor = box.idInstructor;
+                const dia = diaSemana[box.boxIndex % 6]; // Calcula el día correspondiente a la columna de la cuadrícula
+                if (!newHorasAsignadasPorDia[idInstructor][dia]) {
+                    newHorasAsignadasPorDia[idInstructor][dia] = 0;
+                }
+                newHorasAsignadasPorDia[idInstructor][dia] += 1;
+            });
+            setHorasAsignadasPorDia(newHorasAsignadasPorDia);
+
+            // Verifica si se excede el límite diario de 10 horas para algún instructor en algún día
+            const idInstructorExcedido = Object.keys(newHorasAsignadasPorDia).find(idInstructor => {
+                const horasPorDia = newHorasAsignadasPorDia[idInstructor];
+                return Object.values(horasPorDia).some(horas => horas > 10);
+            });
+
+            if (idInstructorExcedido) {
+                return alert(`Se ha detectado que un instructor ha superado el límite diario de 10 horas en al menos uno de los días.`);
+            }
+
             await fetchSubmitSchedule({
                 idTrimestre: getQuarterId(data.trimestre),
                 idFicha: id,
@@ -66,16 +93,30 @@ export const ScheduleAdd = () => {
     }
 
     useEffect(() => {
+        // Inicializa las horas asignadas a 0 para cada día de la semana para cada instructor
+        const initialHorasPorDia = {};
+
+        globalStoreBoxes.forEach(box => {
+            const idInstructor = box.idInstructor;
+            const dia = diaSemana[box.boxIndex % 6];
+            if (!initialHorasPorDia[idInstructor]) {
+                initialHorasPorDia[idInstructor] = {};
+            }
+            initialHorasPorDia[idInstructor][dia] = 0;
+        });
+        setHorasAsignadasPorDia(initialHorasPorDia);
+
+
         if (duplicatesBox.length > 0 || duplicatesBox.size > 0) {
 
             const timer = setTimeout(() => {
                 setDuplicatesBox([]);
-            }, 2000);
+            }, 5000);
 
             // Limpieza del temporizador cuando el componente se desmonta o cuando duplicatesBox cambia nuevamente
             return () => clearTimeout(timer);
         }
-    }, [duplicatesBox]);
+    }, [duplicatesBox, globalStoreBoxes]);
 
     return (
         <>

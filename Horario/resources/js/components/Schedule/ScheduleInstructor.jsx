@@ -1,15 +1,18 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import { useFetchGetScheduleInstructor } from '../../hooks/FetchSchedule/useFetchGetScheduleInstructor';
 import { Loading } from '../Loading/Loading';
+import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
 
 export const ScheduleInstructor = () => {
 
+    const { idTrimestre, idFicha } = useContext(FilterScheduleInstructorContext);
+
+    console.log(idTrimestre, idFicha)
+
     const { idUsuario } = useParams();
 
-    console.log(idUsuario);
-
-    const { dataSchedule, loading } = useFetchGetScheduleInstructor('/getScheduleInstructor', idUsuario);
+    const { dataSchedule, loading } = useFetchGetScheduleInstructor('/getScheduleInstructor', idUsuario, idTrimestre, idFicha);
 
     if(loading){
         return <Loading/>
@@ -49,6 +52,7 @@ export const ScheduleInstructor = () => {
                                         <>
                                             <span>{infoSchedule.ficha}</span>
                                             <span>{infoSchedule.ambiente}</span>
+                                            <span>{infoSchedule.nombreCompleto}</span>
                                         </>
                                     ) : (
                                         // Si no hay información del backend

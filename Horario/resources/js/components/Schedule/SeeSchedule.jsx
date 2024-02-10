@@ -44,7 +44,7 @@ export const SeeSchedule = () => {
                             const boxIndex = rowIndex * 6 + colIndex;
 
                             // Busca la información específica para este índice en la solicitud del backend
-                            const infoSchedule = dataSchedule.find((data) => data.boxIndex === boxIndex);
+                            const infoSchedule = dataSchedule && Array.isArray(dataSchedule) ? dataSchedule.find((data) => data.boxIndex === boxIndex) : false;
 
                             return (
                                 <div
@@ -52,13 +52,11 @@ export const SeeSchedule = () => {
                                     className={`${infoSchedule ? 'selected' : 'cuadricula'}`}
                                 >
                                     {infoSchedule ? (
-                                        // Si hay información específica del backend
                                         <>
                                             <span>{initialsName(infoSchedule.nombreCompleto)}</span>
                                             <span>{infoSchedule.ambiente}</span>
                                         </>
                                     ) : (
-                                        // Si no hay información del backend
                                         (
                                             <>
                                                 <span></span>

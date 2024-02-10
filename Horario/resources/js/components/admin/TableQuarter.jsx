@@ -21,7 +21,6 @@ export const TableQuarter = () => {
         currentPage,
         fecha
         );
-    const { fetchPutQuarter } = useFetchPutQuarter();
 
 
     let totalPage = dataQuarter.last_page;

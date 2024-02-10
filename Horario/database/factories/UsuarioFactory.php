@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Usuario>
@@ -16,6 +17,8 @@ class UsuarioFactory extends Factory
      */
     public function definition(): array
     {
+        $phoneNumber = $this->faker->phoneNumber;
+        
         return [
         'tipoDocumento' => $this->faker->randomElement([
             'cedula ciudadania',
@@ -34,7 +37,7 @@ class UsuarioFactory extends Factory
             'amaime',
             'poblado campestre',
         ]),
-        'telefono' => $this->faker->phoneNumber,
+        'telefono' => preg_replace('/[^0-9]/', '', $phoneNumber),
         'profesion' => $this->faker->randomElement([
             'Diseñador grafico',
             'ingeniero',
@@ -53,7 +56,7 @@ class UsuarioFactory extends Factory
         ]),
         'email' => $this->faker->safeEmail,
         'experiencia' => $this->faker->paragraph,
-        'password' => $this->faker->password,
+        'password' => Hash::make($this->faker->password),
         'limiteHoras' => $this->faker->randomElement([35, 40]),
         'horasAsignadas' => 0,
         'estado' => $this->faker->randomElement(['habilitado', 'inhabilitado']),

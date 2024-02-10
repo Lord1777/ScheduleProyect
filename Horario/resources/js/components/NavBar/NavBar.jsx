@@ -43,6 +43,10 @@ export const NavBar = () => {
                         <li><img src={calendar} alt="calendar" />Horario Fichas</li>
                     </Link>
 
+                    <Link to={'/HorariosAmbientes'}>
+                        <li><img src={calendar} alt="calendar" />Horario Ambientes</li>
+                    </Link>
+
                     <Link to={'/Panel'}>
                         <li><img src={panel} alt="panel" />Panel de Control</li>
                     </Link>

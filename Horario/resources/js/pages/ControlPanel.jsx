@@ -69,7 +69,7 @@ export const ControlPanel = () => {
                         />
                     </Link>
 
-                    <Link to={''} >
+                    <Link to={'/HorariosAmbientes'} >
                         <CardPControlPanel
                             img={AM}
                             text="Horarios Ambientes"

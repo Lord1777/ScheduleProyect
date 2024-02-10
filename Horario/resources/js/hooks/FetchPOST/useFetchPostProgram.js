@@ -33,6 +33,9 @@ const useFetchPostProgram = (route) => {
                 console.log(data.message); // Mensaje definido en Laravel
                 openSuccessModal();
             }
+            else{
+                openErrorModal();
+            }
         } catch (error) {
             console.log(`Error Creating Program: ${error}`);
             openErrorModal();

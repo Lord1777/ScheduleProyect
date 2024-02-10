@@ -5,7 +5,7 @@ import useValidationForm from '../../hooks/useValidationForm';
 import useFetchPostProgram from '../../hooks/FetchPOST/useFetchPostProgram';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
-import { Modal } from '../Modals/Modal';
+import { ContinuoModal } from '../Modals/ContinuoModal';
 
 export const FormAddPrograma = () => {
 
@@ -82,28 +82,21 @@ export const FormAddPrograma = () => {
                     </div>
                 </div>
             </main>
-            <Modal
+            <ContinuoModal
+                tittle="¡Error!"
+                imagen={error}
+                message="Ocurrió un error al guardar los datos. Por favor, inténtalo de nuevo."
+                open={errorModalOpen}
+                close={closeErrorModal}
+                route="/CrudProgramas"
+            />
+            <ContinuoModal
                 tittle="¡Exito!"
                 imagen={exito}
                 message="Los datos se guardaron correctamente."
-                route="CrudProgramas"
                 open={successModalOpen}
-                close={() => {
-                    closeSuccessModal();
-                    ShowCloseModal();
-                }}
-            />
-            {/* Modal de error */}
-            <Modal
-                tittle="Error en la Actualización"
-                imagen={error}
-                message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
-                route="CrudProgramas"
-                open={errorModalOpen}
-                close={() => {
-                    closeErrorModal();
-                    ShowCloseModal();
-                }}
+                close={closeSuccessModal}
+                route="/CrudProgramas"
             />
         </>
     )

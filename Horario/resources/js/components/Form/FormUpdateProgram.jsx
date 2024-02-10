@@ -4,11 +4,11 @@ import useDropdown from '../../hooks/useDropdown';
 import useValidationForm from '../../hooks/useValidationForm';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
-import { Modal } from '../Modals/Modal';
 import { Loading } from '../Loading/Loading';
 import { API_URL } from '../../const/api';
 import { useParams } from 'react-router-dom';
 import { useFecthPutProgram } from '../../hooks/FetchPUT/useFecthPutProgram';
+import { ContinuoModal } from '../Modals/ContinuoModal';
 
 export const FormUpdateProgram = () => {
 
@@ -130,28 +130,21 @@ export const FormUpdateProgram = () => {
                     </div>
                 </div>
             </main>
-            <Modal
-                tittle="Actualización Exitosa"
-                imagen={exito}
-                message="Los datos se actualizaron correctamente."
-                route="CrudProgramas"
-                open={successModalOpen}
-                close={() => {
-                    closeSuccessModal();
-                    ShowCloseModal();
-                }}
-            />
-            {/* Modal de error */}
-            <Modal
+            <ContinuoModal
                 tittle="Error en la Actualización"
                 imagen={error}
                 message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
-                route="CrudProgramas"
                 open={errorModalOpen}
-                close={() => {
-                    closeErrorModal();
-                    ShowCloseModal();
-                }}
+                close={closeErrorModal}
+                route="/CrudProgramas"
+            />
+            <ContinuoModal
+                tittle="Actualización Exitosa"
+                imagen={exito}
+                message="Los datos se actualizaron correctamente."
+                open={successModalOpen}
+                close={closeSuccessModal}
+                route="/CrudProgramas"
             />
         </>
     )

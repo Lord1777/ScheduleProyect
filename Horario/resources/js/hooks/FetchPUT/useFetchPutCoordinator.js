@@ -38,6 +38,9 @@ export const useFetchPutCoordinator = (idUsario) => {
                 console.log(data.message); // Mensaje definido en Laravel
                 openSuccessModal();
             }
+            else{
+                openErrorModal();
+            }
 
         } catch (error) {
             console.log(`Error Updating Coordinator: ${error}`);

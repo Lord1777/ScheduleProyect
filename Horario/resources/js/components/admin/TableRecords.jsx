@@ -18,7 +18,7 @@ export const TableRecords = () => {
         disabled ? '/getDisableRecords' : '/getEnabledRecords',
         currentPage,
         Ficha
-        );
+    );
 
     let totalPage = dataRecord.last_page;
 
@@ -34,11 +34,11 @@ export const TableRecords = () => {
         : [];
 
     useEffect(() => {
-        
+
     }, [currentPage, Ficha]);
 
-    if(loading){
-        return <Loading/>
+    if (loading) {
+        return <Loading />
     }
 
     return (
@@ -46,14 +46,14 @@ export const TableRecords = () => {
             <h2 className='title'>Administrar Fichas {disabled ? 'Inhabilitadas' : 'Habilitadas'}</h2>
             <div className="container-search-buttons">
                 <div className="search-input">
-                    <input 
-                    type="search"
-                    name="search"
-                    id="search" 
-                    placeholder="Buscar" 
-                    autoComplete='off' 
-                    value={Ficha}
-                    onChange={(e)=>setFicha(e.target.value)}
+                    <input
+                        type="search"
+                        name="search"
+                        id="search"
+                        placeholder="Buscar"
+                        autoComplete='off'
+                        value={Ficha}
+                        onChange={(e) => setFicha(e.target.value)}
                     />
                     <FontAwesomeIcon icon={faSearch} className="search-icon" />
                 </div>
@@ -66,7 +66,9 @@ export const TableRecords = () => {
                             setCurrentPage(1);
                         }}
                     >{disabled ? 'Habilitados' : 'Inhabilitados'}</button>
-                    <button type="button">Añadir Ficha</button>
+                    <Link to='/AddFicha'>
+                        <button type="button">Añadir Ficha</button>
+                    </Link>
                 </div>
             </div>
 

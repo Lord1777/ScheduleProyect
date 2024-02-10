@@ -13,7 +13,7 @@ import useDropdown from "../../hooks/useDropdown";
 import { Loading } from '../Loading/Loading';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
-import { Modal } from '../Modals/Modal';
+import { ContinuoModal } from '../Modals/ContinuoModal';
 
 export const FormUpdateTrimestre = () => {
 
@@ -163,28 +163,21 @@ export const FormUpdateTrimestre = () => {
                     </div>
                 </div>
             </main>
-            <Modal
-                tittle="Actualización Exitosa"
-                imagen={exito}
-                message="Los datos se actualizaron correctamente."
-                route="CrudTrimestres"
-                open={successModalOpen}
-                close={() => {
-                    closeSuccessModal();
-                    ShowCloseModal();
-                }}
-            />
-            {/* Modal de error */}
-            <Modal
+            <ContinuoModal
                 tittle="Error en la Actualización"
                 imagen={error}
                 message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
-                route="CrudTrimestres"
                 open={errorModalOpen}
-                close={() => {
-                    closeErrorModal();
-                    ShowCloseModal();
-                }}
+                close={closeErrorModal}
+                route="/CrudTrimestres"
+            />
+            <ContinuoModal
+                tittle="Actualización Exitosa"
+                imagen={exito}
+                message="Los datos se actualizaron correctamente."
+                open={successModalOpen}
+                close={closeSuccessModal}
+                route="/CrudTrimestres"
             />
         </>
     );

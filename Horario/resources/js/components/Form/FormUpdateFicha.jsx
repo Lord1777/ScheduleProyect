@@ -10,7 +10,7 @@ import { useFetchPutRecord } from "../../hooks/FetchPUT/useFetchPutRecord";
 import { Loading } from "../Loading/Loading";
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
-import { Modal } from '../Modals/Modal';
+import { ContinuoModal } from "../Modals/ContinuoModal";
 
 export const FormUpdateFicha = () => {
 
@@ -279,28 +279,21 @@ export const FormUpdateFicha = () => {
                     </div>
                 </div>
             </main>
-            <Modal
-                tittle="Actualización Exitosa"
-                imagen={exito}
-                message="Los datos se actualizaron correctamente."
-                route="CrudFichas"
-                open={successModalOpen}
-                close={() => {
-                    closeSuccessModal();
-                    ShowCloseModal();
-                }}
-            />
-            {/* Modal de error */}
-            <Modal
+            <ContinuoModal
                 tittle="Error en la Actualización"
                 imagen={error}
                 message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
-                route="CrudFichas"
                 open={errorModalOpen}
-                close={() => {
-                    closeErrorModal();
-                    ShowCloseModal();
-                }}
+                close={closeErrorModal}
+                route="/CrudFichas"
+            />
+            <ContinuoModal
+                tittle="Actualización Exitosa"
+                imagen={exito}
+                message="Los datos se actualizaron correctamente."
+                open={successModalOpen}
+                close={closeSuccessModal}
+                route="/CrudFichas"
             />
         </>
     );

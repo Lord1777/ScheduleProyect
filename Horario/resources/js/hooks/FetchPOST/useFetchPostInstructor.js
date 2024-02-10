@@ -21,14 +21,14 @@ const useFetchPostInstructor = (route) => {
 
         //Id de la sede
         let idSede = getSedeByName(sede);
-        
+
         try {
             const response = await fetch(`${API_URL}${route}`, {
                 method: "POST",
-                headers: { 
+                headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': csrf_token,
-                 },
+                },
                 body: JSON.stringify({
                     tipoDocumento,
                     ciudad,
@@ -48,6 +48,9 @@ const useFetchPostInstructor = (route) => {
                 const data = await response.json();
                 console.log(data.message); // Mensaje definido en Laravel
                 openSuccessModal();
+            }
+            else {
+                openErrorModal();
             }
         } catch (error) {
             console.log(`Error Creating Instructor: ${error}`);

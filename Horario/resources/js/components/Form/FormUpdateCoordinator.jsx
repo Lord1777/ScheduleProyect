@@ -5,12 +5,11 @@ import { API_URL } from '../../const/api';
 import { Link, useParams } from 'react-router-dom';
 import useDropdown from "../../hooks/useDropdown";
 import logoSena from "../../assets/img/LogoSena.png";
-import { useFetchPutInstructor } from '../../hooks/FetchPUT/useFetchPutInstructor';
 import { useFetchPutCoordinator } from '../../hooks/FetchPUT/useFetchPutCoordinator';
 import { Loading } from '../Loading/Loading';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
-import { Modal } from '../Modals/Modal';
+import { ContinuoModal } from '../Modals/ContinuoModal';
 
 export const FormUpdateCoordinator = () => {
 
@@ -309,28 +308,21 @@ export const FormUpdateCoordinator = () => {
                     </div>
                 </div>
             </main>
-            <Modal
-                tittle="Actualización Exitosa"
-                imagen={exito}
-                message="Los datos se actualizaron correctamente."
-                route="CrudCoordinadores"
-                open={successModalOpen}
-                close={() => {
-                    closeSuccessModal();
-                    ShowCloseModal();
-                }}
-            />
-            {/* Modal de error */}
-            <Modal
+            <ContinuoModal
                 tittle="Error en la Actualización"
                 imagen={error}
                 message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
-                route="CrudCoordinadores"
                 open={errorModalOpen}
-                close={() => {
-                    closeErrorModal();
-                    ShowCloseModal();
-                }}
+                close={closeErrorModal}
+                route="/CrudCoordinadores"
+            />
+            <ContinuoModal
+                tittle="Actualización Exitosa"
+                imagen={exito}
+                message="Los datos se actualizaron correctamente."
+                open={successModalOpen}
+                close={closeSuccessModal}
+                route="/CrudCoordinadores"
             />
         </>
     )

@@ -29,6 +29,9 @@ const useFetchPostQuarter = (route) => {
                 console.log(data.message); // Mensaje definido en Laravel
                 openSuccessModal();
             }
+            else{
+                openErrorModal()
+            }
         } catch (err) {
             console.error(`Error Creating Quarter: ${err}`);
             openErrorModal();

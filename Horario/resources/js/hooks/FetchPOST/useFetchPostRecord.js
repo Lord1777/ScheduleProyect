@@ -1,4 +1,4 @@
-import {getModalidadByName, getJornadaByName} from '../useObjectMapping';
+import { getModalidadByName, getJornadaByName } from '../useObjectMapping';
 import { API_URL, csrf_token } from '../../const/api';
 import useModal from '../useModal';
 
@@ -16,30 +16,33 @@ const useFetchPostRecord = (route) => {
         let idJornada = getJornadaByName(jornada);
 
         console.log(
-            ficha, 
-            idPrograma, 
-            idModalidad, 
+            ficha,
+            idPrograma,
+            idModalidad,
             idJornada)
 
         try {
             const response = await fetch(`${API_URL}${route}`, {
-                method: 'POST', 
-                headers: { 
+                method: 'POST',
+                headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': csrf_token,
                 },
                 body: JSON.stringify({
-                    ficha, 
-                    idPrograma, 
-                    idModalidad, 
+                    ficha,
+                    idPrograma,
+                    idModalidad,
                     idJornada,
                 })
             })
 
-            if(response.ok){
+            if (response.ok) {
                 const data = await response.json()
                 console.log(data.message)
                 openSuccessModal();
+            }
+            else {
+                openErrorModal();
             }
 
         } catch (err) {

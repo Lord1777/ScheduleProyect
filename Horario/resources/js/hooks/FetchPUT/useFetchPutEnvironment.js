@@ -38,6 +38,9 @@ export const useFetchPutEnvironment = (id) => {
                 console.log(data.message); // Mensaje definido en Laravel
                 openSuccessModal();
             }
+            else{
+                openErrorModal();
+            }
 
         } catch (error) {
             console.log(`Error Updating Environment: ${error}`);

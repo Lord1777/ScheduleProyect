@@ -9,7 +9,7 @@ import useFetchPostRecord from '../../hooks/FetchPOST/useFetchPostRecord';
 import useFetchGetPrograms from '../../hooks/FetchGetResources/useFetchGetPrograms';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
-import { Modal } from '../Modals/Modal';
+import { ContinuoModal } from '../Modals/ContinuoModal';
 
 export const FormAddFicha = () => {
     
@@ -123,28 +123,21 @@ export const FormAddFicha = () => {
                     </div>
                 </div>
             </main>
-            <Modal
-                tittle="¡Exito!"
-                imagen={exito}
-                message="Los datos se guardaron correctamente."
-                route="CrudFichas"
-                open={successModalOpen}
-                close={() => {
-                    closeSuccessModal();
-                    ShowCloseModal();
-                }}
-            />
-            {/* Modal de error */}
-            <Modal
+            <ContinuoModal
                 tittle="¡Error!"
                 imagen={error}
                 message="Ocurrió un error al guardar los datos. Por favor, inténtalo de nuevo."
-                route="CrudFichas"
                 open={errorModalOpen}
-                close={() => {
-                    closeErrorModal();
-                    ShowCloseModal();
-                }}
+                close={closeErrorModal}
+                route="/CrudFichas"
+            />
+            <ContinuoModal
+                tittle="¡Exito!"
+                imagen={exito}
+                message="Los datos se guardaron correctamente."
+                open={successModalOpen}
+                close={closeSuccessModal}
+                route="/CrudFichas"
             />
         </>
     );

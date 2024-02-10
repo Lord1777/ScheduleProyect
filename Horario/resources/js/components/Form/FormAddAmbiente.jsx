@@ -5,6 +5,9 @@ import useDropdown from '../../hooks/useDropdown';
 import useFetchPostEnvironment from '../../hooks/FetchPOST/useFetchPostEnvironment';
 import { useForm } from 'react-hook-form';
 import useValidationForm from '../../hooks/useValidationForm';
+import { ContinuoModal } from '../Modals/ContinuoModal';
+import exito from '../../assets/img/Exito.png'
+import error from '../../assets/img/Advertencia.png'
 
 export const FormAddAmbiente = () => {
 
@@ -19,12 +22,12 @@ export const FormAddAmbiente = () => {
         SEDE,
         TABLERO
     } = useValidationForm();
-    const dropdown1 = useDropdown(setValue, "aireAcondicionado");
-    const dropdown2 = useDropdown(setValue, "videoBeam");
+    const dropdown1 = useDropdown(setValue, "aireAcondicionados");
+    const dropdown2 = useDropdown(setValue, "videoBeams");
     const dropdown3 = useDropdown(setValue, "sede");
-    const dropdown4 = useDropdown(setValue, "tablero");
+    const dropdown4 = useDropdown(setValue, "tableros");
 
-    const { fetchSubmitEnvironment } = useFetchPostEnvironment('/createEnvironment');
+    const { fetchSubmitEnvironment, succesfullyModal, setSuccesfullyModal, errorModal, setErrorModal } = useFetchPostEnvironment('/createEnvironment');
 
     const onSubmit = async(data) => {
 
@@ -179,6 +182,22 @@ export const FormAddAmbiente = () => {
                     </div>
                 </div>
             </main>
+            <ContinuoModal
+                tittle="¡Error!"
+                imagen={error}
+                message="Ocurrió un error al guardar los datos. Por favor, inténtalo de nuevo."
+                open={errorModal}
+                close={() => setErrorModal(false)}
+                route="/CrudAmbientes"
+            />
+            <ContinuoModal
+                tittle="¡Exito!"
+                imagen={exito}
+                message="Los datos se guardaron correctamente."
+                open={succesfullyModal}
+                close={() => setSuccesfullyModal(false)}
+                route="/CrudAmbientes"
+            />
         </>
     )
 }

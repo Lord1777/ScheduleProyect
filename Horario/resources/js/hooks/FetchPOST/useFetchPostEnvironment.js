@@ -1,58 +1,68 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { getSedeByName, getTrueOrFalseByYesOrNot } from '../useObjectMapping';
-import { API_URL, csrf_token} from '../../const/api';
+import { API_URL, csrf_token } from '../../const/api';
 
 const useFetchPostEnvironment = (route) => {
-  
 
-    const fetchSubmitEnvironment = async( ambiente, cantidadMesas, capacidad, catidadComputadores, aireAcondicionados, tableros, videoBeams, sede, ) =>{
-        
-      //Id de la sede
-      let idSede = getSedeByName(sede);
+    const [ succesfullyModal, setSuccesfullyModal  ] = useState(false);
+    const [ errorModal, setErrorModal ] = useState(false);
 
-      //True or False
-      let aireAcondicionado = getTrueOrFalseByYesOrNot(aireAcondicionados);
+    const fetchSubmitEnvironment = async (ambiente, cantidadMesas, capacidad, catidadComputadores, aireAcondicionados, tableros, videoBeams, sede,) => {
 
-      //True or False
-      let videoBeam = getTrueOrFalseByYesOrNot(videoBeams);
+        //Id de la sede
+        let idSede = getSedeByName(sede);
 
-      //True or False
-      let tablero = getTrueOrFalseByYesOrNot(tableros);
+        //True or False
+        let aireAcondicionado = getTrueOrFalseByYesOrNot(aireAcondicionados);
 
-      try {
-        const response = await fetch(`${API_URL}${route}`, {
-          method: "POST",
-          headers: { 
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': csrf_token,
-           },
-          body: JSON.stringify({ 
-            ambiente,
-            cantidadMesas,
-            capacidad,
-            catidadComputadores,
-            aireAcondicionado,
-            tablero,
-            videoBeam,
-            idSede,
-          })
-        })
+        //True or False
+        let videoBeam = getTrueOrFalseByYesOrNot(videoBeams);
 
-        if(response.ok){
-          const data = await response.json()
-          console.log(data.message)
+        //True or False
+        let tablero = getTrueOrFalseByYesOrNot(tableros);
+
+        try {
+            const response = await fetch(`${API_URL}${route}`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf_token,
+                },
+                body: JSON.stringify({
+                    ambiente,
+                    cantidadMesas,
+                    capacidad,
+                    catidadComputadores,
+                    aireAcondicionado,
+                    tablero,
+                    videoBeam,
+                    idSede,
+                })
+            })
+
+            if (response.ok) {
+                const data = await response.json()
+                console.log(data.message)
+                setSuccesfullyModal(true);
+            }
+            else{
+                setErrorModal(true);
+            }
+
+        } catch (err) {
+            console.log(`Error Creating Environment: ${err}`)
         }
-        
-      } catch (err) {
-          console.log(`Error Creating Environment: ${err}`)
-      }
     }
 
-  return (
-    {
-      fetchSubmitEnvironment,
-    }
-  )
+    return (
+        {
+            fetchSubmitEnvironment,
+            succesfullyModal,
+            setSuccesfullyModal,
+            errorModal,
+            setErrorModal
+        }
+    )
 }
 
 export default useFetchPostEnvironment

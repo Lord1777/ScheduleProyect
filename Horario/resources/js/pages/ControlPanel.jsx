@@ -9,6 +9,7 @@ import Tiempo from '../assets/img/Tiempo.jpg'
 import S from '../assets/img/S.jpg'
 import IN from '../assets/img/IN.jpg'
 import AM from '../assets/img/AM.jpg'
+import PR from '../assets/img/PR.jpg'
 import { Link } from 'react-router-dom'
 
 export const ControlPanel = () => {
@@ -45,6 +46,13 @@ export const ControlPanel = () => {
                         <CardPControlPanel
                             img={Fichas}
                             text="Fichas"
+                        />
+                    </Link>
+
+                    <Link to={'/CrudProgramas'} >
+                        <CardPControlPanel
+                            img={PR}
+                            text="Programas"
                         />
                     </Link>
 

@@ -425,7 +425,7 @@ class ScheduleController extends Controller
 
             return response()->json([
                 'status' => 1,
-                'message' => 'Horario Académico creado ¡Exitosamente!.'
+                'message' => 'Horario Académico creado ¡Exitosamente!'
             ], Response::HTTP_CREATED); //201
         } catch (\Exception $e) {
 

@@ -35,18 +35,6 @@ export const NavBar = () => {
                 <ul className={`options-list ${isNavOpen ? 'open' : ''}`}>
                     <li><img src={perfil} alt="perfil" />Perfil</li>
 
-                    <Link to={'/HorariosInstructores'}>
-                        <li><img src={calendar} alt="calendar" />Horario Instructores</li>
-                    </Link>
-
-                    <Link to={'/HorariosFichas'}>
-                        <li><img src={calendar} alt="calendar" />Horario Fichas</li>
-                    </Link>
-
-                    <Link to={'/HorariosAmbientes'}>
-                        <li><img src={calendar} alt="calendar" />Horario Ambientes</li>
-                    </Link>
-
                     <Link to={'/Panel'}>
                         <li><img src={panel} alt="panel" />Panel de Control</li>
                     </Link>
@@ -55,16 +43,36 @@ export const NavBar = () => {
                         <li><img src={instructores} alt="instructores" />Instructores</li>
                     </Link>
 
-                    <Link to={'/CrudFichas'}>
-                        <li><img src={fichas} alt="fichas" />Fichas</li>
+                    <Link to={'/CrudCoordinadores'}>
+                        <li><img src={instructores} alt="instructores" />Coordinadores</li>
                     </Link>
 
                     <Link to={'/CrudAmbientes'}>
                         <li><img src={ambientes} alt="ambientes" />Ambientes</li>
                     </Link>
 
+                    <Link to={'/CrudFichas'}>
+                        <li><img src={fichas} alt="fichas" />Fichas</li>
+                    </Link>
+
+                    <Link to={'/CrudProgramas'}>
+                        <li><img src={fichas} alt="fichas" />Programas</li>
+                    </Link>
+
                     <Link to={'/CrudTrimestres'}>
                         <li><img src={trimestres} alt="trimestres" />Trimestres</li>
+                    </Link>
+
+                    <Link to={'/HorariosFichas'}>
+                        <li><img src={calendar} alt="calendar" />Horario Académicos</li>
+                    </Link>
+
+                    <Link to={'/HorariosInstructores'}>
+                        <li><img src={calendar} alt="calendar" />Horario Instructores</li>
+                    </Link>
+
+                    <Link to={'/HorariosAmbientes'}>
+                        <li><img src={calendar} alt="calendar" />Horario Ambientes</li>
                     </Link>
                     
                     <Link to={'/'}>

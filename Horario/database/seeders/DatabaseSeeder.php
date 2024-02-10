@@ -25,8 +25,8 @@ class DatabaseSeeder extends Seeder
         $this->call(NivelDeFormacionSeeder::class);
         $this->call(ContratoSeeder::class);
         $this->call(ProgramaSeeder::class);
+        $this->call(TrimestreSeeder::class);
         Ambiente::factory(50)->create();
-        Trimestre::factory(20)->create();
         Usuario::factory(100)->create();
         Ficha::factory(80)->create();
     }

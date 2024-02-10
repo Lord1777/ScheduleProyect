@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import logoSena from '../../assets/img/LogoSena.png';
 import useFetchPostCoordinator from '../../hooks/FetchPOST/useFetchPostCoordinator';
 import useValidationForm from '../../hooks/useValidationForm';

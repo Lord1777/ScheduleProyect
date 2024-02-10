@@ -26,7 +26,6 @@ export const Modal = ( { tittle, imagen, message, route, open, close } ) => {
                     </div>
                     <div className="modal-btns">
                         <button className='confirmar' onClick={Navegar}>Confirmar</button>
-                        <button className='cancelar' onClick={close}>Cancelar</button>
                     </div>
                 </div>
             </main>

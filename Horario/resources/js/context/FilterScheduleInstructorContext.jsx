@@ -22,4 +22,3 @@ export const FilterScheduleInstructorContextProvider = ({ children }) => {
 };
 
 export default FilterScheduleInstructorContext;
-

@@ -1,7 +1,6 @@
 import React from 'react'
 import { NavBar } from '../components/NavBar/NavBar'
 import { InformationBarInstructor } from '../components/InformationBar/InformationBarInstructor'
-import { useParams } from 'react-router-dom'
 import { ScheduleInstructor } from '../components/Schedule/ScheduleInstructor'
 import { FilterScheduleInstructorContextProvider } from '../context/FilterScheduleInstructorContext'
 

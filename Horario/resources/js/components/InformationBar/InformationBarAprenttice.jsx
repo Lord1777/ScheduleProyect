@@ -2,12 +2,20 @@ import React from 'react'
 import '../../../css/InformationBar/InformationBarAprenttice.css'
 import useFetchGetInfoBarRecord from '../../hooks/FetchSchedule/useFetchGetInfoBarRecord'
 import { useParams } from 'react-router-dom'
+import { useUser } from '../../context/UserContext';
+import FilterScheduleFichaContext from '../../context/FilterScheduleFichaContext';
 
 export const InformationBarAprenttice = () => {
 
     const { idFicha } = useParams();
 
     const { dataInfoRecord } = useFetchGetInfoBarRecord('/getInfoBarRecord', idFicha);
+
+    const { user } = useUser();
+
+    console.log(user);
+
+    
 
   return (
     <>

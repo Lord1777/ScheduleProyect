@@ -8,31 +8,32 @@ import useFetchGetCoordinator from "../../hooks/FetchGET/useFetchGetCoordinator"
 import { Link } from 'react-router-dom';
 import { useFetchPutCoordinator } from '../../hooks/FetchPUT/useFetchPutCoordinator';
 import { Loading } from '../Loading/Loading';
+import { useFetchPutManageCoordinator } from '../../hooks/FetchPUT/useFetchPutManageCoordinator';
 
 
 export const TableCoodinators = () => {
 
     const [disabled, setDisabled] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [coordinador, setCoordinador] = useState('');  // Asegúrate de inicializar el estado de búsqueda
+    const [coordinador, setCoordinador] = useState('');
 
     const { dataCoordinator, fetchData, loading } = useFetchGetCoordinator(
         disabled ? '/getDisableCoordinators' : '/getEnabledCoordinators',
         currentPage,
-        coordinador  // Asegúrate de pasar el estado de búsqueda al hook
+        coordinador
     );
 
-    const { fetchPutCoordinator } = useFetchPutCoordinator();
+    const { fetchManageCoordinator } = useFetchPutManageCoordinator();
 
     let totalPage = dataCoordinator.last_page;
 
-    const enableCoordinator = (idUsuario) => {
-        fetchPutCoordinator('/enableCoordinator', idUsuario);
+    const enableCoordinator = async(idUsuario) => {
+        await fetchManageCoordinator('/enableCoordinator', idUsuario);
         fetchData();
     };
 
-    const disableCoordinator = (idUsuario) => {
-        fetchPutCoordinator('/disableCoordinator', idUsuario);
+    const disableCoordinator = async(idUsuario) => {
+        await fetchManageCoordinator('/disableCoordinator', idUsuario);
         fetchData();
     };
 

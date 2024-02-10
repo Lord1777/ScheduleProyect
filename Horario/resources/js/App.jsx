@@ -51,7 +51,7 @@ function App() {
     let storedUserData = localStorage.getItem('user_data');
 
     useEffect(() => {
-        if(storedToken && storedRole && storedUserData){
+        if (storedToken && storedRole && storedUserData) {
             authenticateUser(storedToken, storedRole, JSON.parse(storedUserData));
         }
     }, [])
@@ -65,12 +65,6 @@ function App() {
                     <Route path='/403-forbidden' element={<Forbidden />} />
                     <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />
                     {/* <Route path='/HorarioFichas' element={<SeeScheduleFichas />} /> */}
-                    <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
-                    <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
-                    <Route path='/AddHorario/:id' element={<AddSchedule />} />
-                    <Route path='/CrudProgramas' element={<CrudPrograms/>}/>
-                    <Route path='/UpdatePrograma/:id' element={<UpdateProgram/>}/>
-                    <Route path='/AddCoordinador' element={<AddCoordinator />} />
 
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={storedRole} />}  >
@@ -96,7 +90,13 @@ function App() {
                         <Route path='/UpdateInstructor/:id' element={<UpdateInstructor />} />
                         <Route path='/UpdateCoordinador/:id' element={<UpdateCoordinator />} />
                         <Route path='/UpdateAmbiente/:id' element={<UpdateEnvironments />} />
-                        <Route path='/UpdateTrimestre/:id' element={<UpdateQuaters/>} />
+                        <Route path='/UpdateTrimestre/:id' element={<UpdateQuaters />} />
+                        <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
+                        <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
+                        <Route path='/AddHorario/:id' element={<AddSchedule />} />
+                        <Route path='/CrudProgramas' element={<CrudPrograms />} />
+                        <Route path='/UpdatePrograma/:id' element={<UpdateProgram />} />
+                        <Route path='/AddCoordinador' element={<AddCoordinator />} />
                     </Route>
                 </Routes>
             </Router>

@@ -69,6 +69,8 @@ Route::middleware(['cors'])->group(function () {
     Route::get('/getDisableRecords', [RecordsController::class, 'indexDisable']);
     Route::get('/GetFicha/{id}', [RecordsController::class, 'show']);
     Route::put('/updateRecord/{id}', [RecordsController::class, 'update']);
+    Route::match(['get', 'put'], '/disableRecord/{idFicha}', [RecordsController::class, 'disable']);
+    Route::match(['get', 'put'], '/enableRecord/{idFicha}', [RecordsController::class, 'enabled']);
 
 
     //Trimestres

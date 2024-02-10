@@ -8,6 +8,7 @@ import useFetchGetEnvironment from '../../hooks/FetchGET/useFetchGetEnvironment'
 import { useFetchPutEnvironment } from '../../hooks/FetchPUT/useFetchPutEnvironment';
 import { Link } from 'react-router-dom';
 import { Loading } from '../Loading/Loading';
+import { useFetchPutManageEnvironment } from '../../hooks/FetchPUT/useFetchPutManageEnvironment';
 
 
 export const TableEnvironments = () => {
@@ -21,17 +22,17 @@ export const TableEnvironments = () => {
         currentPage,
         ambiente
     );
-    const { fetchPutEnvironment } = useFetchPutEnvironment()
+    const { fetchManageEnvironment } = useFetchPutManageEnvironment();
 
     let totalPage = dataEnvironment.last_page;
 
-    const enableEnvironment = (idAmbiente) => {
-        fetchPutEnvironment('/enableEnvironment', idAmbiente);
+    const enableEnvironment = async (idAmbiente) => {
+        await fetchManageEnvironment('/enableEnvironment', idAmbiente);
         fetchData();
     }
 
-    const disableEnvironment = (idAmbiente) => {
-        fetchPutEnvironment('/disableEnvironment', idAmbiente);
+    const disableEnvironment = async (idAmbiente) => {
+        await fetchManageEnvironment('/disableEnvironment', idAmbiente);
         fetchData();
     }
 

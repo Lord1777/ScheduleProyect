@@ -8,7 +8,7 @@ import useFetchGetInstructor from '../../hooks/FetchGET/useFetchGetInstructor';
 import { useFetchPutInstructor } from '../../hooks/FetchPUT/useFetchPutInstructor';
 import { Link } from 'react-router-dom';
 import { Loading } from '../Loading/Loading';
-
+import { useFetchPutManageInstructor } from '../../hooks/FetchPUT/useFetchPutManageInstructor';
 
 
 export const TableInstructors = () => {
@@ -22,17 +22,17 @@ export const TableInstructors = () => {
         currentPage,
         Instructor
         );
-    const { fetchPutInstructor } = useFetchPutInstructor();
+    const { fetchManageInstructor } = useFetchPutManageInstructor();
 
     let totalPage = dataInstructor.last_page;
 
-    const enableInstructor = (idUsuario) => {
-        fetchPutInstructor('/enableInstructor', idUsuario);
+    const enableInstructor = async(idUsuario) => {
+        await fetchManageInstructor('/enableInstructor', idUsuario);
         fetchData();
     }
 
-    const disableInstructor = (idUsuario) => {
-        fetchPutInstructor('/disableInstructor', idUsuario);
+    const disableInstructor = async(idUsuario) => {
+        await fetchManageInstructor('/disableInstructor', idUsuario);
         fetchData();
     }
 

@@ -8,6 +8,7 @@ import useFetchGetQuarter from '../../hooks/FetchGET/useFetchGetQuarter';
 import { useFetchPutQuarter } from '../../hooks/FetchPUT/useFetchPutQuarter';
 import { Link } from 'react-router-dom';
 import { Loading } from '../Loading/Loading';
+import { useFetchPutManageQuarter } from '../../hooks/FetchPUT/useFetchPutManageQuarter';
 
 
 export const TableQuarter = () => {
@@ -22,16 +23,16 @@ export const TableQuarter = () => {
         fecha
         );
 
-
     let totalPage = dataQuarter.last_page;
 
-    const enableQuarter = (idTrimestre) => {
-        fetchPutQuarter('/enableQuarter', idTrimestre);
+    const { fetchManageQuarter } = useFetchPutManageQuarter();
+
+    const enableQuarter = async (idTrimestre) => {
+        await fetchManageQuarter('/enableQuarter', idTrimestre);
         fetchData();
     }
-
-    const disableQuarter = (idTrimestre) => {
-        fetchPutQuarter('/disableQuarter', idTrimestre);
+    const disableQuarter = async (idTrimestre) => {
+        await fetchManageQuarter('/disableQuarter', idTrimestre);
         fetchData();
     }
 
@@ -113,13 +114,13 @@ export const TableQuarter = () => {
                                     {disabled ? (
                                         <td>
                                             <button onClick={() => enableQuarter(quarter.idTrimestre)} >
-                                                <FontAwesomeIcon icon={faUserSlash} className='iconHabilitar' />
+                                                <FontAwesomeIcon icon={faUserCheck} className='iconHabilitar' />
                                             </button>
                                         </td>
                                     ) : (
                                         <td>
                                             <button onClick={() => disableQuarter(quarter.idTrimestre)} >
-                                                <FontAwesomeIcon icon={faUserCheck} className='iconInhabilitar' />
+                                                <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar' />
                                             </button>
                                         </td>
 

@@ -41,6 +41,7 @@ import useSessionControl from "./hooks/useSessionControl.js";
 import "../css/App.css";
 import { WatchSchedulesInstructor } from './pages/WatchSchedulesInstructor.jsx';
 import { WatchScheduleAmbiente } from './pages/WatchScheduleAmbiente.jsx';
+import { HorariosPanel } from './pages/HorariosPanel.jsx';
 
 function App() {
 
@@ -73,6 +74,7 @@ function App() {
                     <Route path='/UpdatePrograma/:id' element={<UpdateProgram/>}/>
                     <Route path='/AddCoordinador' element={<AddCoordinator />} />
                     <Route path='/HorariosAmbientes' element={<WatchScheduleAmbiente/>}/>
+                    <Route path='/PanelHorarios' element={<HorariosPanel/>}/>
 
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={storedRole} />}  >

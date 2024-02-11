@@ -35,6 +35,10 @@ export const NavBar = () => {
                 <ul className={`options-list ${isNavOpen ? 'open' : ''}`}>
                     <li><img src={perfil} alt="perfil" />Perfil</li>
 
+                    <Link to={'/PanelHorarios'}>
+                        <li><img src={calendar} alt="calendar" />Horarios</li>
+                    </Link>
+
                     <Link to={'/Panel'}>
                         <li><img src={panel} alt="panel" />Panel de Control</li>
                     </Link>

@@ -89,9 +89,10 @@ export const TableCoodinators = () => {
                     <thead>
                         <tr>
                             <th>Documento</th>
-                            <th>Nombre</th>
-                            <th>Telefono</th>
-                            <th>Email</th>
+                            <th className='align-left'>Nombre</th>
+                            <th className='align-left'>Telefono</th>
+                            <th className='align-left'>Email</th>
+                            <th>Estado</th>
                             <th>Editar</th>
                             {disabled ? <th>Habilitar</th> : <th>Inhabilitar</th>}
                         </tr>
@@ -100,9 +101,10 @@ export const TableCoodinators = () => {
                         {filteredCoordinators.map((coordinator) => (
                             <tr key={coordinator.idUsuario}>
                                 <td>{coordinator.documento}</td>
-                                <td>{coordinator.nombreCompleto}</td>
-                                <td>{coordinator.telefono}</td>
-                                <td>{coordinator.email}</td>
+                                <td className='align-left'>{coordinator.nombreCompleto}</td>
+                                <td className='align-left'>{coordinator.telefono}</td>
+                                <td className='align-left'>{coordinator.email}</td>
+                                <td>{disabled ? 'Inhabilitado' : 'Habilitado'}</td>
                                 <td>
                                     <Link to={`/UpdateCoordinador/${coordinator.idUsuario}`}>
                                         <button>

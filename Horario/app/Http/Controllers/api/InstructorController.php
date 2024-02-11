@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
+
 
 class InstructorController extends Controller
 {
@@ -36,8 +38,11 @@ class InstructorController extends Controller
                     'usuarios.idUsuario',
                     'usuarios.documento',
                     'usuarios.nombreCompleto',
+                    'usuarios.email',
                     'contratos.tipoContrato',
                     'usuarios.profesion',
+                    'usuarios.estado',
+                    'usuarios.experiencia'
                 )
                 ->where('usuarios.estado', 'habilitado')
                 ->where('usuarios.idRol', 2)
@@ -66,8 +71,11 @@ class InstructorController extends Controller
                     'usuarios.idUsuario',
                     'usuarios.documento',
                     'usuarios.nombreCompleto',
+                    'usuarios.email',
                     'contratos.tipoContrato',
                     'usuarios.profesion',
+                    'usuarios.estado',
+                    'usuarios.experiencia'
                 )
                 ->where('usuarios.estado', 'inhabilitado')
                 ->where('usuarios.idRol', 2)
@@ -77,6 +85,8 @@ class InstructorController extends Controller
                         ->orWhere('nombreCompleto', 'like', '%' . $search . '%');
                 })
                 ->paginate(15);
+                Log::info($instructors);
+                
             return response()->json($instructors, Response::HTTP_OK); //200
 
         } catch (\Exception $e) {

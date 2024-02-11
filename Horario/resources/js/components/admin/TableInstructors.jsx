@@ -23,6 +23,7 @@ export const TableInstructors = () => {
         Instructor
         );
     const { fetchPutInstructor } = useFetchPutInstructor();
+    console.log(dataInstructor)
 
     let totalPage = dataInstructor.last_page;
 
@@ -88,12 +89,14 @@ export const TableInstructors = () => {
                     <thead>
                         <tr>
                             <th>Documento</th>
-                            <th>Nombre</th>
+                            <th className='align-left'>Nombre</th>
+                            <th className='align-left'>Email</th>
                             <th>Contrato</th>
-                            <th>Profesión</th>
+                            <th className='align-left'>Profesión</th>
+                            <th>Estado</th>
                             <th>Editar</th>
                             {disabled ? <th>Habilitar</th> : <th>Inhabilitar</th>}
-
+                            
 
                         </tr>
                     </thead>
@@ -103,9 +106,11 @@ export const TableInstructors = () => {
                             return (
                                 <tr key={instructor.idUsuario}>
                                     <td>{instructor.documento}</td>
-                                    <td>{instructor.nombreCompleto}</td>
+                                    <td className='align-left'>{instructor.nombreCompleto}</td>
+                                    <td className='align-left'>{instructor.email}</td>
                                     <td>{instructor.tipoContrato}</td>
-                                    <td>{instructor.profesion}</td>
+                                    <td className='align-left'>{instructor.profesion}</td>
+                                    <td>{disabled ? 'Inhabilitado' : 'Habilitado'}</td>
                                     <td>
                                         <Link to={`/UpdateInstructor/${instructor.idUsuario}`}>
                                             <button>

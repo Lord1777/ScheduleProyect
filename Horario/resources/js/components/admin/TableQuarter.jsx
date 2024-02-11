@@ -92,6 +92,7 @@ export const TableQuarter = () => {
                             <th>N° Trimestre</th>
                             <th>Fecha de Inicio</th>
                             <th>Fecha de Finalización</th>
+                            <th>Estado</th>
                             <th>Editar</th>
                             {disabled ? <th>Habilitar</th> : <th>Inhabilitar</th>}
                         </tr>
@@ -103,6 +104,7 @@ export const TableQuarter = () => {
                                     <td>{quarter.trimestre}</td>
                                     <td>{quarter.fechaInicio}</td>
                                     <td>{quarter.fechaFinal}</td>
+                                    <td>{disabled ? 'Inhabilitado' : 'Habilitado'}</td>
                                     <td>
                                         <Link to={`/UpdateTrimestre/${quarter.idTrimestre}`}>
                                             <button>

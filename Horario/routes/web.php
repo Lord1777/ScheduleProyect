@@ -42,6 +42,7 @@ Route::get('/CrudProgramas', fn() => view('welcome'));
 Route::match(['get','put'], '/UpdatePrograma/{id}', fn()=> view('welcome'));
 Route::get('/HorariosInstructores', fn() => view('welcome'));
 Route::get('/HorariosAmbientes', fn()=> view('welcome'));
+Route::get('/PanelHorarios', fn()=> view('welcome'));
 
 // Route::get('/{any}', function () {
 //     //Todas las rutas retornan welcome porque ahí es donde se está renderizando React

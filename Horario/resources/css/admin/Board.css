@@ -43,6 +43,10 @@
     text-align: justify;
 }
 
+.align-left{
+    text-align: left;
+}
+
 .content_table tbody tr:nth-child(even) {
     background-color: #FFFFFF;
 }

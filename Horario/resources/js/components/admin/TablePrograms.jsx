@@ -79,12 +79,13 @@ export const TablePrograms = () => {
                 <table className='content_table'>
                     <thead>
                         <tr>
-                            <th>Nombre</th>
+                            <th>Id</th>
+                            <th className='align-left'>Nombre</th>
                             <th>Duración</th>
                             <th>Formación</th>
+                            <th>Estado</th>
                             <th>Editar</th>
                             {disabled ? <th>Habilitar</th> : <th>Inhabilitar</th>}
-
                         </tr>
                     </thead>
                     <tbody>
@@ -92,9 +93,11 @@ export const TablePrograms = () => {
 
                             return (
                                 <tr key={program.idPrograma}>
-                                    <td>{program.nombre}</td>
+                                    <td>{program.idPrograma}</td>
+                                    <td className='align-left'>{program.nombre}</td>
                                     <td>{program.duracion}</td>
                                     <td>{program.nivel}</td>
+                                    <td>{disabled ? 'Inhabilitado' : 'Habilitado'}</td>
                                     <td>
                                         <Link to={`/UpdatePrograma/${program.idPrograma}`}>
                                             <button>

@@ -91,6 +91,7 @@ export const TableEnvironments = () => {
                             <th>Ambiente</th>
                             <th>Capacidad</th>
                             <th>Lugar de Ambiente</th>
+                            <th>Estado</th>
                             <th>Editar</th>
                             {disabled ? <th>Habilitar</th> : <th>Inhabilitar</th>}
                         </tr>
@@ -103,6 +104,7 @@ export const TableEnvironments = () => {
                                     <td>{environment.ambiente}</td>
                                     <td>{environment.capacidad}</td>
                                     <td>{environment.sede}</td>
+                                    <td>{disabled ? 'Inhabilitado' : 'Habilitado'}</td>
                                     <td>
                                         <Link to={`/UpdateAmbiente/${environment.idAmbiente}`}>
                                             <button className='editar'>

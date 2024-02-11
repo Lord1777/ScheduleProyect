@@ -77,10 +77,11 @@ export const TableRecords = () => {
                     <thead>
                         <tr>
                             <th>Ficha</th>
-                            <th>Programa</th>
+                            <th className='align-left'>Programa</th>
                             <th>Nivel de Formación</th>
                             <th>Jornada</th>
                             <th>Modalidad</th>
+                            <th>Estado</th>
                             <th>Editar</th>
                             {disabled ? <th>Habilitar</th> : <th>Inhabilitar</th>}
                         </tr>
@@ -91,10 +92,11 @@ export const TableRecords = () => {
                             return (
                                 <tr key={record.id}>
                                     <td>{record.ficha}</td>
-                                    <td>{record.nombre}</td>
+                                    <td className='align-left'>{record.nombre}</td>
                                     <td>{record.nivel}</td>
                                     <td>{record.jornada}</td>
                                     <td>{record.modalidad}</td>
+                                    <td>{disabled ? 'Inhabilitado' : 'Habilitado'}</td>
                                     <td>
                                         <Link to={`/UpdateFicha/${record.idFicha}`}>
                                             <button>

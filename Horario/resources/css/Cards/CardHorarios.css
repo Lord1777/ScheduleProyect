@@ -1,0 +1,51 @@
+.contenedor{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 15rem;
+    height: 8rem;
+    background: rgba(217, 217, 217, 0.58);
+    box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(6px);
+    border-radius: 17px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    /* font-weight: bolder; */
+    color: black;
+
+    .icon{
+        font-size: 2rem;
+    }
+}
+  
+  .card:hover {
+    transform: scale(1.05);
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .card:active {
+    transform: scale(0.95) rotateZ(1.7deg);
+  }
+
+.text-car{
+    display: flex;
+    flex-direction: column;
+
+    h2{
+        font-weight: 500;
+    }
+}

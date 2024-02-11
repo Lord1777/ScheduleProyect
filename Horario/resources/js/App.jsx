@@ -42,6 +42,7 @@ import "../css/App.css";
 import { WatchSchedulesInstructor } from './pages/WatchSchedulesInstructor.jsx';
 import { WatchScheduleAmbiente } from './pages/WatchScheduleAmbiente.jsx';
 import { HorariosPanel } from './pages/HorariosPanel.jsx';
+import { CardHorarios } from './components/Cards/CardHorarios.jsx';
 
 function App() {
 
@@ -75,6 +76,7 @@ function App() {
                     <Route path='/AddCoordinador' element={<AddCoordinator />} />
                     <Route path='/HorariosAmbientes' element={<WatchScheduleAmbiente/>}/>
                     <Route path='/PanelHorarios' element={<HorariosPanel/>}/>
+                    <Route path='/Card' element={<CardHorarios/>}/>
 
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={storedRole} />}  >

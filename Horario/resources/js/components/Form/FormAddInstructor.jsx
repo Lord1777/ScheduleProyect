@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import logoSena from "../../assets/img/LogoSena.png";
 import useFetchPostInstructor from '../../hooks/FetchPOST/useFetchPostInstructor';
 import useValidationForm from '../../hooks/useValidationForm';
@@ -8,6 +8,7 @@ import "../../../css/Form/FormAddInstructor.css";
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
 import { ContinuoModal } from '../Modals/ContinuoModal';
+import { Link } from 'react-router-dom';
 
 
 const FormAddInstructor = () => {
@@ -208,7 +209,10 @@ const FormAddInstructor = () => {
                                 </div>
                                 <div className="container-btns">
                                     <button className='guardar' type="submit">Guardar</button>
-                                    <button className='cancelar'>Cancelar</button>
+                                    <Link to={'/CrudInstructor'}>
+                                        <button className='cancelar'>Cancelar</button>
+                                    </Link>
+
                                 </div>
                             </form>
                         </div>

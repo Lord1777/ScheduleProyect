@@ -11,6 +11,7 @@ import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
 import { Modal } from '../Modals/Modal';
 import { ContinuoModal } from '../Modals/ContinuoModal';
+import { Link } from 'react-router-dom';
 
 function FormAddTrimestre() {
 
@@ -19,7 +20,7 @@ function FormAddTrimestre() {
 
     const { fetchSubmitQuarter, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, } = useFetchPostQuarter('/createQuarters');
 
-    const onSubmit = async(data) => {
+    const onSubmit = async (data) => {
         console.log(data);
         await fetchSubmitQuarter(
             data.trimestre,
@@ -105,7 +106,9 @@ function FormAddTrimestre() {
                             </div>
                             <div className="container-btns">
                                 <button className='guardar' type="submit">Guardar</button>
-                                <button className='cancelar'>Cancelar</button>
+                                <Link to={'/CrudTrimestres'}>
+                                    <button className='cancelar'>Cancelar</button>
+                                </Link>
                             </div>
                         </form>
                     </div>

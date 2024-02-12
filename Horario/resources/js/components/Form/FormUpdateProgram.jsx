@@ -6,15 +6,15 @@ import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
 import { Loading } from '../Loading/Loading';
 import { API_URL } from '../../const/api';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useFecthPutProgram } from '../../hooks/FetchPUT/useFecthPutProgram';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 
 export const FormUpdateProgram = () => {
 
-    const [ nombrePrograma, setNombrePrograma ] = useState('')
-    const [ duracion, setDuracion ] = useState(0)
-    const [ nivelFormacion, setNivelFormacion ] = useState(null)
+    const [nombrePrograma, setNombrePrograma] = useState('')
+    const [duracion, setDuracion] = useState(0)
+    const [nivelFormacion, setNivelFormacion] = useState(null)
     const [loading, setLoading] = useState(true);
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
@@ -55,13 +55,13 @@ export const FormUpdateProgram = () => {
         if (id) {
             fetchData();
         }
-    }, [id,setValue]);
+    }, [id, setValue]);
 
-    if(loading){
-        return <Loading/>
+    if (loading) {
+        return <Loading />
     };
 
-    const onSubmit = async(data) => {
+    const onSubmit = async (data) => {
         await fetchPutProgram(
             data.programa,
             data.duracion,
@@ -124,7 +124,10 @@ export const FormUpdateProgram = () => {
                             </div>
                             <div className="container-btns">
                                 <button className='guardar' type="submit">Guardar</button>
-                                <button className='cancelar'>Cancelar</button>
+                                <Link to={'/CrudProgramas'}>
+                                    <button className='cancelar'>Cancelar</button>
+                                </Link>
+
                             </div>
                         </form>
                     </div>

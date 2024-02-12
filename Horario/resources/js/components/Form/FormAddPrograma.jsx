@@ -6,6 +6,7 @@ import useFetchPostProgram from '../../hooks/FetchPOST/useFetchPostProgram';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
 import { ContinuoModal } from '../Modals/ContinuoModal';
+import { Link } from 'react-router-dom';
 
 export const FormAddPrograma = () => {
 
@@ -16,7 +17,7 @@ export const FormAddPrograma = () => {
 
     const { fetchSubmitProgram, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, } = useFetchPostProgram('/createProgram');
 
-    const onSubmit = async(data) => {
+    const onSubmit = async (data) => {
 
         await fetchSubmitProgram(
             data.programa,
@@ -76,7 +77,10 @@ export const FormAddPrograma = () => {
                             </div>
                             <div className="container-btns">
                                 <button className='guardar' type="submit">Guardar</button>
-                                <button className='cancelar'>Cancelar</button>
+                                <Link to={'/CrudProgramas'}>
+                                    <button className='cancelar'>Cancelar</button>
+                                </Link>
+
                             </div>
                         </form>
                     </div>

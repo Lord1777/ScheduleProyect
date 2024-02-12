@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
 import { ContinuoModal } from '../Modals/ContinuoModal';
+import { Link } from 'react-router-dom';
 
 export const FormAddCoordinador = () => {
 
@@ -67,39 +68,39 @@ export const FormAddCoordinador = () => {
                                         {errors.nombreCompleto && <p className='errors_forms'>{errors.nombreCompleto.message}</p>}
                                     </div>
 
-                                    
-                                        <div className='container-input-error'>
-                                            <div className={`Dropdown ${dropdown1.isDropdown ? 'open' : ''}`} id='widthDropdown'>
-                                                <input
-                                                    type='text'
-                                                    name='TipoDocumento'
-                                                    className='textBox'
-                                                    placeholder='Tipo de Documento'
-                                                    readOnly
-                                                    onClick={dropdown1.handleDropdown}
-                                                    value={dropdown1.selectedOption}
-                                                    {...register("TipoDocumento", TIPO_DOCUMENTO)}
-                                                />
-                                                <div className={`options ${dropdown1.isDropdown ? 'open' : ''}`}>
-                                                    <div onClick={() => dropdown1.handleOptionClick('tarjeta identidad', setValue, 'TipoDocumento')}>Tarjeta Identidad</div>
-                                                    <div onClick={() => dropdown1.handleOptionClick('cedula ciudadania', setValue, 'TipoDocumento')}>Cédula Ciudadanía</div>
-                                                    <div onClick={() => dropdown1.handleOptionClick('cedula extrangeria', setValue, 'TipoDocumento')}>Cédula Extranjería</div>
-                                                </div>
-                                            </div>
-                                            {errors.TipoDocumento && <p className='errors_forms'>{errors.TipoDocumento.message}</p>}
-                                        </div>
 
-                                        <div className='container-input-error'>
+                                    <div className='container-input-error'>
+                                        <div className={`Dropdown ${dropdown1.isDropdown ? 'open' : ''}`} id='widthDropdown'>
                                             <input
-                                                type="number"
-                                                name="documento"
-                                                id=""
-                                                placeholder='Número de Documento'
-                                                {...register("documento", DOCUMENTO)}
+                                                type='text'
+                                                name='TipoDocumento'
+                                                className='textBox'
+                                                placeholder='Tipo de Documento'
+                                                readOnly
+                                                onClick={dropdown1.handleDropdown}
+                                                value={dropdown1.selectedOption}
+                                                {...register("TipoDocumento", TIPO_DOCUMENTO)}
                                             />
-                                            {errors.documento && <p className='errors_forms'>{errors.documento.message}</p>}
+                                            <div className={`options ${dropdown1.isDropdown ? 'open' : ''}`}>
+                                                <div onClick={() => dropdown1.handleOptionClick('tarjeta identidad', setValue, 'TipoDocumento')}>Tarjeta Identidad</div>
+                                                <div onClick={() => dropdown1.handleOptionClick('cedula ciudadania', setValue, 'TipoDocumento')}>Cédula Ciudadanía</div>
+                                                <div onClick={() => dropdown1.handleOptionClick('cedula extrangeria', setValue, 'TipoDocumento')}>Cédula Extranjería</div>
+                                            </div>
                                         </div>
-                                    
+                                        {errors.TipoDocumento && <p className='errors_forms'>{errors.TipoDocumento.message}</p>}
+                                    </div>
+
+                                    <div className='container-input-error'>
+                                        <input
+                                            type="number"
+                                            name="documento"
+                                            id=""
+                                            placeholder='Número de Documento'
+                                            {...register("documento", DOCUMENTO)}
+                                        />
+                                        {errors.documento && <p className='errors_forms'>{errors.documento.message}</p>}
+                                    </div>
+
 
 
                                     <div className='container-input-error'>
@@ -205,7 +206,10 @@ export const FormAddCoordinador = () => {
                                 </div>
                                 <div className="container-btns">
                                     <button className='guardar' type="submit">Guardar</button>
-                                    <button className='cancelar'>Cancelar</button>
+                                    <Link to={'/CrudCoordinadores'}>
+                                        <button className='cancelar'>Cancelar</button>
+                                    </Link>
+
                                 </div>
                             </form>
                         </div>

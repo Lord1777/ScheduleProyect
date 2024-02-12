@@ -71,9 +71,7 @@ function App() {
                     <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
                     <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
                     <Route path='/AddHorario/:id' element={<AddSchedule />} />
-                    <Route path='/CrudProgramas' element={<CrudPrograms/>}/>
                     <Route path='/UpdatePrograma/:id' element={<UpdateProgram/>}/>
-                    <Route path='/AddCoordinador' element={<AddCoordinator />} />
                     <Route path='/HorariosAmbientes' element={<WatchScheduleAmbiente/>}/>
                     <Route path='/PanelHorarios' element={<HorariosPanel/>}/>
                     <Route path='/Card' element={<CardHorarios/>}/>
@@ -82,13 +80,16 @@ function App() {
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={storedRole} />}  >
                         <Route path='/Panel' element={<ControlPanel />} />
                         <Route path='/HorariosFichas' element={<WatchSchedules />} />
+                        <Route path='/HorariosInstructores' element={<WatchSchedulesInstructor/>} />
                         <Route path='/CrudInstructor' element={<CrudInstructor />} />
                         <Route path='/CrudFichas' element={<CrudRecords />} />
                         <Route path='/CrudTrimestres' element={<CrudQuarters />} />
                         <Route path='/CrudCoordinadores' element={<CrudCoordinators />} />
                         <Route path='/CrudAmbientes' element={<CrudEnvironments />} />
+                        <Route path='/CrudProgramas' element={<CrudPrograms/>}/>
+                        <Route path='/CrudCoordinadores' element={<CrudCoordinators />} /> 
+                        <Route path='/AddCoordinador' element={<AddCoordinator />} />
                         <Route path='/AddInstructor' element={<AddInstructors />} />
-                        <Route path='/CrudCoordinadores' element={<CrudCoordinators />} />
                         <Route path='/AddAmbiente' element={<AddEnvironments />} />
                         <Route path='/AddPrograma' element={<AddProgram />} />
                         <Route path='/AddFicha' element={<AddRecords />} />
@@ -103,7 +104,6 @@ function App() {
                         <Route path='/UpdateCoordinador/:id' element={<UpdateCoordinator />} />
                         <Route path='/UpdateAmbiente/:id' element={<UpdateEnvironments />} />
                         <Route path='/UpdateTrimestre/:id' element={<UpdateQuaters/>} />
-                        <Route path='/HorariosInstructores' element={<WatchSchedulesInstructor/>} />
                     </Route>
                 </Routes>
             </Router>

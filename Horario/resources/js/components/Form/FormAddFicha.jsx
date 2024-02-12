@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import '../../../css/Form/BoxContainerFormAdd.css';
 import '../../../css/Form/FormAddFicha.css';
 import useDropdown from '../../hooks/useDropdown';
@@ -10,9 +9,10 @@ import useFetchGetPrograms from '../../hooks/FetchGetResources/useFetchGetProgra
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
 import { ContinuoModal } from '../Modals/ContinuoModal';
+import { Link } from 'react-router-dom';
 
 export const FormAddFicha = () => {
-    
+
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const dropdown1 = useDropdown(setValue, 'modalidad');
     const dropdown2 = useDropdown(setValue, 'programa');
@@ -27,8 +27,8 @@ export const FormAddFicha = () => {
         return programa ? programa.idPrograma : null
     }
 
-    const onSubmit = async(data) => {
-        
+    const onSubmit = async (data) => {
+
         // console.log(data)
         await fetchSubmitRecord(
             parseInt(data.ficha),
@@ -50,7 +50,7 @@ export const FormAddFicha = () => {
                                     <input type='number' name='ficha' placeholder='N° Ficha' {...register("ficha", NFICHA)} />
                                     {errors.ficha && <p className='errors_forms'>{errors.ficha.message}</p>}
                                 </div>
-                                
+
                                 <div>
                                     <div className={`Dropdown ${dropdown1.isDropdown ? 'open' : ''}`}>
                                         <input
@@ -117,7 +117,10 @@ export const FormAddFicha = () => {
                             </div>
                             <div className="container-btns">
                                 <button className='guardar' type="submit">Guardar</button>
-                                <button className='cancelar'>Cancelar</button>
+                                <Link to={'/CrudFichas'}>
+                                    <button className='cancelar'>Cancelar</button>
+                                </Link>
+
                             </div>
                         </form>
                     </div>

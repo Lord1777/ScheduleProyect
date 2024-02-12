@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import '../../../css/Form/FormAddAmbiente.css'
-import { getSedeByName } from '../../hooks/useObjectMapping';
 import useDropdown from '../../hooks/useDropdown';
 import useFetchPostEnvironment from '../../hooks/FetchPOST/useFetchPostEnvironment';
 import { useForm } from 'react-hook-form';
@@ -8,6 +7,8 @@ import useValidationForm from '../../hooks/useValidationForm';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
+import { Link } from 'react-router-dom';
+
 
 export const FormAddAmbiente = () => {
 
@@ -29,7 +30,7 @@ export const FormAddAmbiente = () => {
 
     const { fetchSubmitEnvironment, succesfullyModal, setSuccesfullyModal, errorModal, setErrorModal } = useFetchPostEnvironment('/createEnvironment');
 
-    const onSubmit = async(data) => {
+    const onSubmit = async (data) => {
 
         await fetchSubmitEnvironment(
             data.ambiente,
@@ -176,7 +177,9 @@ export const FormAddAmbiente = () => {
                             </div>
                             <div className="container-btns">
                                 <button type='submit' className='guardar'>Guardar</button>
-                                <button className='cancelar'>Cancelar</button>
+                                <Link to={'/CrudAmbientes'}>
+                                    <button className='cancelar'>Cancelar</button>
+                                </Link>
                             </div>
                         </form>
                     </div>

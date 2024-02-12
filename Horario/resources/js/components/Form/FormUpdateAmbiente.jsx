@@ -56,9 +56,9 @@ export const FormUpdateAmbiente = () => {
             setValue("cantidadMesas", Data.cantidadMesas);
             setValue("cantidadComputadores", Data.cantidadComputadores);
             setValue("aireAcondicionado", getYesOrNotByNumber(Data.aireAcondicionado));
-            setValue("videoBeams", getYesOrNotByNumber(Data.videoBeam));
+            setValue("videoBeam", getYesOrNotByNumber(Data.videoBeam));
             setValue("sede", Data.sede);
-            setValue("tableros", getYesOrNotByNumber(Data.tablero));
+            setValue("tablero", getYesOrNotByNumber(Data.tablero));
 
             dropdown1.setSelectedOption(getYesOrNotByNumber(Data.aireAcondicionado));
             dropdown2.setSelectedOption(getYesOrNotByNumber(Data.videoBeam));
@@ -90,8 +90,8 @@ export const FormUpdateAmbiente = () => {
             data.capacidad,
             data.cantidadComputadores,
             data.aireAcondicionado,
-            data.tableros,
-            data.videoBeams,
+            data.tablero,
+            data.videoBeam,
             data.sede
             );
             console.log(data)
@@ -105,7 +105,8 @@ export const FormUpdateAmbiente = () => {
                     <div className="container_form_add">
                         <form method="PUT" onSubmit={handleSubmit(onSubmit)}>
                             <div className="grid-column">
-                                <div>
+                                <div className="container-label-input">
+                                    <label>Ambiente</label>
                                     <input
                                         type="number"
                                         name="ambiente"
@@ -116,16 +117,12 @@ export const FormUpdateAmbiente = () => {
                                             setAmbiente(e.target.value)
                                         }
                                     />
-                                    {errors.ambiente && (
-                                        <p className="errors_forms">{errors.ambiente.message}</p>
-                                    )}
+                                    {errors.ambiente && (<p className="errors_forms">{errors.ambiente.message}</p>)}
                                 </div>
 
-                                <div>
-                                    <div
-                                        className={`Dropdown ${dropdown1.isDropdown ? "open" : ""
-                                            }`}
-                                    >
+                                <div className="container-label-input">
+                                    <label>Aire Acondicionado</label>
+                                    <div className={`Dropdown ${dropdown1.isDropdown ? "open" : ""}`}>
                                         <input
                                             type="text"
                                             name="aireAcondicionado"
@@ -173,7 +170,8 @@ export const FormUpdateAmbiente = () => {
                                     )}
                                 </div>
 
-                                <div>
+                                <div className="container-label-input">
+                                    <label>Capacidad</label>
                                     <input
                                         type="number"
                                         name="capacidad"
@@ -194,7 +192,8 @@ export const FormUpdateAmbiente = () => {
                                     )}
                                 </div>
 
-                                <div>
+                                <div className="container-label-input">
+                                    <label>Video Beam</label>
                                     <div
                                         className={`Dropdown ${dropdown2.isDropdown ? "open" : ""
                                             }`}
@@ -208,7 +207,7 @@ export const FormUpdateAmbiente = () => {
                                             onClick={dropdown2.handleDropdown}
                                             value={dropdown2.selectedOption}
                                             {...register(
-                                                "videoBeams",
+                                                "videoBeam",
                                                 VIDEO_BEAM
                                             )}
                                         />
@@ -223,7 +222,7 @@ export const FormUpdateAmbiente = () => {
                                                     dropdown2.handleOptionClick(
                                                         "Si",
                                                         setValue,
-                                                        "videoBeams"
+                                                        "videoBeam"
                                                     )
                                                 }
                                             >
@@ -234,7 +233,7 @@ export const FormUpdateAmbiente = () => {
                                                     dropdown2.handleOptionClick(
                                                         "No",
                                                         setValue,
-                                                        "videoBeams"
+                                                        "videoBeam"
                                                     )
                                                 }
                                             >
@@ -249,7 +248,8 @@ export const FormUpdateAmbiente = () => {
                                     )}
                                 </div>
 
-                                <div>
+                                <div className="container-label-input">
+                                    <label>Cantidad de Mesas</label>
                                     <input
                                         type="number"
                                         name="cantidadMesas"
@@ -267,7 +267,8 @@ export const FormUpdateAmbiente = () => {
                                     )}
                                 </div>
 
-                                <div>
+                                <div className="container-label-input">
+                                    <label>Sede</label>
                                     <div
                                         className={`Dropdown ${dropdown3.isDropdown ? "open" : ""
                                             }`}
@@ -313,7 +314,8 @@ export const FormUpdateAmbiente = () => {
                                     )}
                                 </div>
 
-                                <div>
+                                <div className="container-label-input">
+                                    <label>Computadores</label>
                                     <input
                                         type="number"
                                         name="cantidadComputadores"
@@ -337,7 +339,8 @@ export const FormUpdateAmbiente = () => {
                                     )}
                                 </div>
 
-                                <div>
+                                <div className="container-label-input">
+                                    <label>Tablero</label>
                                     <div
                                         className={`Dropdown ${dropdown4.isDropdown ? "open" : ""
                                             }`}
@@ -350,14 +353,14 @@ export const FormUpdateAmbiente = () => {
                                             readOnly
                                             onClick={dropdown4.handleDropdown}
                                             value={dropdown4.selectedOption}
-                                            {...register("tableros", TABLERO)}
+                                            {...register("tablero", TABLERO)}
                                         />
                                         <div
                                             className={`options ${dropdown4.isDropdown ? "open" : "" }`}>
-                                            <div onClick={() => dropdown4.handleOptionClick("Si",setValue,"tableros")}>
+                                            <div onClick={() => dropdown4.handleOptionClick("Si",setValue,"tablero")}>
                                                 Si
                                             </div>
-                                            <div onClick={() => dropdown4.handleOptionClick("No",setValue,"tableros")}>
+                                            <div onClick={() => dropdown4.handleOptionClick("No",setValue,"tablero")}>
                                                 No
                                             </div>
                                         </div>

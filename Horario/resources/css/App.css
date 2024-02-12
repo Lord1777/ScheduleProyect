@@ -27,6 +27,15 @@
     color: var(--color-error);
 }
 
+.container-label-input{
+    display: flex;
+    flex-direction: column;
+}
+
+.container-label-input label{
+    margin-bottom: 0.5rem;
+}
+
 .desplegable{
     position: relative;
     width: 20rem;

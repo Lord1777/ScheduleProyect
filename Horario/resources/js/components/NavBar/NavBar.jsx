@@ -26,6 +26,7 @@ export const NavBar = () => {
                     <button className='toggle-nav' onClick={showToggleNav}>
                         <img src={toggle} alt="toggle" />
                     </button>
+                    
                 </div>
             </nav>
             <div className={`options-nav ${isNavOpen ? 'open' : ''}`}>

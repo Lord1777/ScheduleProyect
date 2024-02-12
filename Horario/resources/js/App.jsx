@@ -16,11 +16,9 @@ import { AddInstructors } from './pages/Add/AddInstructors';
 import { AddCoordinator } from './pages/Add/AddCoordinator';
 import { Forbidden } from './content/Forbidden.jsx';
 import { ScheduleAprenttice } from './pages/Aprenttice/ScheduleAprenttice.jsx';
-import { SeeScheduleFichas } from './pages/SeeScheduleFichas.jsx';
 import { SeeScheduleInstructors } from './pages/SeeScheduleInstructors.jsx';
 import { SeeScheduleAmbiente } from './pages/SeeScheduleAmbiente.jsx';
 import { AddSchedule } from './pages/Add/AddSchedule.jsx';
-import { ModalAsignar } from './components/Modals/ModalAsignar.jsx';
 import { DetailsInstructor } from '../js/pages/Details/DetailsInstructor.jsx'
 import { UpdateEnvironments } from './pages/Update/UpdateEnvironments.jsx';
 import ProtectedRoute from './components/utils/ProtectedRoute.jsx';
@@ -34,16 +32,15 @@ import { UpdateInstructor } from './pages/Update/UpdateInstructor.jsx';
 import { UpdateCoordinator } from './pages/Update/UpdateCoordinator.jsx';
 import { UpdateQuaters } from '../js/pages/Update/UpdateQuaters';
 import { useUser } from './context/UserContext.jsx';
-import { Loading } from './components/Loading/Loading.jsx';
 import { CrudPrograms } from './pages/CRUD/CrudPrograms.jsx';
 import { UpdateProgram } from './pages/Update/UpdateProgram.jsx';
 import useSessionControl from "./hooks/useSessionControl.js";
-import "../css/App.css";
 import { WatchSchedulesInstructor } from './pages/WatchSchedulesInstructor.jsx';
 import { WatchScheduleAmbiente } from './pages/WatchScheduleAmbiente.jsx';
 import { HorariosPanel } from './pages/HorariosPanel.jsx';
 import { CardHorarios } from './components/Cards/CardHorarios.jsx';
 import { Password } from './pages/Password.jsx';
+import "../css/App.css";
 
 function App() {
 

@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faUserCheck, faUserPen, faUserSlash } from '@fortawesome/free-solid-svg-icons';
-import '../../../css/admin/TableInstructors.css';
-import '../../../css/admin/SearchButtons.css'
-import '../../../css/admin/Board.css'
-import useFetchGetInstructor from '../../hooks/FetchGET/useFetchGetInstructor';
-import { useFetchPutInstructor } from '../../hooks/FetchPUT/useFetchPutInstructor';
 import { Link } from 'react-router-dom';
 import { Loading } from '../Loading/Loading';
 import { useFetchPutManageInstructor } from '../../hooks/FetchPUT/useFetchPutManageInstructor';
-
+import useFetchGetInstructor from '../../hooks/FetchGET/useFetchGetInstructor';
+import '../../../css/admin/TableInstructors.css';
+import '../../../css/admin/SearchButtons.css'
+import '../../../css/admin/Board.css'
 
 export const TableInstructors = () => {
 

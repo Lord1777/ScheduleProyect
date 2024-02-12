@@ -1,5 +1,4 @@
 import React from 'react'
-import '../../../css/Form/FormLogin.css'
 import LogoSena from '../../assets/img/LogoSena.png'
 import CloseEye from '../../assets/icons/close-eye.png'
 import OpenEye from '../../assets/icons/open-eye.png'
@@ -10,6 +9,7 @@ import useFetchLogin from '../../hooks/FetchPOST/useFetchLogin'
 import { useForm } from 'react-hook-form'
 import { TooltipHorario } from '../Tooltips/TooltipHorario'
 import { Link } from 'react-router-dom'
+import '../../../css/Form/FormLogin.css'
 
 
 

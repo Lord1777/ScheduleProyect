@@ -12,9 +12,6 @@
     overflow: auto;
 }
 .container-p h2{
-    display: flex;
-    justify-content: center;
-    text-align: center;
     margin-top: 2rem;
     font-size: 1rem;
     font-weight: 500;

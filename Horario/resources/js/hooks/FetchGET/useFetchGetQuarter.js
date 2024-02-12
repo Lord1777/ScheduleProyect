@@ -7,8 +7,8 @@ export const useFetchGetQuarter = (route, page, search) => {
 
     const { requestOptionsGet } = useRequestOptionsGet();
     const [dataQuarter, setDataQuarter] = useState([]);
-    const fetchDataRef = useRef();
     const [loading, setLoading] = useState(true);
+    const fetchDataRef = useRef();
 
     useEffect(() => {
         const fetchData = async () => {

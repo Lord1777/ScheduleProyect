@@ -2,14 +2,15 @@ import React from 'react';
 import { API_URL } from '../../const/api';
 import useRequestOptionsPut from './useRequestOptionsPut';
 
-export const useFetchPutManageQuarter = () => {
+
+export const useFetchPutManageCoordinator = () => {
 
     const { requestOptionsPut } = useRequestOptionsPut();
 
-    const fetchManageQuarter = async(route, idTrimestre) =>{
+    const fetchManageCoordinator = async(route, idUsuario) =>{
 
         try {
-            const response = await fetch(`${API_URL}${route}/${idTrimestre}`, requestOptionsPut)
+            const response = await fetch(`${API_URL}${route}/${idUsuario}`, requestOptionsPut)
 
             if (response.ok) {
                 const data = await response.json();
@@ -17,12 +18,12 @@ export const useFetchPutManageQuarter = () => {
             }
 
         } catch (error) {
-            console.log(`Error Updating Quarter: ${error}`)
+            console.log(`Error Updating Coordinator: ${error}`);
         }
     }
   return (
     {
-        fetchManageQuarter
+        fetchManageCoordinator
     }
   )
 }

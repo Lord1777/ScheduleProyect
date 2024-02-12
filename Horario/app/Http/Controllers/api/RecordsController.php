@@ -223,4 +223,54 @@ class RecordsController extends Controller
         }
     }
 
+
+    public function disable(string $idFicha){
+        try {
+            $record = Ficha::findOrFail($idFicha);
+
+            $record->update(['estado' => 'inhabilitado']);
+
+            return response()->json([
+                'status' => 1,
+                'message' => 'Record Successfully Disabled'
+            ], Response::HTTP_OK); //200
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'status', 0,
+                'error' => 'Record Not Found'
+            ], Response::HTTP_NOT_FOUND); //404
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Error Disable Record: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
+
+    public function enabled(string $idFicha){
+        try {
+            $record = Ficha::findOrFail($idFicha);
+
+            $record->update(['estado' => 'habilitado']);
+
+            return response()->json([
+                'status' => 1,
+                'message' => 'Record Successfully Enabled'
+            ], Response::HTTP_OK); //200
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'status', 0,
+                'error' => 'Record Not Found'
+            ], Response::HTTP_NOT_FOUND); //404
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Error Enabled Record: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
 }

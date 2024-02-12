@@ -7,6 +7,7 @@ import '../../../css/admin/SearchButtons.css';
 import '../../../css/admin/TableInstructors.css';
 import useFetchGetRecord from '../../hooks/FetchGET/useFetchGetRecord';
 import { Loading } from '../Loading/Loading';
+import { useFetchPutManageRecord } from '../../hooks/FetchPUT/useFetchPutManageRecord';
 
 export const TableRecords = () => {
 
@@ -14,13 +15,24 @@ export const TableRecords = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [Ficha, setFicha] = useState("");
 
-    const { dataRecord, loading } = useFetchGetRecord(
+    const { dataRecord, fetchData ,loading } = useFetchGetRecord(
         disabled ? '/getDisableRecords' : '/getEnabledRecords',
         currentPage,
         Ficha
     );
 
     let totalPage = dataRecord.last_page;
+
+    const { fetchManageRecord } = useFetchPutManageRecord();
+
+    const enableRecord = async(idFicha) => {
+        await fetchManageRecord(`/enableRecord`, idFicha);
+        fetchData();
+    }
+    const disableRecord = async(idFicha) => {
+        await fetchManageRecord(`/disableRecord`, idFicha);
+        fetchData();
+    }
 
     /* Buscador */
 
@@ -34,7 +46,7 @@ export const TableRecords = () => {
         : [];
 
     useEffect(() => {
-
+        fetchData();
     }, [currentPage, Ficha]);
 
     if (loading) {
@@ -106,13 +118,13 @@ export const TableRecords = () => {
                                     </td>
                                     {disabled ? (
                                         <td key={`habilitar-${record.id}`}>
-                                            <button>
+                                            <button onClick={() => enableRecord(record.idFicha)} >
                                                 <FontAwesomeIcon icon={faUserCheck} className='iconHabilitar' />
                                             </button>
                                         </td>
                                     ) : (
                                         <td key={`inhabilitar-${record.id}`}>
-                                            <button>
+                                            <button onClick={() => disableRecord(record.idFicha)} >
                                                 <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar' />
                                             </button>
                                         </td>

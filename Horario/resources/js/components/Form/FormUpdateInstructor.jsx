@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import useValidationForm from '../../hooks/useValidationForm'
+import { ContinuoModal } from "../Modals/ContinuoModal";
 import { useForm } from 'react-hook-form'
-import { API_URL } from '../../const/api';
-import { Link, useParams } from 'react-router-dom';
-import useDropdown from "../../hooks/useDropdown";
-import logoSena from "../../assets/img/LogoSena.png";
 import { useFetchPutInstructor } from '../../hooks/FetchPUT/useFetchPutInstructor';
 import { Loading } from '../Loading/Loading';
+import { API_URL } from '../../const/api';
+import { Link, useParams } from 'react-router-dom';
+import useValidationForm from '../../hooks/useValidationForm'
+import useDropdown from "../../hooks/useDropdown";
+import logoSena from "../../assets/img/LogoSena.png";
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
-import { ContinuoModal } from "../Modals/ContinuoModal";
 
 export const FormUpdateInstructor = () => {
 
@@ -112,13 +112,12 @@ export const FormUpdateInstructor = () => {
         <>
             <main className='container_form_add_instructor'>
                 <div className='box_form_instructor'>
+                <h3>Editar Instructor</h3>
                     <div className='container_form_add_elements'>
                         <div className='container_image_form_instructor'>
                             <img src={logoSena} alt='Logo SENA' />
-
                             <form method='PUT' onSubmit={handleSubmit(onSubmit)}>
                                 <div className="grid-column-add">
-
                                     <div className='container-input-error'>
                                         <input
                                             type="text"

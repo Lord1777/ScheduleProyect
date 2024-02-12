@@ -40,6 +40,7 @@ export const FormAddPrograma = () => {
                                         name='programa'
                                         id='long'
                                         placeholder='Nombre del programa'
+                                        autoComplete='off'
                                         {...register("programa", PROGRAMA)}
                                     />
                                     {errors.Programa && <p className='errors_forms'>{errors.Programa.message}</p>}

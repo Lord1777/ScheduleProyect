@@ -67,6 +67,7 @@ const FormAddInstructor = () => {
                                             name="nombreCompleto"
                                             className='long'
                                             placeholder='Nombre Completo'
+                                            autoComplete='off'
                                             {...register("nombreCompleto", NOMBRE)}
                                         />
                                         {errors.nombreCompleto && <p className='errors_forms'>{errors.nombreCompleto.message}</p>}
@@ -100,6 +101,7 @@ const FormAddInstructor = () => {
                                             name="documento"
                                             id=""
                                             placeholder='Número de Documento'
+                                            autoComplete='off'
                                             {...register("documento", DOCUMENTO)}
                                         />
                                         {errors.documento && <p className='errors_forms'>{errors.documento.message}</p>}
@@ -113,6 +115,7 @@ const FormAddInstructor = () => {
                                             name="email"
                                             className='long'
                                             placeholder='E-mail'
+                                            autoComplete='off' 
                                             {...register("email", EMAIL)}
                                         />
                                         {errors.email && <p className='errors_forms'>{errors.email.message}</p>}
@@ -124,6 +127,7 @@ const FormAddInstructor = () => {
                                             name="telefono"
                                             id=""
                                             placeholder='Telefono'
+                                            autoComplete='off'
                                             {...register("telefono", TELEFONO_CELULAR)}
                                         />
                                         {errors.telefono && <p className='errors_forms'>{errors.telefono.message}</p>}
@@ -155,6 +159,7 @@ const FormAddInstructor = () => {
                                             name="ciudad"
                                             className='long'
                                             placeholder='Ciudad'
+                                            autoComplete='off'
                                             {...register("ciudad", CIUDAD)}
                                         />
                                         {errors.ciudad && <p className='errors_forms'>{errors.ciudad.message}</p>}
@@ -166,6 +171,7 @@ const FormAddInstructor = () => {
                                             name="profesion"
                                             className='long'
                                             placeholder='Profesión'
+                                            autoComplete='off'
                                             {...register("profesion", PROFESION)}
                                         />
                                         {errors.profesion && <p className='errors_forms'>{errors.profesion.message}</p>}
@@ -179,6 +185,7 @@ const FormAddInstructor = () => {
                                             cols="30"
                                             rows="10"
                                             placeholder='Experiencia:'
+                                            autoComplete='off'
                                             {...register("experiencia", EXPERIENCIA)}
                                         ></textarea>
                                         {errors.experiencia && <p className='errors_forms'>{errors.experiencia.message}</p>}

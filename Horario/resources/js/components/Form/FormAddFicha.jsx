@@ -46,7 +46,7 @@ export const FormAddFicha = () => {
                         <form method='POST' onSubmit={handleSubmit(onSubmit)}>
                             <div className='grid-column'>
                                 <div>
-                                    <input type='number' name='ficha' placeholder='N° Ficha' {...register("ficha", NFICHA)} />
+                                    <input type='number' name='ficha' placeholder='N° Ficha'  autoComplete='off' {...register("ficha", NFICHA)} />
                                     {errors.ficha && <p className='errors_forms'>{errors.ficha.message}</p>}
                                 </div>
 

@@ -84,6 +84,8 @@ function App() {
                         <Route path='/Panel' element={<ControlPanel />} />
                         <Route path='/HorariosFichas' element={<WatchSchedules />} />
                         <Route path='/HorariosInstructores' element={<WatchSchedulesInstructor/>} />
+                        <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
+                        <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
                         <Route path='/CrudInstructor' element={<CrudInstructor />} />
                         <Route path='/CrudFichas' element={<CrudRecords />} />
                         <Route path='/CrudTrimestres' element={<CrudQuarters />} />
@@ -91,11 +93,13 @@ function App() {
                         <Route path='/CrudAmbientes' element={<CrudEnvironments />} />
                         <Route path='/CrudProgramas' element={<CrudPrograms/>}/>
                         <Route path='/CrudCoordinadores' element={<CrudCoordinators />} /> 
+                        <Route path='/CrudProgramas' element={<CrudPrograms />} />
                         <Route path='/AddInstructor' element={<AddInstructors />} />
                         <Route path='/AddAmbiente' element={<AddEnvironments />} />
                         <Route path='/AddPrograma' element={<AddProgram />} />
                         <Route path='/AddFicha' element={<AddRecords />} />
                         <Route path='/AddTrimestre' element={<AddQuarter />} />
+                        <Route path='/AddHorario/:id' element={<AddSchedule />} />
                         <Route path='/DetallesAmbiente' element={<DetailsAmbiente />} />
                         <Route path='/DetallesTrimestre' element={<DetailsTrimestre />} />
                         <Route path='/DetallesInstructor' element={<DetailsInstructor />} />
@@ -106,12 +110,7 @@ function App() {
                         <Route path='/UpdateCoordinador/:id' element={<UpdateCoordinator />} />
                         <Route path='/UpdateAmbiente/:id' element={<UpdateEnvironments />} />
                         <Route path='/UpdateTrimestre/:id' element={<UpdateQuaters />} />
-                        <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
-                        <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
-                        <Route path='/AddHorario/:id' element={<AddSchedule />} />
-                        <Route path='/CrudProgramas' element={<CrudPrograms />} />
                         <Route path='/UpdatePrograma/:id' element={<UpdateProgram />} />
-                        <Route path='/AddCoordinador' element={<AddCoordinator />} />
                     </Route>
                 </Routes>
             </Router>

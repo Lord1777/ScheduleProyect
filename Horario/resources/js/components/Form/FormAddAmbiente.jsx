@@ -58,6 +58,7 @@ export const FormAddAmbiente = () => {
                                         type="number"
                                         name='ambiente'
                                         placeholder='Numero del Ambiente'
+                                        autoComplete='off'
                                         {...register("ambiente", N_AMBIENTE)}
                                     />
                                     {errors.ambiente && <p className='errors_forms'>{errors.ambiente.message}</p>}

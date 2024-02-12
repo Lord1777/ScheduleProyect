@@ -64,6 +64,7 @@ export const FormAddCoordinador = () => {
                                             name="nombreCompleto"
                                             className='long'
                                             placeholder='Nombre Completo'
+                                            autoComplete='off'
                                             {...register("nombreCompleto", NOMBRE)}
                                         />
                                         {errors.nombreCompleto && <p className='errors_forms'>{errors.nombreCompleto.message}</p>}
@@ -97,6 +98,7 @@ export const FormAddCoordinador = () => {
                                             name="documento"
                                             id=""
                                             placeholder='Número de Documento'
+                                            autoComplete='off'
                                             {...register("documento", DOCUMENTO)}
                                         />
                                         {errors.documento && <p className='errors_forms'>{errors.documento.message}</p>}
@@ -110,6 +112,7 @@ export const FormAddCoordinador = () => {
                                             name="email"
                                             className='long'
                                             placeholder='E-mail'
+                                            autoComplete='off'
                                             {...register("email", EMAIL)}
                                         />
                                         {errors.email && <p className='errors_forms'>{errors.email.message}</p>}
@@ -121,6 +124,7 @@ export const FormAddCoordinador = () => {
                                             name="telefono"
                                             id=""
                                             placeholder='Telefono'
+                                            autoComplete='off'
                                             {...register("telefono", TELEFONO_CELULAR)}
                                         />
                                         {errors.telefono && <p className='errors_forms'>{errors.telefono.message}</p>}
@@ -152,6 +156,7 @@ export const FormAddCoordinador = () => {
                                             name="ciudad"
                                             className='long'
                                             placeholder='Ciudad'
+                                            autoComplete='off'
                                             {...register("ciudad", CIUDAD)}
                                         />
                                         {errors.ciudad && <p className='errors_forms'>{errors.ciudad.message}</p>}
@@ -163,6 +168,7 @@ export const FormAddCoordinador = () => {
                                             name="profesion"
                                             className='long'
                                             placeholder='Profesión'
+                                            autoComplete='off'
                                             {...register("profesion", PROFESION)}
                                         />
                                         {errors.profesion && <p className='errors_forms'>{errors.profesion.message}</p>}
@@ -176,6 +182,7 @@ export const FormAddCoordinador = () => {
                                             cols="30"
                                             rows="10"
                                             placeholder='Experiencia:'
+                                            autoComplete='off'
                                             {...register("experiencia", EXPERIENCIA)}
                                         ></textarea>
                                         {errors.experiencia && <p className='errors_forms'>{errors.experiencia.message}</p>}

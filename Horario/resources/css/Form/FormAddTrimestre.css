@@ -1,4 +1,4 @@
-.container_form_add_trimestre{
+.container_form_add_trimestre {
     width: 100%;
     height: 100vh;
     display: flex;
@@ -8,7 +8,7 @@
     padding-top: 5rem;
 }
 
-.box_form_trimestre{
+.box_form_trimestre {
     margin-top: 2rem;
     margin-bottom: 2rem;
     background-color: #fff;
@@ -17,7 +17,18 @@
     border-radius: 1rem;
     padding: 3.5rem 5rem;
 }
-.DatePicker{
+
+.container_form_add {
+    margin-top: -1rem;
+}
+
+.box_form_trimestre h2{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.DatePicker {
     position: relative;
     cursor: pointer;
 }
@@ -69,7 +80,9 @@
     border-top-right-radius: 0.3rem;
 }
 
-.react-datepicker__current-month, .react-datepicker-time__header, .react-datepicker-year-header {
+.react-datepicker__current-month,
+.react-datepicker-time__header,
+.react-datepicker-year-header {
     margin-top: 0;
     color: var(--color-text-white);
     font-weight: bold;
@@ -85,16 +98,16 @@
     color: var(--color-text-white);
 }
 
-.react-datepicker-popper[data-placement^=bottom]
-.react-datepicker__triangle::before,
-.react-datepicker-popper[data-placement^=bottom]
-.react-datepicker__triangle::after {
+.react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::before,
+.react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::after {
     border-top: none;
     border-bottom-color: #f0f0f0;
     display: none;
 }
 
-@media(max-width:830px){
+/*Responsive*/
+
+@media(max-width:830px) {
     .box_form_trimestre {
         margin-top: 2rem;
         margin-bottom: 2rem;
@@ -106,7 +119,7 @@
     }
 }
 
-@media(max-width:760px){
+@media(max-width:760px) {
     .DatePicker::after {
         width: 1rem;
         height: 3rem;
@@ -133,7 +146,7 @@
     }
 }
 
-@media(max-width:670px){
+@media(max-width:670px) {
     .box_form_trimestre {
         margin-top: 2rem;
         margin-bottom: 2rem;
@@ -145,7 +158,7 @@
     }
 }
 
-@media(max-width:550px){
+@media(max-width:550px) {
     .box_form_trimestre {
         margin-top: 2rem;
         margin-bottom: 2rem;
@@ -157,7 +170,7 @@
     }
 }
 
-@media(max-width:380px){
+@media(max-width:380px) {
     .box_form_trimestre {
         margin-top: 2rem;
         margin-bottom: 2rem;
@@ -169,7 +182,7 @@
     }
 }
 
-@media(max-width:340px){
+@media(max-width:340px) {
     .box_form_trimestre {
         margin-top: 2rem;
         margin-bottom: 2rem;

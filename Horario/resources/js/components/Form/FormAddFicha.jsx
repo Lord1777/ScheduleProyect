@@ -3,11 +3,11 @@ import '../../../css/Form/BoxContainerFormAdd.css';
 import '../../../css/Form/FormAddFicha.css';
 import useDropdown from '../../hooks/useDropdown';
 import useValidationForm from '../../hooks/useValidationForm';
-import { useForm } from 'react-hook-form';
 import useFetchPostRecord from '../../hooks/FetchPOST/useFetchPostRecord';
 import useFetchGetPrograms from '../../hooks/FetchGetResources/useFetchGetPrograms';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
+import { useForm } from 'react-hook-form';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 import { Link } from 'react-router-dom';
 
@@ -42,7 +42,7 @@ export const FormAddFicha = () => {
         <>
             <main className='container_all_form'>
                 <div className='box_form'>
-                    <h2 className='title_underline'>Registro de Ficha</h2>
+                    <h2 className='title_underline'>Añadir Ficha</h2>
                     <div className='container_form_add'>
                         <form method='POST' onSubmit={handleSubmit(onSubmit)}>
                             <div className='grid-column'>

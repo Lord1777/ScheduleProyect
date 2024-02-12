@@ -29,6 +29,7 @@
     align-items: start;
     width: 100%;
     height: 100%;
+    margin-top: 0.8rem;
 }
 
 .container_image_form_instructor {
@@ -88,6 +89,14 @@ form .grid-column-add textarea {
     box-sizing: border-box;
     resize: none;
     transition: all 1s;
+}
+
+.box_form_instructor h2{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: -1rem;
+    font-weight: 400;
 }
 
 /*Resposive*/

@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/Form/FormAddTrimestre.css';
 import useFetchPostQuarter from '../../hooks/FetchPOST/useFetchPostQuarter';
 import useValidationForm from '../../hooks/useValidationForm';
-import { useForm, Controller } from 'react-hook-form';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
-import { Modal } from '../Modals/Modal';
+import { useForm, Controller } from 'react-hook-form';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 import { Link } from 'react-router-dom';
 
@@ -33,7 +32,7 @@ function FormAddTrimestre() {
         <>
             <main className='container_form_add_trimestre'>
                 <div className='box_form_trimestre'>
-                    <h2 className='title_underline'>Registro de Trimestre</h2>
+                    <h2 className='title_underline'>Añadir Trimestre</h2>
                     <div className='container_form_add'>
                         <form method='POST' onSubmit={handleSubmit(onSubmit)} >
                             <div className='grid-column'>

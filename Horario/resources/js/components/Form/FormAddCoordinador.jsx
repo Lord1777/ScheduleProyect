@@ -3,9 +3,9 @@ import logoSena from '../../assets/img/LogoSena.png';
 import useFetchPostCoordinator from '../../hooks/FetchPOST/useFetchPostCoordinator';
 import useValidationForm from '../../hooks/useValidationForm';
 import useDropdown from '../../hooks/useDropdown';
-import { useForm } from 'react-hook-form';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
+import { useForm } from 'react-hook-form';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 import { Link } from 'react-router-dom';
 
@@ -50,6 +50,7 @@ export const FormAddCoordinador = () => {
                 //La interfaz es igual */}
             <main className='container_form_add_instructor'>
                 <div className='box_form_instructor'>
+                    <h2>Añadir Coordinador</h2>
                     <div className='container_form_add_elements'>
                         <div className='container_image_form_instructor'>
                             <img src={logoSena} alt='Logo SENA' />

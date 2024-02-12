@@ -2,11 +2,11 @@ import React from 'react'
 import '../../../css/Form/FormAddAmbiente.css'
 import useDropdown from '../../hooks/useDropdown';
 import useFetchPostEnvironment from '../../hooks/FetchPOST/useFetchPostEnvironment';
-import { useForm } from 'react-hook-form';
 import useValidationForm from '../../hooks/useValidationForm';
-import { ContinuoModal } from '../Modals/ContinuoModal';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
+import { useForm } from 'react-hook-form';
+import { ContinuoModal } from '../Modals/ContinuoModal';
 import { Link } from 'react-router-dom';
 
 
@@ -49,7 +49,7 @@ export const FormAddAmbiente = () => {
         <>
             <main className='container_form_add_ambiente'>
                 <div className='box_form_ambiente'>
-                    <h2 className='title_underline'>Registro de Ambientes</h2>
+                    <h2 className='title_underline'>Añadir de Ambiente</h2>
                     <div className='container_form_add'>
                         <form method="POST" onSubmit={handleSubmit(onSubmit)}>
                             <div className='grid-column'>

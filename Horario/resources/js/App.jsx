@@ -75,6 +75,7 @@ function App() {
                     <Route path='/HorariosAmbientes' element={<WatchScheduleAmbiente/>}/>
                     <Route path='/PanelHorarios' element={<HorariosPanel/>}/>
                     <Route path='/Card' element={<CardHorarios/>}/>
+                    <Route path='/AddCoordinador' element={<AddCoordinator />} />
 
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={storedRole} />}  >
@@ -88,7 +89,6 @@ function App() {
                         <Route path='/CrudAmbientes' element={<CrudEnvironments />} />
                         <Route path='/CrudProgramas' element={<CrudPrograms/>}/>
                         <Route path='/CrudCoordinadores' element={<CrudCoordinators />} /> 
-                        <Route path='/AddCoordinador' element={<AddCoordinator />} />
                         <Route path='/AddInstructor' element={<AddInstructors />} />
                         <Route path='/AddAmbiente' element={<AddEnvironments />} />
                         <Route path='/AddPrograma' element={<AddProgram />} />

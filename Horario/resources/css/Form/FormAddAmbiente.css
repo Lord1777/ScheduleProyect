@@ -17,6 +17,14 @@
     padding: 3.5rem 5rem;
 }
 
+.box_form_ambiente h2{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+/*Responsive*/
+
 @media(max-width:830px){
     .box_form_ambiente {
         margin-top: 2rem;

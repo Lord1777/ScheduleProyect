@@ -30,7 +30,7 @@ export const FormAddPrograma = () => {
         <>
             <main className='container_all_form'>
                 <div className='box_form'>
-                    <h2 className='title_underline'>Registro de Programa</h2>
+                    <h2 className='title_underline'>Añadir Programa</h2>
                     <div className='container_form_add'>
                         <form method='POST' onSubmit={handleSubmit(onSubmit)}>
                             <div className='grid-column'>

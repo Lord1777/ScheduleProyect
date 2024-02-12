@@ -34,6 +34,8 @@ export const useFetchPutEnvironment = (id) => {
                 method: "PUT",
                 headers: { 
                     'Content-Type': 'application/json',
+                    'Cookie': csrf_token,
+                    'Authorization': `Bearer ${userToken}`,
                  },
                 body: JSON.stringify({
                     ambiente,

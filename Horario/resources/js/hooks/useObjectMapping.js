@@ -67,14 +67,16 @@ export const getTrueOrFalseByYesOrNot = ( string ) =>{
     const boolean = {
         Si: 1,
         No: 0,
+        si: 1,
+        no: 0,
     }
     return boolean[string]
 }
 
 export const getYesOrNotByNumber = ( number ) => {
     const boolean = {
-        1: Si,
-        0: No,
+        1: "Si",
+        0: "No",
     }
     return boolean [ number ]
 }

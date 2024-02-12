@@ -34,7 +34,6 @@ export const FormUpdateFicha = () => {
 
     const { id } = useParams();
     const [ficha, setFicha] = useState(null);
-    const [duracion, setDuracion] = useState(null);
     const [programa, setPrograma] = useState(null);
     const [loading, setLoading] = useState(true)
 
@@ -48,10 +47,8 @@ export const FormUpdateFicha = () => {
             }
             const Data = await response.json();
             setFicha(Data.ficha);
-            setDuracion(Data.duracion);
             setPrograma(Data.nombre);
             setValue("NFicha", Data.ficha)
-            setValue("Duracion", Data.duracion)
             setValue("Programa", Data.nombre)
             setValue("Modalidad", Data.modalidad)
             setValue("JornadaAcademica", Data.jornada)
@@ -77,8 +74,6 @@ export const FormUpdateFicha = () => {
     const onSubmit = async (data) => {
         await fetchPutRecord(
             data.ficha,
-            data.duracion,
-            data.programa,
             data.Modalidad,
             data.Jornada
         );
@@ -103,30 +98,7 @@ export const FormUpdateFicha = () => {
                                             setFicha(e.target.value)
                                         }
                                     />
-                                    {errors.NFicha && (
-                                        <p className="errors_forms">
-                                            {errors.NFicha.message}
-                                        </p>
-                                    )}
-                                </div>
-
-                                <div>
-                                    <input
-                                        type="number"
-                                        name="Duracion"
-                                        placeholder="Duración"
-                                        {...register("duracion", DURACION)}
-                                        value={duracion}
-                                        onChange={(e) =>
-                                            setDuracion(e.target.value)
-                                        }
-                                        readOnly
-                                    />
-                                    {errors.Duracion && (
-                                        <p className="errors_forms">
-                                            {errors.Duracion.message}
-                                        </p>
-                                    )}
+                                    {errors.ficha && <p className='errors_forms'>{errors.ficha.message}</p>}
                                 </div>
 
                                 <div>
@@ -134,24 +106,19 @@ export const FormUpdateFicha = () => {
                                         type="text"
                                         name="Programa"
                                         placeholder="Programa"
-                                        {...register("programa", PROGRAMA)}
+                                        {...register("programa")}
                                         value={programa}
                                         onChange={(e) =>
                                             setPrograma(e.target.value)
                                         }
+                                        readOnly
                                     />
-                                    {errors.Programa && (
-                                        <p className="errors_forms">
-                                            {errors.Programa.message}
-                                        </p>
-                                    )}
+                                    {/* {errors.programa && <p className='errors_forms'>{errors.programa.message}</p>} */}
+
                                 </div>
 
                                 <div>
-                                    <div
-                                        className={`Dropdown ${dropdown1.isDropdown ? "open" : ""
-                                            }`}
-                                    >
+                                    <div className={`Dropdown ${dropdown1.isDropdown ? "open" : ""}`}>
                                         <input
                                             type="text"
                                             className="textBox"
@@ -165,48 +132,21 @@ export const FormUpdateFicha = () => {
                                             )}
                                         />
                                         <div
-                                            className={`options ${dropdown1.isDropdown
-                                                ? "open"
-                                                : ""
-                                                }`}
-                                        >
-                                            <div
-                                                onClick={() =>
-                                                    dropdown1.handleOptionClick(
-                                                        "Presencial",
-                                                        setValue,
-                                                        "Modalidad"
-                                                    )
-                                                }
-                                            >
+                                            className={`options ${dropdown1.isDropdown ? "open" : ""}`}>
+                                            <div onClick={() => dropdown1.handleOptionClick("Presencial", setValue, "Modalidad")}>
                                                 Presencial
                                             </div>
-                                            <div
-                                                onClick={() =>
-                                                    dropdown1.handleOptionClick(
-                                                        "Virtual",
-                                                        setValue,
-                                                        "Modalidad"
-                                                    )
-                                                }
-                                            >
+                                            <div onClick={() => dropdown1.handleOptionClick("Virtual", setValue, "Modalidad")}>
                                                 Virtual
                                             </div>
                                         </div>
                                     </div>
-                                    {errors.Modalidad && (
-                                        <p className="errors_forms">
-                                            {errors.Modalidad.message}
-                                        </p>
-                                    )}
+                                    {errors.Modalidad && <p className='errors_forms'>{errors.Modalidad.message}</p>}
                                 </div>
 
 
                                 <div>
-                                    <div
-                                        className={`Dropdown ${dropdown2.isDropdown ? "open" : ""
-                                            }`}
-                                    >
+                                    <div className={`Dropdown ${dropdown2.isDropdown ? "open" : ""}`}>
                                         <input
                                             type="text"
                                             className="textBox"
@@ -220,47 +160,21 @@ export const FormUpdateFicha = () => {
                                                 JORNADA_ACADEMICA
                                             )}
                                         />
-                                        <div
-                                            className={`options ${dropdown2.isDropdown
-                                                ? "open"
-                                                : ""
-                                                }`}
-                                        >
-                                            <div
-                                                onClick={() =>
-                                                    dropdown2.handleOptionClick(
-                                                        "Diurna",
-                                                        setValue,
-                                                        "JornadaAcademica"
-                                                    )
-                                                }
-                                            >
+                                        <div className={`options ${dropdown2.isDropdown ? "open" : ""}`}>
+                                            <div onClick={() => dropdown2.handleOptionClick("Diurna", setValue, "JornadaAcademica")}>
                                                 Diurna
                                             </div>
-                                            <div
-                                                onClick={() =>
-                                                    dropdown2.handleOptionClick(
-                                                        "Nocturna",
-                                                        setValue,
-                                                        "JornadaAcademica"
-                                                    )
-                                                }
-                                            >
+                                            <div onClick={() => dropdown2.handleOptionClick("Nocturna", setValue, "JornadaAcademica")}>
                                                 Nocturna
                                             </div>
                                         </div>
                                     </div>
-                                    {errors.JornadaAcademica && (
-                                        <p className="errors_forms">
-                                            {errors.JornadaAcademica.message}
-                                        </p>
-                                    )}
+                                    {errors.Jornada && <p className='errors_forms'>{errors.Jornada.message}</p>}
+
                                 </div>
                             </div>
                             <div className="container-btns">
-                                <button className="guardar" type="submit">
-                                    Guardar
-                                </button>
+                                <button className='guardar' type="submit">Guardar</button>
                                 <Link to={'/CrudFichas'}>
                                     <button className="cancelar">
                                         Cancelar

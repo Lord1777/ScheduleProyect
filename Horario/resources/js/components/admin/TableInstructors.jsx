@@ -21,7 +21,7 @@ export const TableInstructors = () => {
         disabled ? '/getDisableInstructors' : '/getEnabledInstructors',
         currentPage,
         Instructor
-        );
+    );
     const { fetchPutInstructor } = useFetchPutInstructor();
     console.log(dataInstructor)
 
@@ -52,8 +52,8 @@ export const TableInstructors = () => {
         fetchData();
     }, [currentPage, Instructor]);
 
-    if(loading){
-        return <Loading/>
+    if (loading) {
+        return <Loading />
     }
 
     return (
@@ -61,14 +61,14 @@ export const TableInstructors = () => {
             <h2 className='title'>Administrar Instructores {disabled ? 'Inhabilitados' : 'Habilitados'}</h2>
             <div className="container-search-buttons">
                 <div className="search-input">
-                    <input 
-                    type="search" 
-                    name="search" 
-                    id="search" 
-                    placeholder="Buscar" 
-                    autoComplete='off'
-                    value={Instructor}
-                    onChange={(e) => setInstructor(e.target.value)}/>
+                    <input
+                        type="search"
+                        name="search"
+                        id="search"
+                        placeholder="Buscar"
+                        autoComplete='off'
+                        value={Instructor}
+                        onChange={(e) => setInstructor(e.target.value)} />
                     <FontAwesomeIcon icon={faSearch} className="search-icon" />
                 </div>
 
@@ -96,7 +96,7 @@ export const TableInstructors = () => {
                             <th>Estado</th>
                             <th>Editar</th>
                             {disabled ? <th>Habilitar</th> : <th>Inhabilitar</th>}
-                            
+
 
                         </tr>
                     </thead>
@@ -114,20 +114,26 @@ export const TableInstructors = () => {
                                     <td>
                                         <Link to={`/UpdateInstructor/${instructor.idUsuario}`}>
                                             <button>
-                                                <FontAwesomeIcon icon={faUserPen} className='iconEdit' />
+                                                <span class="material-symbols-outlined" id='iconCrud'>
+                                                    person_edit
+                                                </span>
                                             </button>
                                         </Link>
                                     </td>
                                     {disabled ? (
                                         <td>
                                             <button onClick={() => enableInstructor(instructor.idUsuario)}>
-                                                <FontAwesomeIcon icon={faUserCheck} className='iconHabilitar' />
+                                                <span class="material-symbols-outlined iconHabilitar" id='iconCrud'>
+                                                    person_check
+                                                </span>
                                             </button>
                                         </td>
                                     ) : (
                                         <td>
                                             <button onClick={() => disableInstructor(instructor.idUsuario)}>
-                                                <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar' />
+                                                <span class="material-symbols-outlined iconInhabilitar" id='iconCrud'>
+                                                    person_cancel
+                                                </span>
                                             </button>
                                         </td>
 

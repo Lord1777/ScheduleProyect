@@ -9,6 +9,7 @@ import { Loading } from "../Loading/Loading";
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
 import { ContinuoModal } from "../Modals/ContinuoModal";
+import { getYesOrNotByNumber } from "../../hooks/useObjectMapping";
 
 export const FormUpdateAmbiente = () => {
     const { id } = useParams();
@@ -29,10 +30,10 @@ export const FormUpdateAmbiente = () => {
     const [tablero, setTablero] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const mapBooleanToYesOrNo = (value) => {
-        return value ? "Si" : "No";
-    };
-
+    // const mapBooleanToYesOrNo = (value) => {
+    //     return value ? "Si" : "No";
+    // };
+    getYesOrNotByNumber()
     const fetchData = async () => {
         try {
             const response = await fetch(`${API_URL}/getEnvironment/${id}`);
@@ -46,23 +47,23 @@ export const FormUpdateAmbiente = () => {
             setMesas(Data.cantidadMesas);
             setComputadores(Data.cantidadComputadores);
             setSede(Data.sede);
-            setAireacondicionado(mapBooleanToYesOrNo(Data.aireAcondicionado));
-            setVideoBeam(mapBooleanToYesOrNo(Data.videoBeam));
-            setTablero(mapBooleanToYesOrNo(Data.tablero));
+            setAireacondicionado(getYesOrNotByNumber(Data.aireAcondicionado));
+            setVideoBeam(getYesOrNotByNumber(Data.videoBeam));
+            setTablero(getYesOrNotByNumber(Data.tablero));
 
             setValue("ambiente", Data.ambiente);
             setValue("capacidad", Data.capacidad);
             setValue("cantidadMesas", Data.cantidadMesas);
             setValue("cantidadComputadores", Data.cantidadComputadores);
-            setValue("aireAcondicionados", mapBooleanToYesOrNo(Data.aireAcondicionado));
-            setValue("videoBeams", mapBooleanToYesOrNo(Data.videoBeam));
+            setValue("aireAcondicionado", getYesOrNotByNumber(Data.aireAcondicionado));
+            setValue("videoBeams", getYesOrNotByNumber(Data.videoBeam));
             setValue("sede", Data.sede);
-            setValue("tableros", mapBooleanToYesOrNo(Data.tablero));
+            setValue("tableros", getYesOrNotByNumber(Data.tablero));
 
-            dropdown1.setSelectedOption(mapBooleanToYesOrNo(Data.aireAcondicionado));
-            dropdown2.setSelectedOption(mapBooleanToYesOrNo(Data.videoBeam));
+            dropdown1.setSelectedOption(getYesOrNotByNumber(Data.aireAcondicionado));
+            dropdown2.setSelectedOption(getYesOrNotByNumber(Data.videoBeam));
             dropdown3.setSelectedOption(Data.sede);
-            dropdown4.setSelectedOption(mapBooleanToYesOrNo(Data.tablero));
+            dropdown4.setSelectedOption(getYesOrNotByNumber(Data.tablero));
 
             setLoading(false);
         } catch (error) {
@@ -83,17 +84,17 @@ export const FormUpdateAmbiente = () => {
     }
 
     const onSubmit = async (data) => {
-        console.log(data)
         await fetchPutEnvironment(
             data.ambiente,
             data.cantidadMesas,
             data.capacidad,
-            data.catidadComputadores,
-            data.aireAcondicionados,
+            data.cantidadComputadores,
+            data.aireAcondicionado,
             data.tableros,
             data.videoBeams,
             data.sede
-        );
+            );
+            console.log(data)
     };
 
     return (
@@ -133,7 +134,7 @@ export const FormUpdateAmbiente = () => {
                                             readOnly
                                             onClick={dropdown1.handleDropdown}
                                             value={dropdown1.selectedOption}
-                                            {...register("aireAcondicionados", AIRE_ACONDICIONADO)}
+                                            {...register("aireAcondicionado", AIRE_ACONDICIONADO)}
                                         />
                                         <div
                                             className={`options ${dropdown1.isDropdown
@@ -222,7 +223,7 @@ export const FormUpdateAmbiente = () => {
                                                     dropdown2.handleOptionClick(
                                                         "Si",
                                                         setValue,
-                                                        "videoBeam"
+                                                        "videoBeams"
                                                     )
                                                 }
                                             >
@@ -233,7 +234,7 @@ export const FormUpdateAmbiente = () => {
                                                     dropdown2.handleOptionClick(
                                                         "No",
                                                         setValue,
-                                                        "videoBeam"
+                                                        "videoBeams"
                                                     )
                                                 }
                                             >
@@ -289,10 +290,7 @@ export const FormUpdateAmbiente = () => {
                                         >
                                             <div
                                                 onClick={() =>
-                                                    dropdown3.handleOptionClick(
-                                                        "cbi",
-                                                        setValue,
-                                                        "sede"
+                                                    dropdown3.handleOptionClick("cbi",setValue,"sede"
                                                     )
                                                 }
                                             >
@@ -300,10 +298,7 @@ export const FormUpdateAmbiente = () => {
                                             </div>
                                             <div
                                                 onClick={() =>
-                                                    dropdown3.handleOptionClick(
-                                                        "industrial",
-                                                        setValue,
-                                                        "sede"
+                                                    dropdown3.handleOptionClick("industrial",setValue,"sede"
                                                     )
                                                 }
                                             >
@@ -358,31 +353,11 @@ export const FormUpdateAmbiente = () => {
                                             {...register("tableros", TABLERO)}
                                         />
                                         <div
-                                            className={`options ${dropdown4.isDropdown
-                                                ? "open"
-                                                : ""
-                                                }`}
-                                        >
-                                            <div
-                                                onClick={() =>
-                                                    dropdown4.handleOptionClick(
-                                                        "Si",
-                                                        setValue,
-                                                        "tablero"
-                                                    )
-                                                }
-                                            >
+                                            className={`options ${dropdown4.isDropdown ? "open" : "" }`}>
+                                            <div onClick={() => dropdown4.handleOptionClick("Si",setValue,"tableros")}>
                                                 Si
                                             </div>
-                                            <div
-                                                onClick={() =>
-                                                    dropdown4.handleOptionClick(
-                                                        "No",
-                                                        setValue,
-                                                        "tablero"
-                                                    )
-                                                }
-                                            >
+                                            <div onClick={() => dropdown4.handleOptionClick("No",setValue,"tableros")}>
                                                 No
                                             </div>
                                         </div>

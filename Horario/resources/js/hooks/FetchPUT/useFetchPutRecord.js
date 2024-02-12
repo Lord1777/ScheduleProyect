@@ -8,7 +8,7 @@ export const useFetchPutRecord = (id) => {
     const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
     const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
 
-    const fetchPutRecord = async (ficha, duracion, programa, modalidad, jornada) => {
+    const fetchPutRecord = async (ficha, modalidad, jornada) => {
 
 
         let idJornada = getJornadaByName(jornada);
@@ -16,8 +16,6 @@ export const useFetchPutRecord = (id) => {
 
         console.log(
             `NumeroF: ${ficha},
-            duracion: ${duracion},
-            Programa: ${programa},
             idModalidad: ${idModalidad},
             idJornadaAcademica: ${idJornada}`
         )
@@ -30,8 +28,6 @@ export const useFetchPutRecord = (id) => {
                  },
                 body: JSON.stringify({
                     ficha,
-                    duracion,
-                    programa,
                     idModalidad,
                     idJornada
                 }),

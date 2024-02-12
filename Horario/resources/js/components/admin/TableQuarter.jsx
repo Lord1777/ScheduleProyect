@@ -17,10 +17,10 @@ export const TableQuarter = () => {
     const [fecha, setFecha] = useState("")
 
     const { dataQuarter, fetchData, loading } = useFetchGetQuarter(
-        disabled ? '/getDisableQuarters' : '/getEnabledQuarters', 
+        disabled ? '/getDisableQuarters' : '/getEnabledQuarters',
         currentPage,
         fecha
-        );
+    );
 
 
     let totalPage = dataQuarter.last_page;
@@ -49,8 +49,8 @@ export const TableQuarter = () => {
         fetchData();
     }, [currentPage, fecha]);
 
-    if(loading){
-        return <Loading/>
+    if (loading) {
+        return <Loading />
     }
 
     return (
@@ -58,14 +58,14 @@ export const TableQuarter = () => {
             <h2 className='title'>Administrar Trimestres {disabled ? 'Inhabilitados' : 'Habilitados'}</h2>
             <div className="container-search-buttons">
                 <div className="search-input">
-                    <input 
-                    type="search" 
-                    name="search" 
-                    id="search" 
-                    placeholder="Buscar" 
-                    autoComplete='off' 
-                    value={fecha}
-                    onChange={(e)=>setFecha(e.target.value)}
+                    <input
+                        type="search"
+                        name="search"
+                        id="search"
+                        placeholder="Buscar"
+                        autoComplete='off'
+                        value={fecha}
+                        onChange={(e) => setFecha(e.target.value)}
                     />
                     <FontAwesomeIcon icon={faSearch} className="search-icon" />
                 </div>
@@ -108,20 +108,26 @@ export const TableQuarter = () => {
                                     <td>
                                         <Link to={`/UpdateTrimestre/${quarter.idTrimestre}`}>
                                             <button>
-                                                <FontAwesomeIcon icon={faPenToSquare} className='iconEdit' />
+                                                <span class="material-symbols-outlined" id='iconCrud'>
+                                                    edit
+                                                </span>
                                             </button>
                                         </Link>
                                     </td>
                                     {disabled ? (
                                         <td>
                                             <button onClick={() => enableQuarter(quarter.idTrimestre)} >
-                                                <FontAwesomeIcon icon={faUserSlash} className='iconHabilitar' />
+                                                <span class="material-symbols-outlined iconHabilitar" id='iconCrud'>
+                                                    check_circle
+                                                </span>
                                             </button>
                                         </td>
                                     ) : (
                                         <td>
                                             <button onClick={() => disableQuarter(quarter.idTrimestre)} >
-                                                <FontAwesomeIcon icon={faUserCheck} className='iconInhabilitar' />
+                                                <span class="material-symbols-outlined iconInhabilitar" id='iconCrud'>
+                                                    cancel
+                                                </span>
                                             </button>
                                         </td>
 

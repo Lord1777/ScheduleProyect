@@ -63,18 +63,6 @@ export const NavBar = () => {
                     <Link to={'/CrudTrimestres'}>
                         <li><img src={trimestres} alt="trimestres" />Trimestres</li>
                     </Link>
-
-                    <Link to={'/HorariosFichas'}>
-                        <li><img src={calendar} alt="calendar" />Horario Académicos</li>
-                    </Link>
-
-                    <Link to={'/HorariosInstructores'}>
-                        <li><img src={calendar} alt="calendar" />Horario Instructores</li>
-                    </Link>
-
-                    <Link to={'/HorariosAmbientes'}>
-                        <li><img src={calendar} alt="calendar" />Horario Ambientes</li>
-                    </Link>
                     
                     <Link to={'/'}>
                         <li><img src={Logout} alt="logout" />Cerrar Sesión</li>

@@ -41,7 +41,7 @@ export const TablePrograms = () => {
         fetchData();
     }, [currentPage, programa]);
 
-    
+
     if (loading) {
         return <Loading />
     }
@@ -101,20 +101,26 @@ export const TablePrograms = () => {
                                     <td>
                                         <Link to={`/UpdatePrograma/${program.idPrograma}`}>
                                             <button>
-                                                <FontAwesomeIcon icon={faUserPen} className='iconEdit' />
+                                                <span class="material-symbols-outlined" id='iconCrud'>
+                                                    edit
+                                                </span>
                                             </button>
                                         </Link>
                                     </td>
                                     {disabled ? (
                                         <td>
                                             <button onClick={() => enablePrograma(program.idPrograma)}>
-                                                <FontAwesomeIcon icon={faUserCheck} className='iconHabilitar' />
+                                                <span class="material-symbols-outlined iconHabilitar" id='iconCrud'>
+                                                    check_circle
+                                                </span>
                                             </button>
                                         </td>
                                     ) : (
                                         <td>
                                             <button onClick={() => disablePrograma(program.idPrograma)}>
-                                                <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar' />
+                                                <span class="material-symbols-outlined iconInhabilitar" id='iconCrud'>
+                                                    cancel
+                                                </span>
                                             </button>
                                         </td>
 

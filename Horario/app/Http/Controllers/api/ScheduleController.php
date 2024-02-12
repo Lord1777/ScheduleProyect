@@ -469,12 +469,14 @@ class ScheduleController extends Controller
   { 
     try {
         $asign = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
-            ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
-            ->select(
-                'usuarios.nombreCompleto',
-                'usuarios.idUsuario',
-                'horarios_academicos.idHorario',
-            )
+        ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
+        ->join('trimestres', 'trimestres.idTrimestre', '=', 'horarios_academicos.idTrimestre')
+        ->select(
+            'usuarios.nombreCompleto',
+            'usuarios.idUsuario',
+            'horarios_academicos.idHorario',
+            'trimestres.trimestre'
+        )
             ->distinct()
             ->get();
 

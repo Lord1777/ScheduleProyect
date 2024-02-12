@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../../../css/Schedule/ScheduleWatch.css";
+import '../../../css/Cards/CardHorarios.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
@@ -12,7 +13,7 @@ export const ScheduleWatchAmbiente = () => {
     const [search, setSearch] = useState("");
 
     const filteredData = dataHorarios.filter(horario =>
-        horario.ambiente.toString().includes(search)
+        horario.ambiente.toString().startsWith(search)
     );
 
     if (loading) {
@@ -40,20 +41,22 @@ export const ScheduleWatchAmbiente = () => {
                     />
                 </div>
             </div>{/*Titulo y buscador*/}
-            <div className="main-container">
+            <div className="contenedor">
                 {filteredData.map((horario) => (
-                    <Link key={horario.idAmbiente} to={`/HorarioAprendiz/${horario.idAmbiente}`}>
-                        <div className="schedule">
-                            <FontAwesomeIcon icon={faCalendar} className="calendar-icon" />
-                            <div className="ficha-and-number">
-                                <h3>Ambiente</h3>
-                                <h3>{horario.ambiente}</h3>
+                    <Link  key={horario.idAmbiente} to={`/HorarioAprendiz/${horario.idAmbiente}`}>
+                        <div className="card">
+                            <span class="material-symbols-outlined icon">
+                                calendar_month
+                            </span>
+                            <div className="text-car">
+                                <h2>Ambiente</h2>
+                                <span>{horario.ambiente}</span>
                             </div>
                         </div>
                     </Link>
                 ))}
-            </div>{/*Contenedor principal*/}
-            <div className="Space"></div>
+            </div>
+            
         </>
     )
 }

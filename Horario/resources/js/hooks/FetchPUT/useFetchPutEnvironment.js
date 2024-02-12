@@ -9,18 +9,30 @@ export const useFetchPutEnvironment = (id) => {
     const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
 
     const fetchPutEnvironment = async (ambiente, cantidadMesas, capacidad, cantidadComputadores, AireAcondicionadoS, TableroS, VideoBeamS, sede,) => {
+    
+        console.log(
+            `aireA antes ${AireAcondicionadoS},
+            videoB antes ${VideoBeamS},
+            tablero antes ${TableroS}`
+        )
 
         let idSede = getSedeByName(sede);
         let aireAcondicionado = getTrueOrFalseByYesOrNot(AireAcondicionadoS);
         let videoBeam = getTrueOrFalseByYesOrNot(VideoBeamS);
         let tablero = getTrueOrFalseByYesOrNot(TableroS);
 
+        console.log(
+            `aireA ${aireAcondicionado},
+            videoB ${videoBeam},
+            tablero ${tablero}`
+        )
+
         try {
             const response = await fetch(`${API_URL}/updateEnvironment/${id}`, {
                 method: "PUT",
                 headers: { 
                     'Content-Type': 'application/json',
-                 },
+                },
                 body: JSON.stringify({
                     ambiente,
                     cantidadMesas,

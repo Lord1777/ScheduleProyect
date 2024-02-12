@@ -1,20 +1,27 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useFetchGetScheduleInstructor } from '../../hooks/FetchSchedule/useFetchGetScheduleInstructor';
 import { Loading } from '../Loading/Loading';
 import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
 import { initialsName } from '../../hooks/useObjectFunction';
+import { ContinuoModal } from '../Modals/ContinuoModal';
+import error from '../../assets/img/Advertencia.png'
 
 export const ScheduleInstructor = () => {
 
     const { idUsuario } = useParams();
     const { idTrimestre, idFicha } = useContext(FilterScheduleInstructorContext);
-    const { dataSchedule, loading } = useFetchGetScheduleInstructor('/getScheduleInstructor', idUsuario, idTrimestre, idFicha);
+    const {
+        dataSchedule,
+        loading,
+        modalOpen,
+        setModalOpen,
+        alertMessage } = useFetchGetScheduleInstructor('/getScheduleInstructor', idUsuario, idTrimestre, idFicha);
 
-    if(loading){
-        return <Loading/>
+    if (loading) {
+        return <Loading />
     }
-    
+
     return (
         <>
             <div className="grid_horario2">
@@ -63,6 +70,13 @@ export const ScheduleInstructor = () => {
                     </React.Fragment>
                 ))}
             </div>
+            <ContinuoModal
+                tittle="Error"
+                imagen={error}
+                message={alertMessage}
+                open={modalOpen}
+                close={() => setModalOpen(false)}
+            />
         </>
     )
 }

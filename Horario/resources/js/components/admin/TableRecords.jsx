@@ -100,21 +100,25 @@ export const TableRecords = () => {
                                     <td>
                                         <Link to={`/UpdateFicha/${record.idFicha}`}>
                                             <button>
-                                                <FontAwesomeIcon icon={faPenToSquare} className='iconEdit' />
+                                                <span className="material-symbols-outlined" id='iconCrud'>
+                                                    edit
+                                                </span>
                                             </button>
                                         </Link>
                                     </td>
                                     {disabled ? (
                                         <td key={`habilitar-${record.id}`}>
                                             <button>
-                                                <FontAwesomeIcon icon={faUserCheck} className='iconHabilitar' />
+                                                <span className="material-symbols-outlined iconHabilitar" id='iconCrud'>
+                                                    check_circle
+                                                </span>
                                             </button>
                                         </td>
                                     ) : (
                                         <td key={`inhabilitar-${record.id}`}>
-                                            <button>
-                                                <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar' />
-                                            </button>
+                                            <span className="material-symbols-outlined iconInhabilitar" id='iconCrud'>
+                                                cancel
+                                            </span>
                                         </td>
 
                                     )}

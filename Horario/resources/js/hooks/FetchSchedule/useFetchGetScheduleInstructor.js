@@ -9,7 +9,9 @@ export const useFetchGetScheduleInstructor = (route, idUsuario, idTrimestre, idF
 
     const [dataSchedule, setDataSchedule] = useState([]);
     const [ loading, setLoading ] = useState(true);
-
+    const [modalOpen, setModalOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -21,6 +23,8 @@ export const useFetchGetScheduleInstructor = (route, idUsuario, idTrimestre, idF
 
                 } else if (response.status === 404  || result.length === 0) {
                     alert(result.error);
+                    setAlertMessage(result.error)
+                    setModalOpen(true);
                 }
 
             } catch (error) {
@@ -36,6 +40,9 @@ export const useFetchGetScheduleInstructor = (route, idUsuario, idTrimestre, idF
 
     return {
         dataSchedule,
-        loading
+        loading,
+        modalOpen,
+        setModalOpen,
+        alertMessage
     }
 }

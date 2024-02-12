@@ -1,17 +1,23 @@
 import React, {useState, useEffect} from 'react';
 import { API_URL } from '../../const/api';
-import useRequestOptionsGet from '../FetchGET/useRequestOptionsGet';
 
 const useFetchGetPrograms = (route) => {
 
-    const [dataPrograms, setDataPrograms] = useState([]);
+    const userToken = localStorage.getItem('access_token');
 
-    const { requestOptionsGet } = useRequestOptionsGet();
+    const [dataPrograms, setDataPrograms] = useState([]);
 
     useEffect(() => {
         const fetchData = async() =>{
             try {
-                const response = await fetch(`${API_URL}${route}`, requestOptionsGet)
+                const response = await fetch(`${API_URL}${route}`, {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${userToken}`,
+                    },
+                    redirect: "follow",
+                })
                 const data = await response.json();
                 setDataPrograms(data);
 

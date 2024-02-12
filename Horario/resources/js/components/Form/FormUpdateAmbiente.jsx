@@ -3,7 +3,7 @@ import useDropdown from "../../hooks/useDropdown";
 import { useForm } from "react-hook-form";
 import useValidationForm from "../../hooks/useValidationForm";
 import { Link, useParams } from "react-router-dom";
-import { API_URL } from "../../const/api";
+import { API_URL, csrf_token } from "../../const/api";
 import { useFetchPutEnvironment } from "../../hooks/FetchPUT/useFetchPutEnvironment";
 import { Loading } from "../Loading/Loading";
 import exito from '../../assets/img/Exito.png'
@@ -11,6 +11,9 @@ import error from '../../assets/img/Advertencia.png'
 import { ContinuoModal } from "../Modals/ContinuoModal";
 
 export const FormUpdateAmbiente = () => {
+
+    const userToken = localStorage.getItem('access_token');
+    
     const { id } = useParams();
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const { N_AMBIENTE, CAPACIDAD_AMBIENTE, C_MESAS, C_COMPUTADORES, AIRE_ACONDICIONADO, VIDEO_BEAM, SEDE, TABLERO } = useValidationForm();
@@ -35,7 +38,15 @@ export const FormUpdateAmbiente = () => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`${API_URL}/getEnvironment/${id}`);
+            const response = await fetch(`${API_URL}/getEnvironment/${id}`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${userToken}`,
+                    'Cookie': csrf_token,
+                },
+                redirect: "follow",
+            });
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
             }

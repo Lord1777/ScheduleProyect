@@ -47,7 +47,7 @@ class ProgramsController extends Controller
         }
     }
 
-    public function indexDisable()
+    public function indexDisable(Request $request)
     {
         try {
             $search = $request->input('search', '');  // Obtener el parámetro de búsqueda desde la solicitud
@@ -173,6 +173,57 @@ class ProgramsController extends Controller
             return response()->json([
                 'status' => 0,
                 'error' => 'Request Program Error: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
+    public function enabled(string $idPrograma)
+    {
+        try {
+            $program = Programa::findOrFail($idPrograma);
+
+            $program->update(['estado' => 'habilitado']);
+
+            return response()->json([
+                'status' => 1,
+                'message' => 'Program Successfully enabled'
+            ], Response::HTTP_OK); //200
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'status', 0,
+                'error' => 'Program Not Found'
+            ], Response::HTTP_NOT_FOUND); //404
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Error enable Program: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
+
+    public function disable(string $idPrograma)
+    {
+        try {
+            $program = Programa::findOrFail($idPrograma);
+
+            $program->update(['estado' => 'inhabilitado']);
+
+            return response()->json([
+                'status' => 1,
+                'message' => 'Program Successfully disabled'
+            ], Response::HTTP_OK); //200
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'status', 0,
+                'error' => 'Program Not Found'
+            ], Response::HTTP_NOT_FOUND); //404
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Error disable Program: ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }

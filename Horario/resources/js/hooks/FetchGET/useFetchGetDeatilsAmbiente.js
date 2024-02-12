@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { API_URL } from '../../const/api';
-import useRequestOptionsGet from './useRequestOptionsGet';
 import { getYesOrNotByNumber } from '../useObjectMapping';
 
 const useFetchGetDetailsAmbiente = (id) => {
+
+    const userToken = localStorage.getItem('access_token');
 
     const [ambiente, setAmbiente] = useState(null);
     const [capacidad, setCapacidad] = useState(null);
@@ -20,7 +21,14 @@ const useFetchGetDetailsAmbiente = (id) => {
 
     useEffect(() => {
         if (id) {
-            fetch(`${API_URL}/getEnvironment/${id}`)
+            fetch(`${API_URL}/getEnvironment/${id}`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${userToken}`,
+                },
+                redirect: "follow",
+            })
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error(`Network response was not ok: ${response.statusText}`);

@@ -1,9 +1,11 @@
 import React from 'react'
 import useModal from '../useModal';
-import { API_URL } from '../../const/api';
+import { API_URL, csrf_token } from '../../const/api';
 import { getNivelDeFormacionByName } from '../useObjectMapping';
 
 export const useFecthPutProgram = (id) => {
+
+    const userToken = localStorage.getItem('access_token');
 
     const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
     const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
@@ -16,7 +18,11 @@ export const useFecthPutProgram = (id) => {
 
             const response = await fetch(`${API_URL}/UpdateProgram/${id}`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Cookie': csrf_token,
+                    'Authorization': `Bearer ${userToken}`,
+                 },
                 body: JSON.stringify({
                     nombre,
                     duracion,

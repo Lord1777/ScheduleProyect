@@ -5,12 +5,14 @@ import useValidationForm from '../../hooks/useValidationForm';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
 import { Loading } from '../Loading/Loading';
-import { API_URL } from '../../const/api';
+import { API_URL, csrf_token } from '../../const/api';
 import { Link, useParams } from 'react-router-dom';
 import { useFecthPutProgram } from '../../hooks/FetchPUT/useFecthPutProgram';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 
 export const FormUpdateProgram = () => {
+
+    const userToken = localStorage.getItem('access_token');
 
     const [nombrePrograma, setNombrePrograma] = useState('')
     const [duracion, setDuracion] = useState(0)
@@ -30,7 +32,15 @@ export const FormUpdateProgram = () => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`${API_URL}/GetProgram/${id}`)
+            const response = await fetch(`${API_URL}/GetProgram/${id}`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${userToken}`,
+                    'Cookie': csrf_token,
+                },
+                redirect: "follow",
+            })
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
             }

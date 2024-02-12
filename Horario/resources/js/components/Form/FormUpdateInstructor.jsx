@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import useValidationForm from '../../hooks/useValidationForm'
 import { useForm } from 'react-hook-form'
-import { API_URL } from '../../const/api';
+import { API_URL, csrf_token } from '../../const/api';
 import { Link, useParams } from 'react-router-dom';
 import useDropdown from "../../hooks/useDropdown";
 import logoSena from "../../assets/img/LogoSena.png";
@@ -12,6 +12,8 @@ import error from '../../assets/img/Advertencia.png'
 import { ContinuoModal } from "../Modals/ContinuoModal";
 
 export const FormUpdateInstructor = () => {
+
+    const userToken = localStorage.getItem('access_token');
 
     const { register, setValue, handleSubmit, formState: { errors } } = useForm();
     const { NOMBRE,
@@ -47,7 +49,15 @@ export const FormUpdateInstructor = () => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`${API_URL}/getInstructor/${id}`)
+            const response = await fetch(`${API_URL}/getInstructor/${id}`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${userToken}`,
+                    'Cookie': csrf_token,
+                },
+                redirect: "follow",
+            })
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
             }

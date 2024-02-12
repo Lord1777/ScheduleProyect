@@ -1,17 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
-import useRequestOptionsGet from './useRequestOptionsGet';
 import { API_URL } from '../../const/api';
 
 export const useFetchGetScheduleRecord = (idHorario) => {
-    const { requestOptionsGet } = useRequestOptionsGet();
+
+    const userToken = localStorage.getItem('access_token');
+
     const [scheduleData, setScheduleData] = useState([]);
-    const fetchDataRef = useRef();
+    const fetchDataRef = useRef(() => {});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${API_URL}/getScheduleRecord/${idHorario}`);
+                const response = await fetch(`${API_URL}/getScheduleRecord/${idHorario}`, {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${userToken}`,
+                    },
+                    redirect: "follow",
+                });
                 const result = await response.json();
                 setScheduleData(result);
             } catch (err) {

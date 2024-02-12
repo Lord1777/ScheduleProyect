@@ -1,17 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react'
-import useRequestOptionsGet from './useRequestOptionsGet';
 import { API_URL } from '../../const/api';
 
 const useFetchGetEnvironment = (route, page, search) => {
-    const { requestOptionsGet } = useRequestOptionsGet();
+
+    const userToken = localStorage.getItem('access_token');
+
     const [dataEnvironment, setDataEnvironment] = useState([]);
-    const fetchDataRef = useRef();
+    const fetchDataRef = useRef(() => {});
     const [ loading, setLoading ] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${API_URL}${route}?page=${page}&search=${search}`, requestOptionsGet);
+                const response = await fetch(`${API_URL}${route}?page=${page}&search=${search}`, {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${userToken}`,
+                    },
+                    redirect: "follow",
+                });
                 const result = await response.json();
                 setDataEnvironment(result);
             } catch (err) {

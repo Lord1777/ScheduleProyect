@@ -14,11 +14,20 @@ use Illuminate\Support\Facades\Route;
 
 //'cors' es el alias de Middleware para las cors
 
-Route::middleware(['cors'])->group(function () {
+Route::middleware(['cors'])->group(function (){
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::match(['get', 'post'], '/login', [AuthController::class, 'login'])->name('login');
+
+    Route::get('/getInfoBarRecord/{idFicha}', [ScheduleController::class, 'indexRecord']);
+    Route::get('/getScheduleApprentice/{idFicha}', [ScheduleController::class, 'scheduleApprentice']);
+    Route::get('/getRecords', [RecordsController::class, 'getRecords']);
+});
+
+
+
+Route::middleware(['cors', 'auth:sanctum'])->group(function () {
 
     //Sanctum - Autenticacion
-    Route::post('/register', [AuthController::class, 'register']);
-    Route::match(['get', 'post'], '/login', [AuthController::class, 'login']);
     Route::get('/user', [AuthController::class, 'user']);
     Route::get('/logout', [AuthController::class, 'logout']);
 
@@ -57,13 +66,15 @@ Route::middleware(['cors'])->group(function () {
     Route::get('/getPrograms', [ProgramsController::class, 'getPrograms']);
     Route::post('/createProgram', [ProgramsController::class, 'store']);
     Route::get('/getEnableProgram', [ProgramsController::class, 'indexEnabled']);
-    Route::get('/getDisableProgram', [ProgramsController::class, 'indexDisabled']);
+    Route::get('/getDisableProgram', [ProgramsController::class, 'indexDisable']);
     Route::get('/GetProgram/{id}', [ProgramsController::class, 'show']);
     Route::put('/UpdateProgram/{id}', [ProgramsController::class, 'update']);
+    Route::match(['get', 'put'], '/disableProgram/{idPrograma}', [ProgramsController::class, 'disable']);
+    Route::match(['get', 'put'], '/enableProgram/{idPrograma}', [ProgramsController::class, 'enabled']);
+    
 
 
     //Fichas
-    Route::get('/getRecords', [RecordsController::class, 'getRecords']);
     Route::post('/createRecord', [RecordsController::class, 'store']);
     Route::get('/getEnabledRecords', [RecordsController::class, 'indexEnabled']);
     Route::get('/getDisableRecords', [RecordsController::class, 'indexDisable']);
@@ -86,8 +97,6 @@ Route::middleware(['cors'])->group(function () {
 
     //Horarios academicos
     Route::match(['get', 'post'], '/createSchedule', [ScheduleController::class, 'store']);
-    Route::get('/getInfoBarRecord/{idFicha}', [ScheduleController::class, 'indexRecord']);
-    Route::get('/getScheduleApprentice/{idFicha}', [ScheduleController::class, 'scheduleApprentice']);
     Route::get('/getScheduleInstructor/{idUsuario}/{idTrimestre?}/{idFicha?}', [ScheduleController::class, 'scheduleInstructor']);
     Route::get('/getScheduleRecord', [ScheduleController::class, 'scheduleEnableRecords']);
     Route::get('/getScheduleInstructor', [ScheduleController::class, 'EnableSchedulesInstructors']);

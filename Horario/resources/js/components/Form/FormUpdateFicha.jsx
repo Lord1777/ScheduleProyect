@@ -4,7 +4,7 @@ import "../../../css/Form/FormAddFicha.css";
 import useDropdown from "../../hooks/useDropdown";
 import useValidationForm from "../../hooks/useValidationForm";
 import { useForm } from "react-hook-form";
-import { API_URL } from "../../const/api";
+import { API_URL, csrf_token } from "../../const/api";
 import { Link, useParams } from "react-router-dom";
 import { useFetchPutRecord } from "../../hooks/FetchPUT/useFetchPutRecord";
 import { Loading } from "../Loading/Loading";
@@ -13,6 +13,8 @@ import error from '../../assets/img/Advertencia.png'
 import { ContinuoModal } from "../Modals/ContinuoModal";
 
 export const FormUpdateFicha = () => {
+
+    const userToken = localStorage.getItem('access_token');
 
     const {
         register,
@@ -42,7 +44,15 @@ export const FormUpdateFicha = () => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`${API_URL}/GetFicha/${id}`)
+            const response = await fetch(`${API_URL}/GetFicha/${id}`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${userToken}`,
+                    'Cookie': csrf_token,
+                },
+                redirect: "follow",
+            })
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
             }

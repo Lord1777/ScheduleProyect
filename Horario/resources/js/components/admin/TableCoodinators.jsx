@@ -51,7 +51,7 @@ export const TableCoodinators = () => {
     }, [currentPage, coordinador]);
 
     if (loading) {
-        return <Loading/>
+        return <Loading />
     }
 
     return (
@@ -109,20 +109,26 @@ export const TableCoodinators = () => {
                                 <td>
                                     <Link to={`/UpdateCoordinador/${coordinator.idUsuario}`}>
                                         <button>
-                                            <FontAwesomeIcon icon={faUserPen} className='iconEdit' />
+                                            <span class="material-symbols-outlined" id='iconCrud'>
+                                                person_edit
+                                            </span>
                                         </button>
                                     </Link>
                                 </td>
                                 {disabled ? (
                                     <td>
                                         <button onClick={() => enableCoordinator(coordinator.idUsuario)}>
-                                            <FontAwesomeIcon icon={faUserCheck} className='iconHabilitar' />
+                                            <span class="material-symbols-outlined iconHabilitar" id='iconCrud'>
+                                                person_check
+                                            </span>
                                         </button>
                                     </td>
                                 ) : (
                                     <td>
                                         <button onClick={() => disableCoordinator(coordinator.idUsuario)} >
-                                            <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar' />
+                                            <span class="material-symbols-outlined iconInhabilitar" id='iconCrud'>
+                                                person_cancel
+                                            </span>
                                         </button>
                                     </td>
                                 )}

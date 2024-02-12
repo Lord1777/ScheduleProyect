@@ -180,8 +180,6 @@ class RecordsController extends Controller
 
         $validator = Validator::make($request->all(), [
             'ficha' => 'required|numeric',
-            'duracion' => 'required|numeric',
-            'programa' => 'required|string',
             'idModalidad' => 'required|integer', 
             'idJornada' => 'required|integer', 
         ]);
@@ -198,8 +196,6 @@ class RecordsController extends Controller
 
             $ficha->update([
                 'ficha' => intval($request->ficha),
-                'duracion' => intval($request->duracion),
-                'programa' => $request->programa,
                 'idModalidad' => $request->idModalidad,
                 'idJornada' => $request->idJornada,
             ]);

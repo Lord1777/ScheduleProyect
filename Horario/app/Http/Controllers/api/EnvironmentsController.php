@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class EnvironmentsController extends Controller
 {
@@ -151,6 +152,11 @@ class EnvironmentsController extends Controller
         }
 
         try {
+
+            Log::info($request->videoBeam);
+            Log::info($request->aireAcondicionado);
+            Log::info($request->tablero);
+
             $ambiente = Ambiente::findOrFail($idAmbiente);
 
             $ambiente->update([
@@ -163,6 +169,8 @@ class EnvironmentsController extends Controller
                 'cantidadComputadores' => intval($request->cantidadComputadores),
                 'idSede' => $request->idSede,
             ]);
+
+            Log::info('resultado: '.$ambiente);
 
             return response()->json([
                 'status' => 1,

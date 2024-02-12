@@ -1,5 +1,6 @@
 import React from "react";
 import "../../../css/Schedule/ScheduleInstructorWatch.css";
+import '../../../css/Cards/CardHorarios.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
@@ -35,13 +36,17 @@ export const InstructorWatch = () => {
                     />
                 </div>
             </div>{/*Titulo y buscador*/}
-            <div className="main-container">
+            <div className="contenedor">
                 {horarioInstructor && horarioInstructor.map((horarios) => (
                     <Link to={`/HorarioInstructor/${horarios.idUsuario}`}>
-                        <div className="schedule-instructor">
-                            <div className="instructor-name">
-                                <h3>Instructor</h3>
-                                <h4>{horarios.nombreCompleto}</h4>
+                        <div className="card">
+                            <span class="material-symbols-outlined icon">
+                                calendar_month
+                            </span>
+                            <div className="text-car">
+                                <h2>Instructor</h2>
+                                <span>{horarios.nombreCompleto}</span>
+                                <span>Trimestre {horarios.trimestre}</span>
                             </div>
                         </div>
                     </Link>

@@ -43,6 +43,7 @@ import { WatchSchedulesInstructor } from './pages/WatchSchedulesInstructor.jsx';
 import { WatchScheduleAmbiente } from './pages/WatchScheduleAmbiente.jsx';
 import { HorariosPanel } from './pages/HorariosPanel.jsx';
 import { CardHorarios } from './components/Cards/CardHorarios.jsx';
+import { Password } from './pages/Password.jsx';
 
 function App() {
 
@@ -65,6 +66,7 @@ function App() {
             <Router>
                 <Routes>
                     <Route path='/' element={<Login />} />
+                    <Route path='/RecuperarContraseña' element={<Password />} />
                     <Route path='/ConsultaAprendiz' element={<ConsultAprenttice />} />
                     <Route path='/403-forbidden' element={<Forbidden />} />
                     <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />

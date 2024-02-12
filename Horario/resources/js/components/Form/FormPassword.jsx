@@ -1,20 +1,17 @@
 import React from 'react'
-import '../../../css/Form/FormLogin.css'
+import '../../../css/Form/FormPassword.css'
 import LogoSena from '../../assets/img/LogoSena.png'
-import CloseEye from '../../assets/icons/close-eye.png'
-import OpenEye from '../../assets/icons/open-eye.png'
 import usePasswordToggle from '../../hooks/usePasswordToggle'
 import useDropdownLogin from '../../hooks/useDropdownLogin'
 import useValidationForm from '../../hooks/useValidationForm'
 import useFetchLogin from '../../hooks/FetchPOST/useFetchLogin'
 import { useForm } from 'react-hook-form'
-import { TooltipHorario } from '../Tooltips/TooltipHorario'
 import { Link } from 'react-router-dom'
 
 
 
 
-export const FormLogin = () => {
+export const FormPassword = () => {
     const { password, showPassword, setPassword, handleTogglePassword } = usePasswordToggle();
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const { isDropdown, handleDropdown, handleOptionClick } = useDropdownLogin(setValue, "tipoDocumento");
@@ -28,21 +25,17 @@ export const FormLogin = () => {
         await authUser(data.documento, password);
     };
 
-    if (loading) {
-        //return <Loading/>
-    }
-
     return (
         <>
-            <main className='background_form_login'>
-                <div className="container_form_login">
-                    <div className="container-icon-sena">
+            <main className='background'>
+                <div className="container_form_password">
+                    <div className="container-icon-sena-password">
                         <img src={LogoSena} alt="LogoSena" />
                     </div>
-                    <h2>Ingreso Usuarios Registrados</h2>
+                    <h2>Restablecer contraseña</h2>
 
                     <form method="POST" onSubmit={handleSubmit(onSubmit)}>
-                        <div className='grid-column'>
+                        <div className='grid-column-password'>
                             <div className={`dropdown ${isDropdown ? 'open' : ''}`}>
                                 <input
                                     type="text"
@@ -74,31 +67,25 @@ export const FormLogin = () => {
                             </div>
 
                             <div>
-                                <div className="password">
+                                <div>
                                     <input
-                                        type={showPassword ? 'text' : 'password'}
+                                        type={'text'}
                                         onChange={(e) => setPassword(e.target.value)}
                                         name="password"
-                                        placeholder='Contraseña'
+                                        placeholder='Correo electrónico'
                                         autoComplete='false'
                                     />
-                                    <img src={showPassword ? OpenEye : CloseEye} onClick={handleTogglePassword} />
                                 </div>
                                 {errors.password && <p className='errors_forms'>{errors.password.message}</p>}
                             </div>
                         </div>
 
-                        <div className="container-p">
-                            <Link to={'/RecuperarContraseña'}>
-                                <h2>Olvide mi contraseña</h2>
-                            </Link>
-                        </div>
-
-                        <button type="submit">Ingresar</button>
+                        <button type="submit">Restablecer</button>
                     </form>
                 </div>
-                <TooltipHorario></TooltipHorario>
             </main>
         </>
     );
 };
+
+export default FormPassword;

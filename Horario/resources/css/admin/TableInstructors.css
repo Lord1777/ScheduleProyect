@@ -1,17 +1,17 @@
-.title{
+.title {
     text-align: center;
     padding-top: 5rem;
     font-size: 1.5rem;
     letter-spacing: 1px;
-    font-weight: 600;
+    font-weight: 400;
 }
 
-.container_pagination_buttons{
+.container_pagination_buttons {
     width: 100%;
     display: flex;
     justify-content: center;
 
-    button{
+    button {
         margin: 0 2rem 2rem 2rem;
         width: 11.5rem;
         height: 3rem;
@@ -22,22 +22,24 @@
         cursor: pointer;
         transition: 0.5s;
         font-size: 0.9rem;
-        font-weight: 600;
+        font-weight: 400;
         letter-spacing: 1px;
     }
 
-    #actuallyPage{
+    #actuallyPage {
         width: 3rem;
         cursor: auto;
     }
 }
 
-@media(max-width:320px){
+/*Responsive*/
+
+@media(max-width:320px) {
     .title {
         text-align: center;
         padding-top: 5rem;
         font-size: 1.2rem;
         letter-spacing: 1px;
-        font-weight: 600;
+        font-weight: 400;
     }
 }

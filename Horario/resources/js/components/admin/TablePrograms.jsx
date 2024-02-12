@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faUserAlt, faUserCheck, faUserPen, faUserSlash } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faUserCheck, faUserPen, faUserSlash } from '@fortawesome/free-solid-svg-icons';
 import useFetchGetProgram from '../../hooks/FetchGET/useFetchGetProgram'
 import { Loading } from '../Loading/Loading';
 import { Link } from 'react-router-dom';

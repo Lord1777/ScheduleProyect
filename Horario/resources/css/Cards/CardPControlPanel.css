@@ -16,6 +16,7 @@
     margin-top: 6rem;
     user-select: none;
     margin-left: 1rem;
+    font-weight: 400;
 }
 
 .container-cardsPanel {
@@ -47,6 +48,7 @@
 .cardPanelControl .container-text-card h3{
     color: #fff;
     text-align: center;
+    font-weight: 400;
 }
 
 .cardPanelControl .container-text-card {

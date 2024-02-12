@@ -25,6 +25,7 @@
 
 .box-modal-asignar h3{
     margin-bottom: 5rem;
+    font-weight: 500;
 }
 
 .box-modal-asignar .container-buttons-modal{
@@ -39,7 +40,7 @@
     color: var(--color-text-btn);
     border: none;
     border-radius: 0.2rem;
-    font-weight: 600;
+    font-weight: 400;
     letter-spacing: 1px;
     user-select: none;
     cursor: pointer;

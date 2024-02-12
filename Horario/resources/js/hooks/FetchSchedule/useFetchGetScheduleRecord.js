@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { API_URL } from '../../const/api';
-import useRequestOptionsGet from '../FetchGET/useRequestOptionsGet';
 
 const useFetchGetScheduleRecord = (route, idFicha) => {
-
-    const { requestOptionsGet } = useRequestOptionsGet();
 
     const [dataSchedule, setDataSchedule] = useState([]);
     const [ loading, setLoading ] = useState(true);
@@ -13,7 +10,13 @@ const useFetchGetScheduleRecord = (route, idFicha) => {
         const fetchData = async () => {
 
             try {
-                const response = await fetch(`${API_URL}${route}/${idFicha}`, requestOptionsGet)
+                const response = await fetch(`${API_URL}${route}/${idFicha}`, {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    redirect: "follow",
+                })
                 const result = await response.json();
 
                 if(response.status === 404 || result.length === 0){

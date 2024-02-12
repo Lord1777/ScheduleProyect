@@ -8,7 +8,7 @@ import useValidationForm from '../../hooks/useValidationForm';
 import { useForm, Controller } from 'react-hook-form';
 import { useFetchPutQuarter } from '../../hooks/FetchPUT/useFetchPutQuarter';
 import { Link, useParams } from "react-router-dom";
-import { API_URL } from '../../const/api';
+import { API_URL, csrf_token } from '../../const/api';
 import useDropdown from "../../hooks/useDropdown";
 import { Loading } from '../Loading/Loading';
 import exito from '../../assets/img/Exito.png'
@@ -16,6 +16,8 @@ import error from '../../assets/img/Advertencia.png'
 import { ContinuoModal } from '../Modals/ContinuoModal';
 
 export const FormUpdateTrimestre = () => {
+
+    const userToken = localStorage.getItem('access_token');
 
     const { control, register, handleSubmit, setValue, formState: { errors } } = useForm();
 
@@ -34,7 +36,15 @@ export const FormUpdateTrimestre = () => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`${API_URL}/GetTrimestre/${id}`)
+            const response = await fetch(`${API_URL}/GetTrimestre/${id}`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${userToken}`,
+                    'Cookie': csrf_token,
+                },
+                redirect: "follow",
+            })
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
             }

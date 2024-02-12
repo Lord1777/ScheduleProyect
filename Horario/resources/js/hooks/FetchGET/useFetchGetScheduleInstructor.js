@@ -3,12 +3,22 @@ import { API_URL } from '../../const/api';
 
 const useFetchGetScheduleInstructor = () => {
 
+  const userToken = localStorage.getItem('access_token');
+
   const [horarioInstructor, setHorariosInstructor] = useState([]);
   const [loading, setLoading] = useState(true);
 
     const fetchScheduleInstructor = async () => {
       try {
-        const response = await fetch(`${API_URL}/getScheduleInstructor`);
+        const response = await fetch(`${API_URL}/getScheduleInstructor`,
+        {
+          method: "GET",
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${userToken}`,
+          },
+          redirect: "follow",
+      });
 
         if (!response.ok) {
           throw new Error(`Network response was not ok: ${response.statusText}`);

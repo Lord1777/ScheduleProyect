@@ -5,6 +5,8 @@ import { ContinuoModal } from '../../components/Modals/ContinuoModal';
 
 export const useFetchPostSchedule = (route) => {
 
+    const userToken = localStorage.getItem('access_token');
+
     const [duplicatesBox, setDuplicatesBox] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [ succesfullyModal, setSuccesfullyModal  ] = useState(false);
@@ -20,6 +22,7 @@ export const useFetchPostSchedule = (route) => {
                 headers: { 
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': csrf_token,
+                    'Authorization': `Bearer ${userToken}`,
                  },
                 body: JSON.stringify({
                     idTrimestre,

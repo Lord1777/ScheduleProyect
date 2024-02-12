@@ -1,0 +1,242 @@
+.container_form_update_instructor {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    background-color: #D9D9D9;
+    padding-top: 5rem;
+}
+
+.box_form_instructor_update {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    background-color: #fff;
+    width: 75rem;
+    height: 58rem;
+    border-radius: 1rem;
+    padding: 3.5rem 0rem;
+}
+
+.box_form_instructor_update h3{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-weight: 400;
+    font-size: 1.5rem;
+    margin-top: -1rem;
+}
+
+.grid-column-update {
+    display: grid;
+    gap: 1rem;
+}
+
+.container_form_update_elements {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    width: 100%;
+    height: 100%;
+    margin-top: 1rem;
+}
+
+.container_image_form_instructor_update {
+    width: 100%;
+    height: 27rem;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-evenly;
+
+    img {
+        width: 16rem;
+        height: 15rem;
+    }
+
+
+}
+
+.container-input-error-update .long {
+    grid-column: span 2;
+    width: 100%;
+}
+
+.container-input-error-update {
+    display: contents;
+}
+
+.container_form_update_elements form .grid-column-update input {
+    padding: 1.2rem;
+    border-radius: 0.3rem;
+    width: 100%;
+    height: 3.5rem;
+    border: none;
+    background-color: #D9D9D9;
+    outline: none;
+}
+
+.container_form_update_elements form .grid-column-update input::placeholder {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.container_form_update_elements form .grid-column-update input:focus,
+.container_form_update_elements form .grid-column-update input:not(:placeholder-shown) {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.container_form_update_elements form .grid-column-update textarea::placeholder {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.container_form_update_elements form .grid-column-update textarea:focus,
+.container_form_update_elements form .grid-column-update textarea:not(:placeholder-shown) {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+
+.container_form_update_elements form .grid-column-update input[type="number"]::-webkit-inner-spin-button,
+.container_form_update_elements form .grid-column-update input[type="number"]::-webkit-outer-spin-button {
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.container_form_update_elements form .grid-column-update input[type="number"] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+form .grid-column-update textarea {
+    max-width: 100%;
+    max-height: 12rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: #D9D9D9;
+    outline: none;
+    padding: 1.1rem;
+    font-size: 0.8rem;
+    overflow: auto;
+    box-sizing: border-box;
+    resize: none;
+    transition: all 1s;
+}
+
+
+.box_form_instructor_update h2 {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: -1rem;
+    font-weight: 400;
+}
+
+
+/*Resposive*/
+
+@media(max-width:1010px) {
+
+    .container_image_form_instructor_update img {
+        width: 12rem;
+    }
+
+    #widthDropdown {
+        width: 18rem;
+    }
+}
+
+@media(max-width:890px) {
+
+    .container_image_form_instructor_update img {
+        width: 10rem;
+        height: 12rem;
+    }
+
+    #widthDropdown {
+        width: 16rem;
+    }
+}
+
+@media(max-width:880px) {
+
+    .container_image_form_instructor_update img {
+        width: 8rem;
+        height: 10rem;
+    }
+
+    .box_form_instructor_update {
+        height: 55rem;
+    }
+}
+
+@media(max-width: 760px) {
+
+    .container_form_update_elements form .grid-column-update input {
+        height: 3rem;
+    }
+
+    .grid-column-update {
+        gap: 0.8rem;
+    }
+}
+
+@media(max-width:750px) {
+
+    .box_form_instructor_update {
+        height: 65rem;
+    }
+
+    .container_form_update_elements {
+        height: auto;
+        margin-top: 0rem;
+    }
+
+    .grid-column-update {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    #widthDropdown {
+        width: 100%;
+    }
+}
+
+@media(max-width:500px) {
+
+    .container_image_form_instructor_update {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 60rem;
+        margin-top: 0;
+
+        img {
+            margin-bottom: 2rem;
+            width: 10rem;
+        }
+    }
+
+    .box_form_instructor_update {
+        height: 70rem;
+    }
+}
+
+@media(max-width:330px) {
+
+    .container_form_update_elements form .grid-column-update input {
+        padding: 1.2rem;
+        border-radius: 0.3rem;
+        height: 3rem;
+        border: none;
+        background-color: #D9D9D9;
+        outline: none;
+    }
+}

@@ -27,6 +27,7 @@ export const InstructorWatch = () => {
                         name="search"
                         id="search"
                         placeholder="Buscar"
+                        autoComplete="off"
                     />
                     <FontAwesomeIcon
                         icon={faSearch}

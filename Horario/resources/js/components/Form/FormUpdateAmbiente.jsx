@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import useDropdown from "../../hooks/useDropdown";
-import { useForm } from "react-hook-form";
-import useValidationForm from "../../hooks/useValidationForm";
 import { Link, useParams } from "react-router-dom";
 import { API_URL } from "../../const/api";
 import { useFetchPutEnvironment } from "../../hooks/FetchPUT/useFetchPutEnvironment";
 import { Loading } from "../Loading/Loading";
+import { useForm } from "react-hook-form";
+import { ContinuoModal } from "../Modals/ContinuoModal";
+import useDropdown from "../../hooks/useDropdown";
+import useValidationForm from "../../hooks/useValidationForm";
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
-import { ContinuoModal } from "../Modals/ContinuoModal";
+import '../../../css/Form/FormAddAmbiente.css'
+
 
 export const FormUpdateAmbiente = () => {
     const { id } = useParams();
@@ -109,6 +111,7 @@ export const FormUpdateAmbiente = () => {
                                         type="number"
                                         name="ambiente"
                                         placeholder="Numero del Ambiente"
+                                        autoComplete="off"
                                         {...register("ambiente", N_AMBIENTE)}
                                         value={ambiente}
                                         onChange={(e) =>

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import "../../../css/Form/BoxContainerFormAdd.css";
-import "../../../css/Form/FormAddFicha.css";
-import useDropdown from "../../hooks/useDropdown";
-import useValidationForm from "../../hooks/useValidationForm";
 import { useForm } from "react-hook-form";
 import { API_URL } from "../../const/api";
 import { Link, useParams } from "react-router-dom";
 import { useFetchPutRecord } from "../../hooks/FetchPUT/useFetchPutRecord";
 import { Loading } from "../Loading/Loading";
+import { ContinuoModal } from "../Modals/ContinuoModal";
+import useDropdown from "../../hooks/useDropdown";
+import useValidationForm from "../../hooks/useValidationForm";
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
-import { ContinuoModal } from "../Modals/ContinuoModal";
+import "../../../css/Form/BoxContainerFormAdd.css";
+import "../../../css/Form/FormAddFicha.css";
+
 
 export const FormUpdateFicha = () => {
 
@@ -97,6 +98,7 @@ export const FormUpdateFicha = () => {
                                         type="number"
                                         name="NFicha"
                                         placeholder="N° Ficha"
+                                        autoComplete="off"
                                         {...register("ficha", NFICHA)}
                                         value={ficha}
                                         onChange={(e) =>
@@ -134,6 +136,7 @@ export const FormUpdateFicha = () => {
                                         type="text"
                                         name="Programa"
                                         placeholder="Programa"
+                                        autoComplete="off"
                                         {...register("programa", PROGRAMA)}
                                         value={programa}
                                         onChange={(e) =>

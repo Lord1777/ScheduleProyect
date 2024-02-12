@@ -83,6 +83,7 @@ export const FormUpdateProgram = () => {
                                         name='programa'
                                         id='long'
                                         placeholder='Nombre del programa'
+                                        autoComplete='off'
                                         {...register("programa", PROGRAMA)}
                                         value={nombrePrograma}
                                         onChange={(e) => setNombrePrograma(e.target.value)}

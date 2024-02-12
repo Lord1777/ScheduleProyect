@@ -58,6 +58,7 @@ function FormAddTrimestre() {
                                                         {...field}
                                                         placeholderText='Fecha Inicial'
                                                         popperPlacement='bottom'
+                                                        autoComplete='off'
                                                         selected={field.value}
                                                         onChange={(date) => {
                                                             setValue('fechaInicio', date);
@@ -85,6 +86,7 @@ function FormAddTrimestre() {
                                                         {...field}
                                                         placeholderText='Fecha Final'
                                                         popperPlacement='bottom'
+                                                        autoComplete='off'
                                                         selected={field.value}
                                                         onChange={(date) => {
                                                             setValue('fechaFinal', date);

@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import useValidationForm from '../../hooks/useValidationForm'
+import { useFetchPutCoordinator } from '../../hooks/FetchPUT/useFetchPutCoordinator';
+import { Loading } from '../Loading/Loading';
 import { useForm } from 'react-hook-form'
 import { API_URL } from '../../const/api';
 import { Link, useParams } from 'react-router-dom';
+import { ContinuoModal } from '../Modals/ContinuoModal';
+import useValidationForm from '../../hooks/useValidationForm'
 import useDropdown from "../../hooks/useDropdown";
 import logoSena from "../../assets/img/LogoSena.png";
-import { useFetchPutCoordinator } from '../../hooks/FetchPUT/useFetchPutCoordinator';
-import { Loading } from '../Loading/Loading';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
-import { ContinuoModal } from '../Modals/ContinuoModal';
+import '../../../css/Form/FormUpdateCoordinator.css'
+
 
 export const FormUpdateCoordinator = () => {
 
@@ -30,7 +32,6 @@ export const FormUpdateCoordinator = () => {
     const dropdown2 = useDropdown(setValue, "TipoContrato");
     const dropdown3 = useDropdown(setValue, "Sede");
     const { id } = useParams();
-
     const [nombre, setNombre] = useState(null);
     const [tipoDocument, setTipoDocument] = useState(null);
     const [documento, setDocumento] = useState(null);
@@ -112,21 +113,23 @@ export const FormUpdateCoordinator = () => {
 
     return (
         <>
-            <main className='container_form_add_instructor'>
-                <div className='box_form_instructor'>
-                    <div className='container_form_add_elements'>
-                        <div className='container_image_form_instructor'>
+            <main className='container_form_update_instructor'>
+                <div className='box_form_instructor_update'>
+                    <h3>Editar Coordinador</h3>
+                    <div className='container_form_update_elements'>
+                        <div className='container_image_form_instructor_update'>
                             <img src={logoSena} alt='Logo SENA' />
 
                             <form method='POST' onSubmit={handleSubmit(onSubmit)}>
-                                <div className="grid-column-add">
+                                <div className="grid-column-update">
 
-                                    <div className='container-input-error'>
+                                    <div className='container-input-error-update'>
                                         <input
                                             type="text"
                                             name="nombreCompleto"
                                             className='long'
                                             placeholder='Nombre Completo'
+                                            autoComplete='off'
                                             {...register("nombreCompleto", NOMBRE)}
                                             value={nombre}
                                             onChange={(e) =>
@@ -137,7 +140,7 @@ export const FormUpdateCoordinator = () => {
                                     </div>
 
 
-                                    <div className='container-input-error'>
+                                    <div className='container-input-error-update'>
                                         <div className={`Dropdown ${dropdown1.isDropdown ? 'open' : ''}`} id='widthDropdown'>
                                             <input
                                                 type='text'
@@ -158,12 +161,13 @@ export const FormUpdateCoordinator = () => {
                                         {errors.TipoDocumento && <p className='errors_forms'>{errors.TipoDocumento.message}</p>}
                                     </div>
 
-                                    <div className='container-input-error'>
+                                    <div className='container-input-error-update'>
                                         <input
                                             type="number"
                                             name="documento"
                                             id=""
                                             placeholder='Número de Documento'
+                                            autoComplete='off'
                                             {...register("documento", DOCUMENTO)}
                                             value={documento}
                                             onChange={(e) =>
@@ -175,12 +179,13 @@ export const FormUpdateCoordinator = () => {
 
 
 
-                                    <div className='container-input-error'>
+                                    <div className='container-input-error-update'>
                                         <input
                                             type="text"
                                             name="email"
                                             className='long'
                                             placeholder='E-mail'
+                                            autoComplete='off'
                                             {...register("email", EMAIL)}
                                             value={email}
                                             onChange={(e) =>
@@ -190,12 +195,13 @@ export const FormUpdateCoordinator = () => {
                                         {errors.email && <p className='errors_forms'>{errors.email.message}</p>}
                                     </div>
 
-                                    <div className='container-input-error'>
+                                    <div className='container-input-error-update'>
                                         <input
                                             type="text"
                                             name="telefono"
                                             id=""
                                             placeholder='Telefono'
+                                            autoComplete='off'
                                             {...register("telefono", TELEFONO_CELULAR)}
                                             value={telefono}
                                             onChange={(e) =>
@@ -205,7 +211,7 @@ export const FormUpdateCoordinator = () => {
                                         {errors.telefono && <p className='errors_forms'>{errors.telefono.message}</p>}
                                     </div>
 
-                                    <div className='container-input-error'>
+                                    <div className='container-input-error-update'>
                                         <div className={`Dropdown ${dropdown2.isDropdown ? 'open' : ''}`} id='widthDropdown'>
                                             <input
                                                 type='text'
@@ -225,12 +231,13 @@ export const FormUpdateCoordinator = () => {
                                         {errors.TipoContrato && <p className='errors_forms'>{errors.TipoContrato.message}</p>}
                                     </div>
 
-                                    <div className='container-input-error'>
+                                    <div className='container-input-error-update'>
                                         <input
                                             type="text"
                                             name="ciudad"
                                             className='long'
                                             placeholder='Ciudad'
+                                            autoComplete='off'
                                             {...register("ciudad", CIUDAD)}
                                             value={ciudad}
                                             onChange={(e) =>
@@ -240,12 +247,13 @@ export const FormUpdateCoordinator = () => {
                                         {errors.ciudad && <p className='errors_forms'>{errors.ciudad.message}</p>}
                                     </div>
 
-                                    <div className='container-input-error'>
+                                    <div className='container-input-error-update'>
                                         <input
                                             type="text"
                                             name="profesion"
                                             className='long'
                                             placeholder='Profesión'
+                                            autoComplete='off'
                                             {...register("profesion", PROFESION)}
                                             value={profesion}
                                             onChange={(e) =>
@@ -256,13 +264,14 @@ export const FormUpdateCoordinator = () => {
 
                                     </div>
 
-                                    <div className='container-input-error'>
+                                    <div className='container-input-error-update'>
                                         <textarea
                                             name="experiencia"
                                             className='long'
                                             cols="30"
                                             rows="10"
                                             placeholder='Experiencia:'
+                                            autoComplete='off'
                                             {...register("experiencia", EXPERIENCIA)}
                                             value={experiencia}
                                             onChange={(e) =>
@@ -274,7 +283,7 @@ export const FormUpdateCoordinator = () => {
                                     </div>
 
 
-                                    <div className='container-input-error'>
+                                    <div className='container-input-error-update'>
                                         <div className={`Dropdown ${dropdown3.isDropdown ? 'open' : ''}`} id='widthDropdown'>
                                             <input
                                                 type='text'

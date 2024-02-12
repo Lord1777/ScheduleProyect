@@ -23,6 +23,19 @@
     text-align: center;
 }
 
+.container_form_add form .grid-column input::placeholder {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.container_form_add form .grid-column input:focus,
+.container_form_add form .grid-column input:not(:placeholder-shown) {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 400;
+}
+
 /*Responsive*/
 
 @media(max-width:830px){

@@ -29,7 +29,6 @@ export const FormAddFicha = () => {
 
     const onSubmit = async (data) => {
 
-        // console.log(data)
         await fetchSubmitRecord(
             parseInt(data.ficha),
             getProgramId(data.programa),

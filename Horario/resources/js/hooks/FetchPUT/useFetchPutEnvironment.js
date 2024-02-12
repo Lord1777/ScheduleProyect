@@ -1,9 +1,11 @@
 import React from 'react';
-import { API_URL} from '../../const/api';
+import { API_URL, csrf_token} from '../../const/api';
 import { getSedeByName, getTrueOrFalseByYesOrNot } from '../useObjectMapping';
 import useModal from '../useModal';
 
 export const useFetchPutEnvironment = (id) => {
+
+    const userToken = localStorage.getItem('access_token');
 
     const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
     const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
@@ -20,6 +22,8 @@ export const useFetchPutEnvironment = (id) => {
                 method: "PUT",
                 headers: { 
                     'Content-Type': 'application/json',
+                    'Cookie': csrf_token,
+                    'Authorization': `Bearer ${userToken}`,
                  },
                 body: JSON.stringify({
                     ambiente,

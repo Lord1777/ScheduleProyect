@@ -1,10 +1,11 @@
-import { API_URL } from '../../const/api';
+import { API_URL, csrf_token } from '../../const/api';
 import useModal from '../useModal';
 import { getJornadaByName, getModalidadByName } from '../useObjectMapping';
-import useRequestOptionsPut from './useRequestOptionsPut';
 
 export const useFetchPutRecord = (id) => {
-    const { requestOptionsPut } = useRequestOptionsPut();
+
+    const userToken = localStorage.getItem('access_token');
+    
     const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
     const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
 
@@ -27,6 +28,8 @@ export const useFetchPutRecord = (id) => {
                 method: 'PUT',
                 headers: { 
                     'Content-Type': 'application/json',
+                    'Cookie': csrf_token,
+                    'Authorization': `Bearer ${userToken}`,
                  },
                 body: JSON.stringify({
                     ficha,

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useFetchPutCoordinator } from '../../hooks/FetchPUT/useFetchPutCoordinator';
 import { Loading } from '../Loading/Loading';
 import { useForm } from 'react-hook-form'
-import { API_URL } from '../../const/api';
+import { API_URL, csrf_token } from '../../const/api';
 import { Link, useParams } from 'react-router-dom';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 import useValidationForm from '../../hooks/useValidationForm'
@@ -14,6 +14,8 @@ import '../../../css/Form/FormUpdateCoordinator.css'
 
 
 export const FormUpdateCoordinator = () => {
+
+    const userToken = localStorage.getItem('access_token');
 
     const { register, setValue, handleSubmit, formState: { errors } } = useForm();
     const { NOMBRE,
@@ -49,7 +51,15 @@ export const FormUpdateCoordinator = () => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`${API_URL}/getCoordinator/${id}`);
+            const response = await fetch(`${API_URL}/getCoordinator/${id}`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${userToken}`,
+                    'Cookie': csrf_token,
+                },
+                redirect: "follow",
+            });
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
             }

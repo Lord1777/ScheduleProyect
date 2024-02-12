@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { API_URL } from "../../const/api";
+import { API_URL, csrf_token } from "../../const/api";
 import { useFetchPutEnvironment } from "../../hooks/FetchPUT/useFetchPutEnvironment";
 import { Loading } from "../Loading/Loading";
 import { useForm } from "react-hook-form";
@@ -13,6 +13,9 @@ import '../../../css/Form/FormAddAmbiente.css'
 
 
 export const FormUpdateAmbiente = () => {
+
+    const userToken = localStorage.getItem('access_token');
+    
     const { id } = useParams();
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const { N_AMBIENTE, CAPACIDAD_AMBIENTE, C_MESAS, C_COMPUTADORES, AIRE_ACONDICIONADO, VIDEO_BEAM, SEDE, TABLERO } = useValidationForm();
@@ -37,7 +40,15 @@ export const FormUpdateAmbiente = () => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`${API_URL}/getEnvironment/${id}`);
+            const response = await fetch(`${API_URL}/getEnvironment/${id}`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${userToken}`,
+                    'Cookie': csrf_token,
+                },
+                redirect: "follow",
+            });
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
             }

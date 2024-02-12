@@ -4,6 +4,8 @@ import { API_URL, csrf_token } from '../../const/api';
 
 const useFetchPostEnvironment = (route) => {
 
+    const userToken = localStorage.getItem('access_token');
+
     const [ succesfullyModal, setSuccesfullyModal  ] = useState(false);
     const [ errorModal, setErrorModal ] = useState(false);
 
@@ -27,6 +29,7 @@ const useFetchPostEnvironment = (route) => {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': csrf_token,
+                    'Authorization': `Bearer ${userToken}`,
                 },
                 body: JSON.stringify({
                     ambiente,

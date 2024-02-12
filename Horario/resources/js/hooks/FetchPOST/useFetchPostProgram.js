@@ -6,6 +6,8 @@ import useModal from '../useModal';
 
 const useFetchPostProgram = (route) => {
 
+    const userToken = localStorage.getItem('access_token');
+
     const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
     const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
 
@@ -20,6 +22,7 @@ const useFetchPostProgram = (route) => {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': csrf_token,
+                    'Authorization': `Bearer ${userToken}`,
                 },
                 body: JSON.stringify({
                     nombre,

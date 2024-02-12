@@ -4,6 +4,7 @@ import { faSearch, faUserCheck, faUserPen, faUserSlash } from '@fortawesome/free
 import useFetchGetProgram from '../../hooks/FetchGET/useFetchGetProgram'
 import { Loading } from '../Loading/Loading';
 import { Link } from 'react-router-dom';
+import { useFetchPutManageProgram } from '../../hooks/FetchPUT/useFetchPutManageProgram';
 
 export const TablePrograms = () => {
 
@@ -17,15 +18,17 @@ export const TablePrograms = () => {
         programa
     );
 
+    const { fetchManageProgram } = useFetchPutManageProgram();
+
     let totalPage = dataProgram.last_page;
 
-    const enablePrograma = (idPrograma) => {
-        //fetch('/enable', idPrograma);
+    const enableProgram = async(idPrograma) => {
+        await fetchManageProgram('/enableProgram', idPrograma)
         fetchData();
     }
 
-    const disablePrograma = (idProgramaa) => {
-        //fetchPut('/disable', idPrograma);
+    const disableProgram = async(idPrograma) => {
+        await fetchManageProgram('/disableProgram', idPrograma);
         fetchData();
     }
 
@@ -107,13 +110,13 @@ export const TablePrograms = () => {
                                     </td>
                                     {disabled ? (
                                         <td>
-                                            <button onClick={() => enablePrograma(program.idPrograma)}>
+                                            <button onClick={() => enableProgram(program.idPrograma)}>
                                                 <FontAwesomeIcon icon={faUserCheck} className='iconHabilitar' />
                                             </button>
                                         </td>
                                     ) : (
                                         <td>
-                                            <button onClick={() => disablePrograma(program.idPrograma)}>
+                                            <button onClick={() => disableProgram(program.idPrograma)}>
                                                 <FontAwesomeIcon icon={faUserSlash} className='iconInhabilitar' />
                                             </button>
                                         </td>

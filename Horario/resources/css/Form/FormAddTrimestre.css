@@ -51,7 +51,7 @@
     font-size: 1.1rem;
 }
 
-.DatePicker::after{
+/* .DatePicker::after{
     width: 1rem;
     height: 3.5rem;
     border-radius: 0rem 0.3rem 0.3rem 0rem;
@@ -65,7 +65,7 @@
     transition: .25s all ease;
     z-index: 1;
     user-select: none;
-}
+} */
 
 .custom-datepicker {
     position: relative;

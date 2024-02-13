@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../../css/Schedule/ScheduleInstructorWatch.css";
 import '../../../css/Cards/CardHorarios.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,7 +11,11 @@ export const InstructorWatch = () => {
 
 
     const { horarioInstructor, loading } = useFetchGetScheduleInstructor();
-    console.log(horarioInstructor);
+    const [search, setSearch] = useState("");
+
+    const filteredData = horarioInstructor.filter(horario =>
+        horario.nombreCompleto.toString().startsWith(search)
+    );
 
     if (loading) {
         return <Loading />
@@ -29,6 +33,8 @@ export const InstructorWatch = () => {
                         id="search"
                         placeholder="Buscar"
                         autoComplete="off"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
                     />
                     <FontAwesomeIcon
                         icon={faSearch}
@@ -37,7 +43,7 @@ export const InstructorWatch = () => {
                 </div>
             </div>{/*Titulo y buscador*/}
             <div className="contenedor">
-                {horarioInstructor && horarioInstructor.map((horarios) => (
+                {filteredData.map((horarios) => (
                     <Link to={`/HorarioInstructor/${horarios.idUsuario}`}>
                         <div className="card">
                             <span class="material-symbols-outlined icon">

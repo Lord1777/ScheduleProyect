@@ -91,7 +91,9 @@ export const FormUpdateTrimestre = () => {
                     <div className='container_form_add'>
                         <form method='PUT' onSubmit={handleSubmit(onSubmit)} >
                             <div className='grid-column'>
-                                <div>
+
+                            <div className="container-label-input">
+                                    <label>N° Trimestre</label>
                                     <input
                                         type="number"
                                         name="N_TRIMESTRE"
@@ -103,7 +105,8 @@ export const FormUpdateTrimestre = () => {
                                     {errors.trimestre && <p className='errors_forms'>{errors.N_TRIMESTRE.message}</p>}
                                 </div>
 
-                                <div>
+                                <div className="container-label-input">
+                                    <label>Fecha Inicial</label>
                                     <div className="DatePicker">
                                         <Controller
                                             control={control}
@@ -132,7 +135,8 @@ export const FormUpdateTrimestre = () => {
                                     </div>
                                 </div>
 
-                                <div>
+                                <div className="container-label-input">
+                                    <label>Fecha Final</label>
                                     <div className="DatePicker">
                                         <Controller
                                             control={control}

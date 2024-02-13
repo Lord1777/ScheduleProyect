@@ -33,16 +33,25 @@
     cursor: pointer;
 }
 
-.DatePicker .icon-calendar {
+.content-icon{
     color: var(--color-icons);
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     top: 18px;
     right: 15px;
     font-size: 1.1rem;
 }
 
-.DatePicker::after {
+.DatePicker .icon-calendar {
+    color: var(--color-icons);
+    position: absolute;
+    z-index: 2;
+    top: 18px;
+    right: 15px;
+    font-size: 1.1rem;
+}
+
+.DatePicker::after{
     width: 1rem;
     height: 3.5rem;
     border-radius: 0rem 0.3rem 0.3rem 0rem;
@@ -54,7 +63,7 @@
     background: var(--primary-color);
     pointer-events: none;
     transition: .25s all ease;
-    z-index: 0;
+    z-index: 1;
     user-select: none;
 }
 

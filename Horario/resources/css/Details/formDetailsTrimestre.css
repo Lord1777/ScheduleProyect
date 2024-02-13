@@ -171,7 +171,7 @@
     }
 
     .box_form_trimestre{
-        height: 26rem;
+        height: 30rem;
         margin-top: -2rem;
     }
 }
@@ -186,14 +186,14 @@
     }
 
     .box_form_trimestre{
-        height: 27rem;
+        height: 30rem;
         margin-top: -4rem;
     }
 }
 
 @media (max-width:414px){
     .box_form_trimestre{
-        height: 27rem;
+        height: 30rem;
         margin-top: -5rem;
     }
 
@@ -230,7 +230,7 @@
     }
 
     .box_form_trimestre{
-        height: 25rem;
+        height: 30rem;
     }
 }
 
@@ -255,7 +255,7 @@
 @media (max-width:280px){
     .box_form_trimestre{
         width: 15rem;
-        height: 23rem;
+        height: 28rem;
     }
 
     form{

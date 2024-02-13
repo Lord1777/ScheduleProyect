@@ -25,7 +25,7 @@ export const FormUpdateFicha = () => {
     } = useForm();
 
     const dropdown1 = useDropdown(setValue, "Modalidad");
-    const dropdown2 = useDropdown(setValue, "JornadaAcademica");
+    const dropdown2 = useDropdown(setValue, "Jornada");
 
     const {
         NFICHA,
@@ -89,6 +89,7 @@ export const FormUpdateFicha = () => {
             data.Jornada
         );
     };
+    
 
     return (
         <>
@@ -98,7 +99,8 @@ export const FormUpdateFicha = () => {
                     <div className="container_form_add">
                         <form method="PUT" onSubmit={handleSubmit(onSubmit)}>
                             <div className="grid-column">
-                                <div>
+                                <div className="container-label-input">
+                                    <label>N° Ficha</label>
                                     <input
                                         type="number"
                                         name="NFicha"
@@ -113,7 +115,8 @@ export const FormUpdateFicha = () => {
                                     {errors.ficha && <p className='errors_forms'>{errors.ficha.message}</p>}
                                 </div>
 
-                                <div>
+                                <div className="container-label-input">
+                                    <label>Programa</label>
                                     <input
                                         type="text"
                                         name="Programa"
@@ -130,7 +133,8 @@ export const FormUpdateFicha = () => {
 
                                 </div>
 
-                                <div>
+                                <div className="container-label-input">
+                                    <label>Modalidad</label>
                                     <div className={`Dropdown ${dropdown1.isDropdown ? "open" : ""}`}>
                                         <input
                                             type="text"
@@ -152,19 +156,23 @@ export const FormUpdateFicha = () => {
                                             <div onClick={() => dropdown1.handleOptionClick("Virtual", setValue, "Modalidad")}>
                                                 Virtual
                                             </div>
+                                            <div onClick={() => dropdown1.handleOptionClick("Complementaria", setValue, "Modalidad")}>
+                                                Complementaria
+                                            </div>
                                         </div>
                                     </div>
                                     {errors.Modalidad && <p className='errors_forms'>{errors.Modalidad.message}</p>}
                                 </div>
 
 
-                                <div>
+                                <div className="container-label-input">
+                                    <label>Jornada</label>
                                     <div className={`Dropdown ${dropdown2.isDropdown ? "open" : ""}`}>
                                         <input
                                             type="text"
                                             className="textBox"
-                                            placeholder="Jornada Académica"
-                                            name="JornadaAcademica"
+                                            placeholder="Jornada"
+                                            name="Jornada"
                                             readOnly
                                             onClick={dropdown2.handleDropdown}
                                             value={dropdown2.selectedOption}
@@ -174,10 +182,10 @@ export const FormUpdateFicha = () => {
                                             )}
                                         />
                                         <div className={`options ${dropdown2.isDropdown ? "open" : ""}`}>
-                                            <div onClick={() => dropdown2.handleOptionClick("Diurna", setValue, "JornadaAcademica")}>
+                                            <div onClick={() => dropdown2.handleOptionClick("Diurna", setValue, "Jornada")}>
                                                 Diurna
                                             </div>
-                                            <div onClick={() => dropdown2.handleOptionClick("Nocturna", setValue, "JornadaAcademica")}>
+                                            <div onClick={() => dropdown2.handleOptionClick("Nocturna", setValue, "Jornada")}>
                                                 Nocturna
                                             </div>
                                         </div>
@@ -186,21 +194,22 @@ export const FormUpdateFicha = () => {
 
                                 </div>
                             </div>
-                            <div className="container-btns">
-                                <button className='guardar' type="submit">Guardar</button>
-                                <Link to={'/CrudFichas'}>
-                                    <button className="cancelar">
-                                        Cancelar
-                                    </button>
-                                </Link>
 
+                            <div className="btns-crear">
+                                <div className="container-btns-ficha">
+                                    <button className='guardar' type="submit">Guardar</button>
+                                    <Link to={'/CrudFichas'}>
+                                        <button className="cancelar">
+                                            Cancelar
+                                        </button>
+                                    </Link>
 
+                                </div>
                                 <Link to={`/AddHorario/${id}`} >
-                                    <button className="horario">
+                                    <button className="horario" >
                                         Crear horario
                                     </button>
                                 </Link>
-
                             </div>
                         </form>
                     </div>

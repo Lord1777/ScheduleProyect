@@ -5,7 +5,7 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-.container_form_add{
+.container_form_add {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,7 +13,7 @@
     height: 100%;
 }
 
-.grid-column{
+.grid-column {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
@@ -28,26 +28,27 @@
     background-color: #D9D9D9;
     outline: none;
 }
+
 .container_form_add form .grid-column input[type="number"]::-webkit-inner-spin-button,
-.container_form_add form .grid-column input[type="number"]::-webkit-outer-spin-button{
+.container_form_add form .grid-column input[type="number"]::-webkit-outer-spin-button {
     appearance: none;
     -webkit-appearance: none;
 }
 
 
-.container_form_add form .grid-column input[type="number"]{
+.container_form_add form .grid-column input[type="number"] {
     appearance: textfield;
     -moz-appearance: textfield;
 }
 
-.Dropdown{
+.Dropdown {
     position: relative;
     width: 20rem;
     height: 3.5rem;
     user-select: none;
 }
 
-.Dropdown::before{
+.Dropdown::before {
     content: '';
     position: absolute;
     right: 20px;
@@ -63,7 +64,7 @@
     pointer-events: none;
 }
 
-.Dropdown::after{
+.Dropdown::after {
     width: 1rem;
     height: 3.5rem;
     border-radius: 0rem 0.3rem 0.3rem 0rem;
@@ -82,7 +83,7 @@
     transform: rotate(-45deg);
 }
 
-.Dropdown input{
+.Dropdown input {
     position: absolute;
     top: 0;
     left: 0;
@@ -119,7 +120,7 @@
     color: var(--color-text-hover-option);
 }
 
-.container-btns {
+.container-btns-ficha {
     position: relative;
     bottom: -3rem;
     right: 0rem;
@@ -129,7 +130,7 @@
     justify-content: flex-end;
 }
 
-.container-btns button{
+.container-btns-ficha button {
     border: none;
     outline: none;
     cursor: pointer;
@@ -140,24 +141,45 @@
     letter-spacing: 1px;
 }
 
-.container-btns .crear-horario{
+.btns-crear {
+
+    button {
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 0.8rem 2rem;
+        margin: 0.5rem;
+        border-radius: 0.2rem;
+        font-weight: 400;
+        letter-spacing: 1px;
+    }
+
+    .horario {
+        position: relative;
+        top: -10px;
+        background-color: var(--color-btn-save);
+        color: var(--color-text-btn);
+    }
+}
+
+.container-btns-ficha .horario {
+    background-color: var(--color-btn-save);
+    color: var(--color-text-btn);
+}
+
+.container-btns-ficha .guardar {
     background-color: var(--color-btn-guardar);
     color: var(--color-text-btn);
 }
 
-.container-btns .guardar{
-    background-color: var(--color-btn-guardar);
-    color: var(--color-text-btn);
-}
-
-.container-btns .cancelar{
+.container-btns-ficha .cancelar {
     background-color: var(--color-btn-cancelar);
     color: var(--color-text-btn);
 }
 
 /*Responsive*/
 
-@media(max-width:760px){
+@media(max-width:760px) {
     .container_form_add form .grid-column input {
         padding: 1.2rem;
         border-radius: 0.3rem;
@@ -224,8 +246,9 @@
         cursor: pointer;
     }
 }
-@media(max-width:610px){
-    .container-btns {
+
+@media(max-width:610px) {
+    .container-btns-ficha {
         position: relative;
         bottom: -2rem;
         right: 0rem;
@@ -234,9 +257,32 @@
         align-items: flex-end;
         justify-content: flex-end;
     }
+
+    .btns-crear {
+
+        button {
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 0.8rem 2rem;
+            margin: 0.5rem;
+            border-radius: 0.2rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .horario {
+            position: relative;
+            top: -25px;
+            background-color: var(--color-btn-save);
+            color: var(--color-text-btn);
+        }
+    }
+
+
 }
 
-@media(max-width:550px){
+@media(max-width:550px) {
     .grid-column {
         display: flex;
         flex-direction: column;
@@ -244,183 +290,203 @@
         align-items: center;
     }
 
-    .container-btns {
+    .container-btns-ficha {
         position: relative;
         bottom: -2rem;
         right: 0rem;
     }
 
-    .container_form_add{
+    .container_form_add {
         height: auto;
         margin-top: 5rem;
         display: flex;
         justify-content: center;
     }
-}
 
-@media (max-width:540px){
-    .box_form{
-        margin-top: 0.5rem;
-        height: 80%;
+    .box_form {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        background-color: #fff;
+        width: 90%;
+        height: 45rem;
+        border-radius: 1rem;
+        padding: 2rem 2rem;
     }
 
-    .grid-column{
+    .btns-crear {
+        .horario {
+            position: relative;
+            top: 35px;
+            left: 45px;
+            background-color: var(--color-btn-save);
+            color: var(--color-text-btn);
+        }
+    }
+}
+
+@media (max-width:540px) {
+    .box_form {
+        margin-top: 5.5rem;
+    }
+
+    .grid-column {
         margin-top: -2.5rem;
     }
 
-    .container-btns .crear-horario{
+    .container-btns-ficha .crear-horario {
         white-space: nowrap;
     }
 }
 
-@media (max-width:430px){
-    .box_form{
+@media (max-width:430px) {
+    .box_form {
         margin-top: -12rem;
         height: 60%;
     }
 
-    .grid-column{
+    .grid-column {
         margin-top: -3rem;
     }
 
-    .container-btns{
-        margin-left: -0.01rem; 
-        margin-top: -0.2rem;  
-       }
-   
-       .container-btns button{
-           border: none;
-           outline: none;
-           cursor: pointer;
-           font-weight: 400;
-           width: 20%;
-           margin-left: 0.5rem; 
-       }
-   
-       .container-btns .crear-horario{
-           padding: 12.5px 7px;
-           white-space: nowrap;
-           width: 35%;
-       }
-   
-       .container-btns .guardar{
-           padding: 12.5px 13px;
-           width: 25%;
-       }
-   
-       .container-btns .cancelar{
-           padding: 12.5px 9px;
-           width: 28%;
-       }
-}
-
-@media (max-width:414px){
-
-    .box_form{
-        margin-top: -8rem;
-        height: 63%;
+    .container-btns-ficha {
+        margin-left: -0.01rem;
+        margin-top: -0.2rem;
     }
 
-    .grid-column{
-        margin-top: -3rem;
-    }
-
-    .container-btns{
-        margin-left: -0.01rem; 
-        margin-top: -0.2rem;  
-       }
-   
-       .container-btns button{
-           border: none;
-           outline: none;
-           cursor: pointer;
-           font-weight: 400;
-           width: 20%;
-           margin-left: 0.5rem; 
-       }
-   
-       .container-btns .crear-horario{
-           padding: 12.5px 7px;
-           white-space: nowrap;
-           width: 35%;
-       }
-   
-       .container-btns .guardar{
-           padding: 12.5px 13px;
-           width: 25%;
-       }
-   
-       .container-btns .cancelar{
-           padding: 12.5px 9px;
-           width: 28%;
-       }
-}
-
-@media (max-width:390px){
-    .container-btns{
-        margin-top: -0.7rem;
-    }
-
-    .box_form{
-        height: 65%;
-    }
-}
-
-@media (max-width:375px){
-
-    .box_form{
-        height: 87%;
-    }
-
-    .grid-column{
-        margin-top: -3rem;
-    }
-
-    .container-btns{
-     margin-left: -0.01rem; 
-     margin-top: 1rem;  
-    }
-
-    .container-btns button{
+    .container-btns-ficha button {
         border: none;
         outline: none;
         cursor: pointer;
         font-weight: 400;
-        width: 20%;
-        margin-left: 0.5rem; 
+        width: 100%;
+        margin-left: 0.5rem;
     }
 
-    .container-btns .crear-horario{
+    .container-btns-ficha .crear-horario {
         padding: 12.5px 7px;
         white-space: nowrap;
-        width: 35%;
+        width: 100%;
     }
 
-    .container-btns .guardar{
+    .container-btns-ficha .guardar {
         padding: 12.5px 13px;
-        width: 25%;
+        width: 100%;
     }
 
-    .container-btns .cancelar{
+    .container-btns-ficha .cancelar {
         padding: 12.5px 9px;
-        width: 28%;
+        width: 100%;
     }
 }
 
-@media (max-width:360px){
-    .box_form{
-        height: 75%;
-        width: 95%;
-        margin-top: -1rem;
+@media (max-width:414px) {
+
+    .box_form {
+        margin-top: 6rem;
+        height: 100%;
     }
 
-    .container-btns{
+    .grid-column {
+        margin-top: -3rem;
+    }
+
+    .container-btns-ficha {
+        margin-left: -0.01rem;
+        margin-top: -0.2rem;
+    }
+
+    .container-btns-ficha button {
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-weight: 400;
+        width: 100%;
+        margin-left: 0.5rem;
+    }
+
+    .container-btns-ficha .crear-horario {
+        padding: 12.5px 7px;
+        white-space: nowrap;
+        width: 100%;
+    }
+
+    .container-btns-ficha .guardar {
+        padding: 12.5px 13px;
+        width: 100%;
+    }
+
+    .container-btns-ficha .cancelar {
+        padding: 12.5px 9px;
+        width: 100%;
+    }
+}
+
+@media (max-width:390px) {
+    .container-btns-ficha {
+        margin-top: -0.7rem;
+    }
+
+    .box_form {
+        margin-top: 7rem;
+        height: 100%;
+    }
+}
+
+@media (max-width:375px) {
+
+    .box_form {
+        margin-top: 6rem;
+        height: 100%;
+    }
+
+    .grid-column {
+        margin-top: -3rem;
+    }
+
+    .container-btns-ficha {
+        margin-left: -0.01rem;
+        margin-top: 1rem;
+    }
+
+    .container-btns-ficha button {
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-weight: 400;
+        width: 100%;
+        margin-left: 0.5rem;
+    }
+
+    .container-btns-ficha .crear-horario {
+        padding: 12.5px 7px;
+        white-space: nowrap;
+        width: 100%;
+    }
+
+    .container-btns-ficha .guardar {
+        padding: 12.5px 13px;
+        width: 100%;
+    }
+
+    .container-btns-ficha .cancelar {
+        padding: 12.5px 9px;
+        width: 100%;
+    }
+}
+
+@media (max-width:360px) {
+    .box_form {
+        margin-top: 7rem;
+        height: 100%;
+    }
+
+    .container-btns-ficha {
         margin-top: -0.8rem;
     }
 }
 
-@media(max-width:350px){
-    .container-btns button {
+@media(max-width:350px) {
+    .container-btns-ficha button {
         border: none;
         outline: none;
         cursor: pointer;
@@ -432,7 +498,7 @@
         font-size: 0.7rem;
     }
 
-    .container-btns {
+    .container-btns-ficha {
         position: relative;
         bottom: -2rem;
         right: 0rem;
@@ -490,40 +556,48 @@
     }
 }
 
-@media (max-width:280px){
-    .box_form{
-        height: 80%;
-        margin-top: 1rem;
-        width: 100%;
+@media (max-width:280px) {
+    .box_form {
+        margin-top: 9rem;
+        height: 100%;
     }
-    
-    .container-btns{
-        margin-left: -0.01rem; 
-        margin-top: -1.5rem;  
-       }
-   
-       .container-btns button{
-           border: none;
-           outline: none;
-           cursor: pointer;
-           font-weight: 400;
-           width: 20%;
-           margin-left: 0.5rem; 
-       }
-   
-       .container-btns .crear-horario{
-           padding: 12.5px 3px;
-           white-space: nowrap;
-           width: 35%;
-       }
-   
-       .container-btns .guardar{
-           padding: 12.5px 8px;
-           width: 25%;
-       }
-   
-       .container-btns .cancelar{
-           padding: 12.5px 3px;
-           width: 28%;
-       }
-}
+
+    .btns-crear {
+        .horario {
+            position: relative;
+            top: 28px;
+            left: 10px;
+            background-color: var(--color-btn-save);
+            color: var(--color-text-btn);
+        }
+    }
+        .container-btns-ficha {
+            margin-left: -0.01rem;
+            margin-top: -1.5rem;
+        }
+
+        .container-btns-ficha button {
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-weight: 400;
+            width: 100%;
+            margin-left: 0.5rem;
+        }
+
+        .container-btns-ficha .crear-horario {
+            padding: 12.5px 3px;
+            white-space: nowrap;
+            width: 100%;
+        }
+
+        .container-btns-ficha .guardar {
+            padding: 12.5px 8px;
+            width: 100%;
+        }
+
+        .container-btns-ficha .cancelar {
+            padding: 12.5px 3px;
+            width: 100%;
+        }
+    }

@@ -7,8 +7,6 @@ import useValidationForm from '../../hooks/useValidationForm';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
 import { useForm, Controller } from 'react-hook-form';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 import { Link } from 'react-router-dom';
 
@@ -56,17 +54,15 @@ function FormAddTrimestre() {
                                                 <>
                                                     <DatePicker
                                                         {...field}
-                                                        placeholderText='Fecha Inicial'
                                                         popperPlacement='bottom'
                                                         autoComplete='off'
+                                                        placeholderText='Fecha Inicial'
                                                         selected={field.value}
                                                         onChange={(date) => {
                                                             setValue('fechaInicio', date);
                                                             field.onChange(date);
                                                         }}
-                                                        className="custom-datepicker"
                                                     />
-                                                    <FontAwesomeIcon icon={faCalendar} className='icon-calendar' />
                                                 </>
                                             )}
                                         />
@@ -92,9 +88,7 @@ function FormAddTrimestre() {
                                                             setValue('fechaFinal', date);
                                                             field.onChange(date);
                                                         }}
-                                                        className="custom-datepicker"
                                                     />
-                                                    <FontAwesomeIcon icon={faCalendar} className='icon-calendar' />
                                                 </>
                                             )}
                                         />

@@ -90,7 +90,7 @@ form .grid-column-add textarea {
     transition: all 1s;
 }
 
-/*Resposive*/
+/*Responsive*/
 
 @media (max-width:1024px){
     .container_form_add_instructor{

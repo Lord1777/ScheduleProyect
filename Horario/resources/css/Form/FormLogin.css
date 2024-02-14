@@ -141,20 +141,6 @@ form .container_info_product input::placeholder {
     height: 6rem;
 }
 
-/* .container-icon-sena h2 {
-    margin-right: 14rem;
-    margin-top: 0.3rem;
-    white-space: none;
-    width: 0;
-}
-
-.container-icon-sena{
-    display: flex;
-    flex-direction: row;
-    margin-left: 7rem;
-    margin-top: 0.5rem;
-} */
-
 /*select*/
 
 .dropdown {
@@ -341,15 +327,19 @@ form .container_info_product input::placeholder {
         user-select: none;
         flex-direction: column;
         align-items: center;
+        margin-top: 2rem;
     }
 
     .container_form_login h2 {
-        text-align: center;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     .container_form_login .container-icon-sena img {
         width: 6rem;
+    }
+
+    .container-p h2{
+        font-size: 1rem;
     }
 
 }
@@ -467,29 +457,45 @@ form .container_info_product input::placeholder {
     }
 
     .container_form_login h2 {
-        text-align: center;
         font-size: 1rem;
     }
 
-    .container_form_login form .container-p {
-        width: 17rem;
+    .container-icon-sena .name-proyect{
+        span{
+            font-size: 1.2rem;
+        }
+    }
+
+    .container-p h2 {
+        margin-left: 1.5rem;
+        font-weight: 500;
     }
 
     .container_form_login {
         padding: 1rem;
         display: flex;
-        width: 20rem;
+        width: 16rem;
         height: 32rem;
         background-color: #FFF;
         border-radius: 1rem;
         user-select: none;
         flex-direction: column;
         align-items: center;
+        margin-top: 5rem;
     }
 
     .container_form_login form h3 {
         margin-top: 1rem;
         font-size: 0.7rem;
+    }
+
+    .container_form_login .container-icon-sena img {
+        width: 4rem;
+        height: 4rem;
+    }
+
+    .container-icon-sena .name-proyect{
+        font-size: 0.5rem;
     }
 
 }

@@ -1,12 +1,12 @@
-import React, { useState, useContext } from 'react'
-import '../../../css/InformationBar/InformationBar.css'
-import useDropdownGet from '../../hooks/useDropdownGet'
-import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
-import { useFetchGetRecords } from '../../hooks/FetchGetResources/useFetchGetRecords';
-import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
-import { useUser } from '../../context/UserContext';
-import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
+import React, { useState, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useFetchGetRecords } from '../../hooks/FetchGetResources/useFetchGetRecords';
+import { useUser } from '../../context/UserContext';
+import useDropdownGet from '../../hooks/useDropdownGet';
+import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
+import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
+import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
+import '../../../css/InformationBar/InformationBar.css';
 
 export const InformationBarInstructor = () => {
 
@@ -17,7 +17,8 @@ export const InformationBarInstructor = () => {
     const { idUsuario } = useParams();
 
     const { user } = useUser();
-    const { setIdTrimestreValue, setIdFichaValue } = useContext(FilterScheduleInstructorContext);
+    // const { horasAsignadas } = useContext(FilterScheduleInstructorContext);
+    const { setIdTrimestreValue, setIdFichaValue, horasAsignadas } = useContext(FilterScheduleInstructorContext);
 
     const { dataRecords } = useFetchGetRecords('/getRecords');
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
@@ -44,7 +45,10 @@ export const InformationBarInstructor = () => {
     const handleOptionClickFicha = (selectedOption) => {
         setIdFichaValue(getRecordId(selectedOption));
     }
-
+    
+    const updateHorasAsignadas = (horas) => {
+        setHorasAsignadasValue(horas);
+    };
 
     return (
         <>
@@ -110,13 +114,12 @@ export const InformationBarInstructor = () => {
                             </div>
                         </div>
                     )}
-
                     <div>
-                        <h3>Total de Horas: {user ? user.userData.horasAsignadas : ''}</h3>
+                        <h3>Total de Horas: {horasAsignadas || (user && user.userData.horasAsignadas) || ''}</h3>
                         {
                             rol ? 
                             (
-                                <Link to={`/UpdateHorarioInstructor/${idUsuario}`} >
+                                <Link to={horasAsignadas || (user && user.userData.horasAsignadas) || ''} >
                                     <button>Editar</button>
                                 </Link>
                             )
@@ -127,7 +130,7 @@ export const InformationBarInstructor = () => {
                     </div>
                 </div>
                 <div className='check_filter'>
-                    <label htmlFor="trimestresCheckbox"><h3>Filtra por Trimestres</h3></label>
+                    <label htmlFor="trimestresCheckbox"><h3>Filtrar por Trimestres</h3></label>
                     <input
                         className='custom-checkbox'
                         id="trimestresCheckbox"

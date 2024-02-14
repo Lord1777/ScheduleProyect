@@ -2,15 +2,15 @@ import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useFetchGetScheduleInstructor } from '../../hooks/FetchSchedule/useFetchGetScheduleInstructor';
 import { Loading } from '../Loading/Loading';
-import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
-import { initialsName } from '../../hooks/useObjectFunction';
 import { ContinuoModal } from '../Modals/ContinuoModal';
+import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
+
 import error from '../../assets/img/Advertencia.png'
 
 export const ScheduleInstructor = () => {
 
     const { idUsuario } = useParams();
-    const { idTrimestre, idFicha } = useContext(FilterScheduleInstructorContext);
+    const { idTrimestre, idFicha, setHorasAsignadasValue } = useContext(FilterScheduleInstructorContext);
     const {
         dataSchedule,
         loading,
@@ -21,6 +21,11 @@ export const ScheduleInstructor = () => {
     if (loading) {
         return <Loading />
     }
+
+    const handleCellClick = (infoSchedule) => {
+        const horasAsignadas = infoSchedule.horasAsignadas || 0;
+        setHorasAsignadasValue((prevHoras) => prevHoras + horasAsignadas);
+      };
 
     return (
         <>

@@ -5,6 +5,7 @@ const FilterScheduleInstructorContext = createContext();
 export const FilterScheduleInstructorContextProvider = ({ children }) => {
   const [idTrimestre, setIdTrimestre] = useState(null);
   const [idFicha, setIdFicha] = useState(null);
+  const [horasAsignadas, setHorasAsignadas] = useState(0);
 
   const setIdTrimestreValue = (trimestre) => {
     setIdTrimestre(trimestre);
@@ -14,8 +15,21 @@ export const FilterScheduleInstructorContextProvider = ({ children }) => {
     setIdFicha(ficha);
   };
 
+  const setHorasAsignadasValue = (horas) => {
+    setHorasAsignadas(horas);
+  };
+
+  const contextValue = {
+    idTrimestre,
+    idFicha,
+    setIdTrimestreValue,
+    setIdFichaValue,
+    horasAsignadas,
+    setHorasAsignadasValue, 
+  };
+
   return (
-    <FilterScheduleInstructorContext.Provider value={{ idTrimestre, idFicha, setIdTrimestreValue, setIdFichaValue }}>
+    <FilterScheduleInstructorContext.Provider value={contextValue}>
       {children}
     </FilterScheduleInstructorContext.Provider>
   );

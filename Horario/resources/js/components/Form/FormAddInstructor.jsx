@@ -28,7 +28,7 @@ const FormAddInstructor = () => {
     const dropdown2 = useDropdown(setValue, "TipoContrato");
     const dropdown3 = useDropdown(setValue, "Sede");
 
-    const { fetchSubmitInstructor, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, } = useFetchPostInstructor('/register')
+    const { fetchSubmitInstructor, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, alertMessage, ruta } = useFetchPostInstructor('/register')
 
     const onSubmit = async (data) => {
 
@@ -230,10 +230,10 @@ const FormAddInstructor = () => {
             <ContinuoModal
                 tittle="¡Error!"
                 imagen={error}
-                message="Ocurrió un error al guardar los datos. Por favor, inténtalo de nuevo."
+                message={alertMessage}
                 open={errorModalOpen}
                 close={closeErrorModal}
-                route="/CrudInstructor"
+                route={ruta}
             />
             <ContinuoModal
                 tittle="¡Exito!"

@@ -26,6 +26,7 @@ class ScheduleController extends Controller
                 ->select(
                     'fichas.ficha',
                     'fichas.horasAsignadas',
+                    'trimestres.idTrimestre',
                     'trimestres.trimestre',
                     'trimestres.fechaInicio',
                     'trimestres.fechaFinal',
@@ -269,7 +270,6 @@ class ScheduleController extends Controller
 
                 // Obtener el límite de horas para el instructor, ambiente y ficha
                 $limiteHorasInstructor = Usuario::where('idUsuario', $idInstructor)->value('limiteHoras');
-                $limiteHorasDiarioInstructor = 10;
                 $limiteHorasAmbiente = Ambiente::where('idAmbiente', $idAmbiente)->value('limiteHoras');
                 $limiteHorasFicha = Ficha::where('idFicha', $idFicha)->value('limiteHoras');
 
@@ -320,15 +320,15 @@ class ScheduleController extends Controller
                         ], Response::HTTP_BAD_REQUEST); //400
                     } /* else {
 
-                        Log::info($fichaAsignadaInstructor);
+                    Log::info($fichaAsignadaInstructor);
 
-                        return response()->json([
-                            'status' => 0,
-                            'message' => "No se encontraron asignaciones para el instructor '{$nombreInstructor}' en la(s) caja(s) especificadas.",
-                            'error' => 'No assignments found for the instructor in the specified boxIndex',
-                        ], Response::HTTP_NOT_FOUND); //404
-                    }
-                    */
+                    return response()->json([
+                        'status' => 0,
+                        'message' => "No se encontraron asignaciones para el instructor '{$nombreInstructor}' en la(s) caja(s) especificadas.",
+                        'error' => 'No assignments found for the instructor in the specified boxIndex',
+                    ], Response::HTTP_NOT_FOUND); //404
+                }
+                */
                 }
                 if ($ambienteAsignado->isNotEmpty()) {
 
@@ -343,13 +343,13 @@ class ScheduleController extends Controller
                             'duplicates' => $ambienteAsignado,
                         ], Response::HTTP_BAD_REQUEST); //400
                     } /*else {
-                        return response()->json([
-                            'status' => 0,
-                            'message' => "No se encontraron asignaciones para el ambiente '{$numeroAmbiente}' en la(s) caja(s) especificadas.",
-                            'error' => 'No assignments found for the instructor in the specified boxIndex',
-                        ], Response::HTTP_NOT_FOUND); //404
-                    }
-                    */
+                    return response()->json([
+                        'status' => 0,
+                        'message' => "No se encontraron asignaciones para el ambiente '{$numeroAmbiente}' en la(s) caja(s) especificadas.",
+                        'error' => 'No assignments found for the instructor in the specified boxIndex',
+                    ], Response::HTTP_NOT_FOUND); //404
+                }
+                */
                 }
 
                 if ($limiteHorasInstructor !== null && $limiteHorasAmbiente !== null) {
@@ -439,7 +439,7 @@ class ScheduleController extends Controller
     }
 
 
-    public function update(Request $request, $idHorario)
+    public function update(Request $request, string $idHorario)
     {
         $validator = Validator::make($request->all(), [
             'idTrimestre' => 'required|numeric',
@@ -453,9 +453,8 @@ class ScheduleController extends Controller
             ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
         }
 
-        Log::info($request->all());
-
-
+        // Log::info($request->all());
+        Log::info('idHorario: ' . $idHorario);
 
         try {
 
@@ -467,13 +466,35 @@ class ScheduleController extends Controller
             $idFicha = $data['idFicha'];
             $globalStoreBoxes = $data['globalStoreBoxes'];
 
+            $asignacionesAntiguas = Asignacion::where('idHorarioAcademico', $idHorario)->get();
+
+            //Restar horas asignadas
+            foreach ($asignacionesAntiguas as $asignacionAntigua) {
+                $idInstructor = $asignacionAntigua->idUsuario;
+                $idAmbiente = $asignacionAntigua->idAmbiente;
+
+                Usuario::where('idUsuario', $idInstructor)->update([
+                    'horasAsignadas' => DB::raw('horasAsignadas - 1'),
+                    //...
+                ]);
+
+                Ambiente::where('idAmbiente', $idAmbiente)->update([
+                    'horasAsignadas' => DB::raw('horasAsignadas - 1'),
+                    //...
+                ]);
+
+                Ficha::where('idFicha', $idFicha)->update([
+                    'horasAsignadas' => DB::raw('horasAsignadas - 1'),
+                    //...
+                ]);
+            }
+
             // Borrar las asignaciones antiguas
-            Asignacion::where('idHorarioAcademico', $idHorario)->delete(); 
+            Asignacion::where('idHorarioAcademico', $idHorario)->delete();
 
             // Buscar el horario académico existente
             $horarioAcademico = HorarioAcademico::findOrFail($idHorario);
 
-            
             $horarioAcademico->update([
                 'estado' => 'habilitado',
                 'idFicha' => intval($idFicha),
@@ -486,11 +507,169 @@ class ScheduleController extends Controller
             $horasAntesFicha = null;
 
             foreach ($globalStoreBoxes as $box) {
-                // Realiza las mismas operaciones que en el controlador store...
+                $boxIndex = intval($box['boxIndex']);
+                $idInstructor = intval($box['idInstructor']);
+                $idAmbiente = intval($box['idAmbiente']);
+
+                Log::info($boxIndex);
+                Log::info($idInstructor);
+                Log::info($idAmbiente);
+
+                // Obtener las horas antes solo si aún no se han obtenido antes para dicho [instructor]
+                if (!isset($horasAntesInstructores[$idInstructor])) {
+                    $horasAntesInstructores[$idInstructor] = Usuario::where('idUsuario', $idInstructor)->value('horasAsignadas');
+                }
+                // Obtener las horas antes solo si aún no se han obtenido antes para dicho [ambiente]
+                if (!isset($horasAntesAmbientes[$idAmbiente])) {
+                    $horasAntesAmbientes[$idAmbiente] = Ambiente::where('idAmbiente', $idAmbiente)->value('horasAsignadas');
+                }
+
+                if ($horasAntesFicha == null) {
+                    $horasAntesFicha = Ficha::where('idFicha', $idFicha)->value('horasAsignadas');
+                }
+
+                $nombreInstructor = Usuario::where('idUsuario', $idInstructor)->value('nombreCompleto');
+                $numeroAmbiente = Ambiente::where('idAmbiente', $idAmbiente)->value('ambiente');
+                $numeroFicha = Ficha::where('idFicha', $idFicha)->value('ficha');
+
+                // Obtener el límite de horas para el instructor, ambiente y ficha
+                $limiteHorasInstructor = Usuario::where('idUsuario', $idInstructor)->value('limiteHoras');
+                $limiteHorasAmbiente = Ambiente::where('idAmbiente', $idAmbiente)->value('limiteHoras');
+                $limiteHorasFicha = Ficha::where('idFicha', $idFicha)->value('limiteHoras');
+
+                $disponibilidadInstructor = $limiteHorasInstructor - $horasAntesInstructores[$idInstructor];
+                $disponibilidadAmbiente = $limiteHorasAmbiente - $horasAntesAmbientes[$idAmbiente];
+                $disponibilidadFicha = $limiteHorasFicha - $horasAntesFicha;
+
+                // Evitar asignaciones simultaneas en la misma casilla
+                $instructorAsignado = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                    ->where('horarios_academicos.idTrimestre', $idTrimestre)
+                    ->where('asignaciones.idUsuario', $idInstructor)
+                    ->select('asignaciones.boxIndex')
+                    ->get();
+                $ambienteAsignado = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                    ->where('horarios_academicos.idTrimestre', $idTrimestre)
+                    ->where('asignaciones.idAmbiente', $idAmbiente)
+                    ->select('asignaciones.boxIndex')
+                    ->get();
+                $fichaAsignadaInstructor = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                    ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+                    ->join('trimestres', 'horarios_academicos.idTrimestre', '=', 'trimestres.idTrimestre')
+                    ->where('asignaciones.idUsuario', $idInstructor)
+                    ->where('asignaciones.boxIndex', $boxIndex)
+                    ->where('trimestres.idTrimestre', $idTrimestre)
+                    ->select('fichas.ficha')
+                    ->first();
+                $fichaAsignadaAmbiente = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                    ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+                    ->join('trimestres', 'horarios_academicos.idTrimestre', '=', 'trimestres.idTrimestre')
+                    ->where('asignaciones.idAmbiente', $idAmbiente)
+                    ->where('asignaciones.boxIndex', $boxIndex)
+                    ->where('trimestres.idTrimestre', $idTrimestre)
+                    ->select('fichas.ficha')
+                    ->first();
+
+                if ($instructorAsignado->isNotEmpty()) {
+
+                    if ($fichaAsignadaInstructor !== null) {
+
+                        //Si existe superposición de asignación
+                        DB::rollBack();
+
+                        return response()->json([
+                            'status' => 0,
+                            'message' => "El instructor '{$nombreInstructor}' ya está asignado en la ficha '{$fichaAsignadaInstructor['ficha']}' específicamente en las casillas marcadas en rojo",
+                            'error' => 'This action cannot be performed. Duplicate assignment in the same box',
+                            'duplicates' => $instructorAsignado,
+                        ], Response::HTTP_BAD_REQUEST); //400
+                    }
+                }
+                if ($ambienteAsignado->isNotEmpty()) {
+
+                    if ($fichaAsignadaAmbiente !== null) {
+                        //Si existe superposición de asignación
+                        DB::rollBack();
+
+                        return response()->json([
+                            'status' => 0,
+                            'message' => "El ambiente '{$numeroAmbiente}' ya está asignado en la ficha '{$fichaAsignadaAmbiente['ficha']}' especificamente en las casillas marcadas en rojo",
+                            'error' => 'This action cannot be performed. Duplicate assignment in the same box',
+                            'duplicates' => $ambienteAsignado,
+                        ], Response::HTTP_BAD_REQUEST); //400
+                    }
+                }
+
+                if ($limiteHorasInstructor !== null && $limiteHorasAmbiente !== null) {
+
+                    $nuevasHorasInstructor = Usuario::where('idUsuario', $idInstructor)->value('horasAsignadas') + 1;
+                    $nuevasHorasAmbiente = Ambiente::where('idAmbiente', $idAmbiente)->value('horasAsignadas') + 1;
+                    $nuevasHorasFicha = Ficha::where('idFicha', $idFicha)->value('horasAsignadas') + 1;
+
+                    if ($nuevasHorasInstructor > $limiteHorasInstructor) {
+
+                        // Si el incremento supera el límite: 
+                        DB::rollBack();
+
+                        return response()->json([
+                            'status' => 0,
+                            'message' => "El instructor '{$nombreInstructor}' ha alcanzado el límite de horas permitido: '{$limiteHorasInstructor} horas'. Por favor, revise la cantidad de veces que dicho instructor es asignado, considerando que dispone de '{$disponibilidadInstructor} horas' para impartir formación.",
+                            'error' => "The action cannot be performed. The limit of assigned hours is exceeded",
+                        ], Response::HTTP_BAD_REQUEST); //400
+                    }
+
+                    if ($nuevasHorasAmbiente > $limiteHorasAmbiente) {
+
+                        //Cancelar
+                        DB::rollBack();
+
+                        return response()->json([
+                            'status' => 0,
+                            'message' => "El ambiente '{$numeroAmbiente}' ha alcanzado el límite de horas permitido: '{$limiteHorasAmbiente} horas'. Por favor, revise la cantidad de veces que dicho ambiente es asignado, considerando que dispone de '{$disponibilidadAmbiente} horas'.",
+                            'error' => "The action cannot be performed. The limit of assigned hours is exceeded",
+                        ], Response::HTTP_BAD_REQUEST); //400
+                    }
+
+                    if ($nuevasHorasFicha > $limiteHorasFicha) {
+
+                        //Si el incremento supera el limite:
+                        DB::rollBack();
+
+                        return response()->json([
+                            'status' => 0,
+                            'message' => "La ficha '{$numeroFicha}' ha alcanzado el límite de horas permitido: '{$limiteHorasFicha} horas'. Por favor, revise la cantidad de veces que dicha ficha recibe asignaciones, considerando que dispone de '{$disponibilidadFicha} horas'.",
+                            'error' => 'The action cannot be performed. The limit of assigned hours is exceeded',
+                        ]);
+                    }
+                }
+
+                Usuario::where('idUsuario', $idInstructor)->update([
+                    'horasAsignadas' => DB::raw('horasAsignadas + 1'),
+                    //Mas columnas...
+                ]);
+
+                Ambiente::where('idAmbiente', $idAmbiente)->update([
+                    'horasAsignadas' => DB::raw('horasAsignadas + 1'),
+                    //Mas columnas...
+                ]);
+
+                Ficha::where('idFicha', $idFicha)->update([
+                    'horasAsignadas' => DB::raw('horasAsignadas + 1'),
+                    //Mas columnas...
+                ]);
+
+                $asignaciones[] = [
+                    'boxIndex' => $box['boxIndex'],
+                    'idAmbiente' => intval($box['idAmbiente']),
+                    'idUsuario' => intval($box['idInstructor']),
+                    'idHorarioAcademico' => $idHorario,
+                ];
             }
-            
+
             // Insertar las nuevas asignaciones
-            Asignacion::insert($asignaciones); 
+            Asignacion::insert($asignaciones);
+
+            //Confirmar
+            DB::commit();
 
             return response()->json([
                 'status' => 1,
@@ -502,7 +681,7 @@ class ScheduleController extends Controller
             //Cancelar
             DB::rollBack();
             return response()->json([
-                'error' => "Register Schedule Error: " . $e->getMessage()
+                'error' => "Updated Schedule Error: " . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
@@ -510,14 +689,18 @@ class ScheduleController extends Controller
     public function scheduleEnableRecords()
     {
         try {
-            $records = HorarioAcademico::join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
-
+            $records = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
+                ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+                ->join('trimestres', 'trimestres.idTrimestre', '=', 'horarios_academicos.idTrimestre')
                 ->select(
                     'fichas.ficha',
                     'horarios_academicos.idHorario',
-                    'fichas.idFicha'
+                    'fichas.idFicha',
+                    'trimestres.trimestre',
+                    'trimestres.idTrimestre'
                 )
                 ->where('horarios_academicos.estado', 'habilitado')
+                ->distinct()
                 ->get();
 
             if ($records->isEmpty()) {
@@ -545,7 +728,8 @@ class ScheduleController extends Controller
                     'usuarios.nombreCompleto',
                     'usuarios.idUsuario',
                     'horarios_academicos.idHorario',
-                    'trimestres.trimestre'
+                    'trimestres.trimestre',
+                    'trimestres.idTrimestre'
                 )
                 ->distinct()
                 ->get();
@@ -561,12 +745,15 @@ class ScheduleController extends Controller
     public function scheduleEnableEnvironments()
     {
         try {
-            $ambiente =  HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
+            $ambiente = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
                 ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
+                ->join('trimestres', 'trimestres.idTrimestre', '=', 'horarios_academicos.idTrimestre')
                 ->select(
                     'ambientes.idAmbiente',
                     'ambientes.ambiente',
-                    'horarios_academicos.idHorario'
+                    'horarios_academicos.idHorario',
+                    'trimestres.trimestre',
+                    'trimestres.idTrimestre'
                 )
                 ->where('ambientes.estado', 'habilitado')
                 ->distinct()

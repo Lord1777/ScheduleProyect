@@ -8,9 +8,20 @@ const useFetchPostEnvironment = (route) => {
 
     const [ succesfullyModal, setSuccesfullyModal  ] = useState(false);
     const [ errorModal, setErrorModal ] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [ ruta , setRuta] = useState('');
 
     const fetchSubmitEnvironment = async (ambiente, cantidadMesas, capacidad, catidadComputadores, aireAcondicionados, tableros, videoBeams, sede,) => {
-
+        console.log(
+            `ambiente: ${ambiente},
+            cantidadMesas: ${cantidadMesas}, 
+            capacidad: ${capacidad}, 
+            catidadComputadores: ${catidadComputadores}, 
+            aireAcondicionados: ${aireAcondicionados}, 
+            tableros: ${tableros}, 
+            videoBeams: ${videoBeams}, 
+            sede: ${sede},`
+        )
         //Id de la sede
         let idSede = getSedeByName(sede);
 
@@ -48,8 +59,19 @@ const useFetchPostEnvironment = (route) => {
                 console.log(data.message)
                 setSuccesfullyModal(true);
             }
-            else{
+            else if(response.status === 422){
+                const data = await response.json();
+                setAlertMessage(data.error)
+                setErrorModal(true)
+            }
+            else if(response.status === 500){
+                const data = await response.json();
+                setAlertMessage(data.error)
+                setRuta('/CrudAmbientes')
                 setErrorModal(true);
+            }
+            else{
+                console.log(data.error)
             }
 
         } catch (err) {
@@ -63,7 +85,9 @@ const useFetchPostEnvironment = (route) => {
             succesfullyModal,
             setSuccesfullyModal,
             errorModal,
-            setErrorModal
+            setErrorModal,
+            alertMessage,
+            ruta,
         }
     )
 }

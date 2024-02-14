@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { API_URL, csrf_token } from '../../const/api';
 import { getContratoByName, getSedeByName } from '../useObjectMapping';
 import useModal from '../useModal';
@@ -9,6 +9,8 @@ export const useFetchPutCoordinator = (idUsuario) => {
 
     const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
     const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
+    const [alertMessage, setAlertMessage] = useState('');
+    const [ruta, setRuta] = useState('');
 
     const fetchPutCoordinator = async (nombreCompleto, tipoDocumento, documento, email, telefono, tipoContrato, ciudad, profesion, experiencia, sede) => {
         
@@ -42,7 +44,15 @@ export const useFetchPutCoordinator = (idUsuario) => {
                 console.log(data.message); // Mensaje definido en Laravel
                 openSuccessModal();
             }
-            else{
+            else if (response.status === 422) {
+                const data = await response.json();
+                setAlertMessage(data.error)
+                openErrorModal();
+            }
+            else if (response.status === 500) {
+                const data = await response.json();
+                setAlertMessage(data.error)
+                setRuta('/CrudCoordinadores')
                 openErrorModal();
             }
 
@@ -58,6 +68,8 @@ export const useFetchPutCoordinator = (idUsuario) => {
             errorModalOpen,
             closeSuccessModal,
             closeErrorModal,
+            alertMessage,
+            ruta
         }
     )
 }

@@ -28,7 +28,9 @@ export const FormUpdateProgram = () => {
         successModalOpen,
         errorModalOpen,
         closeSuccessModal,
-        closeErrorModal } = useFecthPutProgram(id);
+        closeErrorModal,
+        alertMessage,
+        ruta } = useFecthPutProgram(id);
 
     const fetchData = async () => {
         try {
@@ -67,17 +69,19 @@ export const FormUpdateProgram = () => {
         }
     }, [id, setValue]);
 
-    if (loading) {
-        return <Loading />
-    };
-
     const onSubmit = async (data) => {
+        setLoading(true);
         await fetchPutProgram(
             data.programa,
             data.duracion,
             data.nivelDeFormacion
         )
+        setLoading(false)
     }
+
+    if (loading) {
+        return <Loading />
+    };
 
     return (
         <>
@@ -147,10 +151,10 @@ export const FormUpdateProgram = () => {
             <ContinuoModal
                 tittle="Error en la Actualización"
                 imagen={error}
-                message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
+                message={alertMessage}
                 open={errorModalOpen}
                 close={closeErrorModal}
-                route="/CrudProgramas"
+                route={ruta}
             />
             <ContinuoModal
                 tittle="Actualización Exitosa"

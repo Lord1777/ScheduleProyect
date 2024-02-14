@@ -40,7 +40,7 @@ export const FormUpdateFicha = () => {
     const [programa, setPrograma] = useState(null);
     const [loading, setLoading] = useState(true)
 
-    const { fetchPutRecord, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, } = useFetchPutRecord(id);
+    const { fetchPutRecord, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, alertMessage, ruta } = useFetchPutRecord(id);
 
     const fetchData = async () => {
         try {
@@ -78,17 +78,19 @@ export const FormUpdateFicha = () => {
         }
     }, [id, setValue]);
 
-    if (loading) {
-        return <Loading />
-    }
-
     const onSubmit = async (data) => {
+        setLoading(true);
         await fetchPutRecord(
             data.ficha,
             data.Modalidad,
             data.Jornada
         );
+        setLoading(false);
     };
+
+    if (loading) {
+        return <Loading />
+    }
     
 
     return (
@@ -218,10 +220,10 @@ export const FormUpdateFicha = () => {
             <ContinuoModal
                 tittle="Error en la Actualización"
                 imagen={error}
-                message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
+                message={alertMessage}
                 open={errorModalOpen}
                 close={closeErrorModal}
-                route="/CrudFichas"
+                route={ruta}
             />
             <ContinuoModal
                 tittle="Actualización Exitosa"

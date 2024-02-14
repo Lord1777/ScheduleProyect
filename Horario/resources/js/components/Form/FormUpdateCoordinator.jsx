@@ -46,7 +46,7 @@ export const FormUpdateCoordinator = () => {
     const [sede, setSede] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const { fetchPutCoordinator, successModalOpen, errorModalOpen, closeErrorModal, closeSuccessModal } = useFetchPutCoordinator(id);
+    const { fetchPutCoordinator, successModalOpen, errorModalOpen, closeErrorModal, closeSuccessModal, alertMessage, ruta } = useFetchPutCoordinator(id);
 
 
     const fetchData = async () => {
@@ -100,13 +100,9 @@ export const FormUpdateCoordinator = () => {
         }
     }, [id, setValue]);
 
-    if (loading) {
-        return <Loading />
-    }
-
-
     const onSubmit = async (data) => {
-        console.log("Valores del formulario:", data);
+        // console.log("Valores del formulario:", data);
+        setLoading(true);
         await fetchPutCoordinator(
             data.nombreCompleto,
             data.TipoDocumento,
@@ -119,6 +115,11 @@ export const FormUpdateCoordinator = () => {
             data.experiencia,
             data.Sede,
         )
+        setLoading(false);
+    }
+
+    if (loading) {
+        return <Loading />
     }
 
     return (
@@ -330,10 +331,10 @@ export const FormUpdateCoordinator = () => {
             <ContinuoModal
                 tittle="Error en la Actualización"
                 imagen={error}
-                message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
+                message={alertMessage}
                 open={errorModalOpen}
                 close={closeErrorModal}
-                route="/CrudCoordinadores"
+                route={ruta}
             />
             <ContinuoModal
                 tittle="Actualización Exitosa"

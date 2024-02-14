@@ -7,7 +7,7 @@ import FilterScheduleFichaContext from '../../context/FilterScheduleFichaContext
 
 export const InformationBarAprenttice = () => {
 
-    const { idFicha } = useParams();
+    const { idFicha, idHorario } = useParams();
 
     const { dataInfoRecord } = useFetchGetInfoBarRecord('/getInfoBarRecord', idFicha);
 
@@ -26,9 +26,9 @@ export const InformationBarAprenttice = () => {
                 <div>
                     <p><b>Ficha:</b> {dataInfoRecord.ficha}</p>
                     {
-                            rol ? 
+                            rol === 'coordinador' ? 
                             (
-                                <Link to={`/ScheduleUpdateFicha/${idFicha}`} >
+                                <Link to={`/ScheduleUpdateFicha/${idFicha}/${idHorario}/${dataInfoRecord.idTrimestre}`} >
                                     <button>Editar</button>
                                 </Link>
                             )

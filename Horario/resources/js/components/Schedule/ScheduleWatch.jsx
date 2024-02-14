@@ -10,7 +10,7 @@ import { Loading } from '../Loading/Loading';
 export const ScheduleWatch = () => {
 
     const { idHorario } = useParams();
-    const { horarios, loading } = useFetchGetSchedule();
+    const { horarios, loading } = useFetchGetSchedule('/getScheduleRecord');
     const [searchFicha, setSearchFicha] = useState("");
     console.log(horarios)
 
@@ -47,7 +47,7 @@ export const ScheduleWatch = () => {
             <div className="contenedor">
 
                 {filteredFicha.map((horario) => (
-                    <Link to={`/HorarioAprendiz/${horario.idFicha}`}>
+                    <Link to={`/HorarioAprendiz/${horario.idFicha}/${horario.idHorario}`}>
                         <div className="card">
                             <span class="material-symbols-outlined icon">
                                 calendar_month
@@ -55,6 +55,7 @@ export const ScheduleWatch = () => {
                             <div className="text-car">
                                 <h2>Ficha</h2>
                                 <span>{horario.ficha}</span>
+                                <span>Trimestre {horario.trimestre}</span>
                             </div>
                         </div>
                     </Link>

@@ -70,7 +70,7 @@ class EnvironmentsController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'ambiente' => 'required',
+            'ambiente' => 'required|unique:ambientes',
             'aireAcondicionado' => 'required|boolean',
             'videoBeam' => 'required|boolean',
             'tablero' => 'required|boolean',
@@ -80,7 +80,7 @@ class EnvironmentsController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'status' => 0,
-                'errors' => $validator->errors()
+                'error' => "El ambiente $request->ambiente ya se encuentra registrado."
             ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
         }
 
@@ -106,8 +106,8 @@ class EnvironmentsController extends Controller
 
         } catch (\Exception $e) {
             return response()->json([
-                'status' => 0,
-                'error' => 'Error Creating Environment: ' . $e->getMessage()
+                'staus' => 0,
+                'error' => "Error a registrar la informacion, por favor intentelo mas tarde."
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
@@ -137,7 +137,7 @@ class EnvironmentsController extends Controller
     public function update(Request $request, string $idAmbiente)
     {
         $validator = Validator::make($request->all(), [
-            'ambiente' => 'required',
+            'ambiente' => 'required|unique:ambientes',
             'aireAcondicionado' => 'required|boolean',
             'videoBeam' => 'required|boolean',
             'tablero' => 'required|boolean',
@@ -147,7 +147,7 @@ class EnvironmentsController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'status' => 0,
-                'errors' => $validator->errors()
+                'error' => "El ambiente $request->ambiente ya se encuentra registrado."
             ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
         }
 
@@ -170,7 +170,7 @@ class EnvironmentsController extends Controller
                 'idSede' => $request->idSede,
             ]);
 
-            Log::info('resultado: '.$ambiente);
+            //Log::info('resultado: '.$ambiente);
 
             return response()->json([
                 'status' => 1,
@@ -185,8 +185,8 @@ class EnvironmentsController extends Controller
 
         } catch (\Exception $e) {
             return response()->json([
-                'status' => 0,
-                'error' => 'Error Updating Environment: ' . $e->getMessage()
+                'staus' => 0,
+                'error' => "Error a registrar la informacion, por favor intentelo mas tarde."
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }

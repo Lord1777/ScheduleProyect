@@ -41,6 +41,7 @@ const useFetchGetEnvironment = (route, page, search) => {
         dataEnvironment,
         fetchData: () => fetchDataRef.current(), // Llamada a la función fetchData almacenada en el ref
         loading,
+        setLoading,
     })
 
 }

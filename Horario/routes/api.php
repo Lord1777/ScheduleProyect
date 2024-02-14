@@ -101,7 +101,7 @@ Route::middleware(['cors', 'auth:sanctum'])->group(function () {
     Route::get('/getScheduleRecord', [ScheduleController::class, 'scheduleEnableRecords']);
     Route::get('/getScheduleInstructor', [ScheduleController::class, 'EnableSchedulesInstructors']);
     Route::get('/getSchedulesEnvironments', [ScheduleController::class, 'scheduleEnableEnvironments']);
-    Route::put('/updateScheduleRecord', [ScheduleController::class, 'update']);
+    Route::put('/updateScheduleRecord/{idHorario}', [ScheduleController::class, 'update']);
 });
 
 

@@ -28,7 +28,8 @@ class AuthController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'error' => $validator->errors()
+                'status' => 0,
+                'error' => 'El documento de identidad u el nombre del usuario ya se encuentra registrado.'
             ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
         }
 
@@ -59,7 +60,8 @@ class AuthController extends Controller
 
         } catch (\Exception $e) {
             return response()->json([
-                'error' => "Register Instructor Error: $e"
+                'staus' => 0,
+                'error' => "Error a registrar la informacion, por favor intentelo mas tarde."
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }

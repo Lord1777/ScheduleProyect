@@ -115,7 +115,8 @@ class RecordsController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'error' => $validator->errors()
+                'status' => 0,
+                'error' => "La ficha ($request->ficha) ya se encuentra registrada."
             ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
         }
 
@@ -138,7 +139,8 @@ class RecordsController extends Controller
 
         } catch (\Exception $e) {
             return response()->json([
-                'error' => "Register Record Error: $e"
+                'staus' => 0,
+                'error' => "Error a registrar la informacion, por favor intentelo mas tarde."
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
@@ -179,7 +181,7 @@ class RecordsController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'ficha' => 'required|numeric',
+            'ficha' => 'required|unique:fichas|numeric',
             'idModalidad' => 'required|integer', 
             'idJornada' => 'required|integer', 
         ]);
@@ -187,7 +189,7 @@ class RecordsController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'status' => 0,
-                'errors' => $validator->errors()
+                'error' => "La ficha ($request->ficha) ya se encuentra registrada."
             ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
         }
 
@@ -213,8 +215,8 @@ class RecordsController extends Controller
 
         } catch (\Exception $e) {
             return response()->json([
-                'status' => 0,
-                'error' => 'Error Updating Ficha: ' . $e->getMessage()
+                'staus' => 0,
+                'error' => "Error a registrar la informacion, por favor intentelo mas tarde."
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }

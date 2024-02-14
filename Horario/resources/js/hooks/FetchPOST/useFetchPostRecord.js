@@ -1,6 +1,7 @@
 import { getModalidadByName, getJornadaByName } from '../useObjectMapping';
 import { API_URL, csrf_token } from '../../const/api';
 import useModal from '../useModal';
+import { useState } from 'react';
 
 const useFetchPostRecord = (route) => {
 
@@ -8,6 +9,9 @@ const useFetchPostRecord = (route) => {
 
     const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
     const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
+    const [alertMessage, setAlertMessage] = useState('');
+    const [ ruta , setRuta] = useState('');
+
 
     const fetchSubmitRecord = async (ficha, idPrograma, modalidad, jornada) => {
 
@@ -44,7 +48,15 @@ const useFetchPostRecord = (route) => {
                 console.log(data.message)
                 openSuccessModal();
             }
-            else {
+            else if(response.status === 422){
+                const data = await response.json();
+                setAlertMessage(data.error)
+                openErrorModal()
+            }
+            else if(response.status === 500){
+                const data = await response.json();
+                setAlertMessage(data.error)
+                setRuta('/CrudFichas')
                 openErrorModal();
             }
 
@@ -61,6 +73,8 @@ const useFetchPostRecord = (route) => {
             errorModalOpen,
             closeSuccessModal,
             closeErrorModal,
+            alertMessage,
+            ruta
         }
     )
 }

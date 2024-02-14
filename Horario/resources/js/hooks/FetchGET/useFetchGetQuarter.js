@@ -43,6 +43,7 @@ export const useFetchGetQuarter = (route, page, search) => {
             dataQuarter,
             fetchData: () => fetchDataRef.current(), // Llamada a la función fetchData almacenada en el ref
             loading,
+            setLoading,
         }
     )
 }

@@ -75,7 +75,10 @@ class QuartersController extends Controller
 
             return response()->json(['message' => 'Resource created successfully'], Response::HTTP_CREATED); //201
         } catch (\Exception $e) {
-            return response()->json(['error' => "Request quarters error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+            return response()->json([
+                'staus' => 0,
+                'error' => "Error a registrar la informacion, por favor intentelo mas tarde."
+        ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../../css/Form/BoxContainerFormAdd.css';
 import '../../../css/Form/FormAddFicha.css';
 import useDropdown from '../../hooks/useDropdown';
@@ -18,8 +18,16 @@ export const FormAddFicha = () => {
     const dropdown2 = useDropdown(setValue, 'programa');
     const dropdown3 = useDropdown(setValue, 'jornada');
     const { PROGRAMA, NFICHA, MODALIDAD, JORNADA_ACADEMICA } = useValidationForm();
+    const [searchProgram, setSearchPogram] = useState('');
 
-    const { fetchSubmitRecord, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, } = useFetchPostRecord('/createRecord');
+    const {
+        fetchSubmitRecord,
+        successModalOpen,
+        errorModalOpen,
+        closeSuccessModal,
+        closeErrorModal,
+        alertMessage,
+        ruta } = useFetchPostRecord('/createRecord');
     const { dataPrograms } = useFetchGetPrograms('/getPrograms');
 
     const getProgramId = (programName) => {
@@ -46,7 +54,7 @@ export const FormAddFicha = () => {
                         <form method='POST' onSubmit={handleSubmit(onSubmit)}>
                             <div className='grid-column'>
                                 <div>
-                                    <input type='number' name='ficha' placeholder='N° Ficha'  autoComplete='off' {...register("ficha", NFICHA)} />
+                                    <input type='number' name='ficha' placeholder='N° Ficha' autoComplete='off' {...register("ficha", NFICHA)} />
                                     {errors.ficha && <p className='errors_forms'>{errors.ficha.message}</p>}
                                 </div>
 
@@ -71,7 +79,7 @@ export const FormAddFicha = () => {
                                 </div>
 
                                 <div>
-                                    <div className={`Dropdown ${dropdown2.isDropdown ? 'open' : ''}`}>
+                                    <div className={`desplegable1 ${dropdown2.isDropdown ? 'open' : ''}`}>
                                         <input
                                             type='text'
                                             className='textBox'
@@ -82,12 +90,29 @@ export const FormAddFicha = () => {
                                             value={dropdown2.selectedOption}
                                             {...register("programa", PROGRAMA)}
                                         />
-                                        <div className={`options ${dropdown2.isDropdown ? 'open' : ''}`}>
-                                            {
-                                                dataPrograms && dataPrograms.length > 0 && dataPrograms.map((program) => (
-                                                    <div key={program.idPrograma} onClick={() => dropdown2.handleOptionClick(`${program.nombre}`, setValue, 'programa')}>{program.nombre}</div>
-                                                ))
-                                            }
+                                        <div className={`desplegable-options1 ${dropdown2.isDropdown ? 'open' : ''}`}>
+                                            <div className="search-bar">
+                                                <input
+                                                    type="text"
+                                                    className='buscador-desplegables'
+                                                    id='buscador'
+                                                    value={searchProgram}
+                                                    onChange={(e) => setSearchPogram(e.target.value)}
+                                                />
+                                            </div>
+
+                                            <div className="contenedor-options">
+                                                {
+                                                    dataPrograms && dataPrograms.length > 0 && dataPrograms
+                                                        .filter((program) =>
+                                                            program.nombre.toLowerCase().startsWith(searchProgram.toLowerCase())
+                                                        )
+                                                        .map((program) => (
+                                                            <div key={program.idPrograma} onClick={() => dropdown2.handleOptionClick(`${program.nombre}`, setValue, 'programa')}>{program.nombre}</div>
+                                                        ))
+                                                }
+                                            </div>
+
                                         </div>
                                     </div>
                                     {errors.programa && <p className='errors_forms'>{errors.programa.message}</p>}
@@ -128,10 +153,10 @@ export const FormAddFicha = () => {
             <ContinuoModal
                 tittle="¡Error!"
                 imagen={error}
-                message="Ocurrió un error al guardar los datos. Por favor, inténtalo de nuevo."
+                message={alertMessage}
                 open={errorModalOpen}
                 close={closeErrorModal}
-                route="/CrudFichas"
+                route={ruta}
             />
             <ContinuoModal
                 tittle="¡Exito!"

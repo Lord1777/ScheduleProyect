@@ -26,7 +26,14 @@ export const FormAddCoordinador = () => {
     const dropdown2 = useDropdown(setValue, "TipoContrato");
     const dropdown3 = useDropdown(setValue, "Sede");
 
-    const { fetchSubmitCoordinator, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, } = useFetchPostCoordinator('/register');
+    const { 
+        fetchSubmitCoordinator, 
+        successModalOpen, 
+        errorModalOpen, 
+        closeSuccessModal, 
+        closeErrorModal, 
+        alertMessage, 
+        ruta } = useFetchPostCoordinator('/register');
 
     const onSubmit = async (data) => {
 
@@ -227,10 +234,10 @@ export const FormAddCoordinador = () => {
             <ContinuoModal
                 tittle="¡Error!"
                 imagen={error}
-                message="Ocurrió un error al guardar los datos. Por favor, inténtalo de nuevo."
+                message={alertMessage}
                 open={errorModalOpen}
                 close={closeErrorModal}
-                route="/AddCoordinador"
+                route={ruta}
             />
             <ContinuoModal
                 tittle="¡Exito!"

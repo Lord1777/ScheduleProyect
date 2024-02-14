@@ -46,7 +46,7 @@ export const FormUpdateInstructor = () => {
     const [sede, setSede] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const { fetchPutInstructor, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, } = useFetchPutInstructor(id);
+    const { fetchPutInstructor, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, alertMessage, ruta } = useFetchPutInstructor(id);
 
     const fetchData = async () => {
         try {
@@ -99,12 +99,9 @@ export const FormUpdateInstructor = () => {
         }
     }, [id,setValue]);
 
-    if(loading){
-        return <Loading/>
-    }
-
     const onSubmit = async (data) => {
-        console.log("Valores del formulario:", data);
+        //console.log("Valores del formulario:", data);
+        setLoading(true);
         await fetchPutInstructor(
             data.nombreCompleto,
             data.TipoDocumento,
@@ -117,6 +114,11 @@ export const FormUpdateInstructor = () => {
             data.experiencia,
             data.Sede,
         )
+        setLoading(false);
+    }
+
+    if(loading){
+        return <Loading/>
     }
 
     return (
@@ -324,10 +326,10 @@ export const FormUpdateInstructor = () => {
             <ContinuoModal
                 tittle="Error en la Actualización"
                 imagen={error}
-                message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
+                message={alertMessage}
                 open={errorModalOpen}
                 close={closeErrorModal}
-                route="/CrudInstructor"
+                route={ruta}
             />
             <ContinuoModal
                 tittle="Actualización Exitosa"

@@ -9,6 +9,8 @@ const useFetchPostInstructor = (route) => {
 
     const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
     const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
+    const [alertMessage, setAlertMessage] = useState('');
+    const [ ruta , setRuta] = useState('');
 
     const fetchSubmitInstructor = async (sede, tipoContrato, tipoDocumento, ciudad, documento, email, experiencia, nombreCompleto, profesion, telefono) => {
 
@@ -51,8 +53,15 @@ const useFetchPostInstructor = (route) => {
                 const data = await response.json();
                 console.log(data.message); // Mensaje definido en Laravel
                 openSuccessModal();
+            } else if(response.status === 422){
+                const data = await response.json();
+                setAlertMessage(data.error)
+                openErrorModal()
             }
-            else {
+            else if(response.status === 500){
+                const data = await response.json();
+                setAlertMessage(data.error)
+                setRuta('/CrudInstructor')
                 openErrorModal();
             }
         } catch (error) {
@@ -69,6 +78,8 @@ const useFetchPostInstructor = (route) => {
             errorModalOpen,
             closeSuccessModal,
             closeErrorModal,
+            alertMessage,
+            ruta,
         }
     )
 }

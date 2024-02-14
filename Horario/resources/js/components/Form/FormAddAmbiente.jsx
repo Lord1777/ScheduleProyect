@@ -28,10 +28,10 @@ export const FormAddAmbiente = () => {
     const dropdown3 = useDropdown(setValue, "sede");
     const dropdown4 = useDropdown(setValue, "tableros");
 
-    const { fetchSubmitEnvironment, succesfullyModal, setSuccesfullyModal, errorModal, setErrorModal } = useFetchPostEnvironment('/createEnvironment');
+    const { fetchSubmitEnvironment, succesfullyModal, setSuccesfullyModal, errorModal, setErrorModal, alertMessage, ruta } = useFetchPostEnvironment('/createEnvironment');
 
     const onSubmit = async (data) => {
-
+        console.log(data)
         await fetchSubmitEnvironment(
             data.ambiente,
             data.cantidadMesas,
@@ -68,7 +68,7 @@ export const FormAddAmbiente = () => {
                                     <div className={`Dropdown ${dropdown1.isDropdown ? 'open' : ''}`}>
                                         <input
                                             type='text'
-                                            name='aireAcondicionado'
+                                            name='aireAcondicionados'
                                             className='textBox'
                                             placeholder='Aire Acondicionado'
                                             readOnly
@@ -77,11 +77,11 @@ export const FormAddAmbiente = () => {
                                             {...register("aireAcondicionados", AIRE_ACONDICIONADO)}
                                         />
                                         <div className={`options ${dropdown1.isDropdown ? 'open' : ''}`}>
-                                            <div onClick={() => dropdown1.handleOptionClick('Si', setValue, 'aireAcondicionado')}>Si</div>
-                                            <div onClick={() => dropdown1.handleOptionClick('No', setValue, 'aireAcondicionado')}>No</div>
+                                            <div onClick={() => dropdown1.handleOptionClick('Si', setValue, 'aireAcondicionados')}>Si</div>
+                                            <div onClick={() => dropdown1.handleOptionClick('No', setValue, 'aireAcondicionados')}>No</div>
                                         </div>
                                     </div>
-                                    {errors.aireAcondicionado && <p className='errors_forms'>{errors.aireAcondicionado.message}</p>}
+                                    {errors.aireAcondicionados && <p className='errors_forms'>{errors.aireAcondicionados.message}</p>}
                                 </div>
 
                                 <div>
@@ -98,7 +98,7 @@ export const FormAddAmbiente = () => {
                                     <div className={`Dropdown ${dropdown2.isDropdown ? 'open' : ''}`}>
                                         <input
                                             type='text'
-                                            name='videoBeam'
+                                            name='videoBeams'
                                             className='textBox'
                                             placeholder='Video Beam'
                                             readOnly
@@ -107,11 +107,11 @@ export const FormAddAmbiente = () => {
                                             {...register("videoBeams", VIDEO_BEAM)}
                                         />
                                         <div className={`options ${dropdown2.isDropdown ? 'open' : ''}`}>
-                                            <div onClick={() => dropdown2.handleOptionClick('Si', setValue, 'videoBeam')}>Si</div>
-                                            <div onClick={() => dropdown2.handleOptionClick('No', setValue, 'videoBeam')}>No</div>
+                                            <div onClick={() => dropdown2.handleOptionClick('Si', setValue, 'videoBeams')}>Si</div>
+                                            <div onClick={() => dropdown2.handleOptionClick('No', setValue, 'videoBeams')}>No</div>
                                         </div>
                                     </div>
-                                    {errors.videoBeam && <p className='errors_forms'>{errors.videoBeam.message}</p>}
+                                    {errors.videoBeams && <p className='errors_forms'>{errors.videoBeams.message}</p>}
                                 </div>
 
                                 <div>
@@ -128,7 +128,7 @@ export const FormAddAmbiente = () => {
                                     <div className={`Dropdown ${dropdown3.isDropdown ? 'open' : ''}`}>
                                         <input
                                             type='text'
-                                            name='idSede'
+                                            name='sede'
                                             className='textBox'
                                             placeholder='Sede'
                                             readOnly
@@ -158,7 +158,7 @@ export const FormAddAmbiente = () => {
                                     <div className={`Dropdown ${dropdown4.isDropdown ? 'open' : ''}`}>
                                         <input
                                             type='text'
-                                            name='tablero'
+                                            name='tableros'
                                             className='textBox'
                                             placeholder='Tablero'
                                             readOnly
@@ -167,8 +167,8 @@ export const FormAddAmbiente = () => {
                                             {...register("tableros", TABLERO)}
                                         />
                                         <div className={`options ${dropdown4.isDropdown ? 'open' : ''}`}>
-                                            <div onClick={() => dropdown4.handleOptionClick('Si', setValue, 'tablero')}>Si</div>
-                                            <div onClick={() => dropdown4.handleOptionClick('No', setValue, 'tablero')}>No</div>
+                                            <div onClick={() => dropdown4.handleOptionClick('Si', setValue, 'tableros')}>Si</div>
+                                            <div onClick={() => dropdown4.handleOptionClick('No', setValue, 'tableros')}>No</div>
                                         </div>
                                     </div>
                                     {errors.tablero && <p className='errors_forms'>{errors.tablero.message}</p>}
@@ -189,10 +189,10 @@ export const FormAddAmbiente = () => {
             <ContinuoModal
                 tittle="¡Error!"
                 imagen={error}
-                message="Ocurrió un error al guardar los datos. Por favor, inténtalo de nuevo."
+                message={alertMessage}
                 open={errorModal}
                 close={() => setErrorModal(false)}
-                route="/CrudAmbientes"
+                route={ruta}
             />
             <ContinuoModal
                 tittle="¡Exito!"

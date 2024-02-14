@@ -40,6 +40,7 @@ const useFetchGetCoordinator = (route, page, search) => {
         dataCoordinator,
         fetchData: () => fetchDataRef.current(),
         loading,
+        setLoading,
     };
 };
 

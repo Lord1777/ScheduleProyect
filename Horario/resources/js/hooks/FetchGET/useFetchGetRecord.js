@@ -39,6 +39,7 @@ const useFetchGetRecord = (route, page, search) => {
         dataRecord,
         fetchData: () => fetchDataRef.current(), // Llamada a la función fetchData almacenada en el ref
         loading,
+        setLoading,
     }
 
 }

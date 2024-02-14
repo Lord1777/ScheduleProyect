@@ -103,14 +103,14 @@ class ProgramsController extends Controller
 
         $validator = Validator::make($request->all(), [
             'duracion' => 'required|numeric',
-            'nombre' => 'required|string',
+            'nombre' => 'required|string|unique:programas',
             'idNivelFormacion' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'status' => 0,
-                'errors' => $validator->errors()
+                'error' => "El programa de formación ($request->nombre) ya se encuentra registrado."
             ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
         }
 
@@ -136,8 +136,8 @@ class ProgramsController extends Controller
 
         } catch (\Exception $e) {
             return response()->json([
-                'status' => 0,
-                'error' => 'Error Updating Ficha: ' . $e->getMessage()
+                'staus' => 0,
+                'error' => "Error a registrar la informacion, por favor intentelo mas tarde."
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
@@ -146,13 +146,14 @@ class ProgramsController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'duracion' => 'required|numeric',
-            'nombre' => 'required|string',
+            'nombre' => 'required|string|unique:programas',
             'idNivelFormacion' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'error' => $validator->errors()
+                'status' => 0,
+                'error' => "El programa de formación ($request->nombre) ya se encuentra registrado."
             ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
         }
 
@@ -171,8 +172,8 @@ class ProgramsController extends Controller
 
         } catch (\Exception $e) {
             return response()->json([
-                'status' => 0,
-                'error' => 'Request Program Error: ' . $e->getMessage()
+                'staus' => 0,
+                'error' => "Error a registrar la informacion, por favor intentelo mas tarde."
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }

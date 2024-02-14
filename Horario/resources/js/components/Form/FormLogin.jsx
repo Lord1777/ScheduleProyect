@@ -38,10 +38,11 @@ export const FormLogin = () => {
                 <div className="container_form_login">
                     <div className="container-icon-sena">
                         <img src={LogoSena} alt="LogoSena" />
-                        <h2>ASPS - CBI</h2>
+                        <h2 className='name-proyect'><span>Advanced Schedule Planning Software</span></h2>
                     </div>
-                    
-                    <h2>Ingreso Usuarios Registrados</h2>
+
+                    <h2>Ingreso Usuarios Registrados
+                    </h2>
 
                     <form method="POST" onSubmit={handleSubmit(onSubmit)}>
                         <div className='grid-column'>

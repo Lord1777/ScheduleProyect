@@ -12,8 +12,11 @@
     overflow: auto;
 }
 
-.container-p h2 {
+.container-p{
     margin-top: 2rem;
+}
+
+.container-p h2 {
     font-size: 1rem;
     font-weight: 500;
     color: #000;
@@ -32,7 +35,18 @@
 }
 
 .container_form_login h2{
-    margin-top: 3.5rem;
+    margin-top: 2rem;
+}
+
+.container_form_login .name-proyect{
+    width: 12rem;
+    margin: 0rem;
+    text-align: center;
+
+    span{
+        font-size: 1.3rem;
+        font-family: Arial, Helvetica, sans-serif;
+    }
 }
 
 .container_form_login .grid-column {
@@ -109,7 +123,7 @@ form .container_info_product input::placeholder {
 
 .container_form_login form .container-p {
     width: 20rem;
-    margin-top: -2rem;
+    margin-top: -1rem;
 }
 
 .container_form_login form h3 {
@@ -117,18 +131,21 @@ form .container_info_product input::placeholder {
     font-size: 0.9rem;
 }
 
-.container-icon-sena img {
-    width: 4.5rem;
-    height: 5rem;
-    margin-right: 5rem;
-    margin-top: -1.5rem;
+.container-icon-sena{
+    display: flex;
+    align-items: center;
 }
 
-.container-icon-sena h2 {
-    margin-right: 15rem;
+.container-icon-sena img {
+    width: 6rem;
+    height: 6rem;
+}
+
+/* .container-icon-sena h2 {
+    margin-right: 14rem;
     margin-top: 0.3rem;
     white-space: none;
-    width: 8rem;
+    width: 0;
 }
 
 .container-icon-sena{
@@ -136,7 +153,7 @@ form .container_info_product input::placeholder {
     flex-direction: row;
     margin-left: 7rem;
     margin-top: 0.5rem;
-}
+} */
 
 /*select*/
 

@@ -65,7 +65,9 @@ class ScheduleController extends Controller
                 ->select(
                     'asignaciones.boxIndex',
                     'ambientes.ambiente',
+                    'ambientes.idAmbiente',
                     'usuarios.nombreCompleto',
+                    'usuarios.idUsuario',
                 )
                 ->where('horarios_academicos.idFicha', $idFicha)
                 ->where('horarios_academicos.idTrimestre', $idTrimestre['idTrimestre'])
@@ -124,7 +126,7 @@ class ScheduleController extends Controller
                     ->select('trimestres.idTrimestre')
                     ->first();
 
-                if ( $trimestre == null ) {
+                if ($trimestre == null) {
                     return response()->json([
                         'error' => 'No hay un horario académico para la ficha seleccionada',
                     ], Response::HTTP_NOT_FOUND); //404
@@ -149,7 +151,6 @@ class ScheduleController extends Controller
                     }
                     return response()->json($schedule, Response::HTTP_OK); //200
                 }
-
             } else if ($idTrimestre !== 'null') {
 
                 $schedule = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
@@ -165,8 +166,8 @@ class ScheduleController extends Controller
                     ->where('usuarios.idUsuario', $idUsuario)
                     ->where('trimestres.idTrimestre', $idTrimestre)
                     ->get();
-                    // Log::info('Tipo de $schedule: ' . gettype($schedule));
-                    // Log::info('Contenido de $schedule: ' . json_encode($schedule));
+                // Log::info('Tipo de $schedule: ' . gettype($schedule));
+                // Log::info('Contenido de $schedule: ' . json_encode($schedule));
 
                 if ($schedule->isEmpty()) {
                     return response()->json([
@@ -437,6 +438,75 @@ class ScheduleController extends Controller
         }
     }
 
+
+    public function update(Request $request, $idHorario)
+    {
+        $validator = Validator::make($request->all(), [
+            'idTrimestre' => 'required|numeric',
+            'idFicha' => 'required|numeric',
+            'globalStoreBoxes' => 'required|array',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => $validator->errors()
+            ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
+        }
+
+        Log::info($request->all());
+
+
+
+        try {
+
+            //Inicio
+            DB::beginTransaction();
+
+            $data = $request->json()->all();
+            $idTrimestre = $data['idTrimestre'];
+            $idFicha = $data['idFicha'];
+            $globalStoreBoxes = $data['globalStoreBoxes'];
+
+            // Borrar las asignaciones antiguas
+            Asignacion::where('idHorarioAcademico', $idHorario)->delete(); 
+
+            // Buscar el horario académico existente
+            $horarioAcademico = HorarioAcademico::findOrFail($idHorario);
+
+            
+            $horarioAcademico->update([
+                'estado' => 'habilitado',
+                'idFicha' => intval($idFicha),
+                'idTrimestre' => intval($idTrimestre),
+            ]);
+
+            $asignaciones = [];
+            $horasAntesInstructores = [];
+            $horasAntesAmbientes = [];
+            $horasAntesFicha = null;
+
+            foreach ($globalStoreBoxes as $box) {
+                // Realiza las mismas operaciones que en el controlador store...
+            }
+            
+            // Insertar las nuevas asignaciones
+            Asignacion::insert($asignaciones); 
+
+            return response()->json([
+                'status' => 1,
+                'message' => 'Horario Académico Actualizado ¡Exitosamente!'
+            ], Response::HTTP_OK); //200
+
+        } catch (\Exception $e) {
+
+            //Cancelar
+            DB::rollBack();
+            return response()->json([
+                'error' => "Register Schedule Error: " . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
     public function scheduleEnableRecords()
     {
         try {
@@ -465,49 +535,48 @@ class ScheduleController extends Controller
         }
     }
 
-  public function EnableSchedulesInstructors()
-  { 
-    try {
-        $asign = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
-        ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
-        ->join('trimestres', 'trimestres.idTrimestre', '=', 'horarios_academicos.idTrimestre')
-        ->select(
-            'usuarios.nombreCompleto',
-            'usuarios.idUsuario',
-            'horarios_academicos.idHorario',
-            'trimestres.trimestre'
-        )
-            ->distinct()
-            ->get();
+    public function EnableSchedulesInstructors()
+    {
+        try {
+            $asign = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
+                ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
+                ->join('trimestres', 'trimestres.idTrimestre', '=', 'horarios_academicos.idTrimestre')
+                ->select(
+                    'usuarios.nombreCompleto',
+                    'usuarios.idUsuario',
+                    'horarios_academicos.idHorario',
+                    'trimestres.trimestre'
+                )
+                ->distinct()
+                ->get();
 
-        return response()->json($asign, Response::HTTP_OK);
-    } catch (\Exception $e) {
-        return response()->json([
-            'error' => 'Error Getting Schedule: ' . $e->getMessage()
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json($asign, Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Error Getting Schedule: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
-  }
 
-  public function scheduleEnableEnvironments()
+    public function scheduleEnableEnvironments()
     {
         try {
             $ambiente =  HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
-            ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
-            ->select(
-                'ambientes.idAmbiente',
-                'ambientes.ambiente',
-                'horarios_academicos.idHorario'
-            )
-            ->where('ambientes.estado', 'habilitado')
-            ->distinct()
-            ->get();
-    
+                ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
+                ->select(
+                    'ambientes.idAmbiente',
+                    'ambientes.ambiente',
+                    'horarios_academicos.idHorario'
+                )
+                ->where('ambientes.estado', 'habilitado')
+                ->distinct()
+                ->get();
+
             return response()->json($ambiente, Response::HTTP_OK);
         } catch (\Exception $e) {
-        return response()->json([
-            'error' => 'Error Getting Schedule: ' . $e->getMessage()
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json([
+                'error' => 'Error Getting Schedule: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
-    }
-
 }

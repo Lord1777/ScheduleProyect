@@ -10,8 +10,6 @@ export const SeeSchedule = () => {
 
     const { dataSchedule, loading } = useFetchGetScheduleRecord('/getScheduleApprentice', idFicha);
 
-    console.log(dataSchedule);
-
     function initialsName(nombreCompleto) {
         const words = nombreCompleto.split(' ');
         const initials = words.map((word) => word.charAt(0).toUpperCase());

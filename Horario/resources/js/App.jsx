@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ProtectedRoute from './components/utils/ProtectedRoute.jsx';
+import useSessionControl from "./hooks/useSessionControl.js";
+import "../css/App.css";
 import { Login } from './pages/Login';
 import { ControlPanel } from './pages/ControlPanel';
 import { ConsultAprenttice } from './pages/ConsultAprenttice';
@@ -21,7 +24,6 @@ import { SeeScheduleAmbiente } from './pages/SeeScheduleAmbiente.jsx';
 import { AddSchedule } from './pages/Add/AddSchedule.jsx';
 import { DetailsInstructor } from '../js/pages/Details/DetailsInstructor.jsx'
 import { UpdateEnvironments } from './pages/Update/UpdateEnvironments.jsx';
-import ProtectedRoute from './components/utils/ProtectedRoute.jsx';
 import { AddProgram } from './pages/Add/AddProgram.jsx';
 import { DetailsAmbiente } from '../js/pages/Details/DetailsAmbiente.jsx'
 import { DetailsFicha } from '../js/pages/Details/DetailsFicha.jsx'
@@ -34,15 +36,17 @@ import { UpdateQuaters } from '../js/pages/Update/UpdateQuaters';
 import { useUser } from './context/UserContext.jsx';
 import { CrudPrograms } from './pages/CRUD/CrudPrograms.jsx';
 import { UpdateProgram } from './pages/Update/UpdateProgram.jsx';
-import useSessionControl from "./hooks/useSessionControl.js";
 import { WatchSchedulesInstructor } from './pages/WatchSchedulesInstructor.jsx';
 import { WatchScheduleAmbiente } from './pages/WatchScheduleAmbiente.jsx';
 import { HorariosPanel } from './pages/HorariosPanel.jsx';
 import { CardHorarios } from './components/Cards/CardHorarios.jsx';
 import { Password } from './pages/Password.jsx';
-import "../css/App.css";
+import { ScheduleUpdateInstructor } from './components/Schedule/ScheduleUpdateInstructor.jsx';
+import { ScheduleUpdateFicha } from './components/Schedule/ScheduleUpdateFicha.jsx';
+
 
 function App() {
+
 
     useSessionControl();
 
@@ -68,6 +72,8 @@ function App() {
                     <Route path='/403-forbidden' element={<Forbidden />} />
                     <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />
                     <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
+                    <Route path='/UpdateHorarioInstructor/:idUsuario' element={<ScheduleUpdateInstructor/>} />
+                    <Route path='/ScheduleUpdateFicha/:idFicha' element={<ScheduleUpdateFicha/>} />
                     <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
                     <Route path='/AddHorario/:id' element={<AddSchedule />} />
                     <Route path='/UpdatePrograma/:id' element={<UpdateProgram/>}/>

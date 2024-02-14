@@ -5,7 +5,6 @@ import useModalAsignar from '../../hooks/useModalAsignar';
 import useDropdownGet from '../../hooks/useDropdownGet';
 import { useForm } from 'react-hook-form';
 import useValidationForm from '../../hooks/useValidationForm';
-import { useFetchPostSchedule } from '../../hooks/FetchPOST/useFetchPostSchedule';
 import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
 import { useParams } from 'react-router-dom';
 import useDropdown from '../../hooks/useDropdown';
@@ -14,8 +13,11 @@ import { ContinuoModal } from '../Modals/ContinuoModal'
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
 import { initialsName } from '../../hooks/useObjectFunction';
+import { useFetchGetScheduleInstructor } from '../../hooks/FetchSchedule/useFetchGetScheduleInstructor';
+import useFetchGetScheduleRecord from '../../hooks/FetchSchedule/useFetchGetScheduleRecord';
+import { useFetchPutScheduleRecord } from '../../hooks/FetchPUT/useFetchPutScheduleRecord';
 
-export const ScheduleAdd = () => {
+export const ScheduleUpdateFicha = () => {
 
     const { selectedBoxes, handleBoxClick, resetSelectedBoxes } = useSelectedBoxes();
     const { isModal, openModal, closeModal, asignaciones, setAsignaciones } = useModalAsignar();
@@ -23,17 +25,24 @@ export const ScheduleAdd = () => {
     const { register, setValue, handleSubmit } = useForm();
     const { isDropdown, selectedOption, handleDropdown, handleOptionClick } = useDropdown(setValue, "trimestre");
 
-    const { fetchSubmitSchedule, duplicatesBox, setDuplicatesBox, modalOpen, setModalOpen, alertMessage, succesfullyModal, setSuccesfullyModal } = useFetchPostSchedule('/createSchedule');
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
-
-    const { id } = useParams();
 
     // Almacena todos los índices, id-instructor, id-ambiente asignados,
     const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
+    const { idFicha } = useParams();
+    const idTrimestre = 1;
+    const { dataSchedule } = useFetchGetScheduleRecord('/getScheduleApprentice', idFicha);
+
+    // console.log('boxes: ', globalStoreBoxes);
+    console.log('data: ', dataSchedule);
+    // console.log('asignaciones: ', asignaciones)
+
+    const { fetchUpdateScheduleRecord, duplicatesBox, setDuplicatesBox } = useFetchPutScheduleRecord('/updateScheduleRecord');
 
     // Inicializa el registro de horas asignadas por día para cada instructor
     const [horasAsignadasPorDia, setHorasAsignadasPorDia] = useState({})
     const diaSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+
 
     //Funcion que retorna el id del trimestre
     const getQuarterId = (dataTrimestre) => {
@@ -41,10 +50,17 @@ export const ScheduleAdd = () => {
         return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
     };
 
+
     // Función para des-asignar un instructor y ambiente al hacer clic en una casilla asignada
     const handleAssignedBoxClick = (boxIndex) => {
         setGlobalStoreBoxes(prevStoreBoxes => {
-            const newStoreBoxes = prevStoreBoxes.filter(box => box.boxIndex !== boxIndex);
+            const newStoreBoxes = new Set(prevStoreBoxes);
+            for (const item of newStoreBoxes) {
+                if (item.boxIndex === boxIndex) {
+                    newStoreBoxes.delete(item);
+                    break; // Una vez eliminado, salimos del bucle
+                }
+            }
             return newStoreBoxes;
         });
 
@@ -57,7 +73,7 @@ export const ScheduleAdd = () => {
 
     const onSubmit = async (data) => {
 
-        if (globalStoreBoxes.length > 0) {
+        if (globalStoreBoxes.length > 0 || globalStoreBoxes.size) {
 
             // Actualiza el registro de horas asignadas por día
             const newHorasAsignadasPorDia = { ...horasAsignadasPorDia };
@@ -81,15 +97,44 @@ export const ScheduleAdd = () => {
                 return alert(`Se ha detectado que un instructor ha superado el límite diario de 10 horas en al menos uno de los días.`);
             }
 
-            await fetchSubmitSchedule({
+            await fetchUpdateScheduleRecord({
                 idTrimestre: getQuarterId(data.trimestre),
-                idFicha: id,
+                idFicha: idFicha,
                 globalStoreBoxes
             })
         }
     }
 
     useEffect(() => {
+
+        if (dataSchedule && dataSchedule.length > 0 && globalStoreBoxes.size === 0) {
+
+            //Inicializar globalStoreBoxes cuando existan los datos suministrados
+            const newData = new Set(dataSchedule.map(item => ({
+                idInstructor: item.idUsuario,
+                instructor: item.nombreCompleto,
+                idAmbiente: item.idAmbiente,
+                ambiente: item.ambiente,
+                boxIndex: item.boxIndex,
+            })));
+            setGlobalStoreBoxes(newData);
+
+
+            //Inicializar asignaciones cuando existan los datos suministrados
+            const newAsignaciones = {};
+            dataSchedule.forEach(item => {
+                newAsignaciones[item.boxIndex] = {
+                    idInstructor: item.idUsuario,
+                    ambiente: item.ambiente,
+                    instructor: item.nombreCompleto,
+                };
+            });
+
+            setAsignaciones(newAsignaciones);
+        }
+
+
+
         // Inicializa las horas asignadas a 0 para cada día de la semana para cada instructor
         const initialHorasPorDia = {};
 
@@ -104,6 +149,7 @@ export const ScheduleAdd = () => {
         setHorasAsignadasPorDia(initialHorasPorDia);
 
 
+
         if (duplicatesBox.length > 0 || duplicatesBox.size > 0) {
 
             const timer = setTimeout(() => {
@@ -113,7 +159,7 @@ export const ScheduleAdd = () => {
             // Limpieza del temporizador cuando el componente se desmonta o cuando duplicatesBox cambia nuevamente
             return () => clearTimeout(timer);
         }
-    }, [duplicatesBox, globalStoreBoxes]);
+    }, [duplicatesBox, globalStoreBoxes, dataSchedule]);
 
     return (
         <>
@@ -163,13 +209,15 @@ export const ScheduleAdd = () => {
                                 //Evita renderizar un objeto como un hijo directo de react
                                 //Si se rederiza(utiliza) directamente boxIndex, genera un error
                                 const boxData = asignaciones[boxIndex];
-
+                                const globalBoxData = [...globalStoreBoxes].find(box => box.boxIndex === boxIndex);
+                                // // Busca la información específica para este índice en la solicitud del backend
+                                // const infoSchedule = dataSchedule && Array.isArray(dataSchedule) ? dataSchedule.find((data) => data.boxIndex === boxIndex) : false;
                                 return (
                                     <div
                                         key={colIndex}
                                         className={
                                             `box ${selectedBoxes.has(rowIndex * 6 + colIndex) ? 'selected' : ''}
-                                            ${duplicatesBox && duplicatesBox.some(item => item.boxIndex === rowIndex * 6 + colIndex) ? 'duplicate-box' : ''}
+                                             ${duplicatesBox && duplicatesBox.some(item => item.boxIndex === rowIndex * 6 + colIndex) ? 'duplicate-box' : ''}
                                             `}
                                         onClick={() => {
                                             if (boxData) {
@@ -179,12 +227,17 @@ export const ScheduleAdd = () => {
                                             }
                                         }}
                                     >
-                                        {boxData && (
+                                        {globalBoxData ? (
+                                            <>
+                                                <span>{initialsName(globalBoxData.instructor)}</span>
+                                                <span>{globalBoxData.ambiente}</span>
+                                            </>
+                                        ) : boxData ? (
                                             <>
                                                 <span>{initialsName(boxData.instructor)}</span>
                                                 <span>{boxData.ambiente}</span>
                                             </>
-                                        )}
+                                        ) : null}
                                         {/* {console.log(`Box at index ${boxIndex} has classes: ${'box'} ${selectedBoxes.has(boxIndex) ? 'selected' : ''} ${duplicateSelectedBoxes.has(boxIndex) ? 'duplicate-box' : ''}`)} */}
                                     </div>
                                 );
@@ -214,21 +267,6 @@ export const ScheduleAdd = () => {
                 resetSelectedBoxes={resetSelectedBoxes}
                 storeBoxes={globalStoreBoxes}
                 setStoreBoxes={setGlobalStoreBoxes}
-            />
-            <ContinuoModal
-                tittle="Error"
-                imagen={error}
-                message={alertMessage}
-                open={modalOpen}
-                close={() => setModalOpen(false)}
-            />
-            <ContinuoModal
-                tittle="¡Exito!"
-                imagen={exito}
-                message={alertMessage}
-                open={succesfullyModal}
-                close={() => setSuccesfullyModal(false)}
-                route="/CrudFichas"
             />
         </>
     );

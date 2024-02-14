@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../../css/InformationBar/InformationBarAprenttice.css'
 import useFetchGetInfoBarRecord from '../../hooks/FetchSchedule/useFetchGetInfoBarRecord'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useUser } from '../../context/UserContext';
 import FilterScheduleFichaContext from '../../context/FilterScheduleFichaContext';
 
@@ -13,9 +13,8 @@ export const InformationBarAprenttice = () => {
 
     const { user } = useUser();
 
-    console.log(user);
+    const rol = localStorage.getItem('role');
 
-    
 
   return (
     <>
@@ -26,6 +25,16 @@ export const InformationBarAprenttice = () => {
                 </div>
                 <div>
                     <p><b>Ficha:</b> {dataInfoRecord.ficha}</p>
+                    {
+                            rol ? 
+                            (
+                                <Link to={`/ScheduleUpdateFicha/${idFicha}`} >
+                                    <button>Editar</button>
+                                </Link>
+                            )
+                                :
+                            ''
+                        }
                 </div>
             </div>
             <div className="trimestre-jornada-horas">

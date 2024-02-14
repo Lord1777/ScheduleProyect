@@ -6,6 +6,7 @@ import { useFetchGetRecords } from '../../hooks/FetchGetResources/useFetchGetRec
 import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
 import { useUser } from '../../context/UserContext';
 import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
+import { Link, useParams } from 'react-router-dom';
 
 export const InformationBarInstructor = () => {
 
@@ -13,12 +14,15 @@ export const InformationBarInstructor = () => {
     const dropdown2 = useDropdownGet();
     const trimestreDropdown = useTrimestreDropdown();
 
+    const { idUsuario } = useParams();
+
     const { user } = useUser();
-    console.log(user);
     const { setIdTrimestreValue, setIdFichaValue } = useContext(FilterScheduleInstructorContext);
 
     const { dataRecords } = useFetchGetRecords('/getRecords');
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
+
+    const rol = localStorage.getItem('role');
 
     const getRecordId = (nombreRecord) => {
         const record = dataRecords.find((record) => `${record.ficha} - ${record.nombre}` === nombreRecord);
@@ -37,7 +41,7 @@ export const InformationBarInstructor = () => {
         setIdTrimestreValue(getQuarterId(selectedOption));
     }
 
-    const handleOptionClickFicha = (selectedOption) =>{
+    const handleOptionClickFicha = (selectedOption) => {
         setIdFichaValue(getRecordId(selectedOption));
     }
 
@@ -109,6 +113,17 @@ export const InformationBarInstructor = () => {
 
                     <div>
                         <h3>Total de Horas: {user ? user.userData.horasAsignadas : ''}</h3>
+                        {
+                            rol ? 
+                            (
+                                <Link to={`/UpdateHorarioInstructor/${idUsuario}`} >
+                                    <button>Editar</button>
+                                </Link>
+                            )
+                                :
+                            ''
+                        }
+
                     </div>
                 </div>
                 <div className='check_filter'>

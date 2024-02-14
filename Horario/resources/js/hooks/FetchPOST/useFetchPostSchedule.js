@@ -15,7 +15,6 @@ export const useFetchPostSchedule = (route) => {
 
 
     const fetchSubmitSchedule = async({ idTrimestre, idFicha, globalStoreBoxes}) =>{
-        console.log(idTrimestre, idFicha, globalStoreBoxes);
         try {
             const response = await fetch(`${API_URL}${route}`, {
                 method: "POST",

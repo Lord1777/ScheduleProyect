@@ -100,7 +100,6 @@ export const FormUpdateTrimestre = () => {
                                         placeholder='N° Trimestre'
                                         value={trimestre}
                                         {...register("N_TRIMESTRE", N_TRIMESTRE)}
-                                        readOnly
                                     />
                                     {errors.trimestre && <p className='errors_forms'>{errors.N_TRIMESTRE.message}</p>}
                                 </div>
@@ -126,9 +125,7 @@ export const FormUpdateTrimestre = () => {
                                                             setFechaIni(date);
                                                             field.onChange(date);
                                                         }}
-                                                        className="custom-datepicker"
                                                     />
-                                                    <FontAwesomeIcon icon={faCalendar} className='icon-calendar' />
                                                 </>
                                             )}
                                         />
@@ -156,9 +153,7 @@ export const FormUpdateTrimestre = () => {
                                                             setFechaFin(date);
                                                             field.onChange(date);
                                                         }}
-                                                        className="custom-datepicker"
                                                     />
-                                                    <FontAwesomeIcon icon={faCalendar} className='icon-calendar' />
                                                 </>
                                             )}
                                         />

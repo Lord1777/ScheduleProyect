@@ -5,12 +5,13 @@ import { useFetchPutEnvironment } from "../../hooks/FetchPUT/useFetchPutEnvironm
 import { Loading } from "../Loading/Loading";
 import { useForm } from "react-hook-form";
 import { ContinuoModal } from "../Modals/ContinuoModal";
+import { getYesOrNotByNumber } from "../../hooks/useObjectMapping";
 import useDropdown from "../../hooks/useDropdown";
 import useValidationForm from "../../hooks/useValidationForm";
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
 import '../../../css/Form/FormAddAmbiente.css'
-import { getYesOrNotByNumber } from "../../hooks/useObjectMapping";
+
 
 export const FormUpdateAmbiente = () => {
 

@@ -15,17 +15,17 @@ class QuartersController extends Controller
 {
     public function getQuarters()
     {
-        try{
+        try {
             $quarter = Trimestre::where('estado', 'habilitado')
-            ->orderBy('fechaInicio', 'asc')
-            ->get();
+                ->orderBy('fechaInicio', 'asc')
+                ->get();
             return response()->json($quarter, Response::HTTP_OK); //200
         } catch (\Exception $e) {
             return response()->json(['error' => "Request quarters error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
 
-    
+
     public function indexEnabled(Request $request)
     {
         try {
@@ -36,7 +36,7 @@ class QuartersController extends Controller
                     $query->where('trimestres.fechaInicio', 'like', '%' . $search . '%');
                 })
                 ->paginate(15);
-    
+
             return response()->json($quarter, Response::HTTP_OK); // 200
         } catch (\Exception $e) {
             return response()->json(['error' => "Request quarters error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); // 500
@@ -49,11 +49,11 @@ class QuartersController extends Controller
         try {
             $search = $request->input('search', '');  // Obtener el parámetro de búsqueda desde la solicitud
             $quarter = Trimestre::where('estado', 'inhabilitado')
-            ->where(function ($query) use ($search) {
-                // Lógica de búsqueda 
-                $query->where('trimestres.fechaInicio', 'like', '%' . $search . '%');
-            })
-            ->paginate(15);
+                ->where(function ($query) use ($search) {
+                    // Lógica de búsqueda 
+                    $query->where('trimestres.fechaInicio', 'like', '%' . $search . '%');
+                })
+                ->paginate(15);
             return response()->json($quarter, Response::HTTP_OK); //200
         } catch (\Exception $e) {
             return response()->json(['error' => "Request quarters error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
@@ -80,16 +80,10 @@ class QuartersController extends Controller
     }
 
     public function show(string $idTrimestre)
-    {   
+    {
         try {
-            $quarter = Trimestre::select(
-                                    'trimestres.*',
-                                    'trimestres.idTrimestre',
-                                    'trimestres.fechaInicio',
-                                    'trimestres.fechaFinal',
-                                )
-                                ->findOrFail($idTrimestre);
-    
+            $quarter = Trimestre::findOrFail($idTrimestre);
+
             return response()->json($quarter, Response::HTTP_OK);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
@@ -110,14 +104,14 @@ class QuartersController extends Controller
             'fechaFinal' => 'required',
             'trimestre' => 'required|numeric'
         ]);
-    
+
         if ($validator->fails()) {
             return response()->json([
                 'status' => 0,
                 'errors' => 'Invalid date format or missing dates in the request.'
             ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
         }
-    
+
         try {
             $quarter = Trimestre::findOrFail($idTrimestre);
 
@@ -130,18 +124,18 @@ class QuartersController extends Controller
                 'fechaInicio' => strval($fechaInicio),
                 'fechaFinal' => strval($fechaFinal),
             ]);
-    
+
             return response()->json([
                 'status' => 1,
                 'message' => 'Quarter Successfully Updated',
             ], Response::HTTP_OK); //200
-    
+
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
                 'status' => 0,
                 'error' => 'Quarter Not Found'
             ], Response::HTTP_NOT_FOUND); //404
-    
+
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 0,

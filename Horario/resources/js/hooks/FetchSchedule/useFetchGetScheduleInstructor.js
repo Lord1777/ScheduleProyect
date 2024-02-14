@@ -27,7 +27,6 @@ export const useFetchGetScheduleInstructor = (route, idUsuario, idTrimestre, idF
                     setDataSchedule(result);
 
                 } else if (response.status === 404  || result.length === 0) {
-                    alert(result.error);
                     setAlertMessage(result.error)
                     setModalOpen(true);
                 }

@@ -70,10 +70,10 @@ function App() {
                     <Route path='/RecuperarContraseña' element={<Password />} />
                     <Route path='/ConsultaAprendiz' element={<ConsultAprenttice />} />
                     <Route path='/403-forbidden' element={<Forbidden />} />
-                    <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />
+                    <Route path='/HorarioAprendiz/:idFicha/:idHorario' element={<ScheduleAprenttice />} />
                     <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
                     <Route path='/UpdateHorarioInstructor/:idUsuario' element={<ScheduleUpdateInstructor/>} />
-                    <Route path='/ScheduleUpdateFicha/:idFicha' element={<ScheduleUpdateFicha/>} />
+                    <Route path='/ScheduleUpdateFicha/:idFicha/:idHorario/:idTrimestre' element={<ScheduleUpdateFicha/>} />
                     <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
                     <Route path='/AddHorario/:id' element={<AddSchedule />} />
                     <Route path='/UpdatePrograma/:id' element={<UpdateProgram/>}/>

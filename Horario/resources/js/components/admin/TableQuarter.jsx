@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faPenToSquare, faCircle, faUserCheck, faUserSlash } from '@fortawesome/free-solid-svg-icons';
-import '../../../css/admin/TableInstructors.css';
-import '../../../css/admin/SearchButtons.css'
-import '../../../css/admin/Board.css'
-import useFetchGetQuarter from '../../hooks/FetchGET/useFetchGetQuarter';
-import { useFetchPutQuarter } from '../../hooks/FetchPUT/useFetchPutQuarter';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { Loading } from '../Loading/Loading';
 import { useFetchPutManageQuarter } from '../../hooks/FetchPUT/useFetchPutManageQuarter';
+import useFetchGetQuarter from '../../hooks/FetchGET/useFetchGetQuarter';
+import '../../../css/admin/TableInstructors.css';
+import '../../../css/admin/SearchButtons.css'
+import '../../../css/admin/Board.css'
 
 
 export const TableQuarter = () => {
-
+    
     const [disabled, setDisabled] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [fecha, setFecha] = useState("")

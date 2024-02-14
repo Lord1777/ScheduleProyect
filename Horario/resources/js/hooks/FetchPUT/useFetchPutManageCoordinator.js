@@ -1,4 +1,3 @@
-import React from 'react';
 import { API_URL, csrf_token } from '../../const/api';
 
 export const useFetchPutManageCoordinator = () => {
@@ -9,7 +8,7 @@ export const useFetchPutManageCoordinator = () => {
 
         try {
             const response = await fetch(`${API_URL}${route}/${idUsuario}`, {
-                method: "PUT" ,
+                method: "PUT",
                 headers: { 
                     'Content-Type': 'application/json',
                     'Cookie': csrf_token,

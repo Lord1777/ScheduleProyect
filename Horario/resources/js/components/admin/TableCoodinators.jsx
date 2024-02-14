@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faUserCheck, faUserPen, faUserSlash } from '@fortawesome/free-solid-svg-icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+import { Loading } from '../Loading/Loading';
+import { useFetchPutManageCoordinator } from '../../hooks/FetchPUT/useFetchPutManageCoordinator';
+import useFetchGetCoordinator from "../../hooks/FetchGET/useFetchGetCoordinator";
 import '../../../css/admin/TableInstructors.css';
 import '../../../css/admin/SearchButtons.css'
 import '../../../css/admin/Board.css'
-import useFetchGetCoordinator from "../../hooks/FetchGET/useFetchGetCoordinator";
-import { Link } from 'react-router-dom';
-import { useFetchPutCoordinator } from '../../hooks/FetchPUT/useFetchPutCoordinator';
-import { Loading } from '../Loading/Loading';
-import { useFetchPutManageCoordinator } from '../../hooks/FetchPUT/useFetchPutManageCoordinator';
 
 
 export const TableCoodinators = () => {

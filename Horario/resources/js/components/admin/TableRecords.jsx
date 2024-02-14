@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faPenToSquare, faCircle, faUserCheck, faUserSlash } from '@fortawesome/free-solid-svg-icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import { Loading } from '../Loading/Loading';
+import { useFetchPutManageRecord } from '../../hooks/FetchPUT/useFetchPutManageRecord';
+import useFetchGetRecord from '../../hooks/FetchGET/useFetchGetRecord';
 import '../../../css/admin/Board.css';
 import '../../../css/admin/SearchButtons.css';
 import '../../../css/admin/TableInstructors.css';
-import useFetchGetRecord from '../../hooks/FetchGET/useFetchGetRecord';
-import { Loading } from '../Loading/Loading';
-import { useFetchPutManageRecord } from '../../hooks/FetchPUT/useFetchPutManageRecord';
 
 export const TableRecords = () => {
-
+    
     const [disabled, setDisabled] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [Ficha, setFicha] = useState("");
@@ -29,7 +29,7 @@ export const TableRecords = () => {
         await fetchManageRecord(`/enableRecord`, idFicha);
         fetchData();
     }
-    const disableRecord = async(idFicha) => {
+    const disableRecord = async (idFicha) => {
         await fetchManageRecord(`/disableRecord`, idFicha);
         fetchData();
     }
@@ -119,18 +119,20 @@ export const TableRecords = () => {
                                         </Link>
                                     </td>
                                     {disabled ? (
-                                        <td key={`habilitar-${record.id}`}>
-                                            <button>
+                                        <td>
+                                            <button onClick={() => enableRecord(record.idFicha)}>
                                                 <span className="material-symbols-outlined iconHabilitar" id='iconCrud'>
                                                     check_circle
                                                 </span>
                                             </button>
                                         </td>
                                     ) : (
-                                        <td key={`inhabilitar-${record.id}`}>
-                                            <span className="material-symbols-outlined iconInhabilitar" id='iconCrud'>
+                                        <td>
+                                            <button onClick={() => disableRecord(record.idFicha)}>
+                                                <span className="material-symbols-outlined iconInhabilitar" id='iconCrud'>
                                                 cancel
                                             </span>
+                                            </button>
                                         </td>
 
                                     )}

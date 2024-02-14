@@ -93,8 +93,6 @@ export const TableInstructors = () => {
                             <th>Estado</th>
                             <th>Editar</th>
                             {disabled ? <th>Habilitar</th> : <th>Inhabilitar</th>}
-
-
                         </tr>
                     </thead>
                     <tbody>

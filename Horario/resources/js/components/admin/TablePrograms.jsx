@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faUserCheck, faUserPen, faUserSlash } from '@fortawesome/free-solid-svg-icons';
-import useFetchGetProgram from '../../hooks/FetchGET/useFetchGetProgram'
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Loading } from '../Loading/Loading';
 import { Link } from 'react-router-dom';
 import { useFetchPutManageProgram } from '../../hooks/FetchPUT/useFetchPutManageProgram';
+import useFetchGetProgram from '../../hooks/FetchGET/useFetchGetProgram'
+
 
 export const TablePrograms = () => {
-
+    
+    const [disableLoading, setDisableLoading] = useState(false);
     const [disabled, setDisabled] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [programa, setPrograma] = useState("");
@@ -112,7 +114,7 @@ export const TablePrograms = () => {
                                     </td>
                                     {disabled ? (
                                         <td>
-                                            <button onClick={() => enablePrograma(program.idPrograma)}>
+                                            <button onClick={() => enableProgram(program.idPrograma)}>
                                                 <span class="material-symbols-outlined iconHabilitar" id='iconCrud'>
                                                     check_circle
                                                 </span>
@@ -120,7 +122,7 @@ export const TablePrograms = () => {
                                         </td>
                                     ) : (
                                         <td>
-                                            <button onClick={() => disablePrograma(program.idPrograma)}>
+                                            <button onClick={() => disableProgram(program.idPrograma)}>
                                                 <span class="material-symbols-outlined iconInhabilitar" id='iconCrud'>
                                                     cancel
                                                 </span>

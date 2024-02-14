@@ -15,7 +15,7 @@ export const TableInstructors = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [Instructor, setInstructor] = useState('');
 
-    const { dataInstructor, fetchData, loading } = useFetchGetInstructor(
+    const { dataInstructor, fetchData, loading, setLoading } = useFetchGetInstructor(
         disabled ? '/getDisableInstructors' : '/getEnabledInstructors',
         currentPage,
         Instructor
@@ -25,13 +25,17 @@ export const TableInstructors = () => {
     let totalPage = dataInstructor.last_page;
 
     const enableInstructor = async(idUsuario) => {
+        setLoading(true);
         await fetchManageInstructor('/enableInstructor', idUsuario);
-        fetchData();
+        await fetchData();
+        setLoading(false);
     }
 
     const disableInstructor = async(idUsuario) => {
+        setLoading(true);
         await fetchManageInstructor('/disableInstructor', idUsuario);
-        fetchData();
+        await fetchData();
+        setLoading(false);
     }
 
     /*Buscador*/

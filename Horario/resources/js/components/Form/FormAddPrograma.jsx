@@ -15,7 +15,14 @@ export const FormAddPrograma = () => {
     const dropdown1 = useDropdown(setValue, 'nivelDeFormacion');
     const { DURACION, PROGRAMA, NIVEL_FORMACION } = useValidationForm();
 
-    const { fetchSubmitProgram, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, } = useFetchPostProgram('/createProgram');
+    const { 
+        fetchSubmitProgram, 
+        successModalOpen, 
+        errorModalOpen, 
+        closeSuccessModal, 
+        closeErrorModal, 
+        alertMessage, 
+        ruta } = useFetchPostProgram('/createProgram');
 
     const onSubmit = async (data) => {
 
@@ -90,10 +97,10 @@ export const FormAddPrograma = () => {
             <ContinuoModal
                 tittle="¡Error!"
                 imagen={error}
-                message="Ocurrió un error al guardar los datos. Por favor, inténtalo de nuevo."
+                message={alertMessage}
                 open={errorModalOpen}
                 close={closeErrorModal}
-                route="/CrudProgramas"
+                route={ruta}
             />
             <ContinuoModal
                 tittle="¡Exito!"

@@ -15,7 +15,14 @@ function FormAddTrimestre() {
     const { control, register, handleSubmit, setValue, formState: { errors } } = useForm();
     const { N_TRIMESTRE, FECHA_INI, FECHA_FIN } = useValidationForm();
 
-    const { fetchSubmitQuarter, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, } = useFetchPostQuarter('/createQuarters');
+    const { 
+        fetchSubmitQuarter, 
+        successModalOpen, 
+        errorModalOpen, 
+        closeSuccessModal, 
+        closeErrorModal, 
+        alertMessage, 
+        ruta } = useFetchPostQuarter('/createQuarters');
 
     const onSubmit = async (data) => {
         console.log(data);
@@ -112,10 +119,10 @@ function FormAddTrimestre() {
             <ContinuoModal
                 tittle="¡Error!"
                 imagen={error}
-                message="Ocurrió un error al guardar los datos. Por favor, inténtalo de nuevo."
+                message={alertMessage}
                 open={errorModalOpen}
                 close={closeErrorModal}
-                route="/CrudInstructor"
+                route={ruta}
             />
             <ContinuoModal
                 tittle="¡Exito!"

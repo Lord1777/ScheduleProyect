@@ -17,7 +17,7 @@ export const TableCoodinators = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [coordinador, setCoordinador] = useState('');
 
-    const { dataCoordinator, fetchData, loading } = useFetchGetCoordinator(
+    const { dataCoordinator, fetchData, loading, setLoading } = useFetchGetCoordinator(
         disabled ? '/getDisableCoordinators' : '/getEnabledCoordinators',
         currentPage,
         coordinador
@@ -28,13 +28,17 @@ export const TableCoodinators = () => {
     let totalPage = dataCoordinator.last_page;
 
     const enableCoordinator = async(idUsuario) => {
+        setLoading(true);
         await fetchManageCoordinator('/enableCoordinator', idUsuario);
-        fetchData();
+        await fetchData();
+        setLoading(false);
     };
 
     const disableCoordinator = async(idUsuario) => {
+        setLoading(true);
         await fetchManageCoordinator('/disableCoordinator', idUsuario);
-        fetchData();
+        await fetchData();
+        setLoading(false);
     };
 
     const filteredCoordinators = dataCoordinator && dataCoordinator.data

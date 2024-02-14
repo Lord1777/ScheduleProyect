@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { API_URL, csrf_token } from '../../const/api';
 import useModal from '../useModal';
 import { getJornadaByName, getModalidadByName } from '../useObjectMapping';
@@ -8,6 +9,8 @@ export const useFetchPutRecord = (id) => {
     
     const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
     const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
+    const [alertMessage, setAlertMessage] = useState('');
+    const [ruta, setRuta] = useState('');
 
     const fetchPutRecord = async (ficha, modalidad, jornada) => {
 
@@ -40,8 +43,16 @@ export const useFetchPutRecord = (id) => {
                 const data = await response.json();
                 console.log(data.message);
                 openSuccessModal();
-            } else {
-                console.error(`Error updating record: ${response.statusText}`);
+            } 
+            else if (response.status === 422) {
+                const data = await response.json();
+                setAlertMessage(data.error)
+                openErrorModal();
+            }
+            else if (response.status === 500) {
+                const data = await response.json();
+                setAlertMessage(data.error)
+                setRuta('/CrudFichas')
                 openErrorModal();
             }
         } catch (error) {
@@ -56,5 +67,7 @@ export const useFetchPutRecord = (id) => {
         errorModalOpen,
         closeSuccessModal,
         closeErrorModal,
+        alertMessage,
+        ruta
     };
 };

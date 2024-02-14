@@ -17,7 +17,7 @@ export const TableEnvironments = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [ambiente, setAmbiente] = useState("")
 
-    const { dataEnvironment, fetchData, loading } = useFetchGetEnvironment(
+    const { dataEnvironment, fetchData, loading, setLoading } = useFetchGetEnvironment(
         disabled ? '/getDisableEnvironments' : '/getEnabledEnvironments',
         currentPage,
         ambiente
@@ -27,13 +27,17 @@ export const TableEnvironments = () => {
     let totalPage = dataEnvironment.last_page;
 
     const enableEnvironment = async (idAmbiente) => {
+        setLoading(true);
         await fetchManageEnvironment('/enableEnvironment', idAmbiente);
-        fetchData();
+        await fetchData();
+        setLoading(false);
     }
 
     const disableEnvironment = async (idAmbiente) => {
+        setLoading(true);
         await fetchManageEnvironment('/disableEnvironment', idAmbiente);
-        fetchData();
+        await fetchData();
+        setLoading(false);
     }
 
     /*Buscador*/

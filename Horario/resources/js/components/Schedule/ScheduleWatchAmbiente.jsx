@@ -51,6 +51,7 @@ export const ScheduleWatchAmbiente = () => {
                             <div className="text-car">
                                 <h2>Ambiente</h2>
                                 <span>{horario.ambiente}</span>
+                                <span>Trimestre {horario.trimestre}</span>
                             </div>
                         </div>
                     </Link>

@@ -24,7 +24,7 @@ export const FormUpdateAmbiente = () => {
     const dropdown2 = useDropdown(setValue, "videoBeam");
     const dropdown3 = useDropdown(setValue, "sede");
     const dropdown4 = useDropdown(setValue, "tablero");
-    const { fetchPutEnvironment, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal } = useFetchPutEnvironment(id);
+    const { fetchPutEnvironment, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, alertMessage, ruta } = useFetchPutEnvironment(id);
     const [ambiente, setAmbiente] = useState(null);
     const [capacidad, setCapacidad] = useState(null);
     const [mesas, setMesas] = useState(null);
@@ -91,12 +91,8 @@ export const FormUpdateAmbiente = () => {
         }
     }, [id, setValue]);
 
-
-    if (loading) {
-        return <Loading />
-    }
-
     const onSubmit = async (data) => {
+        setLoading(true);
         await fetchPutEnvironment(
             data.ambiente,
             data.cantidadMesas,
@@ -107,8 +103,12 @@ export const FormUpdateAmbiente = () => {
             data.videoBeam,
             data.sede
             );
-            console.log(data)
+        setLoading(false);
     };
+
+    if (loading) {
+        return <Loading />
+    }
 
     return (
         <>
@@ -402,10 +402,10 @@ export const FormUpdateAmbiente = () => {
             <ContinuoModal
                 tittle="Error en la Actualización"
                 imagen={error}
-                message="Ocurrió un error al actualizar los datos. Por favor, inténtalo de nuevo."
+                message={alertMessage}
                 open={errorModalOpen}
                 close={closeErrorModal}
-                route="/CrudAmbientes"
+                route={ruta}
             />
             <ContinuoModal
                 tittle="Actualización Exitosa"

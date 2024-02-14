@@ -510,14 +510,18 @@ class ScheduleController extends Controller
     public function scheduleEnableRecords()
     {
         try {
-            $records = HorarioAcademico::join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
-
+            $records = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
+                ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+                ->join('trimestres', 'trimestres.idTrimestre', '=', 'horarios_academicos.idTrimestre')
                 ->select(
                     'fichas.ficha',
                     'horarios_academicos.idHorario',
-                    'fichas.idFicha'
+                    'fichas.idFicha',
+                    'trimestres.trimestre',
+                    'trimestres.idTrimestre'
                 )
                 ->where('horarios_academicos.estado', 'habilitado')
+                ->distinct()
                 ->get();
 
             if ($records->isEmpty()) {
@@ -545,7 +549,8 @@ class ScheduleController extends Controller
                     'usuarios.nombreCompleto',
                     'usuarios.idUsuario',
                     'horarios_academicos.idHorario',
-                    'trimestres.trimestre'
+                    'trimestres.trimestre',
+                    'trimestres.idTrimestre'
                 )
                 ->distinct()
                 ->get();
@@ -563,10 +568,13 @@ class ScheduleController extends Controller
         try {
             $ambiente =  HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
                 ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
+                ->join('trimestres', 'trimestres.idTrimestre', '=', 'horarios_academicos.idTrimestre')
                 ->select(
                     'ambientes.idAmbiente',
                     'ambientes.ambiente',
-                    'horarios_academicos.idHorario'
+                    'horarios_academicos.idHorario',
+                    'trimestres.trimestre',
+                    'trimestres.idTrimestre'
                 )
                 ->where('ambientes.estado', 'habilitado')
                 ->distinct()

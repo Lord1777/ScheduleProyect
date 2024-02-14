@@ -12,7 +12,7 @@ export const TablePrograms = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [programa, setPrograma] = useState("");
 
-    const { dataProgram, loading, fetchData } = useFetchGetProgram(
+    const { dataProgram, loading, fetchData, setLoading } = useFetchGetProgram(
         disabled ? '/getDisableProgram' : '/getEnableProgram',
         currentPage,
         programa
@@ -23,13 +23,17 @@ export const TablePrograms = () => {
     let totalPage = dataProgram.last_page;
 
     const enableProgram = async(idPrograma) => {
+        setLoading(true);
         await fetchManageProgram('/enableProgram', idPrograma)
-        fetchData();
+        await fetchData();
+        setLoading(false);
     }
 
     const disableProgram = async(idPrograma) => {
+        setLoading(true);
         await fetchManageProgram('/disableProgram', idPrograma);
-        fetchData();
+        await fetchData();
+        setLoading(false);
     }
 
     const filteredPrograma = dataProgram && dataProgram.data
@@ -112,7 +116,7 @@ export const TablePrograms = () => {
                                     </td>
                                     {disabled ? (
                                         <td>
-                                            <button onClick={() => enablePrograma(program.idPrograma)}>
+                                            <button onClick={() => enableProgram(program.idPrograma)}>
                                                 <span class="material-symbols-outlined iconHabilitar" id='iconCrud'>
                                                     check_circle
                                                 </span>
@@ -120,7 +124,7 @@ export const TablePrograms = () => {
                                         </td>
                                     ) : (
                                         <td>
-                                            <button onClick={() => disablePrograma(program.idPrograma)}>
+                                            <button onClick={() => disableProgram(program.idPrograma)}>
                                                 <span class="material-symbols-outlined iconInhabilitar" id='iconCrud'>
                                                     cancel
                                                 </span>

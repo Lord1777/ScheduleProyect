@@ -37,6 +37,7 @@ const useFetchGetProgram = (route, page, search) => {
         dataProgram,
         fetchData: () => fetchDataRef.current(), // Ahora esto está fuera del efecto
         loading,
+        setLoading
     };
 };
 

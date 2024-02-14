@@ -76,9 +76,9 @@ class CoordinatorsController extends Controller
     public function update(Request $request, string $idUsuario)
     {
         $validator = Validator::make($request->all(), [
-            'nombreCompleto' => 'required',
+            'nombreCompleto' => 'required|unique:usuarios',
             'tipoDocumento' => 'required',
-            'documento' => 'required',
+            'documento' => 'required|unique:usuarios',
             'email' => 'required',
             'telefono' => 'required',
             'idContrato' => 'required|integer',
@@ -91,7 +91,7 @@ class CoordinatorsController extends Controller
         if($validator->fails()){
             return response()->json([
                 'status' => 0,
-                'errors' => $validator->errors()
+                'error' => 'El documento de identidad u el nombre del usuario ya se encuentra registrado.'
             ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
         }
 
@@ -124,8 +124,8 @@ class CoordinatorsController extends Controller
 
         } catch (\Exception $e) {
             return response()->json([
-                'status' => 0,
-                'error' => 'Error Updating Environment: ' . $e->getMessage()
+                'staus' => 0,
+                'error' => "Error a registrar la informacion, por favor intentelo mas tarde."
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }

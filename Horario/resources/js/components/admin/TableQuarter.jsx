@@ -17,7 +17,7 @@ export const TableQuarter = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [fecha, setFecha] = useState("")
 
-    const { dataQuarter, fetchData, loading } = useFetchGetQuarter(
+    const { dataQuarter, fetchData, loading, setLoading } = useFetchGetQuarter(
         disabled ? '/getDisableQuarters' : '/getEnabledQuarters',
         currentPage,
         fecha
@@ -28,12 +28,16 @@ export const TableQuarter = () => {
     const { fetchManageQuarter } = useFetchPutManageQuarter();
 
     const enableQuarter = async (idTrimestre) => {
+        setLoading(true);
         await fetchManageQuarter('/enableQuarter', idTrimestre);
-        fetchData();
+        await fetchData();
+        setLoading(false)
     }
     const disableQuarter = async (idTrimestre) => {
+        setLoading(true);
         await fetchManageQuarter('/disableQuarter', idTrimestre);
-        fetchData();
+        await fetchData();
+        setLoading(false);
     }
 
     /* Buscador */

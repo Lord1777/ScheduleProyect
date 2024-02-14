@@ -15,7 +15,7 @@ export const TableRecords = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [Ficha, setFicha] = useState("");
 
-    const { dataRecord, fetchData ,loading } = useFetchGetRecord(
+    const { dataRecord, fetchData, loading, setLoading } = useFetchGetRecord(
         disabled ? '/getDisableRecords' : '/getEnabledRecords',
         currentPage,
         Ficha
@@ -25,13 +25,17 @@ export const TableRecords = () => {
 
     const { fetchManageRecord } = useFetchPutManageRecord();
 
-    const enableRecord = async(idFicha) => {
+    const enableRecord = async (idFicha) => {
+        setLoading(true);
         await fetchManageRecord(`/enableRecord`, idFicha);
-        fetchData();
+        await fetchData();
+        setLoading(false);
     }
-    const disableRecord = async(idFicha) => {
+    const disableRecord = async (idFicha) => {
+        setLoading(true);
         await fetchManageRecord(`/disableRecord`, idFicha);
-        fetchData();
+        await fetchData();
+        setLoading(false);
     }
 
     /* Buscador */
@@ -119,18 +123,20 @@ export const TableRecords = () => {
                                         </Link>
                                     </td>
                                     {disabled ? (
-                                        <td key={`habilitar-${record.id}`}>
-                                            <button>
+                                        <td key={`habilitar-${record.idFicha}`}>
+                                            <button onClick={() => enableRecord(record.idFicha)}>
                                                 <span className="material-symbols-outlined iconHabilitar" id='iconCrud'>
                                                     check_circle
                                                 </span>
                                             </button>
                                         </td>
                                     ) : (
-                                        <td key={`inhabilitar-${record.id}`}>
-                                            <span className="material-symbols-outlined iconInhabilitar" id='iconCrud'>
-                                                cancel
-                                            </span>
+                                        <td key={`inhabilitar-${record.idFicha}`}>
+                                            <button onClick={() => disableRecord(record.idFicha)}>
+                                                <span className="material-symbols-outlined iconInhabilitar" id='iconCrud'>
+                                                    cancel
+                                                </span>
+                                            </button>
                                         </td>
 
                                     )}

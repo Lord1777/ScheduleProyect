@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { API_URL, csrf_token} from '../../const/api';
 import { getContratoByName, getSedeByName } from '../useObjectMapping';
 import useModal from '../useModal';
@@ -9,6 +9,8 @@ export const useFetchPutInstructor = (idUsuario) => {
 
     const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
     const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
+    const [alertMessage, setAlertMessage] = useState('');
+    const [ruta, setRuta] = useState('');
 
     const fetchPutInstructor = async (nombreCompleto, tipoDocumento, documento, email, telefono, tipoContrato, ciudad, profesion, experiencia, sede) => {
 
@@ -55,10 +57,15 @@ export const useFetchPutInstructor = (idUsuario) => {
                 console.log(data.message); // Mensaje definido en Laravel
                 openSuccessModal();
             }
-            else {
-                console.log(response.error)
-                const errorData = await response.json();
-                console.log(errorData); // Aquí puedes ver los detalles del error devueltos por Laravel
+            else if (response.status === 422) {
+                const data = await response.json();
+                setAlertMessage(data.error)
+                openErrorModal();
+            }
+            else if (response.status === 500) {
+                const data = await response.json();
+                setAlertMessage(data.error)
+                setRuta('/CrudInstructor')
                 openErrorModal();
             }
 
@@ -75,6 +82,8 @@ export const useFetchPutInstructor = (idUsuario) => {
             errorModalOpen,
             closeSuccessModal,
             closeErrorModal,
+            alertMessage,
+            ruta
         }
     )
 }

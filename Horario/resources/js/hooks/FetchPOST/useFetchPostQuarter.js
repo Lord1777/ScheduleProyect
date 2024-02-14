@@ -9,6 +9,8 @@ const useFetchPostQuarter = (route) => {
 
     const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
     const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
+    const [alertMessage, setAlertMessage] = useState('');
+    const [ ruta , setRuta] = useState('');
 
     const fetchSubmitQuarter = async (trimestre, fechaInicio, fechaFinal) => {
 
@@ -32,8 +34,16 @@ const useFetchPostQuarter = (route) => {
                 console.log(data.message); // Mensaje definido en Laravel
                 openSuccessModal();
             }
-            else{
+            else if(response.status === 422){
+                const data = await response.json();
+                setAlertMessage(data.error)
                 openErrorModal()
+            }
+            else if(response.status === 500){
+                const data = await response.json();
+                setAlertMessage(data.error)
+                setRuta('/CrudTrimestres')
+                openErrorModal();
             }
         } catch (err) {
             console.error(`Error Creating Quarter: ${err}`);
@@ -48,6 +58,8 @@ const useFetchPostQuarter = (route) => {
             errorModalOpen,
             closeSuccessModal,
             closeErrorModal,
+            alertMessage,
+            ruta
         }
     )
 }

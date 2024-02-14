@@ -113,17 +113,6 @@ export const InformationBarInstructor = () => {
 
                     <div>
                         <h3>Total de Horas: {user ? user.userData.horasAsignadas : ''}</h3>
-                        {
-                            rol ? 
-                            (
-                                <Link to={`/UpdateHorarioInstructor/${idUsuario}`} >
-                                    <button>Editar</button>
-                                </Link>
-                            )
-                                :
-                            ''
-                        }
-
                     </div>
                 </div>
                 <div className='check_filter'>

@@ -16,8 +16,12 @@ import { initialsName } from '../../hooks/useObjectFunction';
 import { useFetchGetScheduleInstructor } from '../../hooks/FetchSchedule/useFetchGetScheduleInstructor';
 import useFetchGetScheduleRecord from '../../hooks/FetchSchedule/useFetchGetScheduleRecord';
 import { useFetchPutScheduleRecord } from '../../hooks/FetchPUT/useFetchPutScheduleRecord';
+import { useFetchGetOneQuarter } from '../../hooks/FetchGET/useFetchGetOneQuarter';
+import { NavBar } from '../NavBar/NavBar';
 
 export const ScheduleUpdateFicha = () => {
+
+    const { idFicha, idHorario, idTrimestre } = useParams();
 
     const { selectedBoxes, handleBoxClick, resetSelectedBoxes } = useSelectedBoxes();
     const { isModal, openModal, closeModal, asignaciones, setAsignaciones } = useModalAsignar();
@@ -25,30 +29,22 @@ export const ScheduleUpdateFicha = () => {
     const { register, setValue, handleSubmit } = useForm();
     const { isDropdown, selectedOption, handleDropdown, handleOptionClick } = useDropdown(setValue, "trimestre");
 
-    const { dataQuarters } = useFetchGetQuarters('/getQuarters');
+    const { dataQuarter } = useFetchGetOneQuarter(`/GetTrimestre/${idTrimestre}`);
 
     // Almacena todos los índices, id-instructor, id-ambiente asignados,
     const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
-    const { idFicha } = useParams();
-    const idTrimestre = 1;
+
     const { dataSchedule } = useFetchGetScheduleRecord('/getScheduleApprentice', idFicha);
 
     // console.log('boxes: ', globalStoreBoxes);
-    console.log('data: ', dataSchedule);
+    //console.log('data: ', dataSchedule);
     // console.log('asignaciones: ', asignaciones)
 
-    const { fetchUpdateScheduleRecord, duplicatesBox, setDuplicatesBox } = useFetchPutScheduleRecord('/updateScheduleRecord');
+    const { fetchUpdateScheduleRecord, duplicatesBox, setDuplicatesBox } = useFetchPutScheduleRecord('/updateScheduleRecord', idHorario);
 
     // Inicializa el registro de horas asignadas por día para cada instructor
     const [horasAsignadasPorDia, setHorasAsignadasPorDia] = useState({})
     const diaSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-
-
-    //Funcion que retorna el id del trimestre
-    const getQuarterId = (dataTrimestre) => {
-        const quarter = dataQuarters.find((quarter) => `${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}` === dataTrimestre);
-        return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
-    };
 
 
     // Función para des-asignar un instructor y ambiente al hacer clic en una casilla asignada
@@ -98,7 +94,7 @@ export const ScheduleUpdateFicha = () => {
             }
 
             await fetchUpdateScheduleRecord({
-                idTrimestre: getQuarterId(data.trimestre),
+                idTrimestre: dataQuarter.idTrimestre,
                 idFicha: idFicha,
                 globalStoreBoxes
             })
@@ -163,8 +159,10 @@ export const ScheduleUpdateFicha = () => {
 
     return (
         <>
+        <NavBar />
+        <main className="container_all_horario2">
             <div className="information_bar">
-                <div className={`desplegable ${isDropdown ? 'open' : ''}`}>
+                {/* <div className={`desplegable ${isDropdown ? 'open' : ''}`}>
                     <input
                         type="text"
                         className='textBox'
@@ -177,14 +175,22 @@ export const ScheduleUpdateFicha = () => {
                         {...register("trimestre", TRIMESTRE)}
                     />
                     <div className={`desplegable-options ${isDropdown ? 'open' : ''}`}>
-                        {dataQuarters && dataQuarters.length > 0 && dataQuarters.map((quarter) => (
-                            <div key={quarter.idTrimestre} onClick={() =>
-                                handleOptionClick(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`)}>
-                                {quarter.trimestre} | {quarter.fechaInicio} - {quarter.fechaFinal}
-                            </div>
-                        ))}
+                        <div key={dataQuarter.idTrimestre}
+                            onClick={() => handleOptionClick(`${dataQuarter.trimestre} ${dataQuarter.fechaInicio} - ${dataQuarter.fechaFinal}`)}
+                        >
+                            {dataQuarter.trimestre} | {dataQuarter.fechaInicio} - {dataQuarter.fechaFinal}
+                        </div>
                     </div>
-                </div>
+                </div> */}
+                <input type="text"
+                className='desplegable'
+                value={`${dataQuarter.trimestre} | ${dataQuarter.fechaInicio} - ${dataQuarter.fechaFinal}`}
+                name='trimestre'
+                autoComplete='off'
+                readOnly
+                disabled={'on'}
+                {...register("trimestre")}
+                />
             </div>
 
             <div className="containergrid-buttons">
@@ -258,6 +264,7 @@ export const ScheduleUpdateFicha = () => {
                 </div>
 
             </div>
+        </main>
             <ModalAsignar
                 openModal={isModal}
                 closeModal={closeModal}

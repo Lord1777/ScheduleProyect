@@ -230,7 +230,7 @@ export const FormAddCoordinador = () => {
                 message="Ocurrió un error al guardar los datos. Por favor, inténtalo de nuevo."
                 open={errorModalOpen}
                 close={closeErrorModal}
-                route="/CrudAmbientes"
+                route="/AddCoordinador"
             />
             <ContinuoModal
                 tittle="¡Exito!"
@@ -238,7 +238,7 @@ export const FormAddCoordinador = () => {
                 message="Los datos se guardaron correctamente."
                 open={successModalOpen}
                 close={closeSuccessModal}
-                route="/CrudAmbientes"
+                route="/CrudCoordinadores"
             />
         </>
     )

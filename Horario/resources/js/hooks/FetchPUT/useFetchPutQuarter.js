@@ -1,4 +1,3 @@
-import React from 'react';
 import { API_URL, csrf_token  } from '../../const/api';
 import useModal from '../useModal';
 

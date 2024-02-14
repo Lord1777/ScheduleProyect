@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendar } from '@fortawesome/free-solid-svg-icons';
-import '../../../css/Form/FormAddTrimestre.css';
-import useValidationForm from '../../hooks/useValidationForm';
+import { ContinuoModal } from '../Modals/ContinuoModal';
 import { useForm, Controller } from 'react-hook-form';
 import { useFetchPutQuarter } from '../../hooks/FetchPUT/useFetchPutQuarter';
 import { Link, useParams } from "react-router-dom";
 import { API_URL, csrf_token } from '../../const/api';
-import useDropdown from "../../hooks/useDropdown";
 import { Loading } from '../Loading/Loading';
+import DatePicker from 'react-datepicker';
+import useValidationForm from '../../hooks/useValidationForm';
+import useDropdown from "../../hooks/useDropdown";
 import exito from '../../assets/img/Exito.png'
-import error from '../../assets/img/Advertencia.png'
-import { ContinuoModal } from '../Modals/ContinuoModal';
+import error from '../../assets/img/Advertencia.png';
+import 'react-datepicker/dist/react-datepicker.css';
+import '../../../css/Form/FormAddTrimestre.css';
+
 
 export const FormUpdateTrimestre = () => {
 

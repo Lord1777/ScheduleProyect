@@ -11,7 +11,8 @@
     background-attachment: fixed;
     overflow: auto;
 }
-.container-p h2{
+
+.container-p h2 {
     margin-top: 2rem;
     font-size: 1rem;
     font-weight: 500;
@@ -29,10 +30,15 @@
     flex-direction: column;
     align-items: center;
 }
-.container_form_login .grid-column{
+
+.container_form_login h2{
+    margin-top: 3.5rem;
+}
+
+.container_form_login .grid-column {
     display: flex;
     flex-direction: column;
-    margin-top: -1rem;   
+    margin-top: -1rem;
 }
 
 .container_form_login form {
@@ -103,6 +109,7 @@ form .container_info_product input::placeholder {
 
 .container_form_login form .container-p {
     width: 20rem;
+    margin-top: -2rem;
 }
 
 .container_form_login form h3 {
@@ -110,8 +117,25 @@ form .container_info_product input::placeholder {
     font-size: 0.9rem;
 }
 
-.container-icon-sena img{
-    width: 9rem;
+.container-icon-sena img {
+    width: 4.5rem;
+    height: 5rem;
+    margin-right: 5rem;
+    margin-top: -1.5rem;
+}
+
+.container-icon-sena h2 {
+    margin-right: 15rem;
+    margin-top: 0.3rem;
+    white-space: none;
+    width: 8rem;
+}
+
+.container-icon-sena{
+    display: flex;
+    flex-direction: row;
+    margin-left: 7rem;
+    margin-top: 0.5rem;
 }
 
 /*select*/
@@ -211,7 +235,7 @@ form .container_info_product input::placeholder {
 
 /*responsive*/
 
-@media (max-width:1400px){
+@media (max-width:1400px) {
 
     .container_form_login form {
         display: flex;
@@ -288,7 +312,7 @@ form .container_info_product input::placeholder {
     }
 }
 
-@media (max-width:550px){
+@media (max-width:550px) {
 
     .container_form_login {
         padding: 2rem;
@@ -302,18 +326,18 @@ form .container_info_product input::placeholder {
         align-items: center;
     }
 
-    .container_form_login h2{
+    .container_form_login h2 {
         text-align: center;
         font-size: 1.3rem;
     }
 
-    .container_form_login .container-icon-sena img{
+    .container_form_login .container-icon-sena img {
         width: 6rem;
     }
 
 }
 
-@media (max-width:410px){
+@media (max-width:410px) {
 
     .container_form_login form input {
         margin-top: 1rem;
@@ -366,7 +390,7 @@ form .container_info_product input::placeholder {
 
 }
 
-@media (max-width:390px){
+@media (max-width:390px) {
 
     .container_form_login form input {
         margin-top: 1rem;

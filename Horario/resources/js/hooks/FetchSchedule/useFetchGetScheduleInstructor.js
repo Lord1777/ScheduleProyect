@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { API_URL } from '../../const/api';
 
-export const useFetchGetScheduleInstructor = (route, idUsuario, idTrimestre, idFicha) => {
+export const useFetchGetScheduleInstructor = (route, idUsuario, idTrimestre, idFicha, setHorasAsignadasValue) => {
 
     const userToken = localStorage.getItem('access_token');
 
@@ -26,6 +26,12 @@ export const useFetchGetScheduleInstructor = (route, idUsuario, idTrimestre, idF
                 if(response.ok){
                     setDataSchedule(result);
 
+                    // Calcular las horas asignadas
+                    const totalHoras = result.reduce((total, scheduleItem) => total + (scheduleItem.horasAsignadas || 0), 0);
+
+                    // Llamar a setHorasAsignadasValue con el valor calculado
+                    setHorasAsignadasValue(totalHoras);
+
                 } else if (response.status === 404  || result.length === 0) {
                     setAlertMessage(result.error)
                     setModalOpen(true);
@@ -40,7 +46,7 @@ export const useFetchGetScheduleInstructor = (route, idUsuario, idTrimestre, idF
         }
 
         fetchData();
-    }, [idTrimestre, idFicha])
+    }, [idTrimestre, idFicha, setHorasAsignadasValue])
 
     return {
         dataSchedule,

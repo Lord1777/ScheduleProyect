@@ -1,11 +1,11 @@
-import React, { useState, useContext } from 'react';
+import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useFetchGetRecords } from '../../hooks/FetchGetResources/useFetchGetRecords';
-import { useUser } from '../../context/UserContext';
 import useDropdownGet from '../../hooks/useDropdownGet';
 import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
 import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
-import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
+
 import '../../../css/InformationBar/InformationBar.css';
 
 export const InformationBarInstructor = () => {
@@ -16,9 +16,7 @@ export const InformationBarInstructor = () => {
 
     const { idUsuario } = useParams();
 
-    const { user } = useUser();
-    // const { horasAsignadas } = useContext(FilterScheduleInstructorContext);
-    const { setIdTrimestreValue, setIdFichaValue, horasAsignadas } = useContext(FilterScheduleInstructorContext);
+    const { setIdTrimestreValue, setIdFichaValue, setHorasAsignadasValue } = useContext(FilterScheduleInstructorContext);
 
     const { dataRecords } = useFetchGetRecords('/getRecords');
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
@@ -37,6 +35,7 @@ export const InformationBarInstructor = () => {
     //Buscador
     const [fichaPrograma, setFichaPrograma] = useState("");
     const [fichas, setFichas] = useState("");
+    const [totalHoras, setTotalHoras] = useState("");
 
     const handleOptionClickTrimestre = (selectedOption) => {
         setIdTrimestreValue(getQuarterId(selectedOption));
@@ -46,10 +45,16 @@ export const InformationBarInstructor = () => {
         setIdFichaValue(getRecordId(selectedOption));
     }
     
-    const updateHorasAsignadas = (horas) => {
-        setHorasAsignadasValue(horas);
+    const updateHorasAsignadas = () => {
+        const horasAsignadas = setHorasAsignadasValue(); // Asumiendo que setHorasAsignadasValue es asíncrono
+        setTotalHoras(horasAsignadas); // Actualiza las horas asignadas en el contexto
     };
 
+    useEffect(() => {
+        // Actualiza las horas asignadas cuando cambian
+        updateHorasAsignadas();
+    }, [setHorasAsignadasValue]);
+    
     return (
         <>
             <div className="information_bar">
@@ -115,11 +120,11 @@ export const InformationBarInstructor = () => {
                         </div>
                     )}
                     <div>
-                        <h3>Total de Horas: {horasAsignadas || (user && user.userData.horasAsignadas) || ''}</h3>
+                        <h3>Total de Horas: {totalHoras || '...'}</h3>
                         {
                             rol ? 
                             (
-                                <Link to={horasAsignadas || (user && user.userData.horasAsignadas) || ''} >
+                                <Link to={totalHoras} >
                                     <button>Editar</button>
                                 </Link>
                             )

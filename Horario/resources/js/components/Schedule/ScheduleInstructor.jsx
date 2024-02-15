@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useFetchGetScheduleInstructor } from '../../hooks/FetchSchedule/useFetchGetScheduleInstructor';
 import { Loading } from '../Loading/Loading';
@@ -16,16 +16,30 @@ export const ScheduleInstructor = () => {
         loading,
         modalOpen,
         setModalOpen,
-        alertMessage } = useFetchGetScheduleInstructor('/getScheduleInstructor', idUsuario, idTrimestre, idFicha);
+        alertMessage } = useFetchGetScheduleInstructor('/getScheduleInstructor', idUsuario, idTrimestre, idFicha, setHorasAsignadasValue);
+
+    const [horasPorBoxIndex, setHorasPorBoxIndex] = useState({});
+
+    useEffect(() => {
+        // Calcula el total de horas por boxIndex
+        const totalHoras = dataSchedule.reduce((total, infoSchedule) => total + (infoSchedule.horasAsignadas || 0), 0);
+        setHorasAsignadasValue(totalHoras);
+    }, [dataSchedule, setHorasAsignadasValue]);
 
     if (loading) {
         return <Loading />
     }
 
     const handleCellClick = (infoSchedule) => {
-        const horasAsignadas = infoSchedule.horasAsignadas || 0;
-        setHorasAsignadasValue((prevHoras) => prevHoras + horasAsignadas);
-      };
+        if (infoSchedule) {
+            const boxIndex = infoSchedule.boxIndex;
+            const horasAsignadas = infoSchedule.horasAsignadas || 0;
+            setHorasPorBoxIndex((prevHoras) => ({
+                ...prevHoras,
+                [boxIndex]: (prevHoras[boxIndex] || 0) + horasAsignadas
+            }));
+        }
+    };
 
     return (
         <>
@@ -54,6 +68,7 @@ export const ScheduleInstructor = () => {
                                 <div
                                     key={colIndex}
                                     className={`${infoSchedule ? 'selected' : 'cuadricula'}`}
+                                    onClick={() => handleCellClick(infoSchedule)}
                                 >
                                     {infoSchedule ? (
                                         <>

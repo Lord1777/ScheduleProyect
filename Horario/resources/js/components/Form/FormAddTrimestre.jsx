@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../../css/Form/FormAddTrimestre.css';
@@ -9,11 +9,13 @@ import error from '../../assets/img/Advertencia.png'
 import { useForm, Controller } from 'react-hook-form';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 import { Link } from 'react-router-dom';
+import { Loading } from '../Loading/Loading';
 
 function FormAddTrimestre() {
 
     const { control, register, handleSubmit, setValue, formState: { errors } } = useForm();
     const { N_TRIMESTRE, FECHA_INI, FECHA_FIN } = useValidationForm();
+    const [ loading, setLoading ] = useState(false);
 
     const { 
         fetchSubmitQuarter, 
@@ -25,12 +27,18 @@ function FormAddTrimestre() {
         ruta } = useFetchPostQuarter('/createQuarters');
 
     const onSubmit = async (data) => {
-        console.log(data);
+        //console.log(data);
+        setLoading(true);
         await fetchSubmitQuarter(
             data.trimestre,
             data.fechaInicio,
             data.fechaFinal,
         );
+        setLoading(false);
+    }
+
+    if(loading){
+        return <Loading/>
     }
 
     return (

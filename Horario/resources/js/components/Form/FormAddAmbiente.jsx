@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../../../css/Form/FormAddAmbiente.css'
 import useDropdown from '../../hooks/useDropdown';
 import useFetchPostEnvironment from '../../hooks/FetchPOST/useFetchPostEnvironment';
@@ -8,6 +8,7 @@ import error from '../../assets/img/Advertencia.png'
 import { useForm } from 'react-hook-form';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 import { Link } from 'react-router-dom';
+import { Loading } from "../Loading/Loading";
 
 
 export const FormAddAmbiente = () => {
@@ -28,10 +29,17 @@ export const FormAddAmbiente = () => {
     const dropdown3 = useDropdown(setValue, "sede");
     const dropdown4 = useDropdown(setValue, "tableros");
 
-    const { fetchSubmitEnvironment, succesfullyModal, setSuccesfullyModal, errorModal, setErrorModal, alertMessage, ruta } = useFetchPostEnvironment('/createEnvironment');
+    const { 
+        fetchSubmitEnvironment, 
+        succesfullyModal, 
+        setSuccesfullyModal, 
+        errorModal, setErrorModal, alertMessage, ruta } = useFetchPostEnvironment('/createEnvironment');
+    
+    const [ loading, setLoading ] = useState(false);
 
     const onSubmit = async (data) => {
-        console.log(data)
+        //console.log(data)
+        setLoading(true);
         await fetchSubmitEnvironment(
             data.ambiente,
             data.cantidadMesas,
@@ -41,7 +49,12 @@ export const FormAddAmbiente = () => {
             data.tableros,
             data.videoBeams,
             data.sede,
-        )
+        );
+        setLoading(false);
+    }
+
+    if(loading){
+        return <Loading/>
     }
 
 

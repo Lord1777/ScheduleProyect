@@ -10,6 +10,7 @@ import error from '../../assets/img/Advertencia.png'
 import { useForm } from 'react-hook-form';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 import { Link } from 'react-router-dom';
+import { Loading } from '../Loading/Loading';
 
 export const FormAddFicha = () => {
 
@@ -19,6 +20,7 @@ export const FormAddFicha = () => {
     const dropdown3 = useDropdown(setValue, 'jornada');
     const { PROGRAMA, NFICHA, MODALIDAD, JORNADA_ACADEMICA } = useValidationForm();
     const [searchProgram, setSearchPogram] = useState('');
+    const [ loading, setLoading ] = useState(false);
 
     const {
         fetchSubmitRecord,
@@ -36,13 +38,18 @@ export const FormAddFicha = () => {
     }
 
     const onSubmit = async (data) => {
-
+        setLoading(true);
         await fetchSubmitRecord(
             parseInt(data.ficha),
             getProgramId(data.programa),
             data.modalidad,
             data.jornada,
-        )
+        );
+        setLoading(false);
+    }
+
+    if(loading){
+        return <Loading/>
     }
 
     return (

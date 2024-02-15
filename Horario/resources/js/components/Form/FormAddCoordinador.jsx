@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logoSena from '../../assets/img/LogoSena.png';
 import useFetchPostCoordinator from '../../hooks/FetchPOST/useFetchPostCoordinator';
 import useValidationForm from '../../hooks/useValidationForm';
@@ -8,6 +8,7 @@ import error from '../../assets/img/Advertencia.png'
 import { useForm } from 'react-hook-form';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 import { Link } from 'react-router-dom';
+import { Loading } from '../Loading/Loading';
 
 export const FormAddCoordinador = () => {
 
@@ -25,6 +26,7 @@ export const FormAddCoordinador = () => {
     const dropdown1 = useDropdown(setValue, "TipoDocumento");
     const dropdown2 = useDropdown(setValue, "TipoContrato");
     const dropdown3 = useDropdown(setValue, "Sede");
+    const [ loading, setLoading ] = useState(false);
 
     const { 
         fetchSubmitCoordinator, 
@@ -36,7 +38,7 @@ export const FormAddCoordinador = () => {
         ruta } = useFetchPostCoordinator('/register');
 
     const onSubmit = async (data) => {
-
+        setLoading(true);
         await fetchSubmitCoordinator(
             data.Sede,
             data.TipoContrato,
@@ -49,6 +51,11 @@ export const FormAddCoordinador = () => {
             data.profesion,
             data.telefono
         );
+        setLoading(false);
+    }
+
+    if(loading){
+        return <Loading/>
     }
 
     return (

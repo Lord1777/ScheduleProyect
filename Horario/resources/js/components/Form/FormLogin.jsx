@@ -44,7 +44,7 @@ export const FormLogin = () => {
                         <img src={LogoSena} alt="LogoSena" />
                         <h2 className='name-proyect'><span>Advanced Schedule Planning Software</span></h2>
                     </div>
-                    <h2>Ingreso Usuarios Registrados</h2>
+                    <h2>Ingreso usuarios registrados</h2>
                     <form method="POST" onSubmit={handleSubmit(onSubmit)}>
                         <div className='grid-column'>
                             <div className={`dropdown ${isDropdown ? 'open' : ''}`}>

@@ -3,8 +3,9 @@ import logosena from '../../assets/img/LogoSena.png'
 import useDropdown from '../../hooks/useDropdown'
 import '../../../css/Form/ConsultHorarioAprenttice.css'
 import { useFetchGetRecords } from '../../hooks/FetchGetResources/useFetchGetRecords'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+
 
 export const ConsultHorarioAprenttice = () => {
 
@@ -25,7 +26,7 @@ export const ConsultHorarioAprenttice = () => {
     const onSubmit = (data) => {
         navigate(`/HorarioAprendiz/${getRecordId(data.ficha)}`);
     }
-    
+
     /*Bucador*/
     const [fichaPrograma, setFichaPrograma] = useState("");
 
@@ -76,6 +77,13 @@ export const ConsultHorarioAprenttice = () => {
                         <button>
                             Consultar
                         </button>
+
+                        <Link> 
+                        <button>
+                            Volver
+                        </button>
+                        </Link>
+
 
                     </form>
                 </div>

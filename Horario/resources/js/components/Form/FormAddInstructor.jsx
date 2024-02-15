@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logoSena from "../../assets/img/LogoSena.png";
 import useFetchPostInstructor from '../../hooks/FetchPOST/useFetchPostInstructor';
 import useValidationForm from '../../hooks/useValidationForm';
@@ -9,6 +9,7 @@ import error from '../../assets/img/Advertencia.png'
 import { useForm } from 'react-hook-form';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 import { Link } from 'react-router-dom';
+import { Loading } from '../Loading/Loading';
 
 
 const FormAddInstructor = () => {
@@ -27,11 +28,12 @@ const FormAddInstructor = () => {
     const dropdown1 = useDropdown(setValue, "TipoDocumento");
     const dropdown2 = useDropdown(setValue, "TipoContrato");
     const dropdown3 = useDropdown(setValue, "Sede");
+    const [ loading, setLoading ] = useState(false);
 
     const { fetchSubmitInstructor, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, alertMessage, ruta } = useFetchPostInstructor('/register')
 
     const onSubmit = async (data) => {
-
+        setLoading(true);
         await fetchSubmitInstructor(
             data.Sede,
             data.TipoContrato,
@@ -44,6 +46,11 @@ const FormAddInstructor = () => {
             data.profesion,
             data.telefono
         );
+        setLoading(false);
+    }
+
+    if(loading){
+        return <Loading/>
     }
 
     return (

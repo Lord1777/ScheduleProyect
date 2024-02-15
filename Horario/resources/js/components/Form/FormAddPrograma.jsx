@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useDropdown from '../../hooks/useDropdown';
 import useValidationForm from '../../hooks/useValidationForm';
@@ -7,6 +7,7 @@ import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
 import { ContinuoModal } from '../Modals/ContinuoModal';
 import { Link } from 'react-router-dom';
+import { Loading } from '../Loading/Loading';
 
 export const FormAddPrograma = () => {
 
@@ -14,6 +15,7 @@ export const FormAddPrograma = () => {
 
     const dropdown1 = useDropdown(setValue, 'nivelDeFormacion');
     const { DURACION, PROGRAMA, NIVEL_FORMACION } = useValidationForm();
+    const [ loading, setLoading ] = useState(false);
 
     const { 
         fetchSubmitProgram, 
@@ -25,12 +27,17 @@ export const FormAddPrograma = () => {
         ruta } = useFetchPostProgram('/createProgram');
 
     const onSubmit = async (data) => {
-
+        setLoading(true);
         await fetchSubmitProgram(
             data.programa,
             data.duracion,
             data.nivelDeFormacion,
         )
+        setLoading(false);
+    }
+
+    if(loading){
+        return <Loading/>
     }
 
     return (

@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form'
 import { TooltipHorario } from '../Tooltips/TooltipHorario'
 import { Link } from 'react-router-dom'
 import '../../../css/Form/FormLogin.css'
+import { Loading } from '../Loading/Loading'
 
 
 
@@ -22,11 +23,17 @@ export const FormLogin = () => {
     const [tipoDocumentoValue, setTipoDocumentoValue] = React.useState('');
     const { TIPO_DOCUMENTO, DOCUMENTO, PASSWORD } = useValidationForm();
 
-    const { authUser, loading } = useFetchLogin('/login');
+    const { authUser, loading, setLoading } = useFetchLogin('/login');
 
     const onSubmit = async (data) => {
+        setLoading(true);
         await authUser(data.documento, password);
+        setLoading(false);
     };
+
+    if(loading){
+        return <Loading/>
+    }
 
 
     return (

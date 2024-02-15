@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navigate, Outlet } from 'react-router-dom';
 import { ControlPanel } from '../../pages/ControlPanel';
 import { CrudInstructor } from '../../pages/CRUD/CrudInstructor';
@@ -11,35 +12,82 @@ import { AddEnvironments } from '../../pages/Add/AddEnvironments';
 import { AddInstructors } from '../../pages/Add/AddInstructors';
 import { AddCoordinator } from '../../pages/Add/AddCoordinator';
 import { WatchSchedules } from '../../pages/WatchSchedules';
+import { HorariosPanel } from '../../pages/HorariosPanel';
+import { CardHorarios } from '../Cards/CardHorarios';
+import { WatchSchedulesInstructor } from '../../pages/WatchSchedulesInstructor';
+import { SeeScheduleInstructors } from '../../pages/SeeScheduleInstructors';
+import { SeeScheduleAmbiente } from '../../pages/SeeScheduleAmbiente';
+import { WatchScheduleAmbiente } from '../../pages/WatchScheduleAmbiente';
+import { CrudPrograms } from '../../pages/CRUD/CrudPrograms';
+import { FormAddAmbiente } from '../Form/FormAddAmbiente';
+import { AddProgram } from '../../pages/Add/AddProgram';
+import { AddQuarter } from '../../pages/Add/AddQuarter';
+import { AddSchedule } from '../../pages/Add/AddSchedule';
+import { DetailsAmbiente } from '../../pages/Details/DetailsAmbiente';
+import { DetailsTrimestre } from '../../pages/Details/DetailsTrimestre';
+import { DetailsInstructor } from '../../pages/Details/DetailsInstructor';
+import { DetailsFicha } from '../../pages/Details/DetailsFicha';
+import DetailsCoordinador from '../../pages/Details/DetailsCoordinador';
+import { UpdateRecors } from '../../pages/Update/UpdateRecors';
+import { UpdateInstructor } from '../../pages/Update/UpdateInstructor';
+import { UpdateCoordinator } from '../../pages/Update/UpdateCoordinator';
+import { FormUpdateAmbiente } from '../Form/FormUpdateAmbiente';
+import FormUpdateTrimestre from '../Form/FormUpdateTrimestre';
+import { UpdateProgram } from '../../pages/Update/UpdateProgram';
+import { ScheduleUpdateFicha } from '../Schedule/ScheduleUpdateFicha';
+import { ManageScheduleUpdateFicha } from '../../pages/ManageScheduleUpdateFicha';
 
 
 const roleConfig = {
-    coordinador: {
-        allowedRoles: ['coordinador'],
-        components: [
-            {key: 'controlPanel', component: <ControlPanel />},
-            {key: 'crudInstructor', component: <CrudInstructor />},
-            {key: 'crudEnvironmets', component: <CrudEnvironments />},
-            {key: 'crudRecords', component: <CrudRecords />},
-            {key: 'crudQuarters', component:<CrudQuarters />},
-            {key: 'crudCoordinators', component: <CrudCoordinators />},
-            {key: 'addRecords', component: <AddRecords />},
-            {key: 'addEnviroments', component: <AddEnvironments />},
-            {key: 'watchSchedules', component: <WatchSchedules />},
-            {key: 'addInstructors', component: <AddInstructors />},
-            {key: 'addCoordinator', component: <AddCoordinator />},
-        ],
-        redirectPath: '/',
-    },
     instructor: {
         allowedRoles: ['instructor'],
-        components: [],
+        components: {
+            'HorarioInstructor': SeeScheduleInstructors,
+        },
+        redirectPath: '/',
+    },
+    coordinador: {
+        allowedRoles: ['coordinador'],
+        components: {
+            'controlPanel': ControlPanel,
+            'PanelHorarios': HorariosPanel,
+            'Card': CardHorarios,
+            'HorariosFichas': WatchSchedules,
+            'HorariosInstructores': WatchSchedulesInstructor,
+            'HorarioInstructor': SeeScheduleInstructors,
+            'HorarioAmbiente': SeeScheduleAmbiente,
+            'HorariosAmbientes': WatchScheduleAmbiente,
+            'CrudInstructor': CrudInstructor,
+            'CrudFichas': CrudRecords,
+            'CrudTrimestres': CrudQuarters,
+            'CrudCoordinadores': CrudCoordinators,
+            'CrudAmbientes': CrudEnvironments,
+            'CrudProgramas': CrudPrograms,
+            'AddInstructor': AddInstructors,
+            'AddAmbiente': AddEnvironments,
+            'AddPrograma': AddProgram,
+            'AddFicha': AddRecords,
+            'AddTrimestre': AddQuarter,
+            'AddCoordinador': AddCoordinator,
+            'AddHorario': AddSchedule,
+            'DetallesAmbiente': DetailsAmbiente,
+            'DetallesTrimestre': DetailsTrimestre,
+            'DetallesInstructor': DetailsInstructor,
+            'DetallesFicha': DetailsFicha,
+            'DetallesCoordinador': DetailsCoordinador,
+            'UpdateFicha': UpdateRecors,
+            'UpdateInstructor': UpdateInstructor,
+            'UpdateCoordinador': UpdateCoordinator,
+            'UpdateAmbiente': FormUpdateAmbiente,
+            'UpdateTrimestre': FormUpdateTrimestre,
+            'UpdatePrograma': UpdateProgram,
+            'ScheduleUpdateFicha': ManageScheduleUpdateFicha,
+        },
         redirectPath: '/',
     },
 }
 
 const ProtectedRoute = ({ role, userRole }) => {
-
 
     const config = roleConfig[role];
 
@@ -55,8 +103,11 @@ const ProtectedRoute = ({ role, userRole }) => {
         return <Navigate to={config.redirectPath} replace />;
     }
 
-    // Renderizar el Outlet o el componente específico según la configuración
-    return <Outlet>{config.components}</Outlet>;
+    // Renderizar el Outlet o el componente específico
+    return (<Outlet>{Object.entries(config.components).map(([key, Component]) => (
+        <Route key={key} path={`/${key}`} element={<Component />} />
+    ))}
+    </Outlet>);
 }
 
 export default ProtectedRoute

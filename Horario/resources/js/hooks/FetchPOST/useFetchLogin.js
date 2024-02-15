@@ -8,7 +8,7 @@ const useFetchLogin = (route) => {
     const userToken = localStorage.getItem('access_token');
 
     const { authenticateUser } = useUser();
-    const [ loading, setLoading ] = useState(true);
+    const [ loading, setLoading ] = useState(false);
 
     const navigate = useNavigate();
 
@@ -40,14 +40,13 @@ const useFetchLogin = (route) => {
         } catch (error) {
             console.log(`Server Error: ${error}`);
         }
-        finally{
-            setLoading(false);
-        }
+        
     };
 
     return {
         authUser,
         loading,
+        setLoading
     };
 };
 

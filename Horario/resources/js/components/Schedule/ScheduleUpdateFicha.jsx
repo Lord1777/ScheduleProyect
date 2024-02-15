@@ -159,8 +159,6 @@ export const ScheduleUpdateFicha = () => {
 
     return (
         <>
-        <NavBar />
-        <main className="container_all_horario2">
             <div className="information_bar">
                 {/* <div className={`desplegable ${isDropdown ? 'open' : ''}`}>
                     <input
@@ -264,7 +262,6 @@ export const ScheduleUpdateFicha = () => {
                 </div>
 
             </div>
-        </main>
             <ModalAsignar
                 openModal={isModal}
                 closeModal={closeModal}

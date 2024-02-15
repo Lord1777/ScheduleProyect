@@ -41,8 +41,7 @@ import { WatchScheduleAmbiente } from './pages/WatchScheduleAmbiente.jsx';
 import { HorariosPanel } from './pages/HorariosPanel.jsx';
 import { CardHorarios } from './components/Cards/CardHorarios.jsx';
 import { Password } from './pages/Password.jsx';
-import { ScheduleUpdateInstructor } from './components/Schedule/ScheduleUpdateInstructor.jsx';
-import { ScheduleUpdateFicha } from './components/Schedule/ScheduleUpdateFicha.jsx';
+import { ManageScheduleUpdateFicha } from './pages/ManageScheduleUpdateFicha.jsx';
 
 
 function App() {
@@ -67,41 +66,35 @@ function App() {
             <Router>
                 <Routes>
                     <Route path='/' element={<Login />} />
+                    <Route path='/403-forbidden' element={<Forbidden />} />
                     <Route path='/RecuperarContraseña' element={<Password />} />
                     <Route path='/ConsultaAprendiz' element={<ConsultAprenttice />} />
-                    <Route path='/403-forbidden' element={<Forbidden />} />
                     <Route path='/HorarioAprendiz/:idFicha/:idHorario' element={<ScheduleAprenttice />} />
+                    <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />
                     <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
-                    <Route path='/UpdateHorarioInstructor/:idUsuario' element={<ScheduleUpdateInstructor/>} />
-                    <Route path='/ScheduleUpdateFicha/:idFicha/:idHorario/:idTrimestre' element={<ScheduleUpdateFicha/>} />
-                    <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
-                    <Route path='/AddHorario/:id' element={<AddSchedule />} />
-                    <Route path='/UpdatePrograma/:id' element={<UpdateProgram/>}/>
-                    <Route path='/HorariosAmbientes' element={<WatchScheduleAmbiente/>}/>
-                    <Route path='/PanelHorarios' element={<HorariosPanel/>}/>
-                    <Route path='/Card' element={<CardHorarios/>}/>
-                    <Route path='/AddCoordinador' element={<AddCoordinator />} />
 
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={storedRole} />}  >
                         <Route path='/Panel' element={<ControlPanel />} />
+                        <Route path='/PanelHorarios' element={<HorariosPanel/>}/>
+                        <Route path='/Card' element={<CardHorarios/>}/>
                         <Route path='/HorariosFichas' element={<WatchSchedules />} />
                         <Route path='/HorariosInstructores' element={<WatchSchedulesInstructor/>} />
                         <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
                         <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
+                        <Route path='/HorariosAmbientes' element={<WatchScheduleAmbiente/>}/>
                         <Route path='/CrudInstructor' element={<CrudInstructor />} />
                         <Route path='/CrudFichas' element={<CrudRecords />} />
                         <Route path='/CrudTrimestres' element={<CrudQuarters />} />
                         <Route path='/CrudCoordinadores' element={<CrudCoordinators />} />
                         <Route path='/CrudAmbientes' element={<CrudEnvironments />} />
                         <Route path='/CrudProgramas' element={<CrudPrograms/>}/>
-                        <Route path='/CrudCoordinadores' element={<CrudCoordinators />} /> 
-                        <Route path='/CrudProgramas' element={<CrudPrograms />} />
                         <Route path='/AddInstructor' element={<AddInstructors />} />
                         <Route path='/AddAmbiente' element={<AddEnvironments />} />
                         <Route path='/AddPrograma' element={<AddProgram />} />
                         <Route path='/AddFicha' element={<AddRecords />} />
                         <Route path='/AddTrimestre' element={<AddQuarter />} />
+                        <Route path='/AddCoordinador' element={<AddCoordinator />} />
                         <Route path='/AddHorario/:id' element={<AddSchedule />} />
                         <Route path='/DetallesAmbiente' element={<DetailsAmbiente />} />
                         <Route path='/DetallesTrimestre' element={<DetailsTrimestre />} />
@@ -114,7 +107,12 @@ function App() {
                         <Route path='/UpdateAmbiente/:id' element={<UpdateEnvironments />} />
                         <Route path='/UpdateTrimestre/:id' element={<UpdateQuaters />} />
                         <Route path='/UpdatePrograma/:id' element={<UpdateProgram />} />
+                        <Route path='/ScheduleUpdateFicha/:idFicha/:idHorario/:idTrimestre' element={<ManageScheduleUpdateFicha/>} />
                     </Route>
+
+                    {/* <Route element={<ProtectedRoute role={'instructor'} userRole={storedRole} />} >
+                        
+                    </Route> */}
                 </Routes>
             </Router>
         </>

@@ -122,7 +122,7 @@ export const InformationBarInstructor = () => {
                     <div>
                         <h3>Total de Horas: {totalHoras || '...'}</h3>
                         {
-                            rol ? 
+                            rol === 'coordinador' ? 
                             (
                                 <Link to={totalHoras} >
                                     <button>Editar</button>

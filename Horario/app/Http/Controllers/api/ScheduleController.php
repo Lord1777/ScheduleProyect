@@ -233,6 +233,24 @@ class ScheduleController extends Controller
             $idFicha = $data['idFicha'];
             $globalStoreBoxes = $data['globalStoreBoxes'];
 
+            $scheduleIsDefined = HorarioAcademico::where('idFicha', $idFicha)
+            ->where('idTrimestre', $idTrimestre)
+            ->get();
+
+            $numeroFicha = Ficha::where('idFicha', $idFicha)->value('ficha');
+
+            if( $scheduleIsDefined ){
+
+                //Cancelar
+                DB::rollBack();
+
+                return response()->json([
+                    'status' => 0,
+                    'message' => "Ya existe un horario académico para la ficha ($numeroFicha) dentro del trimestre seleccionado",
+                    'error' => 'There is already an academic schedule'
+                ], Response::HTTP_METHOD_NOT_ALLOWED); //405
+            }
+
             // Crear un nuevo horario académico
             $horarioAcademico = HorarioAcademico::create([
                 'estado' => 'habilitado',
@@ -266,7 +284,6 @@ class ScheduleController extends Controller
 
                 $nombreInstructor = Usuario::where('idUsuario', $idInstructor)->value('nombreCompleto');
                 $numeroAmbiente = Ambiente::where('idAmbiente', $idAmbiente)->value('ambiente');
-                $numeroFicha = Ficha::where('idFicha', $idFicha)->value('ficha');
 
                 // Obtener el límite de horas para el instructor, ambiente y ficha
                 $limiteHorasInstructor = Usuario::where('idUsuario', $idInstructor)->value('limiteHoras');

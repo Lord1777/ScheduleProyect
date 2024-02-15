@@ -107,7 +107,7 @@ export const ScheduleAdd = () => {
 
             const timer = setTimeout(() => {
                 setDuplicatesBox([]);
-            }, 5000);
+            }, 9000);
 
             // Limpieza del temporizador cuando el componente se desmonta o cuando duplicatesBox cambia nuevamente
             return () => clearTimeout(timer);

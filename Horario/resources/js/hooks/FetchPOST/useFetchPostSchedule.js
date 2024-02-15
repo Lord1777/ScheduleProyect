@@ -42,10 +42,9 @@ export const useFetchPostSchedule = (route) => {
                     setDuplicatesBox(data.duplicates);
                 }
             } else {
-                console.log(data.message);
                 //alert(data.message);
-                setSuccesfullyModal(true);
                 setAlertMessage(data.message);
+                setSuccesfullyModal(true);
             }
         } catch (error) {
             console.log(` Error Creating Schedule: ${error}`);

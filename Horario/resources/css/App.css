@@ -34,6 +34,12 @@
 
 .container-label-input label{
     margin-bottom: 0.5rem;
+    caret-color: transparent;
+}
+
+#Input-disable{
+    cursor: default ;
+    caret-color: transparent;
 }
 
 .desplegable{

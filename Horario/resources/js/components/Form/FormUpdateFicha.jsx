@@ -130,6 +130,7 @@ export const FormUpdateFicha = () => {
                                             setPrograma(e.target.value)
                                         }
                                         readOnly
+                                        id="Input-disable"
                                     />
                                     {/* {errors.programa && <p className='errors_forms'>{errors.programa.message}</p>} */}
 

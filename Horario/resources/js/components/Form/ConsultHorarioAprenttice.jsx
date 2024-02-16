@@ -73,11 +73,9 @@ export const ConsultHorarioAprenttice = () => {
                                 </div>
                             </div>
                         </div>
-
                         <button>
                             Consultar
                         </button>
-
                     </form>
                     <Link to={'/'}>
                         <button className='Volver'>

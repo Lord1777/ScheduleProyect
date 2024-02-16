@@ -19,6 +19,7 @@ export const NavBar = () => {
     const { isNavOpen, showToggleNav } = ShowNavBar();
     const { user } = useUser();
     const userRole = user ? user.role : null;
+    const userName = user && user.userData ? user.userData.nombreCompleto : null;
 
     return (
         <>
@@ -28,7 +29,7 @@ export const NavBar = () => {
                     <button className='toggle-nav' onClick={showToggleNav}>
                         <img src={toggle} alt="toggle" />
                     </button>
-                    <h3 className='username'>Nombre del usuario</h3>
+                    <h3 className='username'>{userName}</h3>
                 </div>
             </nav>
             <div className={`options-nav ${isNavOpen ? 'open' : ''}`}>

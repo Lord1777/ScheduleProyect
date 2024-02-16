@@ -71,6 +71,7 @@ function App() {
                     <Route path='/RecuperarContraseña' element={<Password />} />
                     <Route path='/ConsultaAprendiz' element={<ConsultAprenttice />} />
                     <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />
+                    <Route path='/AddCoordinador' element={<AddCoordinator />} />
 
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={storedRole} />}  >
@@ -94,7 +95,6 @@ function App() {
                         <Route path='/AddPrograma' element={<AddProgram />} />
                         <Route path='/AddFicha' element={<AddRecords />} />
                         <Route path='/AddTrimestre' element={<AddQuarter />} />
-                        <Route path='/AddCoordinador' element={<AddCoordinator />} />
                         <Route path='/AddHorario/:id' element={<AddSchedule />} />
                         <Route path='/DetallesAmbiente' element={<DetailsAmbiente />} />
                         <Route path='/DetallesTrimestre' element={<DetailsTrimestre />} />

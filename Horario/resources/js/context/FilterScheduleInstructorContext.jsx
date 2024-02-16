@@ -15,8 +15,8 @@ export const FilterScheduleInstructorContextProvider = ({ children }) => {
     setIdFicha(ficha);
   };
 
-  const setHorasAsignadasValue = (horas) => {
-    setHorasAsignadas(horas);
+  const setHorasAsignadasValue = (horasAsignadas) => {
+    setHorasAsignadas(horasAsignadas);
   };
 
   const contextValue = {

@@ -9,9 +9,9 @@ import useFetchLogin from '../../hooks/FetchPOST/useFetchLogin'
 import { useForm } from 'react-hook-form'
 import { TooltipHorario } from '../Tooltips/TooltipHorario'
 import { Link } from 'react-router-dom'
-import '../../../css/Form/FormLogin.css'
 import { Loading } from '../Loading/Loading'
-
+import ASPS from '../../assets/img/ASPS.png'
+import '../../../css/Form/FormLogin.css'
 
 
 
@@ -42,8 +42,8 @@ export const FormLogin = () => {
                 <div className="container_form_login">
                     <div className="container-icon-sena">
                         <img src={LogoSena} alt="LogoSena" />
-                        <h2 className='name-proyect'><span>Advanced Schedule Planning Software</span></h2>
-                    </div>
+                    </div> 
+                    {/* <img src={ASPS} alt="Logo ASPS" className='ASPS'/> */}
                     <h2>Ingreso usuarios registrados</h2>
                     <form method="POST" onSubmit={handleSubmit(onSubmit)}>
                         <div className='grid-column'>

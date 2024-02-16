@@ -38,16 +38,11 @@
     margin-top: 2rem;
 }
 
-.container_form_login .name-proyect{
-    width: 12rem;
-    margin: 0rem;
-    text-align: center;
-
-    span{
-        font-size: 1.3rem;
-        font-family: Georgia, 'Times New Roman', Times, serif;
-    }
-}
+/* .ASPS {
+    width: 20rem;
+    height: 15rem;
+    margin-top: 2rem;
+} */
 
 .container_form_login .grid-column {
     display: flex;
@@ -134,6 +129,7 @@ form .container_info_product input::placeholder {
 .container-icon-sena{
     display: flex;
     align-items: center;
+    /* margin-top: -2rem; */
 }
 
 .container-icon-sena img {
@@ -497,5 +493,8 @@ form .container_info_product input::placeholder {
     .container-icon-sena .name-proyect{
         font-size: 0.5rem;
     }
+}
+
+@media(max-width: 375px) {
 
 }

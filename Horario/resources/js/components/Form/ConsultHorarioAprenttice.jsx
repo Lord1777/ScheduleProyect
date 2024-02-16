@@ -27,7 +27,7 @@ export const ConsultHorarioAprenttice = () => {
         navigate(`/HorarioAprendiz/${getRecordId(data.ficha)}`);
     }
 
-    /*Bucador*/
+    /*Buscador*/
     const [fichaPrograma, setFichaPrograma] = useState("");
 
     return (
@@ -73,19 +73,15 @@ export const ConsultHorarioAprenttice = () => {
                                 </div>
                             </div>
                         </div>
-
                         <button>
                             Consultar
                         </button>
-
-                        <Link> 
-                        <button>
+                    </form>
+                    <Link to={'/'}>
+                        <button className='Volver'>
                             Volver
                         </button>
-                        </Link>
-
-
-                    </form>
+                    </Link>
                 </div>
             </main>
         </>

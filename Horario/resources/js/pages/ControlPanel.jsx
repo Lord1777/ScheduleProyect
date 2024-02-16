@@ -1,6 +1,7 @@
 import React from 'react'
 import { CardPControlPanel } from '../components/Cards/CardPControlPanel'
-import { NavBar } from '../components/NavBar/NavBar'
+import { NavBar } from '../components/NavBar/NavBar';
+import { Link } from 'react-router-dom'
 import Instructores from '../assets/img/Instructores.jpg'
 import Fichas from '../assets/img/Fichas.jpg'
 import Coordinadores from '../assets/img/Coordinadores.jpg'
@@ -8,7 +9,7 @@ import Ambientes from '../assets/img/Ambiente.jpg'
 import Tiempo from '../assets/img/Tiempo.jpg'
 import S from '../assets/img/S.jpg'
 import PR from '../assets/img/PR.jpg'
-import { Link } from 'react-router-dom'
+
 
 export const ControlPanel = () => {
 

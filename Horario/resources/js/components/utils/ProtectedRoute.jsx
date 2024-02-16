@@ -36,6 +36,7 @@ import FormUpdateTrimestre from '../Form/FormUpdateTrimestre';
 import { UpdateProgram } from '../../pages/Update/UpdateProgram';
 import { ScheduleUpdateFicha } from '../Schedule/ScheduleUpdateFicha';
 import { ManageScheduleUpdateFicha } from '../../pages/ManageScheduleUpdateFicha';
+import { SeeScheduleAdminInstructor } from '../../pages/SeeScheduleAdminInstructor';
 
 
 const roleConfig = {
@@ -53,6 +54,7 @@ const roleConfig = {
             'PanelHorarios': HorariosPanel,
             'Card': CardHorarios,
             'HorariosFichas': WatchSchedules,
+            'HorarioAdminInstructor': SeeScheduleAdminInstructor,
             'HorariosInstructores': WatchSchedulesInstructor,
             'HorarioInstructor': SeeScheduleInstructors,
             'HorarioAmbiente': SeeScheduleAmbiente,

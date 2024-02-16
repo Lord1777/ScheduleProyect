@@ -205,6 +205,63 @@ class ScheduleController extends Controller
     }
 
 
+    public function scheduleAdminInstructor(string $idUsuario, string $idHorario, string $idTrimestre)
+    {
+        try {
+            if ($idTrimestre !== 'null') {
+
+                $schedule = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
+                    ->join('trimestres', 'horarios_academicos.idTrimestre', '=', 'trimestres.idTrimestre')
+                    ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+                    ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
+                    ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
+                    ->select(
+                        'fichas.ficha',
+                        'ambientes.ambiente',
+                        'asignaciones.boxIndex',
+                    )
+                    ->where('usuarios.idUsuario', $idUsuario)
+                    ->where('trimestres.idTrimestre', $idTrimestre)
+                    ->get();
+                // Log::info('Tipo de $schedule: ' . gettype($schedule));
+                // Log::info('Contenido de $schedule: ' . json_encode($schedule));
+
+                if ($schedule->isEmpty()) {
+                    return response()->json([
+                        'error' => 'Estimado instructor, no hay un horario académico disponible para usted en el trimestre seleccionado.'
+                    ], Response::HTTP_NOT_FOUND); //404
+                }
+                return response()->json($schedule, Response::HTTP_OK); //200
+            }
+
+            $schedule = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
+                ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+                ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
+                ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
+                ->select(
+                    'fichas.ficha',
+                    'ambientes.ambiente',
+                    'asignaciones.boxIndex',
+                )
+                ->where('usuarios.idUsuario', $idUsuario)
+                ->where('horarios_academicos.idHorario', $idHorario)
+                ->get();
+
+            if ($schedule->isEmpty()) {
+                return response()->json([
+                    'error' => 'Estimado instructor, actualmente no se ha creado un horario académico para usted.'
+                ], Response::HTTP_NOT_FOUND); //404
+            }
+            return response()->json($schedule, Response::HTTP_OK); //200
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => "Get Schedule Instructor Error " . $e->getMessage(),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
+
     public function indexEnvironment()
     {
     }
@@ -234,12 +291,12 @@ class ScheduleController extends Controller
             $globalStoreBoxes = $data['globalStoreBoxes'];
 
             $scheduleIsDefined = HorarioAcademico::where('idFicha', $idFicha)
-            ->where('idTrimestre', $idTrimestre)
-            ->get();
+                ->where('idTrimestre', $idTrimestre)
+                ->get();
 
             $numeroFicha = Ficha::where('idFicha', $idFicha)->value('ficha');
 
-            if( $scheduleIsDefined ){
+            if ($scheduleIsDefined) {
 
                 //Cancelar
                 DB::rollBack();

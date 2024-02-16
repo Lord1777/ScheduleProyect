@@ -10,7 +10,7 @@ import useFetchGetScheduleInstructor from "../../hooks/FetchGET/useFetchGetSched
 export const InstructorWatch = () => {
 
 
-    const { horarioInstructor, loading } = useFetchGetScheduleInstructor();
+    const { horarioInstructor, loading } = useFetchGetScheduleInstructor('/getScheduleInstructor');
     const [search, setSearch] = useState("");
 
     const filteredData = horarioInstructor.filter(horario =>
@@ -44,7 +44,7 @@ export const InstructorWatch = () => {
             </div>{/*Titulo y buscador*/}
             <div className="contenedor">
                 {filteredData.map((horarios) => (
-                    <Link to={`/HorarioInstructor/${horarios.idUsuario}`}>
+                    <Link to={`/HorarioAdminInstructor/${horarios.idUsuario}/${horarios.idHorario}`}>
                         <div className="card">
                             <span class="material-symbols-outlined icon">
                                 calendar_month

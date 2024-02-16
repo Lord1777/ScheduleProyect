@@ -1,24 +1,21 @@
 import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useFetchGetRecords } from '../../hooks/FetchGetResources/useFetchGetRecords';
 import useDropdownGet from '../../hooks/useDropdownGet';
 import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
 import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
 
 import '../../../css/InformationBar/InformationBar.css';
 
-export const InformationBarInstructor = () => {
+export const InformationBarAdminInstructor = () => {
 
-    const dropdown1 = useDropdownGet();
     const dropdown2 = useDropdownGet();
     const trimestreDropdown = useTrimestreDropdown();
 
     const { idUsuario } = useParams();
 
-    const { setIdTrimestreValue, setIdFichaValue, setHorasAsignadasValue } = useContext(FilterScheduleInstructorContext);
+    const { setIdTrimestreValue, setHorasAsignadasValue } = useContext(FilterScheduleInstructorContext);
 
-    const { dataRecords } = useFetchGetRecords('/getRecords');
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
 
     const rol = localStorage.getItem('role');
@@ -32,17 +29,10 @@ export const InformationBarInstructor = () => {
         return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
     };
 
-    //Buscador
-    const [fichaPrograma, setFichaPrograma] = useState("");
-    const [fichas, setFichas] = useState("");
     const [totalHoras, setTotalHoras] = useState("");
 
     const handleOptionClickTrimestre = (selectedOption) => {
         setIdTrimestreValue(getQuarterId(selectedOption));
-    }
-
-    const handleOptionClickFicha = (selectedOption) => {
-        setIdFichaValue(getRecordId(selectedOption));
     }
     
     const updateHorasAsignadas = () => {
@@ -59,44 +49,6 @@ export const InformationBarInstructor = () => {
         <>
             <div className="information_bar">
                 <div className="deplegable-horas">
-
-                    <div className={`desplegable1 ${dropdown1.isDropdown ? 'open' : ''}`}>
-                        <input
-                            type="text"
-                            className='textBox'
-                            name='fichas'
-                            placeholder='Fichas'
-                            readOnly
-                            onClick={dropdown1.handleDropdown}
-                            onChange={(e) => setFichaPrograma(e.target.value)}
-                            value={dropdown1.selectedOption}
-                        />
-                        <div className={`desplegable-options1 ${dropdown1.isDropdown ? 'open' : ''}`}>
-                            <div className="search-bar">
-                                <input
-                                    type="text"
-                                    className='buscador-desplegables'
-                                    id='buscador'
-                                    value={fichas}
-                                    onChange={(e) => setFichas(e.target.value)}
-                                />
-                            </div>
-
-                            <div className="contenedor-options">
-                                {dataRecords && dataRecords.length > 0 && dataRecords
-                                    .filter((record) =>
-                                        `${record.nombre}`.toLowerCase().startsWith(fichas.toLowerCase())
-                                        ||
-                                        `${record.ficha}`.toLowerCase().startsWith(fichas.toLowerCase())
-                                    )
-                                    .map((record) => (
-                                        <div className='option' onClick={() => handleOptionClickFicha(`${record.ficha} - ${record.nombre}`)}>
-                                            {record.ficha} - {record.nombre}
-                                        </div>
-                                    ))}
-                            </div>
-                        </div>
-                    </div>
 
                     {trimestreDropdown.showTrimestreDropdown && (
                         <div className={`desplegable ${dropdown2.isDropdown ? 'open' : ''}`}>

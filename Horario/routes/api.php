@@ -98,6 +98,7 @@ Route::middleware(['cors', 'auth:sanctum'])->group(function () {
     //Horarios academicos
     Route::match(['get', 'post'], '/createSchedule', [ScheduleController::class, 'store']);
     Route::get('/getScheduleInstructor/{idUsuario}/{idTrimestre?}/{idFicha?}', [ScheduleController::class, 'scheduleInstructor']);
+    Route::get('/getAdminScheduleInstructor/{idUsuario}/{idHorario}/{idTrimestre?}', [ScheduleController::class, 'scheduleAdminInstructor']);
     Route::get('/getScheduleRecord', [ScheduleController::class, 'scheduleEnableRecords']);
     Route::get('/getScheduleInstructor', [ScheduleController::class, 'EnableSchedulesInstructors']);
     Route::get('/getSchedulesEnvironments', [ScheduleController::class, 'scheduleEnableEnvironments']);

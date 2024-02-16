@@ -42,6 +42,7 @@ import { HorariosPanel } from './pages/HorariosPanel.jsx';
 import { CardHorarios } from './components/Cards/CardHorarios.jsx';
 import { Password } from './pages/Password.jsx';
 import { ManageScheduleUpdateFicha } from './pages/ManageScheduleUpdateFicha.jsx';
+import { SeeScheduleAdminInstructor } from './pages/SeeScheduleAdminInstructor.jsx';
 
 
 function App() {
@@ -69,18 +70,17 @@ function App() {
                     <Route path='/403-forbidden' element={<Forbidden />} />
                     <Route path='/RecuperarContraseña' element={<Password />} />
                     <Route path='/ConsultaAprendiz' element={<ConsultAprenttice />} />
-                    <Route path='/HorarioAprendiz/:idFicha/:idHorario' element={<ScheduleAprenttice />} />
                     <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />
-                    <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
 
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={storedRole} />}  >
                         <Route path='/Panel' element={<ControlPanel />} />
                         <Route path='/PanelHorarios' element={<HorariosPanel/>}/>
                         <Route path='/Card' element={<CardHorarios/>}/>
+                        <Route path='/HorarioAprendiz/:idFicha/:idHorario' element={<ScheduleAprenttice />} />
                         <Route path='/HorariosFichas' element={<WatchSchedules />} />
+                        <Route path='/HorarioAdminInstructor/:idUsuario/:idHorario' element={<SeeScheduleAdminInstructor />} />
                         <Route path='/HorariosInstructores' element={<WatchSchedulesInstructor/>} />
-                        <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
                         <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
                         <Route path='/HorariosAmbientes' element={<WatchScheduleAmbiente/>}/>
                         <Route path='/CrudInstructor' element={<CrudInstructor />} />
@@ -110,9 +110,9 @@ function App() {
                         <Route path='/ScheduleUpdateFicha/:idFicha/:idHorario/:idTrimestre' element={<ManageScheduleUpdateFicha/>} />
                     </Route>
 
-                    {/* <Route element={<ProtectedRoute role={'instructor'} userRole={storedRole} />} >
-                        
-                    </Route> */}
+                    <Route element={<ProtectedRoute role={'instructor'} userRole={storedRole} />} >
+                        <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
+                    </Route>
                 </Routes>
             </Router>
         </>

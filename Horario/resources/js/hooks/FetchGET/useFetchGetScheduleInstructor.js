@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { API_URL } from '../../const/api';
 
-const useFetchGetScheduleInstructor = () => {
+const useFetchGetScheduleInstructor = (route) => {
 
   const userToken = localStorage.getItem('access_token');
 
@@ -10,7 +10,7 @@ const useFetchGetScheduleInstructor = () => {
 
     const fetchScheduleInstructor = async () => {
       try {
-        const response = await fetch(`${API_URL}/getScheduleInstructor`,
+        const response = await fetch(`${API_URL}${route}`,
         {
           method: "GET",
           headers: {

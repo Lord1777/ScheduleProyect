@@ -31,6 +31,7 @@ Route::get('/DetallesTrimestre', fn() => view('welcome'));
 Route::get('403-forbidden', fn() => view('welcome'));
 Route::get('/HorarioAprendiz/{idFicha}/{idHorario}', fn() => view('welcome'));
 Route::get('/HorarioInstructor/{idUsuario}', fn()=> view('welcome'));
+Route::get('/HorarioAdminInstructor/{idUsuario}/{idHorario}', fn()=> view('welcome'));
 Route::get('/HorarioAmbiente', fn()=> view('welcome'));
 Route::match(['get', 'post'], '/AddHorario/{id}', fn() => view('welcome'));
 Route::match(['get', 'post'], '/UpdateHorarioInstructor/{idUsuario}', fn() => view('welcome'));

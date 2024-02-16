@@ -45,7 +45,22 @@
 .container-consult-form form button{
     width: 20rem;
     height: 3.5rem;
-    margin-top: 8rem;
+    margin-top: 4rem;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    transition: 0.5s;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.Volver {
+    width: 20rem;
+    height: 3.5rem;
+    margin-top: 1rem;
     border: none;
     border-radius: 5px;
     background-color: var(--primary-color);

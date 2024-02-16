@@ -7,12 +7,29 @@ export const getSedeByName = (name) =>{
     return sedes[name]
 }
 
+export const getSedeById = (id) => {
+    const idSede = {
+        1: "Indusrial",
+        2: "Cbi",
+        3: "Ambos",
+    }
+    return idSede[id]
+}
+
 export const getContratoByName = (name) =>{
     const contratos = {
         planta: 1,
         contratista: 2,
     }
     return contratos[name]
+}
+
+export const getContratoById = (id) => {
+    const idContrato = {
+        1: "Planta",
+        2: "Contratista",
+    }
+    return idContrato[id]
 }
 
 export const getNivelDeFormacionByName = (name) =>{

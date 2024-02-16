@@ -217,9 +217,9 @@ export const FormAddCoordinador = () => {
                                                 {...register("Sede", SEDE)}
                                             />
                                             <div className={`options ${dropdown3.isDropdown ? 'open' : ''}`}>
-                                                <div onClick={() => dropdown3.handleOptionClick('cbi', setValue, 'TipoDocumento')}>CBI</div>
-                                                <div onClick={() => dropdown3.handleOptionClick('industrial', setValue, 'TipoDocumento')}>Industrial</div>
-                                                <div onClick={() => dropdown3.handleOptionClick('ambos', setValue, 'TipoDocumento')}>Ambos</div>
+                                                <div onClick={() => dropdown3.handleOptionClick('cbi', setValue, 'Sede')}>CBI</div>
+                                                <div onClick={() => dropdown3.handleOptionClick('industrial', setValue, 'Sede')}>Industrial</div>
+                                                <div onClick={() => dropdown3.handleOptionClick('ambos', setValue, 'Sede')}>Ambos</div>
                                             </div>
                                         </div>
                                         {errors.Sede && <p className='errors_forms'>{errors.Sede.message}</p>}

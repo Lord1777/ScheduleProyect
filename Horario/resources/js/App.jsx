@@ -43,6 +43,7 @@ import { CardHorarios } from './components/Cards/CardHorarios.jsx';
 import { Password } from './pages/Password.jsx';
 import { ScheduleUpdateInstructor } from './components/Schedule/ScheduleUpdateInstructor.jsx';
 import { ScheduleUpdateFicha } from './components/Schedule/ScheduleUpdateFicha.jsx';
+import { MyProfile } from './pages/MyProfile.jsx';
 
 
 function App() {
@@ -81,6 +82,7 @@ function App() {
                     <Route path='/PanelHorarios' element={<HorariosPanel/>}/>
                     <Route path='/Card' element={<CardHorarios/>}/>
                     <Route path='/AddCoordinador' element={<AddCoordinator />} />
+                    <Route path='/Perfil' element={<MyProfile/>}/>
 
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={storedRole} />}  >

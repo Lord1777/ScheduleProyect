@@ -25,7 +25,7 @@ export const FormLogin = () => {
     const { authUser, loading } = useFetchLogin('/login');
 
     const onSubmit = async (data) => {
-        await authUser(data.documento, password);
+        await authUser(data.documento, data.password);
     };
 
 
@@ -78,6 +78,7 @@ export const FormLogin = () => {
                                         name="password"
                                         placeholder='Contraseña'
                                         autoComplete='false'
+                                        {...register('password', PASSWORD)}
                                     />
                                     <img src={showPassword ? OpenEye : CloseEye} onClick={handleTogglePassword} />
                                 </div>

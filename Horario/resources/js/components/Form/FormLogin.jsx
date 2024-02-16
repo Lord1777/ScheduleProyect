@@ -85,6 +85,7 @@ export const FormLogin = () => {
                                         name="password"
                                         placeholder='Contraseña'
                                         autoComplete='false'
+                                        {...register('password', PASSWORD)}
                                     />
                                     <img src={showPassword ? OpenEye : CloseEye} onClick={handleTogglePassword} />
                                 </div>

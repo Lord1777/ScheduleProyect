@@ -1,5 +1,4 @@
 import React from 'react'
-import '../../../css/NavBar/NavBar.css'
 import toggle from '../../assets/icons/Toggler.png'
 import calendar from '../../assets/icons/calendar3.png'
 import panel from '../../assets/icons/PanelAdmin.png'
@@ -12,7 +11,7 @@ import perfil from '../../assets/icons/perfil.png'
 import ShowNavBar from '../../hooks/ShowNavBar'
 import { Link } from 'react-router-dom'
 import { useUser } from '../../context/UserContext'
-
+import '../../../css/NavBar/NavBar.css'
 
 
 export const NavBar = () => {
@@ -29,7 +28,7 @@ export const NavBar = () => {
                     <button className='toggle-nav' onClick={showToggleNav}>
                         <img src={toggle} alt="toggle" />
                     </button>
-
+                    <h3 className='username'>Nombre del usuario</h3>
                 </div>
             </nav>
             <div className={`options-nav ${isNavOpen ? 'open' : ''}`}>

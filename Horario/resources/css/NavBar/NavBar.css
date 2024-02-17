@@ -109,6 +109,12 @@ h2 {
 
 /*Responsive*/
 
+@media(max-width:1366px){
+    .username {
+        margin-left: 15rem;
+    }
+}
+
 @media (max-width:1280px) {
     .username {
         margin-left: 38rem;

@@ -74,8 +74,8 @@ function App() {
                     <Route path='/403-forbidden' element={<Forbidden />} />
                     <Route path='/HorarioAprendiz/:idFicha/:idHorario' element={<ScheduleAprenttice />} />
                     <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
-                    <Route path='/UpdateHorarioInstructor/:idUsuario' element={<ScheduleUpdateInstructor/>} />
-                    <Route path='/ScheduleUpdateFicha/:idFicha/:idHorario/:idTrimestre' element={<ScheduleUpdateFicha/>} />
+                    <Route path='/UpdateHorarioInstructor/:idUsuario' element={<UpdateInstructor/>} />
+                    <Route path='/ScheduleUpdateFicha/:idFicha/:idHorario/:idTrimestre' element={<ManageScheduleUpdateFicha/>} />
                     <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
                     <Route path='/AddHorario/:id' element={<AddSchedule />} />
                     <Route path='/UpdatePrograma/:id' element={<UpdateProgram/>}/>

@@ -90,9 +90,7 @@ class ScheduleController extends Controller
     }
 
 
-    public function indexInstructor()
-    {
-    }
+    
 
     public function scheduleInstructor(string $idUsuario, string $idTrimestre, string $idFicha)
     {
@@ -296,7 +294,7 @@ class ScheduleController extends Controller
 
             $numeroFicha = Ficha::where('idFicha', $idFicha)->value('ficha');
 
-            if ($scheduleIsDefined) {
+            if (!$scheduleIsDefined) {
 
                 //Cancelar
                 DB::rollBack();

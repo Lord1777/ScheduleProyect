@@ -1,15 +1,15 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Loading } from '../Loading/Loading';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
 import error from '../../assets/img/Advertencia.png';
-import {useFetchGetScheduleAdminInstructor} from '../../hooks/FetchSchedule/useFetchGetScheduleAdminInstructor';
+import { useFetchGetScheduleAdminInstructor } from '../../hooks/FetchSchedule/useFetchGetScheduleAdminInstructor';
 
 export const ScheduleAdminInstructor = () => {
 
     const { idUsuario, idHorario } = useParams();
-    const { idTrimestre, setHorasAsignadasValue } = useContext(FilterScheduleInstructorContext);
+    const { idTrimestre, setHorasAsignadasValue, setTotalSeleccionadoValue } = useContext(FilterScheduleInstructorContext);
     const {
         dataSchedule,
         loading,
@@ -17,28 +17,28 @@ export const ScheduleAdminInstructor = () => {
         setModalOpen,
         alertMessage } = useFetchGetScheduleAdminInstructor('/getAdminScheduleInstructor', idUsuario, idHorario, idTrimestre, setHorasAsignadasValue);
 
-    const [horasPorBoxIndex, setHorasPorBoxIndex] = useState({});
-
+    
     useEffect(() => {
-        // Calcula el total de horas por boxIndex
-        const totalHoras = dataSchedule.reduce((total, infoSchedule) => total + (infoSchedule.horasAsignadas || 0), 0);
-        setHorasAsignadasValue(totalHoras);
-    }, [dataSchedule, setHorasAsignadasValue]);
+        const selectedSchedules = dataSchedule.filter(infoSchedule => infoSchedule);
+    
+        const totalSeleccionado = selectedSchedules.length;
+    
+        setTotalSeleccionadoValue(totalSeleccionado);
+    
+        setHorasAsignadasValue(totalSeleccionado);
+    }, [dataSchedule, setHorasAsignadasValue, setTotalSeleccionadoValue]);
+    
+
+    const handleCellClick = (infoSchedule) => {
+        //Actualiza el total seleccionado
+        const totalSeleccionado = infoSchedule ? infoSchedule.horasAsignadas || 0 : 0;
+        setTotalSeleccionadoValue(totalSeleccionado);
+    };
 
     if (loading) {
         return <Loading />
     }
 
-    const handleCellClick = (infoSchedule) => {
-        if (infoSchedule) {
-            const boxIndex = infoSchedule.boxIndex;
-            const horasAsignadas = infoSchedule.horasAsignadas || 0;
-            setHorasPorBoxIndex((prevHoras) => ({
-                ...prevHoras,
-                [boxIndex]: (prevHoras[boxIndex] || 0) + horasAsignadas
-            }));
-        }
-    };
 
     return (
         <>

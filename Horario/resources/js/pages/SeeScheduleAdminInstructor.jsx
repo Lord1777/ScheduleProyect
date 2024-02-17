@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavBar } from '../components/NavBar/NavBar';
-import { InformationBarInstructor } from '../components/InformationBar/InformationBarInstructor';
 import { FilterScheduleInstructorContextProvider } from '../context/FilterScheduleInstructorContext';
 import { ScheduleAdminInstructor } from '../components/Schedule/ScheduleAdminInstructor';
 import { InformationBarAdminInstructor } from '../components/InformationBar/InformationBarAdminInstructor';

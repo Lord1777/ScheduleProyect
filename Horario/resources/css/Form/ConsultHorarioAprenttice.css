@@ -16,7 +16,7 @@
     padding: 4rem;
     display: flex;
     width: 33rem;
-    height: 45rem;
+    height: 40rem;
     background-color: #FFF;
     border-radius: 1.5rem;
     user-select: none;
@@ -45,7 +45,7 @@
 .container-consult-form form button{
     width: 20rem;
     height: 3.5rem;
-    margin-top: 4rem;
+    margin-top: 2rem;
     border: none;
     border-radius: 5px;
     background-color: var(--primary-color);
@@ -198,7 +198,7 @@
     .container-consult-form form button {
         width: 20rem;
         height: 3.5rem;
-        margin-top: 6rem;
+        margin-top: 2rem;
         border: none;
         border-radius: 5px;
         background-color: var(--primary-color);
@@ -292,9 +292,9 @@
     }
 
     .container-consult-form form button {
-        width: 13rem;
+        width: 15rem;
         height: 3rem;
-        margin-top: 4rem;
+        margin-top: 1rem;
         border: none;
         border-radius: 5px;
         background-color: var(--primary-color);
@@ -307,7 +307,7 @@
     }
 
     .Volver {
-        width: 13rem;
+        width: 15rem;
         height: 3rem;
         margin-top: 1rem;
         border: none;
@@ -319,7 +319,7 @@
         font-size: 1rem;
         font-weight: 600;
         letter-spacing: 1px;
-        margin-right: 0.9rem;
+        margin-right: 0.3rem;
     }
 
     .container-options {
@@ -364,6 +364,30 @@
     }
 }
 
+@media (max-width:420px) {
+    .container-consult-form form button {
+        margin-right: 0.5rem;
+    }
+
+    .Volver {
+        margin-right: 1.5rem;
+    }
+}
+
+@media (max-width:414px) {
+    .select-ficha{
+        margin-right: 17rem;
+    }
+
+    .container-consult-form form button {
+        margin-right: 17.5rem;
+    }
+
+    .Volver {
+        margin-right: 0.5rem;
+    }
+}
+
 @media(max-width:412px) {
 
     .select-ficha{
@@ -372,6 +396,32 @@
 
     .container-consult-form form button {
         margin-left: 1.1rem;
+    }
+
+    .Volver{
+        margin-left: 0.4rem;
+    }
+}
+
+@media (max-width: 410px) {
+    .Volver {
+        margin-left: 0.4rem;
+    }
+}
+
+@media (max-width:400px) {
+    .container-consult-form form button {
+        margin-left: 19rem;
+    }
+
+    .Volver {
+        margin-left: 1rem   ;
+    }
+}
+
+@media(max-width:380px) {
+    .Volver {
+        margin-left: 1rem;
     }
 }
 

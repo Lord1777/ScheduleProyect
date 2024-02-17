@@ -18,8 +18,6 @@ export const ScheduleInstructor = () => {
         setModalOpen,
         alertMessage } = useFetchGetScheduleInstructor('/getScheduleInstructor', idUsuario, idTrimestre, idFicha, setHorasAsignadasValue);
 
-    const [horasPorBoxIndex, setHorasPorBoxIndex] = useState({});
-
     useEffect(() => {
         // Calcula el total de horas por boxIndex
         const totalHoras = dataSchedule.reduce((total, infoSchedule) => total + (infoSchedule.horasAsignadas || 0), 0);
@@ -29,17 +27,6 @@ export const ScheduleInstructor = () => {
     if (loading) {
         return <Loading />
     }
-
-    const handleCellClick = (infoSchedule) => {
-        if (infoSchedule) {
-            const boxIndex = infoSchedule.boxIndex;
-            const horasAsignadas = infoSchedule.horasAsignadas || 0;
-            setHorasPorBoxIndex((prevHoras) => ({
-                ...prevHoras,
-                [boxIndex]: (prevHoras[boxIndex] || 0) + horasAsignadas
-            }));
-        }
-    };
 
     return (
         <>

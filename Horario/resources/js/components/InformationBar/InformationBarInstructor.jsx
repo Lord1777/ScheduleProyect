@@ -1,6 +1,6 @@
 import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
 import React, { useState, useContext, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useFetchGetRecords } from '../../hooks/FetchGetResources/useFetchGetRecords';
 import useDropdownGet from '../../hooks/useDropdownGet';
 import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
@@ -16,7 +16,7 @@ export const InformationBarInstructor = () => {
 
     const { idUsuario } = useParams();
 
-    const { setIdTrimestreValue, setIdFichaValue, setHorasAsignadasValue } = useContext(FilterScheduleInstructorContext);
+    const { setIdTrimestreValue, setIdFichaValue } = useContext(FilterScheduleInstructorContext);
 
     const { dataRecords } = useFetchGetRecords('/getRecords');
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
@@ -46,14 +46,12 @@ export const InformationBarInstructor = () => {
     }
     
     const updateHorasAsignadas = () => {
-        const horasAsignadas = setHorasAsignadasValue(); // Asumiendo que setHorasAsignadasValue es asíncrono
-        setTotalHoras(horasAsignadas); // Actualiza las horas asignadas en el contexto
+        setTotalHoras(horasAsignadas);
     };
 
     useEffect(() => {
-        // Actualiza las horas asignadas cuando cambian
         updateHorasAsignadas();
-    }, [setHorasAsignadasValue]);
+    }, [totalHoras]);
     
     return (
         <>
@@ -120,11 +118,11 @@ export const InformationBarInstructor = () => {
                         </div>
                     )}
                     <div>
-                        <h3>Total de Horas: {totalHoras || '...'}</h3>
+                        <h3>Total de Horas: {totalHoras}</h3>
                     </div>
                 </div>
                 <div className='check_filter'>
-                    <label htmlFor="trimestresCheckbox"><h3>Filtrar por Trimestres</h3></label>
+                    <label htmlFor="trimestresCheckbox"><h3>Filtrar por <Trimestres></Trimestres></h3></label>
                     <input
                         className='custom-checkbox'
                         id="trimestresCheckbox"
@@ -135,3 +133,5 @@ export const InformationBarInstructor = () => {
         </>
     )
 }
+
+export default InformationBarInstructor;

@@ -1,6 +1,5 @@
-import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
 import React, { useState, useContext, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
 import useDropdownGet from '../../hooks/useDropdownGet';
 import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
 import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
@@ -12,9 +11,8 @@ export const InformationBarAdminInstructor = () => {
     const dropdown2 = useDropdownGet();
     const trimestreDropdown = useTrimestreDropdown();
 
-    const { idUsuario } = useParams();
 
-    const { setIdTrimestreValue, setHorasAsignadasValue } = useContext(FilterScheduleInstructorContext);
+    const { setIdTrimestreValue, totalSeleccionado, setHorasAsignadasValue } = useContext(FilterScheduleInstructorContext);
 
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
 
@@ -29,21 +27,19 @@ export const InformationBarAdminInstructor = () => {
         return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
     };
 
-    const [totalHoras, setTotalHoras] = useState("");
+    const [horasAsignadas, setHorasAsignadas] = useState(0);
 
     const handleOptionClickTrimestre = (selectedOption) => {
         setIdTrimestreValue(getQuarterId(selectedOption));
     }
     
     const updateHorasAsignadas = () => {
-        const horasAsignadas = setHorasAsignadasValue(); // Asumiendo que setHorasAsignadasValue es asíncrono
-        setTotalHoras(horasAsignadas); // Actualiza las horas asignadas en el contexto
+        setHorasAsignadasValue(totalSeleccionado);
     };
 
     useEffect(() => {
-        // Actualiza las horas asignadas cuando cambian
         updateHorasAsignadas();
-    }, [setHorasAsignadasValue]);
+    }, [totalSeleccionado, setHorasAsignadasValue]);
     
     return (
         <>
@@ -72,7 +68,7 @@ export const InformationBarAdminInstructor = () => {
                         </div>
                     )}
                     <div>
-                        <h3>Total de Horas: {totalHoras || '...'}</h3>
+                        <h3>Total de Horas: {totalSeleccionado}</h3>
                     </div>
                 </div>
                 <div className='check_filter'>
@@ -87,3 +83,5 @@ export const InformationBarAdminInstructor = () => {
         </>
     )
 }
+
+export default InformationBarAdminInstructor;

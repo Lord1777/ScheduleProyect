@@ -1,8 +1,8 @@
 import React from 'react'
 import { NavBar } from '../components/NavBar/NavBar'
-import { InformationBarInstructor } from '../components/InformationBar/InformationBarInstructor'
 import { ScheduleInstructor } from '../components/Schedule/ScheduleInstructor'
 import { FilterScheduleInstructorContextProvider } from '../context/FilterScheduleInstructorContext'
+import { InformationBarAdminInstructor } from '../components/InformationBar/InformationBarAdminInstructor'
 
 export const SeeScheduleInstructors = () => {
 
@@ -12,7 +12,7 @@ export const SeeScheduleInstructors = () => {
             {/*los estilos del container horarios estan en SeeSchedule.css*/}
             <main className="container_all_horario2">
             <FilterScheduleInstructorContextProvider >
-                <InformationBarInstructor />
+                <InformationBarAdminInstructor />
                 <ScheduleInstructor/>
             </FilterScheduleInstructorContextProvider>
             </main>

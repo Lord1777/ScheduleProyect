@@ -19,7 +19,6 @@ Route::middleware(['cors'])->group(function (){
     Route::match(['get', 'post'], '/login', [AuthController::class, 'login'])->name('login');
 
     Route::get('/getInfoBarRecord/{idFicha}', [ScheduleController::class, 'indexRecord']);
-    Route::get('/getInfoBarInstructor/{idUsuario}', [ScheduleController::class, 'indexInstructor']);
     Route::get('/getScheduleApprentice/{idFicha}', [ScheduleController::class, 'scheduleApprentice']);
     Route::get('/getRecords', [RecordsController::class, 'getRecords']);
 });

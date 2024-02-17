@@ -44,6 +44,7 @@ import { Password } from './pages/Password.jsx';
 import { ManageScheduleUpdateFicha } from './pages/ManageScheduleUpdateFicha.jsx';
 import { MyProfile } from './pages/MyProfile.jsx';
 import { SeeScheduleAdminInstructor } from './pages/SeeScheduleAdminInstructor.jsx';
+import { ModalChangePassword } from './components/Modals/ModalChangePassword.jsx';
 
 
 function App() {
@@ -74,8 +75,8 @@ function App() {
                     <Route path='/403-forbidden' element={<Forbidden />} />
                     <Route path='/HorarioAprendiz/:idFicha/:idHorario' element={<ScheduleAprenttice />} />
                     <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
-                    <Route path='/UpdateHorarioInstructor/:idUsuario' element={<ScheduleUpdateInstructor/>} />
-                    <Route path='/ScheduleUpdateFicha/:idFicha/:idHorario/:idTrimestre' element={<ScheduleUpdateFicha/>} />
+                    {/* <Route path='/UpdateHorarioInstructor/:idUsuario' element={<ScheduleUpdateInstructor/>} />
+                    <Route path='/ScheduleUpdateFicha/:idFicha/:idHorario/:idTrimestre' element={<ScheduleUpdateFicha/>} /> */}
                     <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
                     <Route path='/AddHorario/:id' element={<AddSchedule />} />
                     <Route path='/UpdatePrograma/:id' element={<UpdateProgram/>}/>
@@ -86,6 +87,7 @@ function App() {
                     <Route path='/Perfil' element={<MyProfile/>}/>
                     <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />
                     <Route path='/AddCoordinador' element={<AddCoordinator />} />
+                    <Route path='/Modalc' element={<ModalChangePassword/>}/>
 
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={storedRole} />}  >

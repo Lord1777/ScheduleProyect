@@ -10,7 +10,7 @@ export const getSedeByName = (name) =>{
 export const getSedeById = (id) => {
     const idSede = {
         1: "Indusrial",
-        2: "Cbi",
+        2: "CBI",
         3: "Ambos",
     }
     return idSede[id]

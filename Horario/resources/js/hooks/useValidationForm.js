@@ -33,6 +33,10 @@ const useValidationForm = () => {
             value: 8,
             message: "Minimo 8 digitos",
         },
+        maxLength: {
+            value: 14,
+            message: "Maximo 14 digitos"
+        }
     }
 
     const TIPO_DOCUMENTO = {

@@ -49,6 +49,7 @@ Route::get('/HorariosAmbientes', fn()=> view('welcome'));
 Route::get('/PanelHorarios', fn()=> view('welcome'));
 Route::get('/Card', fn()=> view('welcome'));
 Route::get('/Perfil', fn() => view('welcome'));
+Route::get('/Modalc', fn() => view('welcome'));
 
 // Route::get('/{any}', function () {
 //     //Todas las rutas retornan welcome porque ahí es donde se está renderizando React

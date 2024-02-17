@@ -38,7 +38,9 @@ export const NavBar = () => {
 
                     {(userRole === 'coordinador') && (
                         <>
-                            <li><img src={perfil} alt="perfil" />Perfil</li>
+                            <Link to={'/Perfil'}>
+                                <li><img src={perfil} alt="perfil" />Perfil</li>
+                            </Link>
 
                             <Link to={'/PanelHorarios'}>
                                 <li><img src={calendar} alt="calendar" />Horarios</li>

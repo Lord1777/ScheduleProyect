@@ -4,12 +4,15 @@ import logoSena from "../../assets/img/LogoSena.png";
 import { useUser } from '../../context/UserContext';
 import {  getContratoById, getSedeById } from '../../hooks/useObjectMapping';
 import { Loading } from '../Loading/Loading';
+import { ModalChangePassword } from '../Modals/ModalChangePassword';
+import useModal from '../../hooks/useModal';
 
 
 export const Profile = () => {
 
     const { user } = useUser();
     const [loading, setLoading] = useState(true);
+    const { isModal, ShowOpenModal, ShowCloseModal, } = useModal();
 
     useEffect(() => {
         if (user && user.userData) {
@@ -22,6 +25,7 @@ export const Profile = () => {
     }
 
     const userData = user.userData;
+    console.log(userData)
     let contrato = getContratoById(userData.idContrato);
     let sede = getSedeById(userData.idSede);
 
@@ -32,11 +36,8 @@ export const Profile = () => {
                     <div className='content-tittle-profile'>
                         <h2>Perfil</h2>
                     </div>
-                    <div className='container-logo-form'>
-                        <div className="container-logo">
-                            <img src={logoSena} alt="logo-sena" />
-                        </div>
-                        <div className="container-form-profile">
+                    
+                    <div className="container-form-profile">
                             <form method="get">
                                 <div>
                                     <input
@@ -166,16 +167,20 @@ export const Profile = () => {
                                         disabled='on'
                                         defaultValue={sede} 
                                         />
-                                    <button>
+                                    <button onClick={ShowOpenModal}>
                                         Cambiar Contraseña
                                     </button>
                                 </div>
 
                             </form>
                         </div>
-                    </div>
                 </div>
             </main>
+            <ModalChangePassword
+            IdUser={userData.idUsuario}
+            open={isModal}
+            close={ShowCloseModal}
+            />
         </>
     )
 }

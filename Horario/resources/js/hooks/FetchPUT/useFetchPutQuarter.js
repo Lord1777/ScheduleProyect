@@ -10,12 +10,12 @@ export const useFetchPutQuarter = () => {
 
     const fetchPutQuarter = async (idTrimestre, trimestre, fechaInicio, fechaFinal) => {
 
-        console.log(
-            idTrimestre,
-            `idTrimestre: ${trimestre},
-            Fecha Inicial: ${fechaInicio},
-            Fecha Final: ${fechaFinal}`
-        )
+        // console.log(
+        //     idTrimestre,
+        //     `trimestre: ${trimestre},
+        //     Fecha Inicial: ${fechaInicio},
+        //     Fecha Final: ${fechaFinal}`
+        // )
 
         try {
             const response = await fetch(`${API_URL}/updateQuater/${idTrimestre}`, {

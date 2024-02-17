@@ -166,9 +166,9 @@
 }
 
 @media (max-width:540px){
-    form{
+    /* form{
         margin-left: 0.2rem;
-    }
+    } */
 
     .box_form_trimestre{
         height: 30rem;
@@ -177,9 +177,9 @@
 }
 
 @media (max-width:430px){
-    form{
+    /* form{
         margin-left: -0.5rem;
-    }
+    } */
 
     .title_underline{
         margin-left: -0.5rem;
@@ -197,9 +197,9 @@
         margin-top: -5rem;
     }
 
-    form{
+    /* form{
         margin-left: -0.2rem;
-    }
+    } */
 
     .title_underline{
         margin-left: -0.2rem;
@@ -225,9 +225,9 @@
         margin-left: -0.5rem;
     }
 
-    form{
+    /* form{
         margin-left: 0.3rem;
-    }
+    } */
 
     .box_form_trimestre{
         height: 30rem;
@@ -258,9 +258,9 @@
         height: 28rem;
     }
 
-    form{
+    /* form{
         margin-top: -0.5rem;
-    }
+    } */
 
     .title_underline{
         margin-top: -2rem;

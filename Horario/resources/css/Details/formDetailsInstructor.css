@@ -223,9 +223,9 @@ textarea{
         margin-top: -14rem;
     }
 
-    form{
+    /* form{
         margin-left: -19rem;
-    }
+    } */
 }
 
 @media (max-width:430px) {
@@ -262,9 +262,9 @@ textarea{
         background-color: #fff;
     }
 
-    form{
+    /* form{
         margin-left: -1rem;
-    }
+    } */
 }
 
 @media (max-width:375px) {
@@ -334,7 +334,7 @@ textarea{
         margin-left: 9rem;
     }
 
-    form{
+    /* form{
         margin-left: 0.5rem;
-    }
+    } */
 }

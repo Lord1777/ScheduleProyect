@@ -44,6 +44,7 @@ import { Password } from './pages/Password.jsx';
 import { ManageScheduleUpdateFicha } from './pages/ManageScheduleUpdateFicha.jsx';
 import { MyProfile } from './pages/MyProfile.jsx';
 import { SeeScheduleAdminInstructor } from './pages/SeeScheduleAdminInstructor.jsx';
+import { ModalChangePassword } from './components/Modals/ModalChangePassword.jsx';
 
 
 function App() {
@@ -75,6 +76,7 @@ function App() {
                     <Route path='/HorarioAprendiz/:idFicha/:idHorario' element={<ScheduleAprenttice />} />
                     <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />
                     <Route path='/Perfil' element={<MyProfile/>}/>
+                    <Route path='/Modalc' element={<ModalChangePassword/>}/>
 
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={storedRole} />}  >

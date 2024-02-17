@@ -7,7 +7,6 @@ import { API_URL, csrf_token } from '../../const/api';
 import { Loading } from '../Loading/Loading';
 import DatePicker from 'react-datepicker';
 import useValidationForm from '../../hooks/useValidationForm';
-import useDropdown from "../../hooks/useDropdown";
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -21,9 +20,6 @@ export const FormUpdateTrimestre = () => {
     const { control, register, handleSubmit, setValue, formState: { errors } } = useForm();
 
     const { N_TRIMESTRE, FECHA_INI, FECHA_FIN } = useValidationForm();
-
-    const dropdown1 = useDropdown(setValue, "FECHA_INI");
-    const dropdown2 = useDropdown(setValue, "FECHA_FIN");
 
     const { id } = useParams();
     const [trimestre, setTrimestre] = useState(null);
@@ -53,8 +49,6 @@ export const FormUpdateTrimestre = () => {
             setValue('N_TRIMESTRE', Data.trimestre);
             setValue('FECHA_INI', Data.fechaIni);
             setValue('FECHA_FIN', Data.fechaFin);
-            dropdown1.setSelectedOption(Data.fechaIni);
-            dropdown2.setSelectedOption(Data.fechaFin);
             setLoading(false);
         } catch (error) {
             console.error("Error al cargar los detalles ficha:", error);

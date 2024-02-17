@@ -27,7 +27,7 @@ export const FormLogin = () => {
 
     const onSubmit = async (data) => {
         setLoading(true);
-        await authUser(data.documento, password);
+        await authUser(data.documento, data.password);
         setLoading(false);
     };
 

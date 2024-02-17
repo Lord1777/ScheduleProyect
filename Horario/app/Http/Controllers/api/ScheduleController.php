@@ -280,8 +280,13 @@ class ScheduleController extends Controller
                 'error' => $validator->errors()
             ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
         }
+        // $limiteHorasInstructorContratistaSemanal = 35;
+        // $limiteHorasFichasSemanal = 40;
+        // $limiteHorasInstructorPlantaSemanal = 40;
+        // $limiteHorasAmbienteSemanal = 96;
 
         try {
+
             //Inicio
             DB::beginTransaction();
 
@@ -296,7 +301,7 @@ class ScheduleController extends Controller
 
             $numeroFicha = Ficha::where('idFicha', $idFicha)->value('ficha');
 
-            if ($scheduleIsDefined) {
+            if (!$scheduleIsDefined->isEmpty()) {
 
                 //Cancelar
                 DB::rollBack();
@@ -307,6 +312,12 @@ class ScheduleController extends Controller
                     'error' => 'There is already an academic schedule'
                 ], Response::HTTP_METHOD_NOT_ALLOWED); //405
             }
+
+            //Reiniciar las horasAsignadas de instructores, ambientes y fichas 
+            Usuario::query()->update(['horasAsignadas' => 0]);
+            Ambiente::query()->update(['horasAsignadas' => 0]);
+            Ficha::query()->update(['horasAsignadas' => 0]);
+
 
             // Crear un nuevo horario académico
             $horarioAcademico = HorarioAcademico::create([
@@ -394,15 +405,15 @@ class ScheduleController extends Controller
                         ], Response::HTTP_BAD_REQUEST); //400
                     } /* else {
 
-                    Log::info($fichaAsignadaInstructor);
+                  Log::info($fichaAsignadaInstructor);
 
-                    return response()->json([
-                        'status' => 0,
-                        'message' => "No se encontraron asignaciones para el instructor '{$nombreInstructor}' en la(s) caja(s) especificadas.",
-                        'error' => 'No assignments found for the instructor in the specified boxIndex',
-                    ], Response::HTTP_NOT_FOUND); //404
-                }
-                */
+                  return response()->json([
+                      'status' => 0,
+                      'message' => "No se encontraron asignaciones para el instructor '{$nombreInstructor}' en la(s) caja(s) especificadas.",
+                      'error' => 'No assignments found for the instructor in the specified boxIndex',
+                  ], Response::HTTP_NOT_FOUND); //404
+              }
+              */
                 }
                 if ($ambienteAsignado->isNotEmpty()) {
 
@@ -417,13 +428,13 @@ class ScheduleController extends Controller
                             'duplicates' => $ambienteAsignado,
                         ], Response::HTTP_BAD_REQUEST); //400
                     } /*else {
-                    return response()->json([
-                        'status' => 0,
-                        'message' => "No se encontraron asignaciones para el ambiente '{$numeroAmbiente}' en la(s) caja(s) especificadas.",
-                        'error' => 'No assignments found for the instructor in the specified boxIndex',
-                    ], Response::HTTP_NOT_FOUND); //404
-                }
-                */
+                  return response()->json([
+                      'status' => 0,
+                      'message' => "No se encontraron asignaciones para el ambiente '{$numeroAmbiente}' en la(s) caja(s) especificadas.",
+                      'error' => 'No assignments found for the instructor in the specified boxIndex',
+                  ], Response::HTTP_NOT_FOUND); //404
+              }
+              */
                 }
 
                 if ($limiteHorasInstructor !== null && $limiteHorasAmbiente !== null) {
@@ -527,9 +538,6 @@ class ScheduleController extends Controller
             ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
         }
 
-        // Log::info($request->all());
-        Log::info('idHorario: ' . $idHorario);
-
         try {
 
             //Inicio
@@ -540,28 +548,10 @@ class ScheduleController extends Controller
             $idFicha = $data['idFicha'];
             $globalStoreBoxes = $data['globalStoreBoxes'];
 
-            $asignacionesAntiguas = Asignacion::where('idHorarioAcademico', $idHorario)->get();
-
-            //Restar horas asignadas
-            foreach ($asignacionesAntiguas as $asignacionAntigua) {
-                $idInstructor = $asignacionAntigua->idUsuario;
-                $idAmbiente = $asignacionAntigua->idAmbiente;
-
-                Usuario::where('idUsuario', $idInstructor)->update([
-                    'horasAsignadas' => DB::raw('horasAsignadas - 1'),
-                    //...
-                ]);
-
-                Ambiente::where('idAmbiente', $idAmbiente)->update([
-                    'horasAsignadas' => DB::raw('horasAsignadas - 1'),
-                    //...
-                ]);
-
-                Ficha::where('idFicha', $idFicha)->update([
-                    'horasAsignadas' => DB::raw('horasAsignadas - 1'),
-                    //...
-                ]);
-            }
+            //Reiniciar las horasAsignadas de instructores, ambientes y fichas 
+            Usuario::query()->update(['horasAsignadas' => 0]);
+            Ambiente::query()->update(['horasAsignadas' => 0]);
+            Ficha::query()->update(['horasAsignadas' => 0]);
 
             // Borrar las asignaciones antiguas
             Asignacion::where('idHorarioAcademico', $idHorario)->delete();

@@ -73,19 +73,8 @@ function App() {
                     <Route path='/ConsultaAprendiz' element={<ConsultAprenttice />} />
                     <Route path='/403-forbidden' element={<Forbidden />} />
                     <Route path='/HorarioAprendiz/:idFicha/:idHorario' element={<ScheduleAprenttice />} />
-                    <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
-                    <Route path='/UpdateHorarioInstructor/:idUsuario' element={<ScheduleUpdateInstructor/>} />
-                    <Route path='/ScheduleUpdateFicha/:idFicha/:idHorario/:idTrimestre' element={<ScheduleUpdateFicha/>} />
-                    <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
-                    <Route path='/AddHorario/:id' element={<AddSchedule />} />
-                    <Route path='/UpdatePrograma/:id' element={<UpdateProgram/>}/>
-                    <Route path='/HorariosAmbientes' element={<WatchScheduleAmbiente/>}/>
-                    <Route path='/PanelHorarios' element={<HorariosPanel/>}/>
-                    <Route path='/Card' element={<CardHorarios/>}/>
-                    <Route path='/AddCoordinador' element={<AddCoordinator />} />
-                    <Route path='/Perfil' element={<MyProfile/>}/>
                     <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />
-                    <Route path='/AddCoordinador' element={<AddCoordinator />} />
+                    <Route path='/Perfil' element={<MyProfile/>}/>
 
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={storedRole} />}  >
@@ -104,6 +93,7 @@ function App() {
                         <Route path='/CrudCoordinadores' element={<CrudCoordinators />} />
                         <Route path='/CrudAmbientes' element={<CrudEnvironments />} />
                         <Route path='/CrudProgramas' element={<CrudPrograms/>}/>
+                        <Route path='/AddCoordinador' element={<AddCoordinator />} />
                         <Route path='/AddInstructor' element={<AddInstructors />} />
                         <Route path='/AddAmbiente' element={<AddEnvironments />} />
                         <Route path='/AddPrograma' element={<AddProgram />} />

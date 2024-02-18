@@ -1,49 +1,83 @@
 import React, { useState } from 'react'
-import { API_URL } from '../../const/api';
+import { API_URL, csrf_token } from '../../const/api';
+import useModal from '../useModal';
 
 const useFecthPutPassword = () => {
 
-    const [ loading, setLoading ] = useState(false);
+    const userToken = localStorage.getItem('access_token');
+    const [loading, setLoading] = useState(false);
+    const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
+    const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
+    const { isModal: modalChangePasword, ShowOpenModal: openPasswordModal, ShowCloseModal: closePasswordModal } = useModal();
+    const [alertMessage, setAlertMessage] = useState('');
+    const [ruta, setRuta] = useState('');
 
-    const fetchPutPassword = async (idUser, password) => {
+
+    const fetchPutPassword = async (idUsuario, password) => {
+
+        console.log(
+            `id: ${idUsuario},
+            contraseña: ${password}`
+        )
 
         try {
 
-            const response = await fetch(`${API_URL}/UpdatePassword/${idUser}`, {
+            const response = await fetch(`${API_URL}/UpdatePassword/${idUsuario}`, {
                 method: 'PUT',
-                headers: { 
+                headers: {
                     'Content-Type': 'application/json',
-                    'Cookie': csrf_token,
+                    'X-CSRF-TOKEN': csrf_token,
                     'Authorization': `Bearer ${userToken}`,
-                 },
+                },
                 body: JSON.stringify({
-                    idUser,
+                    idUsuario,
                     password
                 }),
             });
 
             if (response.ok) {
                 const data = await response.json();
-                
-            } else if (response.status === 422) {
+                setAlertMessage(data.message)
+                openSuccessModal();
+                closePasswordModal();
+            }   
+            else if (response.status === 422) {
                 const data = await response.json();
-                
+                setAlertMessage(data.message)
+                openErrorModal();
+            }
+            else if (response.status === 404) {
+                const data = await response.json();
+                setAlertMessage(data.message)
+                openErrorModal();
             }
             else if (response.status === 500) {
                 const data = await response.json();
-                
+                setAlertMessage(data.message)
+                setRuta('/Perfil')
+                openErrorModal();
+                closePasswordModal();
             }
 
         } catch (error) {
-            console.error(`Error updating program: ${error}`);
+            console.error(`Error updating password: ${error}`);
         }
     }
 
-  return {
-    fetchPutPassword,
-    loading,
-    setLoading
-  }
+    return {
+        fetchPutPassword,
+        loading,
+        setLoading,
+        closeSuccessModal,
+        successModalOpen,
+        closeErrorModal,
+        errorModalOpen,
+        alertMessage,
+        ruta,
+        openPasswordModal,
+        closePasswordModal,
+        modalChangePasword
+    }
 }
 
 export default useFecthPutPassword

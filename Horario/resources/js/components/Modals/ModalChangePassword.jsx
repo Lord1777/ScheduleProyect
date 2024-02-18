@@ -7,6 +7,9 @@ import OpenEye from '../../assets/icons/open-eye.png'
 import usePasswordToggle from '../../hooks/usePasswordToggle'
 import useFecthPutPassword from '../../hooks/FetchPUT/useFecthPutPassword'
 import { Loading } from '../Loading/Loading'
+import exito from '../../assets/img/Exito.png'
+import error from '../../assets/img/Advertencia.png'
+import { ContinuoModal } from './ContinuoModal'
 
 export const ModalChangePassword = ({ IdUser, open, close, }) => {
     if (!open) return null;
@@ -20,10 +23,17 @@ export const ModalChangePassword = ({ IdUser, open, close, }) => {
     const confirmPasswordValidator = (value) => {
         return value === newPassword || "Las contraseñas no coinciden";
     };
-    const { fetchPutPassword, loading, setLoading } = useFecthPutPassword()
+    const { fetchPutPassword,
+            loading,
+            setLoading,
+            closeSuccessModal,
+            successModalOpen,
+            closeErrorModal,
+            errorModalOpen,
+            alertMessage,
+            ruta, } = useFecthPutPassword();
 
-    const onSubmit = async(data) => {
-        console.log(data)
+    const onSubmit = async (data) => {
         setLoading(true);
         await fetchPutPassword(
             IdUser,
@@ -32,13 +42,13 @@ export const ModalChangePassword = ({ IdUser, open, close, }) => {
         setLoading(false);
     }
 
-    if(loading){
-        return <Loading/>
+    if (loading) {
+        return <Loading />
     }
 
     return (
         <>
-            <main className="box-shadow-modal">
+            <main className="box-shadow-modal-password">
                 <div className="content-modal-password">
                     <h2>Cambiar Contraseña</h2>
                     <form method='POST' onSubmit={handleSubmit(onSubmit)}>
@@ -82,6 +92,27 @@ export const ModalChangePassword = ({ IdUser, open, close, }) => {
                     </form>
                 </div>
             </main>
+            <ContinuoModal
+                tittle="Error al actualizar de contraseña."
+                imagen={error}
+                message={alertMessage}
+                open={errorModalOpen}
+                close={() => {
+                    closeErrorModal();
+                    close(); // Cerrar el modal principal
+                }}
+                route={ruta}
+            />
+            <ContinuoModal
+                tittle="Actualización Exitosa"
+                imagen={exito}
+                message={alertMessage}
+                open={successModalOpen}
+                close={() => {
+                    closeSuccessModal();
+                    close(); // Cerrar el modal principal
+                }}
+            />
         </>
     )
 }

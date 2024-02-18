@@ -1,18 +1,23 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import '../../../css/Profile/Profile.css'
 import logoSena from "../../assets/img/LogoSena.png";
 import { useUser } from '../../context/UserContext';
-import {  getContratoById, getSedeById } from '../../hooks/useObjectMapping';
+import { getContratoById, getSedeById } from '../../hooks/useObjectMapping';
 import { Loading } from '../Loading/Loading';
 import { ModalChangePassword } from '../Modals/ModalChangePassword';
 import useModal from '../../hooks/useModal';
+import useFecthPutPassword from '../../hooks/FetchPUT/useFecthPutPassword';
 
 
 export const Profile = () => {
 
     const { user } = useUser();
     const [loading, setLoading] = useState(true);
-    const { isModal, ShowOpenModal, ShowCloseModal, } = useModal();
+
+    const { 
+        openPasswordModal,
+        closePasswordModal,
+        modalChangePasword } = useFecthPutPassword();
 
     useEffect(() => {
         if (user && user.userData) {
@@ -21,7 +26,7 @@ export const Profile = () => {
     }, [user]);
 
     if (loading) {
-        return <Loading/>
+        return <Loading />
     }
 
     const userData = user.userData;
@@ -36,150 +41,152 @@ export const Profile = () => {
                     <div className='content-tittle-profile'>
                         <h2>Perfil</h2>
                     </div>
-                    
+
                     <div className="container-form-profile">
-                            <form method="get">
+                        <form method="get">
+                            <div>
+                                <input
+                                    type="text"
+                                    placeholder='Nombre'
+                                    name='nombreCompleto'
+                                    autoComplete='off'
+                                    readOnly
+                                    disabled='on'
+                                    id='input-large'
+                                    defaultValue={userData.nombreCompleto}
+                                />
+                            </div>
+
+                            <div className='container-inputs'>
                                 <div>
                                     <input
                                         type="text"
-                                        placeholder='Nombre'
-                                        name='nombreCompleto'
+                                        placeholder='Tipo Documento'
+                                        name='TipoDocumento'
                                         autoComplete='off'
                                         readOnly
                                         disabled='on'
-                                        id='input-large'
-                                        defaultValue={userData.nombreCompleto} 
+                                        defaultValue={userData.tipoDocumento}
                                     />
                                 </div>
 
-                                <div className='container-inputs'>
-                                    <div>
-                                        <input
-                                            type="text"
-                                            placeholder='Tipo Documento'
-                                            name='TipoDocumento'
-                                            autoComplete='off'
-                                            readOnly
-                                            disabled='on'
-                                            defaultValue={userData.tipoDocumento} 
-                                            />
-                                    </div>
+                                <div>
+                                    <input
+                                        type="text"
+                                        placeholder='Documento'
+                                        name='documento'
+                                        autoComplete='off'
+                                        readOnly
+                                        disabled='on'
+                                        defaultValue={userData.documento}
+                                    />
+                                </div>
+                            </div>
 
-                                    <div>
-                                        <input
-                                            type="text"
-                                            placeholder='Documento'
-                                            name='documento'
-                                            autoComplete='off'
-                                            readOnly
-                                            disabled='on'
-                                            defaultValue={userData.documento} 
-                                        />
-                                    </div>
+                            <div>
+                                <input
+                                    type="text"
+                                    placeholder='Email'
+                                    name='email'
+                                    autoComplete='off'
+                                    readOnly
+                                    disabled='on'
+                                    id='input-large'
+                                    defaultValue={userData.email}
+                                />
+                            </div>
+
+                            <div className='container-inputs'>
+                                <div>
+                                    <input
+                                        type="text"
+                                        placeholder='Telefono'
+                                        name='telefono'
+                                        autoComplete='off'
+                                        readOnly
+                                        disabled='on'
+                                        defaultValue={userData.telefono}
+                                    />
                                 </div>
 
                                 <div>
                                     <input
                                         type="text"
-                                        placeholder='Email'
-                                        name='email'
+                                        placeholder='Tipo Contrato'
+                                        name='contrato'
                                         autoComplete='off'
                                         readOnly
                                         disabled='on'
-                                        id='input-large'
-                                        defaultValue={userData.email} 
-                                        />
+                                        defaultValue={contrato}
+                                    />
                                 </div>
+                            </div>
 
-                                <div className='container-inputs'>
-                                    <div>
-                                        <input
-                                            type="text"
-                                            placeholder='Telefono'
-                                            name='telefono'
-                                            autoComplete='off'
-                                            readOnly
-                                            disabled='on'
-                                            defaultValue={userData.telefono} 
-                                        />
-                                    </div>
+                            <div>
+                                <input
+                                    type="text"
+                                    placeholder='Ciudad'
+                                    name='ciudad'
+                                    autoComplete='off'
+                                    readOnly
+                                    disabled='on'
+                                    id='input-large'
+                                    defaultValue={userData.ciudad}
+                                />
+                            </div>
 
-                                    <div>
-                                        <input
-                                            type="text"
-                                            placeholder='Tipo Contrato'
-                                            name='contrato'
-                                            autoComplete='off'
-                                            readOnly
-                                            disabled='on'
-                                            defaultValue={contrato} 
-                                            />
-                                    </div>
-                                </div>
+                            <div>
+                                <input
+                                    type="text"
+                                    placeholder='Profeción'
+                                    name='profesion'
+                                    autoComplete='off'
+                                    readOnly
+                                    disabled='on'
+                                    id='input-large'
+                                    defaultValue={userData.profesion}
+                                />
+                            </div>
 
-                                <div>
-                                    <input
-                                        type="text"
-                                        placeholder='Ciudad'
-                                        name='ciudad'
-                                        autoComplete='off'
-                                        readOnly
-                                        disabled='on'
-                                        id='input-large'
-                                        defaultValue={userData.ciudad} 
-                                        />
-                                </div>
+                            <div>
+                                <textarea
+                                    name="experiencia"
+                                    className='textArea'
+                                    cols="30"
+                                    rows="10"
+                                    placeholder='Experiencia:'
+                                    autoComplete='off'
+                                    readOnly
+                                    disabled='on'
+                                    defaultValue={userData.experiencia}
+                                ></textarea>
+                            </div>
 
-                                <div>
-                                    <input
-                                        type="text"
-                                        placeholder='Profeción'
-                                        name='profesion'
-                                        autoComplete='off'
-                                        readOnly
-                                        disabled='on'
-                                        id='input-large'
-                                        defaultValue={userData.profesion} 
-                                        />
-                                </div>
-
-                                <div>
-                                    <textarea
-                                        name="experiencia"
-                                        className='textArea'
-                                        cols="30"
-                                        rows="10"
-                                        placeholder='Experiencia:'
-                                        autoComplete='off'
-                                        readOnly
-                                        disabled='on'
-                                        defaultValue={userData.experiencia} 
-                                    ></textarea>
-                                </div>
-
-                                <div className="container-input-buton">
-                                    <input
-                                        type="text"
-                                        placeholder='Sede'
-                                        name='Sede'
-                                        autoComplete='off'
-                                        readOnly
-                                        disabled='on'
-                                        defaultValue={sede} 
-                                        />
-                                    <button onClick={ShowOpenModal}>
+                            <div className="container-input-buton">
+                                <input
+                                    type="text"
+                                    placeholder='Sede'
+                                    name='Sede'
+                                    autoComplete='off'
+                                    readOnly
+                                    disabled='on'
+                                    defaultValue={sede}
+                                />
+                                <div className='btn-cambiarPassword' onClick={openPasswordModal}>
+                                    <span>
                                         Cambiar Contraseña
-                                    </button>
+                                    </span>
                                 </div>
+                            </div>
 
-                            </form>
-                        </div>
+                        </form>
+                    </div>
                 </div>
             </main>
             <ModalChangePassword
-            IdUser={userData.idUsuario}
-            open={isModal}
-            close={ShowCloseModal}
+                IdUser={userData.idUsuario}
+                open={modalChangePasword}
+                close={closePasswordModal}
             />
         </>
     )

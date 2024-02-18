@@ -37,6 +37,7 @@ import { UpdateProgram } from '../../pages/Update/UpdateProgram';
 import { ScheduleUpdateFicha } from '../Schedule/ScheduleUpdateFicha';
 import { ManageScheduleUpdateFicha } from '../../pages/ManageScheduleUpdateFicha';
 import { SeeScheduleAdminInstructor } from '../../pages/SeeScheduleAdminInstructor';
+import { MyProfile } from '../../pages/MyProfile';
 
 
 const roleConfig = {
@@ -44,6 +45,7 @@ const roleConfig = {
         allowedRoles: ['instructor'],
         components: {
             'HorarioInstructor': SeeScheduleInstructors,
+            'MyProfile': MyProfile,
         },
         redirectPath: '/',
     },
@@ -84,6 +86,7 @@ const roleConfig = {
             'UpdateTrimestre': FormUpdateTrimestre,
             'UpdatePrograma': UpdateProgram,
             'ScheduleUpdateFicha': ManageScheduleUpdateFicha,
+            'MyProfile': MyProfile,
         },
         redirectPath: '/',
     },

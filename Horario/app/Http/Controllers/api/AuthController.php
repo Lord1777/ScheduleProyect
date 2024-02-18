@@ -146,4 +146,56 @@ class AuthController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
+
+    public function updatePassword(Request $request)
+{
+    try {
+        //Log::info('Solicitud recibida para actualizar la contraseña', $request->all());
+
+        // Validar la solicitud
+        $validator = Validator::make($request->all(), [
+            'idUsuario' => 'required|exists:usuarios,idUsuario', 
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 0,
+                'error' => $validator->errors()->first(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY); //422
+        }
+
+        // Buscar el usuario por su ID
+        $user = Usuario::find($request->idUsuario, 'idUsuario');
+
+        if (!$user) {
+            return response()->json([
+                'status' => 0,
+                'error' => 'Usuario no encontrado.',
+            ], Response::HTTP_NOT_FOUND); //404
+        }
+
+        // Actualizar la contraseña
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        // Log de éxito
+        //Log::info('Contraseña actualizada correctamente');
+
+        return response()->json([
+            'status' => 1,
+            'message' => 'Contraseña fue actualizada correctamente.',
+        ]);
+
+    } catch (\Exception $e) {
+        // Log de error
+        //Log::error('Error al actualizar la contraseña: ' . $e->getMessage());
+
+        return response()->json([
+            "status" => 0,
+            "message" => "Error al actualizar la contraseña.",
+        ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+    }
+}
+
 }

@@ -82,7 +82,10 @@ export const NavBar = () => {
 
                     {(userRole === 'instructor') && (
                         <>
-                            <li><img src={perfil} alt="perfil" />Perfil</li>
+                            <Link to={'/Perfil'}>
+                                <li><img src={perfil} alt="perfil" />Perfil</li>
+                            </Link>
+                            
                             <Link to={'/'}>
                                 <li><img src={Logout} alt="logout" />Cerrar Sesión</li>
                             </Link>

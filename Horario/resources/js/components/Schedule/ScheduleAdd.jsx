@@ -56,26 +56,39 @@ export const ScheduleAdd = () => {
 
     const onSubmit = async (data) => {
 
-        if (globalStoreBoxes.length > 0) {
+        if (globalStoreBoxes.length > 0 || globalStoreBoxes.size) {
 
-            // Actualiza el registro de horas asignadas por día
-            const newHorasAsignadasPorDia = { ...horasAsignadasPorDia };
+            // Reiniciar horasAsignadasPorDia a un estado inicial
+            const initialHorasPorDia = {};
             globalStoreBoxes.forEach(box => {
                 const idInstructor = box.idInstructor;
-                const dia = diaSemana[box.boxIndex % 6]; // Calcula el día correspondiente a la columna de la cuadrícula
+                const dia = diaSemana[box.boxIndex % 6];
+                if (!initialHorasPorDia[idInstructor]) {
+                    initialHorasPorDia[idInstructor] = {};
+                }
+                initialHorasPorDia[idInstructor][dia] = 0;
+            });
+    
+            setHorasAsignadasPorDia(initialHorasPorDia);
+    
+            // Actualizar el registro de horas asignadas por día
+            const newHorasAsignadasPorDia = { ...initialHorasPorDia };
+            globalStoreBoxes.forEach(box => {
+                const idInstructor = box.idInstructor;
+                const dia = diaSemana[box.boxIndex % 6];
                 if (!newHorasAsignadasPorDia[idInstructor][dia]) {
                     newHorasAsignadasPorDia[idInstructor][dia] = 0;
                 }
                 newHorasAsignadasPorDia[idInstructor][dia] += 1;
             });
-            setHorasAsignadasPorDia(newHorasAsignadasPorDia);
-
-            // Verifica si se excede el límite diario de 10 horas para algún instructor en algún día
+            console.log('Updated horasAsignadasPorDia:', newHorasAsignadasPorDia);
+    
+            // Verificar si se excede el límite diario de 10 horas
             const idInstructorExcedido = Object.keys(newHorasAsignadasPorDia).find(idInstructor => {
                 const horasPorDia = newHorasAsignadasPorDia[idInstructor];
                 return Object.values(horasPorDia).some(horas => horas > 10);
             });
-
+    
             if (idInstructorExcedido) {
                 return alert(`Se ha detectado que un instructor ha superado el límite diario de 10 horas en al menos uno de los días.`);
             }
@@ -107,7 +120,7 @@ export const ScheduleAdd = () => {
 
             const timer = setTimeout(() => {
                 setDuplicatesBox([]);
-            }, 9000);
+            }, 8000);
 
             // Limpieza del temporizador cuando el componente se desmonta o cuando duplicatesBox cambia nuevamente
             return () => clearTimeout(timer);

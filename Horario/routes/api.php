@@ -52,7 +52,7 @@ Route::middleware(['cors', 'auth:sanctum'])->group(function () {
 
 
     //Ambientes
-    Route::get('getEnvironments', [EnvironmentsController::class, 'getEnvironments']);
+    Route::get('/getEnvironments', [EnvironmentsController::class, 'getEnvironments']);
     Route::get('/getEnabledEnvironments', [EnvironmentsController::class, 'indexEnabled']);
     Route::get('/getDisableEnvironments', [EnvironmentsController::class, 'indexDisable']);
     Route::get('/getEnvironment/{idAmbiente}', [EnvironmentsController::class, 'show']);

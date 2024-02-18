@@ -61,7 +61,9 @@ export const ModalAsignar = ({
                 newStoreBoxes.push({
                     boxIndex,
                     idInstructor: getInstructorId(data.instructor),
+                    instructor: data.instructor,
                     idAmbiente: getAmbienteId(parseInt(data.ambiente)),
+                    ambiente: data.ambiente,
                 });
                 return newStoreBoxes;
             });
@@ -69,6 +71,7 @@ export const ModalAsignar = ({
             setAsignaciones((prevAsignaciones) => ({
                 ...prevAsignaciones,
                 [boxIndex]: {
+                    idInstructor: getInstructorId(data.instructor),
                     instructor: data.instructor,
                     ambiente: data.ambiente,
                 },

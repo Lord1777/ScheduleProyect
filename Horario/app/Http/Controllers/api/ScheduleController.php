@@ -90,7 +90,7 @@ class ScheduleController extends Controller
     }
 
 
-    
+
 
     public function scheduleInstructor(string $idUsuario, string $idTrimestre, string $idFicha)
     {
@@ -335,17 +335,31 @@ class ScheduleController extends Controller
                 $idInstructor = intval($box['idInstructor']);
                 $idAmbiente = intval($box['idAmbiente']);
 
+                //Obtener cantidad de horas asignadas hasta el momento
+                $asignacionesInstructor = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                    ->where('asignaciones.idUsuario', $idInstructor)
+                    ->where('horarios_academicos.idTrimestre', $idTrimestre)
+                    ->get();
+                $asignacionesAmbiente = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                    ->where('asignaciones.idAmbiente', $idAmbiente)
+                    ->where('horarios_academicos.idTrimestre', $idTrimestre)
+                    ->get();
+                $asignacionesFicha = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                    ->where('horarios_academicos.idFicha', $idFicha)
+                    ->where('horarios_academicos.idTrimestre', $idTrimestre)
+                    ->get();
+
                 // Obtener las horas antes solo si aún no se han obtenido antes para dicho [instructor]
                 if (!isset($horasAntesInstructores[$idInstructor])) {
-                    $horasAntesInstructores[$idInstructor] = Usuario::where('idUsuario', $idInstructor)->value('horasAsignadas');
+                    $horasAntesInstructores[$idInstructor] = $asignacionesInstructor->count();
                 }
                 // Obtener las horas antes solo si aún no se han obtenido antes para dicho [ambiente]
                 if (!isset($horasAntesAmbientes[$idAmbiente])) {
-                    $horasAntesAmbientes[$idAmbiente] = Ambiente::where('idAmbiente', $idAmbiente)->value('horasAsignadas');
+                    $horasAntesAmbientes[$idAmbiente] = $asignacionesAmbiente->count();
                 }
-
+                // Obtener las horas antes solo si aún no se han obtenido antes para dicha ficha
                 if ($horasAntesFicha == null) {
-                    $horasAntesFicha = Ficha::where('idFicha', $idFicha)->value('horasAsignadas');
+                    $horasAntesFicha = $asignacionesFicha->count();
                 }
 
                 $nombreInstructor = Usuario::where('idUsuario', $idInstructor)->value('nombreCompleto');
@@ -356,6 +370,7 @@ class ScheduleController extends Controller
                 $limiteHorasAmbiente = Ambiente::where('idAmbiente', $idAmbiente)->value('limiteHoras');
                 $limiteHorasFicha = Ficha::where('idFicha', $idFicha)->value('limiteHoras');
 
+                //Obtener cantidad de horas que dispone para ser asignado
                 $disponibilidadInstructor = $limiteHorasInstructor - $horasAntesInstructores[$idInstructor];
                 $disponibilidadAmbiente = $limiteHorasAmbiente - $horasAntesAmbientes[$idAmbiente];
                 $disponibilidadFicha = $limiteHorasFicha - $horasAntesFicha;
@@ -435,13 +450,13 @@ class ScheduleController extends Controller
               */
                 }
 
-                if ($limiteHorasInstructor !== null && $limiteHorasAmbiente !== null) {
+                if ($limiteHorasInstructor !== null && $limiteHorasAmbiente !== null && $limiteHorasFicha !== null) {
 
                     $nuevasHorasInstructor = Usuario::where('idUsuario', $idInstructor)->value('horasAsignadas') + 1;
                     $nuevasHorasAmbiente = Ambiente::where('idAmbiente', $idAmbiente)->value('horasAsignadas') + 1;
                     $nuevasHorasFicha = Ficha::where('idFicha', $idFicha)->value('horasAsignadas') + 1;
 
-                    if ($nuevasHorasInstructor > $limiteHorasInstructor) {
+                    if (($nuevasHorasInstructor > $limiteHorasInstructor) || ($disponibilidadInstructor - $nuevasHorasInstructor < 0)) {
 
                         // Si el incremento supera el límite: 
                         DB::rollBack();
@@ -453,7 +468,7 @@ class ScheduleController extends Controller
                         ], Response::HTTP_BAD_REQUEST); //400
                     }
 
-                    if ($nuevasHorasAmbiente > $limiteHorasAmbiente) {
+                    if (($nuevasHorasAmbiente > $limiteHorasAmbiente) || ($disponibilidadAmbiente - $nuevasHorasAmbiente < 0)) {
 
                         //Cancelar
                         DB::rollBack();
@@ -465,7 +480,7 @@ class ScheduleController extends Controller
                         ], Response::HTTP_BAD_REQUEST); //400
                     }
 
-                    if ($nuevasHorasFicha > $limiteHorasFicha) {
+                    if (($nuevasHorasFicha > $limiteHorasFicha) || ($disponibilidadFicha - $nuevasHorasFicha < 0)) {
 
                         //Si el incremento supera el limite:
                         DB::rollBack();
@@ -551,6 +566,12 @@ class ScheduleController extends Controller
             Ambiente::query()->update(['horasAsignadas' => 0]);
             Ficha::query()->update(['horasAsignadas' => 0]);
 
+            //Almacenar asignaciones de la ficha antes de que sean eliminadas
+            $asignacionesFicha = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                ->where('horarios_academicos.idFicha', $idFicha)
+                ->where('horarios_academicos.idTrimestre', $idTrimestre)
+                ->get();
+
             // Borrar las asignaciones antiguas
             Asignacion::where('idHorarioAcademico', $idHorario)->delete();
 
@@ -566,28 +587,34 @@ class ScheduleController extends Controller
             $asignaciones = [];
             $horasAntesInstructores = [];
             $horasAntesAmbientes = [];
-            $horasAntesFicha = null;
+            $horasAntesFicha = $asignacionesFicha->count();
 
             foreach ($globalStoreBoxes as $box) {
                 $boxIndex = intval($box['boxIndex']);
                 $idInstructor = intval($box['idInstructor']);
                 $idAmbiente = intval($box['idAmbiente']);
 
-                Log::info($boxIndex);
-                Log::info($idInstructor);
-                Log::info($idAmbiente);
+                //Obtener cantidad de horas asignadas hasta el momento
+                $asignacionesInstructor = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                    ->where('asignaciones.idUsuario', $idInstructor)
+                    ->where('horarios_academicos.idTrimestre', $idTrimestre)
+                    ->get();
+                $asignacionesAmbiente = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                    ->where('asignaciones.idAmbiente', $idAmbiente)
+                    ->where('horarios_academicos.idTrimestre', $idTrimestre)
+                    ->get();
+
+                // Log::info($asignacionesInstructor);
+                // Log::info($asignacionesAmbiente);
+                // Log::info($asignacionesFicha);
 
                 // Obtener las horas antes solo si aún no se han obtenido antes para dicho [instructor]
                 if (!isset($horasAntesInstructores[$idInstructor])) {
-                    $horasAntesInstructores[$idInstructor] = Usuario::where('idUsuario', $idInstructor)->value('horasAsignadas');
+                    $horasAntesInstructores[$idInstructor] = $asignacionesInstructor->count();
                 }
                 // Obtener las horas antes solo si aún no se han obtenido antes para dicho [ambiente]
                 if (!isset($horasAntesAmbientes[$idAmbiente])) {
-                    $horasAntesAmbientes[$idAmbiente] = Ambiente::where('idAmbiente', $idAmbiente)->value('horasAsignadas');
-                }
-
-                if ($horasAntesFicha == null) {
-                    $horasAntesFicha = Ficha::where('idFicha', $idFicha)->value('horasAsignadas');
+                    $horasAntesAmbientes[$idAmbiente] = $asignacionesAmbiente->count();
                 }
 
                 $nombreInstructor = Usuario::where('idUsuario', $idInstructor)->value('nombreCompleto');
@@ -602,6 +629,15 @@ class ScheduleController extends Controller
                 $disponibilidadInstructor = $limiteHorasInstructor - $horasAntesInstructores[$idInstructor];
                 $disponibilidadAmbiente = $limiteHorasAmbiente - $horasAntesAmbientes[$idAmbiente];
                 $disponibilidadFicha = $limiteHorasFicha - $horasAntesFicha;
+
+
+                // Log::info($horasAntesFicha);
+                // Log::info($horasAntesAmbientes[$idAmbiente]);
+                // Log::info($horasAntesInstructores[$idInstructor]);
+                // Log::info($disponibilidadFicha);
+                // Log::info($disponibilidadAmbiente);
+                // Log::info($disponibilidadInstructor);
+
 
                 // Evitar asignaciones simultaneas en la misma casilla
                 $instructorAsignado = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
@@ -667,7 +703,7 @@ class ScheduleController extends Controller
                     $nuevasHorasAmbiente = Ambiente::where('idAmbiente', $idAmbiente)->value('horasAsignadas') + 1;
                     $nuevasHorasFicha = Ficha::where('idFicha', $idFicha)->value('horasAsignadas') + 1;
 
-                    if ($nuevasHorasInstructor > $limiteHorasInstructor) {
+                    if (($nuevasHorasInstructor > $limiteHorasInstructor)) {
 
                         // Si el incremento supera el límite: 
                         DB::rollBack();
@@ -679,7 +715,7 @@ class ScheduleController extends Controller
                         ], Response::HTTP_BAD_REQUEST); //400
                     }
 
-                    if ($nuevasHorasAmbiente > $limiteHorasAmbiente) {
+                    if (($nuevasHorasAmbiente > $limiteHorasAmbiente)) {
 
                         //Cancelar
                         DB::rollBack();
@@ -691,7 +727,9 @@ class ScheduleController extends Controller
                         ], Response::HTTP_BAD_REQUEST); //400
                     }
 
-                    if ($nuevasHorasFicha > $limiteHorasFicha) {
+                    if (($nuevasHorasFicha > $limiteHorasFicha)) {
+
+                        Log::info($disponibilidadFicha - $nuevasHorasFicha);
 
                         //Si el incremento supera el limite:
                         DB::rollBack();

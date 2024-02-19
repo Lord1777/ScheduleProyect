@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
 import useDropdownGet from '../../hooks/useDropdownGet';
 import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
@@ -26,8 +26,6 @@ export const InformationBarAdminInstructor = () => {
         const quarter = dataQuarters.find((quarter) => `${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}` === dataTrimestre);
         return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
     };
-
-    const [horasAsignadas, setHorasAsignadas] = useState(0);
 
     const handleOptionClickTrimestre = (selectedOption) => {
         setIdTrimestreValue(getQuarterId(selectedOption));

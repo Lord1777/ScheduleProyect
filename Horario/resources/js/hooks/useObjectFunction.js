@@ -20,3 +20,13 @@ export const parseDate = (fecha) => {
     }
 
 }
+
+export const getAñoByDate = (fecha) =>{
+    if(typeof fecha === 'string'){
+            const partesFecha = fecha.split('-');
+            const año = partesFecha[0];
+            return parseInt(año);
+    }else {
+        return '';
+    }
+}

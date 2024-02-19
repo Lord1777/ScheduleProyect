@@ -264,6 +264,37 @@ class ScheduleController extends Controller
     {
     }
 
+    public function scheduleEnvironment(Request $request, string $idAmbiente, string $idTrimestre)
+    {
+        try {
+            $schedule = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
+                ->join('trimestres', 'horarios_academicos.idTrimestre', '=', 'trimestres.idTrimestre')
+                ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+                ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
+                ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
+                ->select(
+                    'fichas.ficha',
+                    'ambientes.ambiente',
+                    'asignaciones.boxIndex',
+                )
+                ->where('ambientes.idAmbiente', $idAmbiente)
+                ->where('trimestres.idTrimestre', $idTrimestre)
+                ->get();
+
+            if ($schedule->isEmpty()) {
+                return response()->json([
+                    'error' => 'No hay un horario académico disponible para el ambiente en el trimestre seleccionado.'
+                ], Response::HTTP_NOT_FOUND); //404
+            }
+            return response()->json($schedule, Response::HTTP_OK); //200
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => "Get Schedule Environment Error " . $e->getMessage(),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
 
     public function store(Request $request)
     {
@@ -418,15 +449,15 @@ class ScheduleController extends Controller
                         ], Response::HTTP_BAD_REQUEST); //400
                     } /* else {
 
-                  Log::info($fichaAsignadaInstructor);
+               Log::info($fichaAsignadaInstructor);
 
-                  return response()->json([
-                      'status' => 0,
-                      'message' => "No se encontraron asignaciones para el instructor '{$nombreInstructor}' en la(s) caja(s) especificadas.",
-                      'error' => 'No assignments found for the instructor in the specified boxIndex',
-                  ], Response::HTTP_NOT_FOUND); //404
-              }
-              */
+               return response()->json([
+                   'status' => 0,
+                   'message' => "No se encontraron asignaciones para el instructor '{$nombreInstructor}' en la(s) caja(s) especificadas.",
+                   'error' => 'No assignments found for the instructor in the specified boxIndex',
+               ], Response::HTTP_NOT_FOUND); //404
+           }
+           */
                 }
                 if ($ambienteAsignado->isNotEmpty()) {
 
@@ -441,13 +472,13 @@ class ScheduleController extends Controller
                             'duplicates' => $ambienteAsignado,
                         ], Response::HTTP_BAD_REQUEST); //400
                     } /*else {
-                  return response()->json([
-                      'status' => 0,
-                      'message' => "No se encontraron asignaciones para el ambiente '{$numeroAmbiente}' en la(s) caja(s) especificadas.",
-                      'error' => 'No assignments found for the instructor in the specified boxIndex',
-                  ], Response::HTTP_NOT_FOUND); //404
-              }
-              */
+               return response()->json([
+                   'status' => 0,
+                   'message' => "No se encontraron asignaciones para el ambiente '{$numeroAmbiente}' en la(s) caja(s) especificadas.",
+                   'error' => 'No assignments found for the instructor in the specified boxIndex',
+               ], Response::HTTP_NOT_FOUND); //404
+           }
+           */
                 }
 
                 if ($limiteHorasInstructor !== null && $limiteHorasAmbiente !== null && $limiteHorasFicha !== null) {
@@ -797,7 +828,8 @@ class ScheduleController extends Controller
                     'horarios_academicos.idHorario',
                     'fichas.idFicha',
                     'trimestres.trimestre',
-                    'trimestres.idTrimestre'
+                    'trimestres.idTrimestre',
+                    'trimestres.fechaInicio',
                 )
                 ->where('horarios_academicos.estado', 'habilitado')
                 ->distinct()
@@ -829,7 +861,8 @@ class ScheduleController extends Controller
                     'usuarios.idUsuario',
                     'horarios_academicos.idHorario',
                     'trimestres.trimestre',
-                    'trimestres.idTrimestre'
+                    'trimestres.idTrimestre',
+                    'trimestres.fechaInicio',
                 )
                 ->distinct()
                 ->get();
@@ -845,24 +878,19 @@ class ScheduleController extends Controller
     public function scheduleEnableEnvironments()
     {
         try {
-            $ambiente = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
+            Log::info('hola');
+            $ambientes = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
                 ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
                 ->join('trimestres', 'trimestres.idTrimestre', '=', 'horarios_academicos.idTrimestre')
-                ->select(
-                    'ambientes.idAmbiente',
-                    'ambientes.ambiente',
-                    'horarios_academicos.idHorario',
-                    'trimestres.trimestre',
-                    'trimestres.idTrimestre'
-                )
-                ->where('ambientes.estado', 'habilitado')
-                ->distinct()
+                ->select('ambientes.idAmbiente', DB::raw('MAX(ambientes.ambiente) as ambiente'), 'trimestres.trimestre', 'trimestres.idTrimestre', 'trimestres.fechaInicio')
+                ->groupBy('ambientes.idAmbiente', 'trimestres.trimestre', 'trimestres.idTrimestre', 'trimestres.fechaInicio')
                 ->get();
+            Log::info($ambientes);
+            return response()->json($ambientes, Response::HTTP_OK);
 
-            return response()->json($ambiente, Response::HTTP_OK);
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'Error Getting Schedule: ' . $e->getMessage()
+                'error' => 'Error Getting Schedule: ' . $e->getMessage(),
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

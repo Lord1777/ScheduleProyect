@@ -1,44 +1,19 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
+import '../../../css/Schedule/SeeSchedule.css';
 import { useParams } from 'react-router-dom';
 import { Loading } from '../Loading/Loading';
-import { ContinuoModal } from '../Modals/ContinuoModal';
-import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
-import error from '../../assets/img/Advertencia.png';
-import { useFetchGetScheduleAdminInstructor } from '../../hooks/FetchSchedule/useFetchGetScheduleAdminInstructor';
+import { initialsName } from '../../hooks/useObjectFunction';
+import { useFetchGetScheduleEnvironment } from '../../hooks/FetchSchedule/useFetchGetScheduleEnvironment';
 
-export const ScheduleAdminInstructor = () => {
+export const ScheduleEnvironment = () => {
 
-    const { idUsuario } = useParams();
-    const { idTrimestre, setHorasAsignadasValue, setTotalSeleccionadoValue } = useContext(FilterScheduleInstructorContext);
-    const {
-        dataSchedule,
-        loading,
-        modalOpen,
-        setModalOpen,
-        alertMessage } = useFetchGetScheduleAdminInstructor('/getAdminScheduleInstructor', idUsuario, idTrimestre, setHorasAsignadasValue);
+    const { idAmbiente, idTrimestre } = useParams();
 
-    
-    useEffect(() => {
-        const selectedSchedules = dataSchedule.filter(infoSchedule => infoSchedule);
-    
-        const totalSeleccionado = selectedSchedules.length;
-    
-        setTotalSeleccionadoValue(totalSeleccionado);
-    
-        setHorasAsignadasValue(totalSeleccionado);
-    }, [dataSchedule, setHorasAsignadasValue, setTotalSeleccionadoValue]);
-    
+    const { dataSchedule, loading } = useFetchGetScheduleEnvironment('/getScheduleEnvironment', idAmbiente, idTrimestre);
 
-    const handleCellClick = (infoSchedule) => {
-        //Actualiza el total seleccionado
-        const totalSeleccionado = infoSchedule ? infoSchedule.horasAsignadas || 0 : 0;
-        setTotalSeleccionadoValue(totalSeleccionado);
-    };
-
-    if (loading) {
-        return <Loading />
+    if(loading){
+        return <Loading/>
     }
-
 
     return (
         <>
@@ -63,17 +38,16 @@ export const ScheduleAdminInstructor = () => {
 
                             // Busca la información específica para este índice en la solicitud del backend
                             const infoSchedule = dataSchedule && Array.isArray(dataSchedule) ? dataSchedule.find((data) => data.boxIndex === boxIndex) : false;
+
                             return (
                                 <div
                                     key={colIndex}
                                     className={`${infoSchedule ? 'selected' : 'cuadricula'}`}
-                                    onClick={() => handleCellClick(infoSchedule)}
                                 >
                                     {infoSchedule ? (
                                         <>
+                                            <span>{initialsName(infoSchedule.nombreCompleto)}</span>
                                             <span>{infoSchedule.ficha}</span>
-                                            <span>{infoSchedule.ambiente}</span>
-                                            <span>{infoSchedule.nombreCompleto}</span>
                                         </>
                                     ) : (
                                         (
@@ -89,14 +63,6 @@ export const ScheduleAdminInstructor = () => {
                     </React.Fragment>
                 ))}
             </div>
-            <ContinuoModal
-                tittle="Error"
-                imagen={error}
-                message={alertMessage}
-                open={modalOpen}
-                close={() => setModalOpen(false)}
-            />
         </>
     )
 }
-

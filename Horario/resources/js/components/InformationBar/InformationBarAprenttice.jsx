@@ -1,13 +1,15 @@
-import React from 'react'
-import '../../../css/InformationBar/InformationBarAprenttice.css'
-import useFetchGetInfoBarRecord from '../../hooks/FetchSchedule/useFetchGetInfoBarRecord'
+import React, { useContext, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom'
 import { useUser } from '../../context/UserContext';
+import useFetchGetInfoBarRecord from '../../hooks/FetchSchedule/useFetchGetInfoBarRecord'
+import '../../../css/InformationBar/InformationBarAprenttice.css'
 import FilterScheduleFichaContext from '../../context/FilterScheduleFichaContext';
 
 export const InformationBarAprenttice = () => {
 
     const { idFicha, idHorario } = useParams();
+
+    const {totalSeleccionado, setHorasAsignadasValue} = useContext(FilterScheduleFichaContext);
 
     const { dataInfoRecord } = useFetchGetInfoBarRecord('/getInfoBarRecord', idFicha);
 
@@ -15,6 +17,13 @@ export const InformationBarAprenttice = () => {
 
     const rol = localStorage.getItem('role');
 
+    const updateHorasAsignadas = () => {
+        setHorasAsignadasValue(totalSeleccionado);
+    };
+
+    useEffect(() => {
+        updateHorasAsignadas();
+    }, [totalSeleccionado, setHorasAsignadasValue]);
 
   return (
     <>
@@ -48,7 +57,7 @@ export const InformationBarAprenttice = () => {
                     <p><b>Fecha final:</b> {dataInfoRecord.fechaFinal}</p>
                 </div>
                 <div>
-                    <p><b>Horas semanales:</b> {dataInfoRecord.horasAsignadas}</p>
+                    <p><b>Horas semanales:</b> {totalSeleccionado}</p>
                 </div>
             </div>
         </div>

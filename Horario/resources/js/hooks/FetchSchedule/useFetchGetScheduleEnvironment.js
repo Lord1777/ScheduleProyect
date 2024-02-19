@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react'
-import { API_URL } from '../../const/api'
+import React, {useState, useEffect} from 'react';
+import { API_URL } from '../../const/api';
 
-export const useFetchGetScheduleAdminInstructor = (route, idUsuario, idTrimestre) => {
+export const useFetchGetScheduleEnvironment = (route, idAmbiente, idTrimestre) => {
 
     const userToken = localStorage.getItem('access_token');
 
@@ -11,7 +11,7 @@ export const useFetchGetScheduleAdminInstructor = (route, idUsuario, idTrimestre
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${API_URL}${route}/${idUsuario}/${idTrimestre}`, {
+                const response = await fetch(`${API_URL}${route}/${idAmbiente}/${idTrimestre}`, {
                     method: "GET",
                     headers: {
                         'Content-Type': 'application/json',
@@ -23,6 +23,16 @@ export const useFetchGetScheduleAdminInstructor = (route, idUsuario, idTrimestre
 
                 if(response.ok){
                     setDataSchedule(result);
+
+                    // Calcular las horas asignadas
+                    const totalHoras = result.reduce((total, scheduleItem) => total + (scheduleItem.horasAsignadas || 0), 0);
+
+                    // Llamar a setHorasAsignadasValue con el valor calculado
+                    setHorasAsignadasValue(totalHoras);
+
+                } else if (response.status === 404  || result.length === 0) {
+                    setAlertMessage(result.error)
+                    setModalOpen(true);
                 }
 
             } catch (error) {
@@ -34,8 +44,7 @@ export const useFetchGetScheduleAdminInstructor = (route, idUsuario, idTrimestre
         }
 
         fetchData();
-    }, [idTrimestre])
-
+    }, [idAmbiente, idTrimestre])
   return (
     {
         dataSchedule,

@@ -18,11 +18,12 @@ const useFetchGetScheduleAmbiente = () => {
             },
             redirect: "follow",
         });
-          if (!response.ok) {
-            throw new Error(`Network response was not ok: ${response.statusText}`);
-          }
+          // if (!response.ok) {
+          //   throw new Error(`Network response was not ok: ${response.statusText}`);
+          // }
           const data = await response.json();
           setDataHorarios(data);
+          console.log(data.error);
         
         } catch (error) {
           console.error("Error getting schedule:", error);

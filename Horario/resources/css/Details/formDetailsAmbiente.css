@@ -146,7 +146,7 @@
         margin-bottom: 2rem;
         background-color: #fff;
         width: 20rem;
-        height: 50rem;
+        height: 47rem;
         border-radius: 1rem;
         padding: 3rem 5rem;
     }
@@ -156,6 +156,10 @@
 
     .container_form_add_ambiente{
         height: 100%;
+    }
+
+    .box_form_ambiente {
+        height: 15rem;
     }
 
     .title_underline{
@@ -171,6 +175,12 @@
         padding: 12.5px 5.2px;
     }
 }
+
+/* @media (max-width: 390px) {
+    .container-btns {
+        margin-left: -15rem;
+    }
+} */
 
 @media (max-width:375px){
 

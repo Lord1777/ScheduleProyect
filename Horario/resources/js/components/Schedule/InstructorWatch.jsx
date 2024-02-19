@@ -6,6 +6,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import { Loading } from '../Loading/Loading';
 import useFetchGetScheduleInstructor from "../../hooks/FetchGET/useFetchGetScheduleInstructor";
+import { getAñoByDate } from "../../hooks/useObjectFunction";
 
 export const InstructorWatch = () => {
 
@@ -53,6 +54,7 @@ export const InstructorWatch = () => {
                                 <h2>Instructor</h2>
                                 <span>{horarios.nombreCompleto}</span>
                                 <span>Trimestre {horarios.trimestre}</span>
+                                <span>Año {getAñoByDate(horarios.fechaInicio)}</span>
                             </div>
                         </div>
                     </Link>

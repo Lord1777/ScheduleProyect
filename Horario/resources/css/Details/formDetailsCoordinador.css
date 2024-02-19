@@ -12,7 +12,7 @@
     margin-top: 2rem;
     margin-bottom: 2rem;
     background-color: #fff;
-    width: 75rem;
+    width: 60rem;
     height: 58rem;
     border-radius: 1rem;
     padding: 3.5rem 0rem;
@@ -212,6 +212,20 @@ form .grid-column-add textarea {
         margin-top: 5rem;
         margin-left: 16rem;
     }
+
+    .grid-column-add {
+        margin-left: 13rem;
+        width: 18rem;
+    }
+
+    .box_form_instructor h2 {
+        margin-left:13rem;
+    }
+
+    .container-btns {
+        margin-left: -5rem;
+    }
+    
 }
 
 @media(max-width:500px){
@@ -244,14 +258,18 @@ form .grid-column-add textarea {
         margin-left: 30rem;
         margin-top: -1rem;
     }
-
+    
+    .box_form_instructor h2 {
+         margin-right: 28rem;
+        margin-top: -1rem;
+    }
     .container_form_add_instructor img{
         margin-right: 20rem;
         margin-top: -2rem;
     }
 
     .container-btns{
-        margin-left: -1rem;
+        margin-left: 12.5rem;
         margin-top: -0.5rem;
     }
 
@@ -263,6 +281,10 @@ form .grid-column-add textarea {
     .container-btns .cancelar{
         padding: 12.5px 9px;
         width: 100%;
+    }
+
+    .grid-column-add {
+        margin-right: 27rem;
     }
 }
 
@@ -281,8 +303,16 @@ form .grid-column-add textarea {
         margin-left: 13rem;
     }
 
+    .box_form_instructor h2{
+        margin-left: 15rem;
+    }
+
+    .grid-column-add {
+        margin-left: 15rem;
+    }
+
     .container-btns{
-        margin-left: -1rem;
+        margin-left: 12.5rem;
         margin-top: -0.5rem;
     }
 
@@ -306,6 +336,25 @@ form .grid-column-add textarea {
     .box_form_instructor{
         margin-left: 13rem;
     }
+
+    .box_form_instructor h2 {
+        margin-top: 3rem;
+        margin-left: 27.5rem;
+    }
+
+    .grid-column-add {
+        margin-left: 27rem;
+    }
+
+    .container-btns {
+        margin-left: 13rem;
+    }
+}
+
+@media (max-width: 390px){
+    .container-btns {
+        margin-left:13rem;
+    }
 }
 
 @media (max-width:375px){
@@ -315,10 +364,11 @@ form .grid-column-add textarea {
 
     .box_form_instructor{
         margin-top: -7rem;
+        margin-left: 20rem;
     }
 
     .container-btns{
-        margin-left: -1rem;
+        margin-left: 11rem;
         margin-top: -0.5rem;
     }
 
@@ -330,6 +380,10 @@ form .grid-column-add textarea {
     .container-btns .cancelar{
         padding: 12.5px 9px;
         width: 100%;
+    }
+
+    .grid-column-add {
+        width: 15rem;
     }
 }
 
@@ -344,6 +398,19 @@ form .grid-column-add textarea {
 
     .box_form_instructor{
         margin-right: 8rem;
+    }
+
+    .box_form_instructor h2 {
+        margin-top: 4rem;
+        margin-left: 17.1rem;
+    }
+
+    .container-btns {
+        margin-left: 11.2rem;
+    }
+
+    .grid-column-add {
+        margin-right: 37rem;
     }
 }
 
@@ -369,6 +436,6 @@ form .grid-column-add textarea {
     }
 
     .container-btns{
-        margin-left: 0.1rem;
+        margin-left: 13rem;
     }
 }

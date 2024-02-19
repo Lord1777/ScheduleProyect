@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
-import '../../../css/Form/FormAddAmbiente.css'
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { ContinuoModal } from '../Modals/ContinuoModal';
+import { Link } from 'react-router-dom';
+import { Loading } from "../Loading/Loading";
 import useDropdown from '../../hooks/useDropdown';
 import useFetchPostEnvironment from '../../hooks/FetchPOST/useFetchPostEnvironment';
 import useValidationForm from '../../hooks/useValidationForm';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
-import { useForm } from 'react-hook-form';
-import { ContinuoModal } from '../Modals/ContinuoModal';
-import { Link } from 'react-router-dom';
-import { Loading } from "../Loading/Loading";
+import '../../../css/Form/FormAddAmbiente.css'
 
 
 export const FormAddAmbiente = () => {

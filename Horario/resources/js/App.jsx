@@ -75,6 +75,7 @@ function App() {
                     <Route path='/HorarioAprendiz/:idFicha/:idHorario' element={<ScheduleAprenttice />} />
                     <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />
                     <Route path='/AddCoordinador' element={<AddCoordinator />} />
+                    
 
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={storedRole} />}  >
@@ -86,7 +87,7 @@ function App() {
                         <Route path='/HorariosFichas' element={<WatchSchedules />} />
                         <Route path='/HorarioAdminInstructor/:idUsuario/:idHorario' element={<SeeScheduleAdminInstructor />} />
                         <Route path='/HorariosInstructores' element={<WatchSchedulesInstructor/>} />
-                        <Route path='/HorarioAmbiente' element={<SeeScheduleAmbiente />} />
+                        <Route path='/HorarioAmbiente/:idAmbiente/:idTrimestre' element={<SeeScheduleAmbiente />} />
                         <Route path='/HorariosAmbientes' element={<WatchScheduleAmbiente/>}/>
                         <Route path='/CrudInstructor' element={<CrudInstructor />} />
                         <Route path='/CrudFichas' element={<CrudRecords />} />

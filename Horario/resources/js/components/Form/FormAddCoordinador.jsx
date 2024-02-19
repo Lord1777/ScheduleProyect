@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import logoSena from '../../assets/img/LogoSena.png';
+import { useForm } from 'react-hook-form';
+import { ContinuoModal } from '../Modals/ContinuoModal';
+import { Link } from 'react-router-dom';
+import { Loading } from '../Loading/Loading';
 import useFetchPostCoordinator from '../../hooks/FetchPOST/useFetchPostCoordinator';
 import useValidationForm from '../../hooks/useValidationForm';
 import useDropdown from '../../hooks/useDropdown';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
-import { useForm } from 'react-hook-form';
-import { ContinuoModal } from '../Modals/ContinuoModal';
-import { Link } from 'react-router-dom';
-import { Loading } from '../Loading/Loading';
+
 
 export const FormAddCoordinador = () => {
 
@@ -67,7 +67,6 @@ export const FormAddCoordinador = () => {
                     <h2>Añadir Coordinador</h2>
                     <div className='container_form_add_elements'>
                         <div className='container_image_form_instructor'>
-                            <img src={logoSena} alt='Logo SENA' />
 
                             <form method='POST' onSubmit={handleSubmit(onSubmit)}>
                                 <div className="grid-column-add">

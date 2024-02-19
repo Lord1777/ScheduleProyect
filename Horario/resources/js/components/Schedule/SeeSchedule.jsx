@@ -1,14 +1,23 @@
-import React from 'react';
-import '../../../css/Schedule/SeeSchedule.css';
-import useFetchGetScheduleRecord from '../../hooks/FetchSchedule/useFetchGetScheduleRecord';
+import React, { useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Loading } from '../Loading/Loading';
+import { ContinuoModal } from '../Modals/ContinuoModal';
+import useFetchGetScheduleRecord from '../../hooks/FetchSchedule/useFetchGetScheduleRecord';
+import FilterScheduleFichaContext from '../../context/FilterScheduleFichaContext';
+import error from '../../assets/img/Advertencia.png';
+import '../../../css/Schedule/SeeSchedule.css';
 
 export const SeeSchedule = () => {
 
     const { idFicha } = useParams();
+    
+    const { setHorasAsignadasValue, setTotalSeleccionadoValue } = useContext(FilterScheduleFichaContext);
 
-    const { dataSchedule, loading } = useFetchGetScheduleRecord('/getScheduleApprentice', idFicha);
+    const { dataSchedule,
+        loading,
+        modalOpen,
+        setModalOpen,
+        alertMessage } = useFetchGetScheduleRecord('/getScheduleApprentice', idFicha, setHorasAsignadasValue);
 
     function initialsName(nombreCompleto) {
         const words = nombreCompleto.split(' ');
@@ -16,8 +25,29 @@ export const SeeSchedule = () => {
         return initials.join('');
     }
 
-    if(loading){
-        return <Loading/>
+   
+
+    useEffect(() => {
+        // Supongamos que dataSchedule es la información de los horarios obtenida del componente SeeSchedule
+        const selectedSchedules = dataSchedule.filter(infoSchedule => infoSchedule);
+
+        // Calcular la cantidad total de horas semanales
+        const totalSeleccionado = selectedSchedules.length;
+
+        // Actualizar el contexto con el total de horas
+        setTotalSeleccionadoValue(totalSeleccionado);
+
+        setHorasAsignadasValue(totalSeleccionado);
+    }, [dataSchedule, setTotalSeleccionadoValue, setHorasAsignadasValue,]);
+
+    const handleCellClick = (infoSchedule) => {
+        //Actualiza el total seleccionado
+        const totalSeleccionado = infoSchedule ? infoSchedule.horasAsignadas || 0 : 0;
+        setTotalSeleccionadoValue(totalSeleccionado);
+    }; 
+    
+    if (loading) {
+        return <Loading />
     }
 
     return (
@@ -48,6 +78,7 @@ export const SeeSchedule = () => {
                                 <div
                                     key={colIndex}
                                     className={`${infoSchedule ? 'selected' : 'cuadricula'}`}
+                                    onClick={() => handleCellClick(infoSchedule)}
                                 >
                                     {infoSchedule ? (
                                         <>
@@ -68,6 +99,13 @@ export const SeeSchedule = () => {
                     </React.Fragment>
                 ))}
             </div>
+            <ContinuoModal
+                tittle="Error"
+                imagen={error}
+                message={alertMessage}
+                open={modalOpen}
+                close={() => setModalOpen(false)}
+            />
         </>
     )
 }

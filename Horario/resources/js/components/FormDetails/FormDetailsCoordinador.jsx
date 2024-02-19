@@ -1,5 +1,4 @@
 import React from 'react';
-import logoSena from '../../assets/img/LogoSena.png';
 import useFetchPostCoordinator from '../../hooks/FetchPOST/useFetchPostCoordinator';
 import useValidationForm from '../../hooks/useValidationForm';
 import useDropdown from '../../hooks/useDropdown';
@@ -48,7 +47,7 @@ export const FormDetailsCoordinador = () => {
                 <div className='box_form_instructor'>
                     <div className='container_form_add_elements'>
                         <div className='container_image_form_instructor'>
-                            <img src={logoSena} alt='Logo SENA' />
+                            
 
                             <form method='POST' onSubmit={handleSubmit(onSubmit)}>
                                 <div className="grid-column-add">

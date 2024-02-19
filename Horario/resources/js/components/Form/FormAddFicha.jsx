@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import '../../../css/Form/BoxContainerFormAdd.css';
-import '../../../css/Form/FormAddFicha.css';
+import { useForm } from 'react-hook-form';
+import { ContinuoModal } from '../Modals/ContinuoModal';
+import { Link } from 'react-router-dom';
+import { Loading } from '../Loading/Loading';
 import useDropdown from '../../hooks/useDropdown';
 import useValidationForm from '../../hooks/useValidationForm';
 import useFetchPostRecord from '../../hooks/FetchPOST/useFetchPostRecord';
 import useFetchGetPrograms from '../../hooks/FetchGetResources/useFetchGetPrograms';
 import exito from '../../assets/img/Exito.png'
-import error from '../../assets/img/Advertencia.png'
-import { useForm } from 'react-hook-form';
-import { ContinuoModal } from '../Modals/ContinuoModal';
-import { Link } from 'react-router-dom';
-import { Loading } from '../Loading/Loading';
+import error from '../../assets/img/Advertencia.png';
+import '../../../css/Form/BoxContainerFormAdd.css';
+import '../../../css/Form/FormAddFicha.css';
+
 
 export const FormAddFicha = () => {
 

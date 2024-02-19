@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import logoSena from "../../assets/img/LogoSena.png";
-import useFetchPostInstructor from '../../hooks/FetchPOST/useFetchPostInstructor';
-import useValidationForm from '../../hooks/useValidationForm';
-import useDropdown from '../../hooks/useDropdown';
-import "../../../css/Form/FormAddInstructor.css";
-import exito from '../../assets/img/Exito.png'
-import error from '../../assets/img/Advertencia.png'
 import { useForm } from 'react-hook-form';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 import { Link } from 'react-router-dom';
 import { Loading } from '../Loading/Loading';
+import useFetchPostInstructor from '../../hooks/FetchPOST/useFetchPostInstructor';
+import useValidationForm from '../../hooks/useValidationForm';
+import useDropdown from '../../hooks/useDropdown';
+import exito from '../../assets/img/Exito.png'
+import error from '../../assets/img/Advertencia.png'
+import "../../../css/Form/FormAddInstructor.css";
 
 
 const FormAddInstructor = () => {
@@ -63,7 +62,6 @@ const FormAddInstructor = () => {
                 <h2>Añadir Instructor</h2>
                     <div className='container_form_add_elements'>
                         <div className='container_image_form_instructor'>
-                            <img src={logoSena} alt='Logo SENA' />
 
                             <form method='POST' onSubmit={handleSubmit(onSubmit)}>
                                 <div className="grid-column-add">
@@ -227,7 +225,6 @@ const FormAddInstructor = () => {
                                     <Link to={'/CrudInstructor'}>
                                         <button className='cancelar'>Cancelar</button>
                                     </Link>
-
                                 </div>
                             </form>
                         </div>

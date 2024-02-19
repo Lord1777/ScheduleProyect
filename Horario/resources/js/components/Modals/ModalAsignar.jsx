@@ -3,8 +3,6 @@ import '../../../css/Modals/ModalAsignar.css'
 import useDropdown from '../../hooks/useDropdown'
 import { useForm } from 'react-hook-form'
 import useValidationForm from '../../hooks/useValidationForm'
-import useModalAsignar from '../../hooks/useModalAsignar'
-import useSelectedBoxes from '../../hooks/useSelectedBoxes'
 import { useFetchGetInstructors } from '../../hooks/FetchGetResources/useFetchGetInstructors'
 import { useFetchGetEnvironments } from '../../hooks/FetchGetResources/useFetchGetEnvironments'
 

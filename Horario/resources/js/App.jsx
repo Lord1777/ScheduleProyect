@@ -74,7 +74,7 @@ function App() {
                     <Route path='/ConsultaAprendiz' element={<ConsultAprenttice />} />
                     <Route path='/403-forbidden' element={<Forbidden />} />
                     <Route path='/HorarioAprendiz/:idFicha/:idHorario' element={<ScheduleAprenttice />} />
-                    {/* <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} /> */}
+                    <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />
                     <Route path='/Modalc' element={<ModalChangePassword/>}/>
                     <Route path='/AddCoordinador' element={<AddCoordinator />} />
 

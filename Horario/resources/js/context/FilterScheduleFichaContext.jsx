@@ -3,19 +3,24 @@ import React, { createContext, useState } from 'react';
 const FilterScheduleFichaContext = createContext();
 
 export const FilterScheduleFichaContextProvider = ({ children }) => {
-    const [idBoxIndex, setIdBoxIndex] = useState(null);
-    // const [idFicha, setIdFicha] = useState(null);
-  
-    const setIdBoxIndexValue = (boxIndex) => {
-        setIdBoxIndex(boxIndex);
+    // const [idBoxIndex, setIdBoxIndex] = useState(null);
+    const [totalSeleccionado, setTotalSeleccionado] = useState(0);
+    const [horasAsignadas, setHorasAsignadas] = useState("");
+    
+
+    const setHorasAsignadasValue = (horasAsignadas) => {
+      setHorasAsignadas(horasAsignadas);
     };
+
+    const setTotalSeleccionadoValue = (total) => {
+      setTotalSeleccionado(total);
+    };
+    
   
-    // const setIdFichaValue = (ficha) => {
-    //   setIdFicha(ficha);
-    // };
+    
   
     return (
-      <FilterScheduleFichaContext.Provider value={{ idBoxIndex,setIdBoxIndexValue }}>
+      <FilterScheduleFichaContext.Provider value={{  totalSeleccionado, setTotalSeleccionadoValue, horasAsignadas, setHorasAsignadasValue }}>
         {children}
       </FilterScheduleFichaContext.Provider>
     );

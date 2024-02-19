@@ -1,15 +1,15 @@
-import React, { useContext, useEffect } from 'react'
-import '../../../css/InformationBar/InformationBarAprenttice.css'
-import useFetchGetInfoBarRecord from '../../hooks/FetchSchedule/useFetchGetInfoBarRecord'
+import React, { useContext, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom'
 import { useUser } from '../../context/UserContext';
+import useFetchGetInfoBarRecord from '../../hooks/FetchSchedule/useFetchGetInfoBarRecord'
+import '../../../css/InformationBar/InformationBarAprenttice.css'
 import FilterScheduleFichaContext from '../../context/FilterScheduleFichaContext';
 
 export const InformationBarAprenttice = () => {
 
     const { idFicha, idHorario } = useParams();
 
-    // const { idBoxIndex, setIdBoxIndexValue } = useContext(FilterScheduleFichaContext);
+    const {totalSeleccionado, setHorasAsignadasValue} = useContext(FilterScheduleFichaContext);
 
     const { dataInfoRecord } = useFetchGetInfoBarRecord('/getInfoBarRecord', idFicha);
 
@@ -17,17 +17,13 @@ export const InformationBarAprenttice = () => {
 
     const rol = localStorage.getItem('role');
 
-    // useEffect(() => {
-    //     // Supongamos que dataSchedule es la información de los horarios obtenida del componente SeeSchedule
-    //     const selectedSchedules = dataSchedule.filter(infoSchedule => infoSchedule);
+    const updateHorasAsignadas = () => {
+        setHorasAsignadasValue(totalSeleccionado);
+    };
 
-    //     // Calcular la cantidad total de horas semanales
-    //     const totalSeleccionado = selectedSchedules.length;
-
-    //     // Actualizar el contexto con el total de horas
-    //     setIdBoxIndexValue(totalSeleccionado);
-    // }, [dataSchedule, setIdBoxIndexValue]);
-
+    useEffect(() => {
+        updateHorasAsignadas();
+    }, [totalSeleccionado, setHorasAsignadasValue]);
 
   return (
     <>
@@ -61,7 +57,7 @@ export const InformationBarAprenttice = () => {
                     <p><b>Fecha final:</b> {dataInfoRecord.fechaFinal}</p>
                 </div>
                 <div>
-                    <p><b>Horas semanales:</b></p>
+                    <p><b>Horas semanales:</b> {totalSeleccionado}</p>
                 </div>
             </div>
         </div>

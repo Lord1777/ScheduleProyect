@@ -2,7 +2,7 @@ import React from "react";
 import { NavBar } from "../../components/NavBar/NavBar";
 import { InformationBarAprenttice } from "../../components/InformationBar/InformationBarAprenttice";
 import { SeeSchedule } from "../../components/Schedule/SeeSchedule";
-// import FilterScheduleFichaContextProvider from '../../context/FilterScheduleFichaContext';
+import { FilterScheduleFichaContextProvider } from '../../context/FilterScheduleFichaContext';
 
 export const ScheduleAprenttice = () => {
     return (
@@ -10,10 +10,10 @@ export const ScheduleAprenttice = () => {
             <NavBar />
             {/*los estilos del container horarios estan en SeeSchedule.css*/}
             <main className="container_all_horario2">
-            {/* <FilterScheduleFichaContextProvider> */}
+                <FilterScheduleFichaContextProvider>
                     <InformationBarAprenttice />
                     <SeeSchedule />
-            {/* </FilterScheduleFichaContextProvider> */}
+                </FilterScheduleFichaContextProvider>
             </main>
         </>
     );

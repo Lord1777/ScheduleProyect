@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "../../../css/Schedule/ScheduleWatch.css";
-import '../../../css/Cards/CardHorarios.css'
+import '../../../css/Cards/CardHorarios.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import { Loading } from '../Loading/Loading';
 import useFetchGetScheduleAmbiente from "../../hooks/FetchGET/useFetchGetScheduleAmbiente";
+import { getAñoByDate } from "../../hooks/useObjectFunction";
 
 export const ScheduleWatchAmbiente = () => {
 
@@ -42,8 +43,8 @@ export const ScheduleWatchAmbiente = () => {
                 </div>
             </div>{/*Titulo y buscador*/}
             <div className="contenedor">
-                {filteredData.map((horario) => (
-                    <Link  key={horario.idAmbiente} to={`/HorarioAprendiz/${horario.idAmbiente}`}>
+                {filteredData.map((horario, index) => (
+                    <Link  key={index} to={`/HorarioAmbiente/${horario.idAmbiente}/${horario.idTrimestre}`}>
                         <div className="card">
                             <span class="material-symbols-outlined icon">
                                 calendar_month
@@ -52,6 +53,7 @@ export const ScheduleWatchAmbiente = () => {
                                 <h2>Ambiente</h2>
                                 <span>{horario.ambiente}</span>
                                 <span>Trimestre {horario.trimestre}</span>
+                                <span>Año {getAñoByDate(horario.fechaInicio)}</span>
                             </div>
                         </div>
                     </Link>

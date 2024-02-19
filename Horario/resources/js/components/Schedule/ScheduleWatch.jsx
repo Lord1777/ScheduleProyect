@@ -6,13 +6,13 @@ import { faSearch, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { Link, useParams } from "react-router-dom";
 import useFetchGetSchedule from '../../hooks/FetchGET/useFetchGetSchedule';
 import { Loading } from '../Loading/Loading';
+import { getAñoByDate } from "../../hooks/useObjectFunction";
 
 export const ScheduleWatch = () => {
 
     const { idHorario } = useParams();
     const { horarios, loading } = useFetchGetSchedule('/getScheduleRecord');
     const [searchFicha, setSearchFicha] = useState("");
-    console.log(horarios)
 
     const filteredFicha = horarios.filter(horario =>
         `${horario.ficha}`.toString().startsWith(searchFicha)
@@ -49,13 +49,14 @@ export const ScheduleWatch = () => {
                 {filteredFicha.map((horario) => (
                     <Link to={`/HorarioAprendiz/${horario.idFicha}/${horario.idHorario}`}>
                         <div className="card">
-                            <span class="material-symbols-outlined icon">
+                            <span className="material-symbols-outlined icon">
                                 calendar_month
                             </span>
                             <div className="text-car">
                                 <h2>Ficha</h2>
                                 <span>{horario.ficha}</span>
                                 <span>Trimestre {horario.trimestre}</span>
+                                <span>Año {getAñoByDate(horario.fechaInicio)}</span>
                             </div>
                         </div>
                     </Link>

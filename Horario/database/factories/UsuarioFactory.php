@@ -63,6 +63,7 @@ class UsuarioFactory extends Factory
         'idContrato' => $this->faker->numberBetween(1,2),
         'idSede' => $this->faker->numberBetween(1,3),
         'idRol' => $this->faker->numberBetween(1,2),
+        'sesion' => 0,
         ];
     }
 }

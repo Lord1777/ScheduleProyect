@@ -37,23 +37,21 @@ const useFecthPutPassword = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                setAlertMessage(data.message)
+                setAlertMessage(data.error)
                 openSuccessModal();
                 closePasswordModal();
             }   
             else if (response.status === 422) {
-                const data = await response.json();
-                setAlertMessage(data.message)
+                setAlertMessage("La contraseña es incorrecta.")
                 openErrorModal();
             }
             else if (response.status === 404) {
-                const data = await response.json();
-                setAlertMessage(data.message)
+                setAlertMessage("Usuario no encontrado.")
                 openErrorModal();
             }
+            
             else if (response.status === 500) {
-                const data = await response.json();
-                setAlertMessage(data.message)
+                setAlertMessage("Ha, ocurrido un error, intentalo más tarde.")
                 setRuta('/Perfil')
                 openErrorModal();
                 closePasswordModal();

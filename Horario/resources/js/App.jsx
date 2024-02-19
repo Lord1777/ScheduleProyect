@@ -75,11 +75,11 @@ function App() {
                     <Route path='/403-forbidden' element={<Forbidden />} />
                     <Route path='/HorarioAprendiz/:idFicha/:idHorario' element={<ScheduleAprenttice />} />
                     <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />
-                    <Route path='/Modalc' element={<ModalChangePassword/>}/>
+                    <Route path='/AddCoordinador' element={<AddCoordinator />} />
 
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={storedRole} />}  >
-                        <Route path='/Perfil' element={<MyProfile/>}/>
+                        <Route path='/PerfilCoordinador' element={<MyProfile/>}/>
                         <Route path='/Panel' element={<ControlPanel />} />
                         <Route path='/PanelHorarios' element={<HorariosPanel/>}/>
                         <Route path='/Card' element={<CardHorarios/>}/>
@@ -95,7 +95,6 @@ function App() {
                         <Route path='/CrudCoordinadores' element={<CrudCoordinators />} />
                         <Route path='/CrudAmbientes' element={<CrudEnvironments />} />
                         <Route path='/CrudProgramas' element={<CrudPrograms/>}/>
-                        <Route path='/AddCoordinador' element={<AddCoordinator />} />
                         <Route path='/AddInstructor' element={<AddInstructors />} />
                         <Route path='/AddAmbiente' element={<AddEnvironments />} />
                         <Route path='/AddPrograma' element={<AddProgram />} />
@@ -118,7 +117,7 @@ function App() {
 
                     <Route element={<ProtectedRoute role={'instructor'} userRole={storedRole} />} >
                         <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
-                        <Route path='/Perfil' element={<MyProfile/>}/>
+                        <Route path='/PerfilInstructor' element={<MyProfile/>}/>
                     </Route>
                 </Routes>
             </Router>

@@ -21,7 +21,7 @@ Route::match(['get', 'post'], '/AddAmbiente', fn() => view('welcome'));
 Route::get('/CrudFichas', fn() => view('welcome'));
 Route::match(['get', 'put'],'/CrudTrimestres', fn() => view('welcome'));
 Route::match(['get', 'post'],'/AddTrimestre', fn() => view('welcome'));
-Route::get('/Panel', fn() => view('welcome'));
+Route::match(['get', 'put'],'/Panel', fn() => view('welcome'));
 Route::get('/ConsultaAprendiz', fn() => view('welcome'));
 Route::get('/DetallesFicha', fn() => view('welcome'));
 Route::get('/DetallesAmbiente', fn() => view('welcome'));
@@ -48,8 +48,8 @@ Route::get('/HorariosInstructores', fn() => view('welcome'));
 Route::get('/HorariosAmbientes', fn()=> view('welcome'));
 Route::get('/PanelHorarios', fn()=> view('welcome'));
 Route::get('/Card', fn()=> view('welcome'));
-Route::get('/Perfil', fn() => view('welcome'));
-Route::get('/Modalc', fn() => view('welcome'));
+Route::match(['get', 'put'], '/PerfilCoordinador', fn() => view('welcome'));
+Route::match(['get', 'put'], '/PerfilInstructor', fn() => view('welcome'));
 
 // Route::get('/{any}', function () {
 //     //Todas las rutas retornan welcome porque ahí es donde se está renderizando React

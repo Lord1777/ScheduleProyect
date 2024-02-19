@@ -30,6 +30,7 @@ return new class extends Migration
             $table->unsignedBigInteger('idContrato');
             $table->unsignedBigInteger('idSede');
             $table->unsignedBigInteger('idRol');
+            $table->boolean('sesion');
 
             $table->foreign('idContrato')->references('idContrato')->on('contratos');
             $table->foreign('idSede')->references('idSede')->on('sedes');

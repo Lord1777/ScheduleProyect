@@ -49,6 +49,7 @@ class Usuario extends Authenticatable
         'idContrato',
         'idSede',
         'idRol',
+        'sesion',
     ];
 
     // Relación con la tabla roles

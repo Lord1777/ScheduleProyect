@@ -63,7 +63,7 @@ const FormAddInstructor = () => {
                 <h2>Añadir Instructor</h2>
                     <div className='container_form_add_elements'>
                         <div className='container_image_form_instructor'>
-                            <img src={logoSena} alt='Logo SENA' />
+                            {/* <img src={logoSena} alt='Logo SENA' /> */}
 
                             <form method='POST' onSubmit={handleSubmit(onSubmit)}>
                                 <div className="grid-column-add">

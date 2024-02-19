@@ -45,7 +45,7 @@ const roleConfig = {
         allowedRoles: ['instructor'],
         components: {
             'HorarioInstructor': SeeScheduleInstructors,
-            'MyProfile': MyProfile,
+            'PerfilInstructor': MyProfile,
         },
         redirectPath: '/',
     },
@@ -86,7 +86,7 @@ const roleConfig = {
             'UpdateTrimestre': FormUpdateTrimestre,
             'UpdatePrograma': UpdateProgram,
             'ScheduleUpdateFicha': ManageScheduleUpdateFicha,
-            'MyProfile': MyProfile,
+            'PerfilCoordinador': MyProfile,
         },
         redirectPath: '/',
     },

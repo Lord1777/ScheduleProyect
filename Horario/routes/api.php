@@ -105,7 +105,7 @@ Route::middleware(['cors', 'auth:sanctum'])->group(function () {
     Route::put('/updateScheduleRecord/{idHorario}', [ScheduleController::class, 'update']);
 
     //Password
-    Route::put('/UpdatePassword/{idUsuario}', [AuthController::class, 'updatePassword']);
+    Route::match(['get', 'put'], '/UpdatePassword/{idUsuario}', [AuthController::class, 'updatePassword']);
 });
 
 

@@ -50,6 +50,7 @@ class AuthController extends Controller
                 'idContrato' => $request->idContrato,
                 'idSede' => $request->idSede,
                 'idRol' => $request->idRol,
+                'sesion' => 0,
             ]);
 
             return response()->json([
@@ -177,6 +178,7 @@ class AuthController extends Controller
 
         // Actualizar la contraseña
         $user->password = Hash::make($request->password);
+        $user->sesion = 1;
         $user->save();
 
         // Log de éxito

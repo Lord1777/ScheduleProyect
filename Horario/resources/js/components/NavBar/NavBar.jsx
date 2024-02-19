@@ -38,7 +38,7 @@ export const NavBar = () => {
 
                     {(userRole === 'coordinador') && (
                         <>
-                            <Link to={'/Perfil'}>
+                            <Link to={'/PerfilCoordinador'}>
                                 <li><img src={perfil} alt="perfil" />Perfil</li>
                             </Link>
 
@@ -82,7 +82,7 @@ export const NavBar = () => {
 
                     {(userRole === 'instructor') && (
                         <>
-                            <Link to={'/Perfil'}>
+                            <Link to={'/PerfilInstructor'}>
                                 <li><img src={perfil} alt="perfil" />Perfil</li>
                             </Link>
                             

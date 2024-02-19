@@ -1,17 +1,17 @@
 import React from 'react'
 import '../../../css/Modals/ModalChangePassword.css'
-import { useForm } from 'react-hook-form'
-import useValidationForm from '../../hooks/useValidationForm'
 import CloseEye from '../../assets/icons/close-eye.png'
 import OpenEye from '../../assets/icons/open-eye.png'
-import usePasswordToggle from '../../hooks/usePasswordToggle'
-import useFecthPutPassword from '../../hooks/FetchPUT/useFecthPutPassword'
-import { Loading } from '../Loading/Loading'
+import usePasswordToggle from '../../hooks/usePasswordToggle';
+import useValidationForm from '../../hooks/useValidationForm';
+import { Loading } from '../Loading/Loading';
+import useFecthPutPassword from '../../hooks/FetchPUT/useFecthPutPassword';
+import { useForm } from 'react-hook-form';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
 import { ContinuoModal } from './ContinuoModal'
 
-export const ModalChangePassword = ({ IdUser, open, close, }) => {
+export const ChangePasswordFirts = ({ IdUser, open, close }) => {
     if (!open) return null;
 
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
@@ -22,7 +22,8 @@ export const ModalChangePassword = ({ IdUser, open, close, }) => {
     const confirmPasswordValidator = (value) => {
         return value === newPassword || "Las contraseñas no coinciden";
     };
-    const { 
+
+    const {
         fetchPutPassword,
         loading,
         setLoading,
@@ -87,7 +88,6 @@ export const ModalChangePassword = ({ IdUser, open, close, }) => {
 
                         <div className="contenedor-btn-modal-formP">
                             <button type='submit' className='save'>Guardar</button>
-                            <button className='cancel' onClick={close}>Cancelar</button>
                         </div>
                     </form>
                 </div>
@@ -101,7 +101,7 @@ export const ModalChangePassword = ({ IdUser, open, close, }) => {
                     closeErrorModal();
                     close(); // Cerrar el modal principal
                 }}
-                route={ruta}
+                route="/Panel"
             />
             <ContinuoModal
                 tittle="Actualización Exitosa"

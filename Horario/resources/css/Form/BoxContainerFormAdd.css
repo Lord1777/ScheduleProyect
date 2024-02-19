@@ -20,6 +20,20 @@
 
 /*Resposive*/
 
+@media (max-width:1280px) {
+    .box_form {
+        width: 50rem;
+        height: 30rem;
+    }
+}
+
+@media (max-width:1024px) {
+    .box_form {
+        width: 50rem;
+        height: 27rem;
+    }
+}
+
 @media(max-width:870px){
     .box_form {
         background-color: #fff;
@@ -27,6 +41,20 @@
         height: 33rem;
         border-radius: 1rem;
         padding: 3rem 3rem;
+    }
+}
+
+@media(max-width:820px) {
+
+    .box_form {
+        height: 30rem;
+    }
+}
+
+@media (max-width:768px) {
+    .box_form {
+        width: 45rem;
+        height: 30rem;
     }
 }
 

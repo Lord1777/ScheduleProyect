@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import '../../../css/Form/FormAddTrimestre.css';
-import useFetchPostQuarter from '../../hooks/FetchPOST/useFetchPostQuarter';
-import useValidationForm from '../../hooks/useValidationForm';
-import exito from '../../assets/img/Exito.png'
-import error from '../../assets/img/Advertencia.png'
 import { useForm, Controller } from 'react-hook-form';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 import { Link } from 'react-router-dom';
 import { Loading } from '../Loading/Loading';
+import DatePicker from 'react-datepicker';
+import useFetchPostQuarter from '../../hooks/FetchPOST/useFetchPostQuarter';
+import useValidationForm from '../../hooks/useValidationForm';
+import exito from '../../assets/img/Exito.png'
+import error from '../../assets/img/Advertencia.png'
+import 'react-datepicker/dist/react-datepicker.css';
+import '../../../css/Form/FormAddTrimestre.css';
 
 function FormAddTrimestre() {
 

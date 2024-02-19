@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import '../../../css/InformationBar/InformationBarAprenttice.css'
 import useFetchGetInfoBarRecord from '../../hooks/FetchSchedule/useFetchGetInfoBarRecord'
 import { Link, useParams } from 'react-router-dom'
@@ -9,11 +9,24 @@ export const InformationBarAprenttice = () => {
 
     const { idFicha, idHorario } = useParams();
 
+    // const { idBoxIndex, setIdBoxIndexValue } = useContext(FilterScheduleFichaContext);
+
     const { dataInfoRecord } = useFetchGetInfoBarRecord('/getInfoBarRecord', idFicha);
 
     const { user } = useUser();
 
     const rol = localStorage.getItem('role');
+
+    // useEffect(() => {
+    //     // Supongamos que dataSchedule es la información de los horarios obtenida del componente SeeSchedule
+    //     const selectedSchedules = dataSchedule.filter(infoSchedule => infoSchedule);
+
+    //     // Calcular la cantidad total de horas semanales
+    //     const totalSeleccionado = selectedSchedules.length;
+
+    //     // Actualizar el contexto con el total de horas
+    //     setIdBoxIndexValue(totalSeleccionado);
+    // }, [dataSchedule, setIdBoxIndexValue]);
 
 
   return (
@@ -48,7 +61,7 @@ export const InformationBarAprenttice = () => {
                     <p><b>Fecha final:</b> {dataInfoRecord.fechaFinal}</p>
                 </div>
                 <div>
-                    <p><b>Horas semanales:</b> {dataInfoRecord.horasAsignadas}</p>
+                    <p><b>Horas semanales:</b></p>
                 </div>
             </div>
         </div>

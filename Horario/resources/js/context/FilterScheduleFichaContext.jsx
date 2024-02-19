@@ -1,5 +1,4 @@
 import React, { createContext, useState } from 'react';
-//El que estoy desarrollando
 
 const FilterScheduleFichaContext = createContext();
 

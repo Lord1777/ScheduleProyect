@@ -87,7 +87,7 @@ export const FormAddFicha = () => {
                                 </div>
 
                                 <div>
-                                    <div className={`desplegable1 ${dropdown2.isDropdown ? 'open' : ''}`}>
+                                    <div className={`desplegable-form ${dropdown2.isDropdown ? 'open' : ''}`}>
                                         <input
                                             type='text'
                                             className='textBox'
@@ -98,18 +98,18 @@ export const FormAddFicha = () => {
                                             value={dropdown2.selectedOption}
                                             {...register("programa", PROGRAMA)}
                                         />
-                                        <div className={`desplegable-options1 ${dropdown2.isDropdown ? 'open' : ''}`}>
+                                        <div className={`desplegable-options-form ${dropdown2.isDropdown ? 'open' : ''}`}>
                                             <div className="search-bar">
                                                 <input
                                                     type="text"
-                                                    className='buscador-desplegables'
-                                                    id='buscador'
+                                                    className='buscador-desplegables-form'
+                                                    id='buscador-form'
                                                     value={searchProgram}
                                                     onChange={(e) => setSearchPogram(e.target.value)}
                                                 />
                                             </div>
 
-                                            <div className="contenedor-options">
+                                            <div className="contenedor-options-form">
                                                 {
                                                     dataPrograms && dataPrograms.length > 0 && dataPrograms
                                                         .filter((program) =>

@@ -72,7 +72,6 @@ function App() {
                     <Route path='/403-forbidden' element={<Forbidden />} />
                     <Route path='/RecuperarContraseña' element={<Password />} />
                     <Route path='/ConsultaAprendiz' element={<ConsultAprenttice />} />
-                    <Route path='/403-forbidden' element={<Forbidden />} />
                     <Route path='/HorarioAprendiz/:idFicha/:idHorario' element={<ScheduleAprenttice />} />
                     <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />
                     <Route path='/AddCoordinador' element={<AddCoordinator />} />

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { getLimiteHorasByTypeContrato, getRolByName, getContratoByName, getSedeByName } from '../useObjectMapping';
 import { API_URL, csrf_token } from '../../const/api';
 import useModal from '../useModal';
+import { useNavigate } from 'react-router-dom';
 
 const useFetchPostCoordinator = (route) => {
 
@@ -11,6 +12,7 @@ const useFetchPostCoordinator = (route) => {
     const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
     const [alertMessage, setAlertMessage] = useState('');
     const [ruta, setRuta] = useState('');
+    const Navigate = useNavigate()
 
     const fetchSubmitCoordinator = async (sede, tipoContrato, tipoDocumento, ciudad, documento, email, experiencia, nombreCompleto, profesion, telefono) => {
 
@@ -53,6 +55,9 @@ const useFetchPostCoordinator = (route) => {
                 const data = await response.json();
                 console.log(data.message); // Mensaje definido en Laravel
                 openSuccessModal();
+            }
+            else if (response.status === 401) {
+                Navigate("/403-forbidden")
             }
             else if (response.status === 422) {
                 const data = await response.json();

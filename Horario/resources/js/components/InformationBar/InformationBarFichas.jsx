@@ -31,7 +31,7 @@ export const InformationBarFichas = () => {
                         </div>
                     </div>
 
-                    {trimestreDropdown.showTrimestreDropdown && (
+                    
                         <div className={`desplegable ${dropdown2.isDropdown ? 'open' : ''}`}>
                             <input
                                 type="text"
@@ -47,20 +47,20 @@ export const InformationBarFichas = () => {
                                 <div onClick={() => dropdown2.handleOptionClick('Cedula de Extranjeria')}>Cédula de Extranjería</div>
                             </div>
                         </div>
-                    )}
+                    
 
                     <div>
                         <h3>Total de Horas: 36</h3>
                     </div>
                 </div>
-                <div className='check_filter'>
+                {/* <div className='check_filter'>
                     <label htmlFor="trimestresCheckbox"><h3>Filtra por Trimestres</h3></label>
                     <input 
                     className='custom-checkbox'
                     id="trimestresCheckbox"
                     type="checkbox"
                     onChange={trimestreDropdown.toggleTrimestreDropdown}/>
-                </div>
+                </div> */}
             </div>
         </>
     )

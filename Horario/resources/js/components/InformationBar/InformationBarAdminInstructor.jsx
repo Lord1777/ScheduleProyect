@@ -44,7 +44,7 @@ export const InformationBarAdminInstructor = () => {
             <div className="information_bar">
                 <div className="deplegable-horas">
 
-                    {trimestreDropdown.showTrimestreDropdown && (
+                    
                         <div className={`desplegable ${dropdown2.isDropdown ? 'open' : ''}`}>
                             <input
                                 type="text"
@@ -64,19 +64,19 @@ export const InformationBarAdminInstructor = () => {
                                 ))}
                             </div>
                         </div>
-                    )}
+                    
                     <div>
                         <h3>Total de Horas: {totalSeleccionado}</h3>
                     </div>
                 </div>
-                <div className='check_filter'>
+                {/* <div className='check_filter'>
                     <label htmlFor="trimestresCheckbox"><h3>Filtrar por Trimestres</h3></label>
                     <input
                         className='custom-checkbox'
                         id="trimestresCheckbox"
                         type="checkbox"
                         onChange={trimestreDropdown.toggleTrimestreDropdown} />
-                </div>
+                </div> */}
             </div>
         </>
     )

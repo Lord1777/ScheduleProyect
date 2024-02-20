@@ -6,7 +6,7 @@ import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
 import { Loading } from '../Loading/Loading';
 import { API_URL, csrf_token } from '../../const/api';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useFecthPutProgram } from '../../hooks/FetchPUT/useFecthPutProgram';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 
@@ -31,6 +31,8 @@ export const FormUpdateProgram = () => {
         closeErrorModal,
         alertMessage,
         ruta } = useFecthPutProgram(id);
+    
+    const Navigate = useNavigate();
 
     const fetchData = async () => {
         try {
@@ -43,7 +45,12 @@ export const FormUpdateProgram = () => {
                 },
                 redirect: "follow",
             })
-            if (!response.ok) {
+            if (response.status === 401) {
+                // Redirigir a la pantalla de Forbidden (403)
+                Navigate('/403-forbidden');
+                return;
+            }
+            else if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
             }
             const Data = await response.json();

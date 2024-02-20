@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { API_URL } from '../../const/api';
+import { useNavigate } from 'react-router-dom';
 
 const useFetchGetSchedule = (route) => {
 
@@ -7,35 +8,40 @@ const useFetchGetSchedule = (route) => {
 
   const [horarios, setHorarios] = useState([]);
   const [loading, setLoading] = useState(true);
+  const Navigate = useNavigate();
 
-    const fetchSchedule = async () => {
-      try {
-        const response = await fetch(`${API_URL}${route}`, {
-          method: "GET",
-          headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${userToken}`,
-          },
-          redirect: "follow",
+  const fetchSchedule = async () => {
+    try {
+      const response = await fetch(`${API_URL}${route}`, {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${userToken}`,
+        },
+        redirect: "follow",
       });
-
-        if (!response.ok) {
-          throw new Error(`Network response was not ok: ${response.statusText}`);
-        }
-        const data = await response.json();
-        setHorarios(data);
-      
-      } catch (error) {
-        console.error("Error getting schedule:", error);
-      }finally{
-        setLoading(false);
+      if (response.status === 401) {
+        // Redirigir a la pantalla de Forbidden (403)
+        Navigate('/403-forbidden');
+        return;
       }
-    };
+      else if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
+      }
+      const data = await response.json();
+      setHorarios(data);
+
+    } catch (error) {
+      console.error("Error getting schedule:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
-    useEffect(() => {
-        fetchSchedule();
-    }, []);
+  useEffect(() => {
+    fetchSchedule();
+  }, []);
 
 
   return {

@@ -3,7 +3,7 @@ import { useFetchPutCoordinator } from '../../hooks/FetchPUT/useFetchPutCoordina
 import { Loading } from '../Loading/Loading';
 import { useForm } from 'react-hook-form'
 import { API_URL, csrf_token } from '../../const/api';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 import useValidationForm from '../../hooks/useValidationForm'
 import useDropdown from "../../hooks/useDropdown";
@@ -47,7 +47,7 @@ export const FormUpdateCoordinator = () => {
     const [loading, setLoading] = useState(true);
 
     const { fetchPutCoordinator, successModalOpen, errorModalOpen, closeErrorModal, closeSuccessModal, alertMessage, ruta } = useFetchPutCoordinator(id);
-
+    const Navigate = useNavigate();
 
     const fetchData = async () => {
         try {
@@ -60,7 +60,12 @@ export const FormUpdateCoordinator = () => {
                 },
                 redirect: "follow",
             });
-            if (!response.ok) {
+            if (response.status === 401) {
+                // Redirigir a la pantalla de Forbidden (403)
+                Navigate('/403-forbidden');
+                return;
+            }
+            else if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
             }
             const Data = await response.json();

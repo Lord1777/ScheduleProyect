@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { API_URL } from '../../const/api';
+import { useNavigate } from 'react-router-dom';
 
 export const useFetchGetScheduleRecord = (idHorario) => {
 
@@ -8,6 +9,7 @@ export const useFetchGetScheduleRecord = (idHorario) => {
     const [scheduleData, setScheduleData] = useState([]);
     const fetchDataRef = useRef(() => {});
     const [loading, setLoading] = useState(true);
+    const Navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -20,6 +22,11 @@ export const useFetchGetScheduleRecord = (idHorario) => {
                     },
                     redirect: "follow",
                 });
+                if (response.status === 401) {
+                    // Redirigir a la pantalla de Forbidden (403)
+                    Navigate('/403-forbidden');
+                    return;
+                  }
                 const result = await response.json();
                 setScheduleData(result);
             } catch (err) {

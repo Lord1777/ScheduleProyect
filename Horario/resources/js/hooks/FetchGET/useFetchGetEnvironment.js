@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { API_URL } from '../../const/api';
+import { useNavigate } from 'react-router-dom';
 
 const useFetchGetEnvironment = (route, page, search) => {
 
@@ -8,6 +9,8 @@ const useFetchGetEnvironment = (route, page, search) => {
     const [dataEnvironment, setDataEnvironment] = useState([]);
     const fetchDataRef = useRef(() => {});
     const [ loading, setLoading ] = useState(true);
+    const Navigate = useNavigate()
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -20,6 +23,11 @@ const useFetchGetEnvironment = (route, page, search) => {
                     },
                     redirect: "follow",
                 });
+                if (response.status === 401) {
+                    // Redirigir a la pantalla de Forbidden (403)
+                    Navigate('/403-forbidden');
+                    return;
+                }
                 const result = await response.json();
                 setDataEnvironment(result);
             } catch (err) {

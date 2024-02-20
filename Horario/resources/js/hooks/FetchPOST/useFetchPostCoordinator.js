@@ -57,7 +57,9 @@ const useFetchPostCoordinator = (route) => {
                 openSuccessModal();
             }
             else if (response.status === 401) {
-                Navigate("/403-forbidden")
+                // Redirigir a la pantalla de Forbidden (403)
+                Navigate('/403-forbidden');
+                return;
             }
             else if (response.status === 422) {
                 const data = await response.json();

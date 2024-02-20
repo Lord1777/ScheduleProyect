@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { API_URL } from '../../const/api'
+import { useNavigate } from 'react-router-dom';
 
 export const useFetchGetScheduleAdminInstructor = (route, idUsuario, idTrimestre) => {
 
@@ -7,6 +8,7 @@ export const useFetchGetScheduleAdminInstructor = (route, idUsuario, idTrimestre
 
     const [dataSchedule, setDataSchedule] = useState([]);
     const [ loading, setLoading ] = useState(true);
+    const Navigate = useNavigate();
     
     useEffect(() => {
         const fetchData = async () => {
@@ -19,9 +21,16 @@ export const useFetchGetScheduleAdminInstructor = (route, idUsuario, idTrimestre
                     },
                     redirect: "follow",
                 })
-                const result = await response.json();
-
-                if(response.ok){
+                if (response.status === 401) {
+                    // Redirigir a la pantalla de Forbidden (403)
+                    Navigate('/403-forbidden');
+                    return;
+                }
+                else if(response.status === 404){
+                    alert('No existe horario academico para esta ficha')
+                }
+                else if(response.ok){
+                    const result = await response.json();
                     setDataSchedule(result);
                 } else if(response.status === 404){
                     alert(result.error);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { API_URL, csrf_token } from "../../const/api";
 import { useFetchPutEnvironment } from "../../hooks/FetchPUT/useFetchPutEnvironment";
 import { Loading } from "../Loading/Loading";
@@ -34,6 +34,7 @@ export const FormUpdateAmbiente = () => {
     const [sede, setSede] = useState(null);
     const [tablero, setTablero] = useState(null);
     const [loading, setLoading] = useState(true);
+    const Navigate = useNavigate();
 
     // const mapBooleanToYesOrNo = (value) => {
     //     return value ? "Si" : "No";
@@ -50,7 +51,12 @@ export const FormUpdateAmbiente = () => {
                 },
                 redirect: "follow",
             });
-            if (!response.ok) {
+            if (response.status === 401) {
+                // Redirigir a la pantalla de Forbidden (403)
+                Navigate('/403-forbidden');
+                return;
+            }
+            else if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
             }
             const Data = await response.json();

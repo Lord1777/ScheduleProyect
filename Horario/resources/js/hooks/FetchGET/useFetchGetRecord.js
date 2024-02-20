@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { API_URL } from '../../const/api';
+import { useNavigate } from 'react-router-dom';
 
 const useFetchGetRecord = (route, page, search) => {
 
@@ -8,6 +9,7 @@ const useFetchGetRecord = (route, page, search) => {
     const [dataRecord, setDataRecord] = useState([]);
     const [loading, setLoading] = useState(true);
     const fetchDataRef = useRef(() => {});
+    const Navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -20,6 +22,11 @@ const useFetchGetRecord = (route, page, search) => {
                     },
                     redirect: "follow",
                 });
+                if (response.status === 401) {
+                    // Redirigir a la pantalla de Forbidden (403)
+                    Navigate('/403-forbidden');
+                    return;
+                }
                 const result = await response.json();
                 setDataRecord(result)
             } catch (error) {

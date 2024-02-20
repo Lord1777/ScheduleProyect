@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 import { useForm, Controller } from 'react-hook-form';
 import { useFetchPutQuarter } from '../../hooks/FetchPUT/useFetchPutQuarter';
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { API_URL, csrf_token } from '../../const/api';
 import { Loading } from '../Loading/Loading';
 import DatePicker from 'react-datepicker';
@@ -28,6 +28,7 @@ export const FormUpdateTrimestre = () => {
     const [loading, setLoading] = useState(true);
 
     const { fetchPutQuarter, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, } = useFetchPutQuarter(id);
+    const Navigate = useNavigate();
 
     const fetchData = async () => {
         try {
@@ -40,7 +41,12 @@ export const FormUpdateTrimestre = () => {
                 },
                 redirect: "follow",
             })
-            if (!response.ok) {
+            if (response.status === 401) {
+                // Redirigir a la pantalla de Forbidden (403)
+                Navigate('/403-forbidden');
+                return;
+            }
+            else if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
             }
             const Data = await response.json();

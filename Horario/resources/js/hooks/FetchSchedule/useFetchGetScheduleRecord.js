@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { API_URL } from '../../const/api';
+import { useNavigate } from 'react-router-dom';
 
 const useFetchGetScheduleRecord = (route, idFicha, setHorasAsignadasValue) => {
 
     const [dataSchedule, setDataSchedule] = useState([]);
-    const [ loading, setLoading ] = useState(true);
+    const [loading, setLoading] = useState(true);
     const [modalOpen, setModalOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
+    const Navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -19,9 +21,14 @@ const useFetchGetScheduleRecord = (route, idFicha, setHorasAsignadasValue) => {
                     },
                     redirect: "follow",
                 })
-                const result = await response.json();
+                if (response.status === 401) {
+                    // Redirigir a la pantalla de Forbidden (403)
+                    Navigate('/403-forbidden');
+                    return;
+                }
+                else if (response.ok) {
+                    const result = await response.json();
 
-                if(response.ok){
                     setDataSchedule(result);
 
                     // Calcular las horas asignadas
@@ -30,7 +37,7 @@ const useFetchGetScheduleRecord = (route, idFicha, setHorasAsignadasValue) => {
                     // Llamar a setHorasAsignadasValue con el valor calculado
                     setHorasAsignadasValue(totalHoras);
 
-                } else if (response.status === 404  || result.length === 0) {
+                } else if (response.status === 404 || result.length === 0) {
                     setAlertMessage(result.error)
                     setModalOpen(true);
                 }
@@ -39,7 +46,7 @@ const useFetchGetScheduleRecord = (route, idFicha, setHorasAsignadasValue) => {
             } catch (error) {
                 console.log(`Error al obtener informacion del horario academico: ${error}`)
             }
-            finally{
+            finally {
                 setLoading(false);
             }
         }
@@ -49,8 +56,8 @@ const useFetchGetScheduleRecord = (route, idFicha, setHorasAsignadasValue) => {
 
     return {
         dataSchedule,
-        loading, 
-        modalOpen, 
+        loading,
+        modalOpen,
         setModalOpen,
         alertMessage
     }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { API_URL } from '../../const/api';
+import { useNavigate } from 'react-router-dom';
 
 export const useFetchGetScheduleInstructor = (route, idUsuario, idTrimestre, idFicha, setHorasAsignadasValue) => {
 
@@ -9,6 +10,7 @@ export const useFetchGetScheduleInstructor = (route, idUsuario, idTrimestre, idF
     const [ loading, setLoading ] = useState(true);
     const [modalOpen, setModalOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
+    const Navigate = useNavigate();
     
     useEffect(() => {
         const fetchData = async () => {
@@ -21,9 +23,14 @@ export const useFetchGetScheduleInstructor = (route, idUsuario, idTrimestre, idF
                     },
                     redirect: "follow",
                 })
+                if (response.status === 401) {
+                    // Redirigir a la pantalla de Forbidden (403)
+                    Navigate('/403-forbidden');
+                    return;
+                }
+                else if(response.ok){
                 const result = await response.json();
 
-                if(response.ok){
                     setDataSchedule(result);
 
                     // Calcular las horas asignadas

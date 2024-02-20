@@ -1,9 +1,11 @@
 import {useState, useEffect} from 'react';
 import { API_URL } from '../../const/api';
+import { useNavigate } from 'react-router-dom';
 
 const useFetchGetInfoBarRecord = (route, idFicha) => {
 
     const [dataInfoRecord, setDataInfoRecord] = useState([]);
+    const Navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -15,12 +17,16 @@ const useFetchGetInfoBarRecord = (route, idFicha) => {
                     },
                     redirect: "follow",
                 });
-                const result = await response.json();
-
-                if(response.status === 404){
+                if (response.status === 401) {
+                    // Redirigir a la pantalla de Forbidden (403)
+                    Navigate('/403-forbidden');
+                    return;
+                }
+                else if(response.status === 404){
                     alert('No existe horario academico para esta ficha')
                 }
-                
+                const result = await response.json();
+
                 setDataInfoRecord(result);
 
             } catch (err) {

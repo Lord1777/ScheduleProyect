@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useFetchPutInstructor } from '../../hooks/FetchPUT/useFetchPutInstructor';
 import { Loading } from '../Loading/Loading';
 import { API_URL, csrf_token } from '../../const/api';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import useValidationForm from '../../hooks/useValidationForm';
 import useDropdown from "../../hooks/useDropdown";
 import logoSena from "../../assets/img/LogoSena.png";
@@ -45,7 +45,7 @@ export const FormUpdateInstructor = () => {
     const [experiencia, setExperiencia] = useState(null);
     const [sede, setSede] = useState(null);
     const [loading, setLoading] = useState(true);
-
+    const Navigate = useNavigate();
     const { fetchPutInstructor, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, alertMessage, ruta } = useFetchPutInstructor(id);
 
     const fetchData = async () => {
@@ -59,7 +59,12 @@ export const FormUpdateInstructor = () => {
                 },
                 redirect: "follow",
             })
-            if (!response.ok) {
+            if (response.status === 401) {
+                // Redirigir a la pantalla de Forbidden (403)
+                Navigate('/403-forbidden');
+                return;
+            }
+            else if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
             }
             const Data = await response.json();

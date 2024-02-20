@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { API_URL } from '../../const/api';
+import { useNavigate } from 'react-router-dom';
 
 const useFetchGetScheduleInstructor = (route) => {
 
@@ -7,6 +8,7 @@ const useFetchGetScheduleInstructor = (route) => {
 
   const [horarioInstructor, setHorariosInstructor] = useState([]);
   const [loading, setLoading] = useState(true);
+  const Navigate = useNavigate();
 
   const fetchScheduleInstructor = async () => {
     try {
@@ -19,8 +21,12 @@ const useFetchGetScheduleInstructor = (route) => {
           },
           redirect: "follow",
         });
-
-      if (!response.ok) {
+        if (response.status === 401) {
+          // Redirigir a la pantalla de Forbidden (403)
+          Navigate('/403-forbidden');
+          return;
+      }
+      else if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
       const data = await response.json();

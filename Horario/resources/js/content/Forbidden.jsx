@@ -1,7 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import "../../css/Content/Forbidden.css";
+import { useNavigate } from 'react-router-dom';
 
 export const Forbidden = () => {
+
+    const Navigate = useNavigate()
+
+    const goBack = () => {
+        Navigate("/")
+    }
 
     return (
         <>
@@ -9,6 +16,9 @@ export const Forbidden = () => {
                 <div class="message">You are not authorized.
                 </div>
                 <div class="message2">You tried to access a page you did not have prior authorization for.</div>
+                <button className='btn-regresar' onClick={goBack}>
+                    Regresar
+                </button>
                 <div class="container">
                     <div class="neon">403</div>
                     <div class="door-frame">

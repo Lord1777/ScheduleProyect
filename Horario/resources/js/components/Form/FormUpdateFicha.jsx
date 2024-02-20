@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { API_URL, csrf_token } from "../../const/api";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useFetchPutRecord } from "../../hooks/FetchPUT/useFetchPutRecord";
 import { Loading } from "../Loading/Loading";
 import { ContinuoModal } from "../Modals/ContinuoModal";
@@ -39,7 +39,7 @@ export const FormUpdateFicha = () => {
     const [ficha, setFicha] = useState(null);
     const [programa, setPrograma] = useState(null);
     const [loading, setLoading] = useState(true)
-
+    const Navigate = useNavigate();
     const { fetchPutRecord, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, alertMessage, ruta } = useFetchPutRecord(id);
 
     const fetchData = async () => {
@@ -53,7 +53,12 @@ export const FormUpdateFicha = () => {
                 },
                 redirect: "follow",
             })
-            if (!response.ok) {
+            if (response.status === 401) {
+                // Redirigir a la pantalla de Forbidden (403)
+                Navigate('/403-forbidden');
+                return;
+            }
+            else if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
             }
             const Data = await response.json();

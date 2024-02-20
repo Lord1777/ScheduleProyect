@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import { useFetchPutCoordinator } from '../../hooks/FetchPUT/useFetchPutCoordinator';
 import { Loading } from '../Loading/Loading';
 import { useForm } from 'react-hook-form'
@@ -7,7 +7,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 import useValidationForm from '../../hooks/useValidationForm'
 import useDropdown from "../../hooks/useDropdown";
-import logoSena from "../../assets/img/LogoSena.png";
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
 import '../../../css/Form/FormUpdateCoordinator.css'
@@ -134,8 +133,6 @@ export const FormUpdateCoordinator = () => {
                     <h3>Editar Coordinador</h3>
                     <div className='container_form_update_elements'>
                         <div className='container_image_form_instructor_update'>
-                            <img src={logoSena} alt='Logo SENA' />
-
                             <form method='POST' onSubmit={handleSubmit(onSubmit)}>
                                 <div className="grid-column-update">
 

@@ -115,6 +115,7 @@ function App() {
                         <Route path='/ScheduleUpdateFicha/:idFicha/:idHorario/:idTrimestre' element={<ManageScheduleUpdateFicha/>} />
                     </Route>
 
+                    {/* Vistas del instructor */}
                     <Route element={<ProtectedRoute role={'instructor'} userRole={storedRole} />} >
                         <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
                         <Route path='/PerfilInstructor' element={<MyProfile/>}/>

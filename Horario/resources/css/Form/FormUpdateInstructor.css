@@ -229,6 +229,12 @@ form .grid-column-update textarea {
     }
 }
 
+@media (max-width:375px) {
+    .box_form_instructor_update {
+        margin-right: 6rem;
+    }
+}
+
 @media(max-width:330px) {
 
     .container_form_update_elements form .grid-column-update input {

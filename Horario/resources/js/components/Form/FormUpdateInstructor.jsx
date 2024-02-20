@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import { ContinuoModal } from "../Modals/ContinuoModal";
 import { useForm } from 'react-hook-form'
 import { useFetchPutInstructor } from '../../hooks/FetchPUT/useFetchPutInstructor';
@@ -7,7 +7,6 @@ import { API_URL, csrf_token } from '../../const/api';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import useValidationForm from '../../hooks/useValidationForm';
 import useDropdown from "../../hooks/useDropdown";
-import logoSena from "../../assets/img/LogoSena.png";
 import exito from '../../assets/img/Exito.png';
 import error from '../../assets/img/Advertencia.png';
 import '../../../css/Form/FormUpdateInstructor.css';
@@ -133,7 +132,6 @@ export const FormUpdateInstructor = () => {
                 <h3>Editar Instructor</h3>
                     <div className='container_form_update_elements'>
                         <div className='container_image_form_instructor_update'>
-                            <img src={logoSena} alt='Logo SENA' />
                             <form method='PUT' onSubmit={handleSubmit(onSubmit)}>
                                 <div className="grid-column-update">
                                     <div className='container-input-error-update'>

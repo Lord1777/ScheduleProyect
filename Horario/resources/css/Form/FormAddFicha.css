@@ -233,12 +233,12 @@
     display: block;
 }
 
-.desplegable-form .desplegable-options-form div {
+.desplegable-form .desplegable-options-form .contenedor-options-form div {
     padding: 12px 20px;
     cursor: pointer;
 }
 
-.desplegable-form .desplegable-options-form div:hover {
+.desplegable-form .desplegable-options-form .contenedor-options-form div:hover {
     background-color: var(--color-hover-option-select);
     color: var(--color-text-hover-option);
 }
@@ -246,6 +246,7 @@
 .desplegable-options-form .search-bar{
     width: 100%;
     height: 2.5rem;
+    margin-bottom: 1rem;
 }
 
 .desplegable-options-form .search-bar #buscador-form{

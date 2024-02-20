@@ -45,7 +45,7 @@ export const InstructorWatch = () => {
             </div>{/*Titulo y buscador*/}
             <div className="contenedor">
                 {filteredData.map((horarios) => (
-                    <Link to={`/HorarioAdminInstructor/${horarios.idUsuario}/${horarios.idHorario}`}>
+                    <Link to={`/HorarioAdminInstructor/${horarios.idUsuario}`}>
                         <div className="card">
                             <span class="material-symbols-outlined icon">
                                 calendar_month

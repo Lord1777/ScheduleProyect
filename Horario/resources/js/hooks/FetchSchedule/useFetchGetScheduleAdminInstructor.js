@@ -23,6 +23,8 @@ export const useFetchGetScheduleAdminInstructor = (route, idUsuario, idTrimestre
 
                 if(response.ok){
                     setDataSchedule(result);
+                } else if(response.status === 404){
+                    alert(result.error);
                 }
 
             } catch (error) {

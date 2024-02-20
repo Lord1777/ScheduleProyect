@@ -12,6 +12,7 @@ import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarte
 import useDropdown from '../../hooks/useDropdown';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
+import { Loading } from '../Loading/Loading';
 import '../../../css/Schedule/ScheduleAdd.css';
 
 export const ScheduleAdd = () => {
@@ -21,6 +22,7 @@ export const ScheduleAdd = () => {
     const { TRIMESTRE } = useValidationForm();
     const { register, setValue, handleSubmit } = useForm();
     const { isDropdown, selectedOption, handleDropdown, handleOptionClick } = useDropdown(setValue, "trimestre");
+    const [loading, setLoading] = useState(false);
 
     const { fetchSubmitSchedule, duplicatesBox, setDuplicatesBox, modalOpen, setModalOpen, alertMessage, succesfullyModal, setSuccesfullyModal } = useFetchPostSchedule('/createSchedule');
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
@@ -92,12 +94,14 @@ export const ScheduleAdd = () => {
             if (idInstructorExcedido) {
                 return alert(`Se ha detectado que un instructor ha superado el límite diario de 10 horas en al menos uno de los días.`);
             }
-
+            
+            setLoading(true);
             await fetchSubmitSchedule({
                 idTrimestre: getQuarterId(data.trimestre),
                 idFicha: id,
                 globalStoreBoxes
             })
+            setLoading(false);
         }
     }
 
@@ -126,6 +130,10 @@ export const ScheduleAdd = () => {
             return () => clearTimeout(timer);
         }
     }, [duplicatesBox, globalStoreBoxes]);
+
+    if(loading){
+        return <Loading/>
+    }
 
     return (
         <>

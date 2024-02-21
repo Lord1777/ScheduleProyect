@@ -30,7 +30,7 @@ export const Profile = () => {
     }
 
     const userData = user.userData;
-    console.log(userData)
+    //console.log(userData)
     let contrato = getContratoById(userData.idContrato);
     let sede = getSedeById(userData.idSede);
 

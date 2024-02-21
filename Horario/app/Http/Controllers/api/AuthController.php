@@ -183,7 +183,7 @@ class AuthController extends Controller
             $user->save();
 
             // Log de éxito
-            //Log::info('Contraseña actualizada correctamente');
+            Log::info('Contraseña actualizada correctamente');
 
             return response()->json([
                 'status' => 1,
@@ -191,7 +191,7 @@ class AuthController extends Controller
             ]);
         } catch (\Exception $e) {
             // Log de error
-            //Log::error('Error al actualizar la contraseña: ' . $e->getMessage());
+            //log::error('Error al actualizar la contraseña: ' . $e->getMessage());
 
             return response()->json([
                 "status" => 0,

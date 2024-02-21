@@ -40,6 +40,7 @@ export const ModalChangePassword = ({ IdUser, open, close, }) => {
             data.newPassword
         )
         setLoading(false);
+        console.log(IdUser)
     }
 
     if (loading) {
@@ -101,7 +102,7 @@ export const ModalChangePassword = ({ IdUser, open, close, }) => {
                     closeErrorModal();
                     close(); // Cerrar el modal principal
                 }}
-                route={ruta}
+                
             />
             <ContinuoModal
                 tittle="Actualización Exitosa"

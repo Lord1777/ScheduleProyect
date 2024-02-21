@@ -58,7 +58,10 @@ export const ScheduleWatch = () => {
 
             <div className="contenedor">
 
-                {filteredFicha.map((horario) => (
+                {filteredFicha.length === 0 ? (
+                    <p>No se encontraron resultados.</p>
+                ) : (
+                filteredFicha.map((horario) => (
                     <Link key={horario.idHorario} to={`/HorarioAdminAprendiz/${horario.idFicha}/${horario.idHorario}/${manage}`}>
                         <div className="card" >
                             <span className="material-symbols-outlined icon">
@@ -72,7 +75,7 @@ export const ScheduleWatch = () => {
                             </div>
                         </div>
                     </Link>
-                ))}
+                )))}
 
             </div>
 

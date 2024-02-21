@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { API_URL, csrf_token } from '../../const/api';
 import useModal from '../useModal';
+import { useUser } from '../../context/UserContext';
 
 const useFecthPutPassword = () => {
 
@@ -12,13 +13,7 @@ const useFecthPutPassword = () => {
     const [alertMessage, setAlertMessage] = useState('');
     const [ruta, setRuta] = useState('');
 
-
     const fetchPutPassword = async (idUsuario, password) => {
-
-        console.log(
-            `id: ${idUsuario},
-            contraseña: ${password}`
-        )
 
         try {
 
@@ -37,19 +32,32 @@ const useFecthPutPassword = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                setAlertMessage(data.error)
+                setAlertMessage(data.message)
                 openSuccessModal();
                 closePasswordModal();
-            }   
+
+                // Modificar el valor de la propiedad 'sesion' a 1 en los datos del usuario
+                let userData = localStorage.getItem('user_data');
+                if (userData) {
+                    userData = JSON.parse(userData);
+                    userData.sesion = 1;
+                    localStorage.setItem('user_data', JSON.stringify(userData));
+                }
+            }
+
             else if (response.status === 422) {
                 setAlertMessage("La contraseña es incorrecta.")
                 openErrorModal();
             }
+
             else if (response.status === 404) {
                 setAlertMessage("Usuario no encontrado.")
                 openErrorModal();
             }
-            
+            else if (response.status === 400) {
+                setAlertMessage("La nueva contraseña no puede ser igual a la anterior.")
+                openErrorModal();
+            }
             else if (response.status === 500) {
                 setAlertMessage("Ha, ocurrido un error, intentalo más tarde.")
                 setRuta('/Perfil')

@@ -1,15 +1,35 @@
-import React from 'react';
-import '../../../css/Schedule/SeeSchedule.css';
+import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Loading } from '../Loading/Loading';
 import { initialsName } from '../../hooks/useObjectFunction';
 import { useFetchGetScheduleEnvironment } from '../../hooks/FetchSchedule/useFetchGetScheduleEnvironment';
+import '../../../css/Schedule/SeeSchedule.css';
+
+import FilterScheduleAmbienteContext from '../../context/FilterScheduleAmbienteContext';
 
 export const ScheduleEnvironment = () => {
 
     const { idAmbiente, idTrimestre } = useParams();
 
+    const { setHorasAsignadasValue, setTotalSeleccionadoValue } = useContext(FilterScheduleAmbienteContext);
+
     const { dataSchedule, loading } = useFetchGetScheduleEnvironment('/getScheduleEnvironment', idAmbiente, idTrimestre);
+
+    useEffect(() => {
+        const selectedSchedules = dataSchedule.filter(infoSchedule => infoSchedule);
+    
+        const totalSeleccionado = selectedSchedules.length;
+    
+        setTotalSeleccionadoValue(totalSeleccionado);
+    
+        setHorasAsignadasValue(totalSeleccionado);
+    }, [dataSchedule, setHorasAsignadasValue, setTotalSeleccionadoValue]);
+
+    const handleCellClick = (infoSchedule) => {
+        //Actualiza el total seleccionado
+        const totalSeleccionado = infoSchedule ? infoSchedule.horasAsignadas || 0 : 0;
+        setTotalSeleccionadoValue(totalSeleccionado);
+    };
 
     if(loading){
         return <Loading/>
@@ -43,6 +63,7 @@ export const ScheduleEnvironment = () => {
                                 <div
                                     key={colIndex}
                                     className={`${infoSchedule ? 'selected' : 'cuadricula'}`}
+                                    onClick={() => handleCellClick(infoSchedule)}
                                 >
                                     {infoSchedule ? (
                                         <>

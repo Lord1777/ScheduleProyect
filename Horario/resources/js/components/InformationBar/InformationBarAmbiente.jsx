@@ -1,12 +1,23 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react';
 import useDropdownGet from '../../hooks/useDropdownGet'
 import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
+import FilterScheduleAmbienteContext from '../../context/FilterScheduleAmbienteContext';
 
 export const InformationBarAmbiente = () => {
 
     const dropdown1 = useDropdownGet();
     const dropdown2 = useDropdownGet();
     const trimestreDropdown = useTrimestreDropdown();
+
+    const { totalSeleccionado, setHorasAsignadasValue } = useContext(FilterScheduleAmbienteContext);
+
+    const updateHorasAsignadas = () => {
+        setHorasAsignadasValue(totalSeleccionado);
+    };
+
+    useEffect(() => {
+        updateHorasAsignadas();
+    }, [totalSeleccionado, setHorasAsignadasValue]);
 
     return (
         <>
@@ -48,7 +59,7 @@ export const InformationBarAmbiente = () => {
 
 
                     <div>
-                        <h3>Total de Horas: 36</h3>
+                        <h3>Total de Horas: {totalSeleccionado}</h3>
                     </div>
                 </div>
                 {/* <div className='check_filter'>

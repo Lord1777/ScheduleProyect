@@ -27,13 +27,13 @@ export const ScheduleAdminInstructor = () => {
     
         setHorasAsignadasValue(totalSeleccionado);
     }, [dataSchedule, setHorasAsignadasValue, setTotalSeleccionadoValue]);
-    
 
-    const handleCellClick = (infoSchedule) => {
-        //Actualiza el total seleccionado
-        const totalSeleccionado = infoSchedule ? infoSchedule.horasAsignadas || 0 : 0;
-        setTotalSeleccionadoValue(totalSeleccionado);
-    };
+
+    // const handleCellClick = (infoSchedule) => {
+    //     //Actualiza el total seleccionado
+    //     const totalSeleccionado = infoSchedule ? infoSchedule.horasAsignadas || 0 : 0;
+    //     setTotalSeleccionadoValue(totalSeleccionado);
+    // };
 
     if (loading) {
         return <Loading />

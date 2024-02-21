@@ -221,35 +221,14 @@ class ScheduleController extends Controller
             // Log::info('Tipo de $schedule: ' . gettype($schedule));
             // Log::info('Contenido de $schedule: ' . json_encode($schedule));
 
-            if ($schedule->isEmpty()) {
-                return response()->json([
-                    'status' => 0,
-                    'error' => 'No existe un horario academico para el instructor seleccionado'
-                ], Response::HTTP_NOT_FOUND); //404
-            }
-            return response()->json($schedule, Response::HTTP_OK); //200
-
-            // $schedule = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
-            //     ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
-            //     ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
-            //     ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
-            //     ->select(
-            //         'fichas.ficha',
-            //         'ambientes.ambiente',
-            //         'asignaciones.boxIndex',
-            //     )
-            //     ->where('usuarios.idUsuario', $idUsuario)
-            //     ->get();
-
-            // if ($schedule->isEmpty()) {
-            //     return response()->json([
-            //         'status' => 0,
-            //         'error' => 'No existe un horario academico para el instructor seleccionado',
-            //     ], Response::HTTP_NOT_FOUND); //404
-            // }
-            // return response()->json($schedule, Response::HTTP_OK); //200
-
-        } catch (\Exception $e) {
+                if ($schedule->isEmpty()) {
+                    return response()->json([
+                        'status' => 0,
+                        'error' => 'No existe un horario academico para el instructor seleccionado'
+                    ], Response::HTTP_NOT_FOUND); //404
+                }
+                return response()->json($schedule, Response::HTTP_OK); //200
+            } catch (\Exception $e) {
             return response()->json([
                 'error' => "Get Schedule Instructor Error " . $e->getMessage(),
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500

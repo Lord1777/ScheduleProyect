@@ -30,8 +30,20 @@ export const InformationBarAdminInstructor = () => {
         setIdTrimestreValue(getQuarterId(selectedOption));
     }
     
+    // const updateHorasAsignadas = () => {
+    //     setHorasAsignadasValue(totalSeleccionado);
+    // };
+
     const updateHorasAsignadas = () => {
-        setHorasAsignadasValue(totalSeleccionado);
+        // Utiliza la última versión de totalSeleccionado directamente del contexto
+        setHorasAsignadasValue((prevTotal) => {
+            // Si prevTotal es diferente de totalSeleccionado, entonces actualiza
+            if (prevTotal !== totalSeleccionado) {
+                return totalSeleccionado;
+            }
+            // Si son iguales, no hay necesidad de actualizar
+            return prevTotal;
+        });
     };
 
     useEffect(() => {

@@ -134,6 +134,10 @@ textarea{
     .container_form_add_instructor img{
         margin-left: 5rem;
     }
+
+    .box_form_ambiente {
+        height: 37rem;
+    }
 }
 
 @media (max-width:768px) {
@@ -194,11 +198,11 @@ textarea{
 
 @media(max-width:550px) {
     .box_form_ambiente {
-        margin-top: 2rem;
+        margin-top: -5rem;
         margin-bottom: 2rem;
         background-color: #fff;
         width: 25rem;
-        height: 50rem;
+        height: 65rem;
         border-radius: 1rem;
         padding: 3rem 5rem;
     }
@@ -237,17 +241,23 @@ textarea{
         margin-top: 8rem;
         width: 10rem;
     }
+
+    .box_form_ambiente {
+        width: 20rem;
+        margin-right: 0.3rem;
+    }
 }
 
 @media (max-width:420px) {
     .box_form_ambiente {
-        margin-top: 2rem;
+        margin-top: -5rem;
         margin-bottom: 2rem;
         background-color: #fff;
         width: 20rem;
-        height: 50rem;
+        height: 65rem;
         border-radius: 1rem;
         padding: 3rem 5rem;
+        margin-right: -0.5rem;
     }
 }
 
@@ -330,8 +340,4 @@ textarea{
     .container_form_add_instructor img{
         margin-left: 9rem;
     }
-
-    /* form{
-        margin-left: 0.5rem;
-    } */
 }

@@ -153,6 +153,12 @@ form .grid-column-update textarea {
     }
 }
 
+@media (max-width:912px) {
+    .box_form_instructor_update {
+        width: 45rem;
+    }
+}
+
 @media(max-width:890px) {
 
     .container_image_form_instructor_update img {
@@ -234,6 +240,7 @@ form .grid-column-update textarea {
 @media (max-width:540px) {
     .box_form_instructor_update {
         width: 31rem;
+        height: 66rem;
         margin-top: 2rem;
         margin-right: 1rem;
     }
@@ -275,8 +282,8 @@ form .grid-column-update textarea {
 
     .box_form_instructor_update {
         width: 20rem;
-        height: 65rem;
-        margin-right: 3.5rem;
+        height: 66.5rem;
+        margin-right: 5rem;
     }
 
     .grid-column-update {
@@ -289,13 +296,13 @@ form .grid-column-update textarea {
 
     .container_form_update_instructor {
         width: 34rem;
-        height: 84rem;
+        height: 85rem;
     }
 
     .box_form_instructor_update {
         width: 20rem;
         height: 65rem;
-        margin-right: 2rem;
+        margin-right: 7.5rem;
     }
 
     .grid-column-update {
@@ -313,13 +320,19 @@ form .grid-column-update textarea {
 
     .box_form_instructor_update {
         width: 20rem;
-        height: 65rem;
-        margin-right: 5.5rem;
+        height: 66.5rem;
+        margin-right: 8.5rem;
     }
 
     .grid-column-update {
         width: 15rem;
         margin-left: 15.5rem;
+    }
+}
+
+@media (max-width:390px) {
+    .box_form_instructor_update{
+        margin-right: 6.5rem;
     }
 }
 
@@ -348,7 +361,7 @@ form .grid-column-update textarea {
 
     .box_form_instructor_update {
         width: 20rem;
-        margin-right: 11rem;
+        margin-right: 12.5rem;
     }
 
     .grid-column-update {
@@ -366,5 +379,14 @@ form .grid-column-update textarea {
         border: none;
         background-color: #D9D9D9;
         outline: none;
+    }
+}
+
+@media (max-width:280px) {
+    
+    .box_form_instructor_update {
+        width: 17rem;
+        height: 65rem;
+        margin-right: 17.5rem;
     }
 }

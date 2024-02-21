@@ -82,7 +82,7 @@
 
     .container_all_form {
         width: 100%;
-        height: 100%;
+        height: 56rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -100,7 +100,7 @@
         margin-bottom: 1rem;
         background-color: #fff;
         width: 90%;
-        height: 41rem;
+        height: 47rem;
         border-radius: 1rem;
         padding: 2rem 2rem;
     }
@@ -132,6 +132,17 @@
         display: none;
     }
 }
+
+/* @media (max-width:414px) {
+    .container_all_form {
+        height: 51rem;
+    }
+
+    .box_form {
+        height: 25rem;
+        margin-top: 15rem;
+    }
+} */
 
 @media (max-width: 280px){
     .box_form {

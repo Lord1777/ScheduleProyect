@@ -138,7 +138,7 @@ function FormAddTrimestre() {
                 message="Los datos se guardaron correctamente."
                 open={successModalOpen}
                 close={closeSuccessModal}
-                route="/CrudInstructor"
+                route="/CrudTrimestres"
             />
         </>
     );

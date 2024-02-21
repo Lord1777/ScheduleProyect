@@ -12,7 +12,6 @@ import '../../../css/admin/Board.css'
 
 export const TableEnvironments = () => {
     
-    
     const [disabled, setDisabled] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [ambiente, setAmbiente] = useState("")

@@ -35,7 +35,7 @@ export const useFetchPutInstructor = (idUsuario) => {
                 method: "PUT",
                 headers: { 
                     'Content-Type': 'application/json',
-                    'Cookie': csrf_token,
+                    'X-CSRF-TOKEN': csrf_token,
                     'Authorization': `Bearer ${userToken}`,
                  },
                 body: JSON.stringify({

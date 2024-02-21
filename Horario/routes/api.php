@@ -15,8 +15,13 @@ use Illuminate\Support\Facades\Route;
 //'cors' es el alias de Middleware para las cors
 
 Route::middleware(['cors'])->group(function (){
+
+    //Users
     Route::post('/register', [AuthController::class, 'register']);
     Route::match(['get', 'post'], '/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.email');
+    Route::get('/password-reset/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
+    Route::post('/password-reset', [AuthController::class, 'resetPassword']);
 
     Route::get('/getInfoBarRecord/{idFicha}', [ScheduleController::class, 'indexRecord']);
     Route::get('/getScheduleApprentice/{idFicha}', [ScheduleController::class, 'scheduleApprentice']);
@@ -106,7 +111,7 @@ Route::middleware(['cors', 'auth:sanctum'])->group(function () {
     Route::put('/updateScheduleRecord/{idHorario}', [ScheduleController::class, 'update']);
 
     //Password
-    Route::match(['get', 'put'], '/UpdatePassword/{idUsuario}', [AuthController::class, 'updatePassword']);
+    // Route::match(['get', 'put'], '/UpdatePassword/{idUsuario}', [AuthController::class, 'updatePassword']);
 });
 
 

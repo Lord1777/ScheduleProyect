@@ -8,8 +8,8 @@ import { useFetchGetScheduleAdminInstructor } from '../../hooks/FetchSchedule/us
 
 export const ScheduleAdminInstructor = () => {
 
-    const { idUsuario } = useParams();
-    const { idTrimestre, setHorasAsignadasValue, setTotalSeleccionadoValue } = useContext(FilterScheduleInstructorContext);
+    const { idUsuario, idTrimestre } = useParams();
+    const { setHorasAsignadasValue, setTotalSeleccionadoValue } = useContext(FilterScheduleInstructorContext);
     const {
         dataSchedule,
         loading,
@@ -27,13 +27,13 @@ export const ScheduleAdminInstructor = () => {
     
         setHorasAsignadasValue(totalSeleccionado);
     }, [dataSchedule, setHorasAsignadasValue, setTotalSeleccionadoValue]);
-    
 
-    const handleCellClick = (infoSchedule) => {
-        //Actualiza el total seleccionado
-        const totalSeleccionado = infoSchedule ? infoSchedule.horasAsignadas || 0 : 0;
-        setTotalSeleccionadoValue(totalSeleccionado);
-    };
+
+    // const handleCellClick = (infoSchedule) => {
+    //     //Actualiza el total seleccionado
+    //     const totalSeleccionado = infoSchedule ? infoSchedule.horasAsignadas || 0 : 0;
+    //     setTotalSeleccionadoValue(totalSeleccionado);
+    // };
 
     if (loading) {
         return <Loading />

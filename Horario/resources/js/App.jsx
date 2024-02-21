@@ -84,7 +84,7 @@ function App() {
                         <Route path='/Card' element={<CardHorarios/>}/>
                         <Route path='/HorarioAprendiz/:idFicha/:idHorario' element={<ScheduleAprenttice />} />
                         <Route path='/HorariosFichas' element={<WatchSchedules />} />
-                        <Route path='/HorarioAdminInstructor/:idUsuario' element={<SeeScheduleAdminInstructor />} />
+                        <Route path='/HorarioAdminInstructor/:idUsuario/:idTrimestre' element={<SeeScheduleAdminInstructor />} />
                         <Route path='/HorariosInstructores' element={<WatchSchedulesInstructor/>} />
                         <Route path='/HorarioAmbiente/:idAmbiente/:idTrimestre' element={<SeeScheduleAmbiente />} />
                         <Route path='/HorariosAmbientes' element={<WatchScheduleAmbiente/>}/>

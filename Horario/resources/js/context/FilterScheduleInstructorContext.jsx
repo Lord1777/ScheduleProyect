@@ -6,7 +6,7 @@ const FilterScheduleInstructorContext = createContext();
 export const FilterScheduleInstructorContextProvider = ({ children }) => {
   const [idTrimestre, setIdTrimestre] = useState(null);
   const [idFicha, setIdFicha] = useState(null);
-  const [horasAsignadas, setHorasAsignadas] = useState("");
+  const [horasAsignadas, setHorasAsignadas] = useState(0);
   const [totalSeleccionado, setTotalSeleccionado] = useState(0);
 
   const setIdTrimestreValue = (trimestre) => {
@@ -18,10 +18,12 @@ export const FilterScheduleInstructorContextProvider = ({ children }) => {
   };
 
   const setHorasAsignadasValue = (horasAsignadas) => {
+    console.log("Setting horasAsignadas to:", horasAsignadas);
     setHorasAsignadas(horasAsignadas);
   };
 
   const setTotalSeleccionadoValue = (total) => {
+    console.log("Setting totalSeleccionado to:", total);
     setTotalSeleccionado(total);
   };
 

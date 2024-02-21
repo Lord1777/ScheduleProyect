@@ -18,12 +18,10 @@ export const FilterScheduleInstructorContextProvider = ({ children }) => {
   };
 
   const setHorasAsignadasValue = (horasAsignadas) => {
-    console.log("Setting horasAsignadas to:", horasAsignadas);
     setHorasAsignadas(horasAsignadas);
   };
 
   const setTotalSeleccionadoValue = (total) => {
-    console.log("Setting totalSeleccionado to:", total);
     setTotalSeleccionado(total);
   };
 

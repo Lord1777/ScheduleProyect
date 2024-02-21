@@ -28,13 +28,6 @@ export const ScheduleAdminInstructor = () => {
         setHorasAsignadasValue(totalSeleccionado);
     }, [dataSchedule, setHorasAsignadasValue, setTotalSeleccionadoValue]);
 
-
-    // const handleCellClick = (infoSchedule) => {
-    //     //Actualiza el total seleccionado
-    //     const totalSeleccionado = infoSchedule ? infoSchedule.horasAsignadas || 0 : 0;
-    //     setTotalSeleccionadoValue(totalSeleccionado);
-    // };
-
     if (loading) {
         return <Loading />
     }
@@ -67,7 +60,6 @@ export const ScheduleAdminInstructor = () => {
                                 <div
                                     key={colIndex}
                                     className={`${infoSchedule ? 'selected' : 'cuadricula'}`}
-                                    onClick={() => handleCellClick(infoSchedule)}
                                 >
                                     {infoSchedule ? (
                                         <>

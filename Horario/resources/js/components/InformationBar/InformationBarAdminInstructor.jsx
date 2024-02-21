@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react';
+import { useUser } from '../../context/UserContext'
 import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
 import useDropdownGet from '../../hooks/useDropdownGet';
 import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
 import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
-
+import useFetchGetInstructor from '../../hooks/FetchGET/useFetchGetInstructor';
 import '../../../css/InformationBar/InformationBar.css';
 
 export const InformationBarAdminInstructor = () => {
@@ -12,6 +13,8 @@ export const InformationBarAdminInstructor = () => {
     // const trimestreDropdown = useTrimestreDropdown();
 
     const { setIdTrimestreValue, totalSeleccionado, setHorasAsignadasValue } = useContext(FilterScheduleInstructorContext);
+
+
 
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
 
@@ -29,10 +32,6 @@ export const InformationBarAdminInstructor = () => {
     const handleOptionClickTrimestre = (selectedOption) => {
         setIdTrimestreValue(getQuarterId(selectedOption));
     }
-    
-    // const updateHorasAsignadas = () => {
-    //     setHorasAsignadasValue(totalSeleccionado);
-    // };
 
     const updateHorasAsignadas = () => {
         // Utiliza la última versión de totalSeleccionado directamente del contexto

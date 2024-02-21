@@ -219,8 +219,6 @@ class ScheduleController extends Controller
                 ->where('usuarios.idUsuario', $idUsuario)
                 ->where('trimestres.idTrimestre', $idTrimestre)
                 ->get();
-            // Log::info('Tipo de $schedule: ' . gettype($schedule));
-            // Log::info('Contenido de $schedule: ' . json_encode($schedule));
 
             if ($schedule->isEmpty()) {
                 return response()->json([

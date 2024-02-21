@@ -10,13 +10,19 @@ import { getAñoByDate } from "../../hooks/useObjectFunction";
 
 export const ScheduleWatch = () => {
 
+    const [manage, setManage] = useState(false);
+
     const { idHorario } = useParams();
-    const { horarios, loading } = useFetchGetSchedule('/getScheduleRecord');
+    const { horarios, loading, setLoading, fetchData } = useFetchGetSchedule( manage ? '/getScheduleRecord' : '/getDisableScheduleRecord');
     const [searchFicha, setSearchFicha] = useState("");
 
     const filteredFicha = horarios.filter(horario =>
         `${horario.ficha}`.toString().startsWith(searchFicha)
     );
+
+    const setManageValue = () =>{
+        manage ? setManage(false) : setManage(true);
+    }
 
     if (loading) {
         return <Loading />
@@ -26,8 +32,14 @@ export const ScheduleWatch = () => {
         <>
             <div className="Space"></div>{/*Espacio creado para separar el contenido*/}
             <div className="title-and-search">
-                <h2>Horarios Académicos</h2>
+                <h2>Horarios Académicos {manage ? 'inhabilitados' : 'habilitados'}</h2>
                 <div className="search-input">
+                {
+                    manage ? 
+                    <button onClick={setManageValue} >habilitados</button>
+                    : 
+                    <button onClick={setManageValue} >inhabilitados</button>
+                }
                     <input
                         type="search"
                         name="search"
@@ -47,8 +59,8 @@ export const ScheduleWatch = () => {
             <div className="contenedor">
 
                 {filteredFicha.map((horario) => (
-                    <Link to={`/HorarioAprendiz/${horario.idFicha}/${horario.idHorario}`}>
-                        <div className="card">
+                    <Link key={horario.idHorario} to={`/HorarioAdminAprendiz/${horario.idFicha}/${horario.idHorario}/${manage}`}>
+                        <div className="card" >
                             <span className="material-symbols-outlined icon">
                                 calendar_month
                             </span>

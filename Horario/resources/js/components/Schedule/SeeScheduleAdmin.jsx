@@ -2,26 +2,43 @@ import React, { useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Loading } from '../Loading/Loading';
 import { ContinuoModal } from '../Modals/ContinuoModal';
-import useFetchGetScheduleRecord from '../../hooks/FetchSchedule/useFetchGetScheduleRecord';
 import FilterScheduleFichaContext from '../../context/FilterScheduleFichaContext';
 import error from '../../assets/img/Advertencia.png';
 import '../../../css/Schedule/SeeSchedule.css';
+import useFetchGetScheduleAdminRecord from '../../hooks/FetchSchedule/useFetchGetScheduleAdminRecord';
 
-export const SeeSchedule = () => {
+export const SeeScheduleAdmin = () => {
 
     const { idFicha } = useParams();
+    
+    const { setHorasAsignadasValue, setTotalSeleccionadoValue } = useContext(FilterScheduleFichaContext);
 
     const { dataSchedule,
         loading,
         modalOpen,
         setModalOpen,
-        alertMessage } = useFetchGetScheduleRecord('/getScheduleApprentice', idFicha);
+        alertMessage } = useFetchGetScheduleAdminRecord('/getScheduleApprentice', idFicha, setHorasAsignadasValue);
 
     function initialsName(nombreCompleto) {
         const words = nombreCompleto.split(' ');
         const initials = words.map((word) => word.charAt(0).toUpperCase());
         return initials.join('');
     }
+
+   
+
+    useEffect(() => {
+        // Supongamos que dataSchedule es la información de los horarios obtenida del componente SeeSchedule
+        const selectedSchedules = dataSchedule.filter(infoSchedule => infoSchedule);
+
+        // Calcular la cantidad total de horas semanales
+        const totalSeleccionado = selectedSchedules.length;
+
+        // Actualizar el contexto con el total de horas
+        setTotalSeleccionadoValue(totalSeleccionado);
+
+        setHorasAsignadasValue(totalSeleccionado);
+    }, [dataSchedule, setTotalSeleccionadoValue, setHorasAsignadasValue,]);
 
     const handleCellClick = (infoSchedule) => {
         //Actualiza el total seleccionado

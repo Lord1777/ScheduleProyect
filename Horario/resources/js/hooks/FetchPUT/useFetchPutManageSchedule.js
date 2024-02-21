@@ -1,13 +1,14 @@
+import React from 'react';
 import { API_URL, csrf_token } from '../../const/api';
 
-export const useFetchPutManageEnvironment = () => {
+export const useFetchPutManageSchedule = () => {
 
     const userToken = localStorage.getItem('access_token');
 
-    const fetchManageEnvironment = async(route, idAmbiente) =>{
+    const fetchManageSchedule = async(route, idHorario) => {
 
         try {
-            const response = await fetch(`${API_URL}${route}/${idAmbiente}`, {
+            const response = await fetch(`${API_URL}${route}/${idHorario}`, {
                 method: "PUT",
                 headers: { 
                     'Content-Type': 'application/json',
@@ -20,14 +21,15 @@ export const useFetchPutManageEnvironment = () => {
                 const data = await response.json();
                 console.log(data.message); // Mensaje definido en Laravel
             }
-
         } catch (error) {
-            console.log(`Error Updating Environment: ${error}`)
+            console.log(`Error Updating Schedule: ${error}`);
         }
+
     }
+
   return (
     {
-        fetchManageEnvironment,
+        fetchManageSchedule,
     }
   )
 }

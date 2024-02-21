@@ -6,8 +6,8 @@ const useFetchGetInstructor = (route, page, search) => {
 
     const userToken = localStorage.getItem('access_token');
 
-    const [dataInstructor, setDataInstructor] = useState([]);
     const fetchDataRef = useRef(() => {});
+    const [dataInstructor, setDataInstructor] = useState([]);
     const [ loading, setLoading ] = useState(true);
     const Navigate = useNavigate()
 

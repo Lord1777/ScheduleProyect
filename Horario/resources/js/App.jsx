@@ -45,6 +45,7 @@ import { ManageScheduleUpdateFicha } from './pages/ManageScheduleUpdateFicha.jsx
 import { MyProfile } from './pages/MyProfile.jsx';
 import { SeeScheduleAdminInstructor } from './pages/SeeScheduleAdminInstructor.jsx';
 import { ModalChangePassword } from './components/Modals/ModalChangePassword.jsx';
+import { ScheduleAdminAprenttice } from './pages/ScheduleAdminAprenttice.jsx';
 
 
 function App() {
@@ -72,7 +73,6 @@ function App() {
                     <Route path='/403-forbidden' element={<Forbidden />} />
                     <Route path='/RecuperarContraseña' element={<Password />} />
                     <Route path='/ConsultaAprendiz' element={<ConsultAprenttice />} />
-                    <Route path='/HorarioAprendiz/:idFicha/:idHorario' element={<ScheduleAprenttice />} />
                     <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />
                     <Route path='/AddCoordinador' element={<AddCoordinator />} />
 
@@ -82,9 +82,9 @@ function App() {
                         <Route path='/Panel' element={<ControlPanel />} />
                         <Route path='/PanelHorarios' element={<HorariosPanel/>}/>
                         <Route path='/Card' element={<CardHorarios/>}/>
-                        <Route path='/HorarioAprendiz/:idFicha/:idHorario' element={<ScheduleAprenttice />} />
+                        <Route path='/HorarioAdminAprendiz/:idFicha/:idHorario/:manage' element={<ScheduleAdminAprenttice />} />
                         <Route path='/HorariosFichas' element={<WatchSchedules />} />
-                        <Route path='/HorarioAdminInstructor/:idUsuario' element={<SeeScheduleAdminInstructor />} />
+                        <Route path='/HorarioAdminInstructor/:idUsuario/:idTrimestre' element={<SeeScheduleAdminInstructor />} />
                         <Route path='/HorariosInstructores' element={<WatchSchedulesInstructor/>} />
                         <Route path='/HorarioAmbiente/:idAmbiente/:idTrimestre' element={<SeeScheduleAmbiente />} />
                         <Route path='/HorariosAmbientes' element={<WatchScheduleAmbiente/>}/>

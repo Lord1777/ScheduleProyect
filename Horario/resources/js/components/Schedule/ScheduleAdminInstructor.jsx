@@ -8,8 +8,8 @@ import { useFetchGetScheduleAdminInstructor } from '../../hooks/FetchSchedule/us
 
 export const ScheduleAdminInstructor = () => {
 
-    const { idUsuario } = useParams();
-    const { idTrimestre, setHorasAsignadasValue, setTotalSeleccionadoValue } = useContext(FilterScheduleInstructorContext);
+    const { idUsuario, idTrimestre } = useParams();
+    const { setHorasAsignadasValue, setTotalSeleccionadoValue } = useContext(FilterScheduleInstructorContext);
     const {
         dataSchedule,
         loading,

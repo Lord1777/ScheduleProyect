@@ -67,8 +67,8 @@ export const ScheduleEnvironment = () => {
                                 >
                                     {infoSchedule ? (
                                         <>
-                                            <span>{initialsName(infoSchedule.nombreCompleto)}</span>
                                             <span>{infoSchedule.ficha}</span>
+                                            <span>{initialsName(infoSchedule.nombreCompleto)}</span>
                                         </>
                                     ) : (
                                         (

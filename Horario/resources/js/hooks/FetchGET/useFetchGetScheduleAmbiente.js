@@ -30,7 +30,7 @@ const useFetchGetScheduleAmbiente = () => {
             // }
             const data = await response.json();
             setDataHorarios(data);
-            console.log(data.error);
+            // console.log(data.error);
 
         } catch (error) {
             console.error("Error getting schedule:", error);

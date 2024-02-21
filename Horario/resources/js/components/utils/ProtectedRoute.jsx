@@ -38,6 +38,7 @@ import { ScheduleUpdateFicha } from '../Schedule/ScheduleUpdateFicha';
 import { ManageScheduleUpdateFicha } from '../../pages/ManageScheduleUpdateFicha';
 import { SeeScheduleAdminInstructor } from '../../pages/SeeScheduleAdminInstructor';
 import { MyProfile } from '../../pages/MyProfile';
+import { ScheduleAdminAprenttice } from '../../pages/ScheduleAdminAprenttice';
 
 
 const roleConfig = {
@@ -56,6 +57,7 @@ const roleConfig = {
             'PanelHorarios': HorariosPanel,
             'Card': CardHorarios,
             'HorariosFichas': WatchSchedules,
+            'HorarioAdminAprendiz': ScheduleAdminAprenttice,
             'HorarioAdminInstructor': SeeScheduleAdminInstructor,
             'HorariosInstructores': WatchSchedulesInstructor,
             'HorarioInstructor': SeeScheduleInstructors,

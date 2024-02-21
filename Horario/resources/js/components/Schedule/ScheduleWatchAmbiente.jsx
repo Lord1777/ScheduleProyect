@@ -46,7 +46,7 @@ export const ScheduleWatchAmbiente = () => {
                 {filteredData.map((horario, index) => (
                     <Link  key={index} to={`/HorarioAmbiente/${horario.idAmbiente}/${horario.idTrimestre}`}>
                         <div className="card">
-                            <span class="material-symbols-outlined icon">
+                            <span className="material-symbols-outlined icon">
                                 calendar_month
                             </span>
                             <div className="text-car">

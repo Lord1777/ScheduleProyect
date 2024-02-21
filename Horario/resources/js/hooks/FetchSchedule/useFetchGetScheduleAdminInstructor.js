@@ -27,7 +27,7 @@ export const useFetchGetScheduleAdminInstructor = (route, idUsuario, idTrimestre
                     return;
                 }
                 else if(response.status === 404){
-                    alert('No existe horario academico para esta ficha')
+                    alert('No existe un horario academico para el instructor en el trimestre seleccionado');
                 }
                 else if(response.ok){
                     const result = await response.json();

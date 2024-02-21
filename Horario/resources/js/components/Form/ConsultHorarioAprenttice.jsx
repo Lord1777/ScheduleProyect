@@ -67,7 +67,7 @@ export const ConsultHorarioAprenttice = () => {
                                             `${record.ficha}`.toLowerCase().startsWith(fichaPrograma.toLowerCase())
                                         )
                                         .map((record) => (
-                                            <div className='option' onClick={() => handleOptionClick(`${record.ficha} - ${record.nombre}`)}>
+                                            <div  key={record.idFicha} className='option' onClick={() => handleOptionClick(`${record.ficha} - ${record.nombre}`)}>
                                                 {record.ficha} - {record.nombre}
                                             </div>
                                         ))}

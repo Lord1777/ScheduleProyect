@@ -204,34 +204,9 @@ class ScheduleController extends Controller
     public function scheduleAdminInstructor(string $idUsuario, string $idTrimestre)
     {
         try {
-            if ($idTrimestre !== 'null') {
-
-                $schedule = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
-                    ->join('trimestres', 'horarios_academicos.idTrimestre', '=', 'trimestres.idTrimestre')
-                    ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
-                    ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
-                    ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
-                    ->select(
-                        'fichas.ficha',
-                        'ambientes.ambiente',
-                        'asignaciones.boxIndex',
-                    )
-                    ->where('usuarios.idUsuario', $idUsuario)
-                    ->where('trimestres.idTrimestre', $idTrimestre)
-                    ->get();
-                // Log::info('Tipo de $schedule: ' . gettype($schedule));
-                // Log::info('Contenido de $schedule: ' . json_encode($schedule));
-
-                if ($schedule->isEmpty()) {
-                    return response()->json([
-                        'status' => 0,
-                        'error' => 'No existe un horario academico para el instructor seleccionado'
-                    ], Response::HTTP_NOT_FOUND); //404
-                }
-                return response()->json($schedule, Response::HTTP_OK); //200
-            }
 
             $schedule = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
+                ->join('trimestres', 'horarios_academicos.idTrimestre', '=', 'trimestres.idTrimestre')
                 ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
                 ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
                 ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
@@ -241,15 +216,38 @@ class ScheduleController extends Controller
                     'asignaciones.boxIndex',
                 )
                 ->where('usuarios.idUsuario', $idUsuario)
+                ->where('trimestres.idTrimestre', $idTrimestre)
                 ->get();
+            // Log::info('Tipo de $schedule: ' . gettype($schedule));
+            // Log::info('Contenido de $schedule: ' . json_encode($schedule));
 
             if ($schedule->isEmpty()) {
                 return response()->json([
                     'status' => 0,
-                    'error' => 'No existe un horario academico para el instructor seleccionado',
+                    'error' => 'No existe un horario academico para el instructor seleccionado'
                 ], Response::HTTP_NOT_FOUND); //404
             }
             return response()->json($schedule, Response::HTTP_OK); //200
+
+            // $schedule = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
+            //     ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+            //     ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
+            //     ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
+            //     ->select(
+            //         'fichas.ficha',
+            //         'ambientes.ambiente',
+            //         'asignaciones.boxIndex',
+            //     )
+            //     ->where('usuarios.idUsuario', $idUsuario)
+            //     ->get();
+
+            // if ($schedule->isEmpty()) {
+            //     return response()->json([
+            //         'status' => 0,
+            //         'error' => 'No existe un horario academico para el instructor seleccionado',
+            //     ], Response::HTTP_NOT_FOUND); //404
+            // }
+            // return response()->json($schedule, Response::HTTP_OK); //200
 
         } catch (\Exception $e) {
             return response()->json([
@@ -274,6 +272,7 @@ class ScheduleController extends Controller
                 ->select(
                     'fichas.ficha',
                     'ambientes.ambiente',
+                    'usuarios.nombreCompleto',
                     'asignaciones.boxIndex',
                 )
                 ->where('ambientes.idAmbiente', $idAmbiente)
@@ -448,15 +447,15 @@ class ScheduleController extends Controller
                         ], Response::HTTP_BAD_REQUEST); //400
                     } /* else {
 
-               Log::info($fichaAsignadaInstructor);
+              Log::info($fichaAsignadaInstructor);
 
-               return response()->json([
-                   'status' => 0,
-                   'message' => "No se encontraron asignaciones para el instructor '{$nombreInstructor}' en la(s) caja(s) especificadas.",
-                   'error' => 'No assignments found for the instructor in the specified boxIndex',
-               ], Response::HTTP_NOT_FOUND); //404
-           }
-           */
+              return response()->json([
+                  'status' => 0,
+                  'message' => "No se encontraron asignaciones para el instructor '{$nombreInstructor}' en la(s) caja(s) especificadas.",
+                  'error' => 'No assignments found for the instructor in the specified boxIndex',
+              ], Response::HTTP_NOT_FOUND); //404
+          }
+          */
                 }
                 if ($ambienteAsignado->isNotEmpty()) {
 
@@ -471,13 +470,13 @@ class ScheduleController extends Controller
                             'duplicates' => $ambienteAsignado,
                         ], Response::HTTP_BAD_REQUEST); //400
                     } /*else {
-               return response()->json([
-                   'status' => 0,
-                   'message' => "No se encontraron asignaciones para el ambiente '{$numeroAmbiente}' en la(s) caja(s) especificadas.",
-                   'error' => 'No assignments found for the instructor in the specified boxIndex',
-               ], Response::HTTP_NOT_FOUND); //404
-           }
-           */
+              return response()->json([
+                  'status' => 0,
+                  'message' => "No se encontraron asignaciones para el ambiente '{$numeroAmbiente}' en la(s) caja(s) especificadas.",
+                  'error' => 'No assignments found for the instructor in the specified boxIndex',
+              ], Response::HTTP_NOT_FOUND); //404
+          }
+          */
                 }
 
                 if ($limiteHorasInstructor !== null && $limiteHorasAmbiente !== null && $limiteHorasFicha !== null) {
@@ -849,6 +848,40 @@ class ScheduleController extends Controller
         }
     }
 
+
+    public function scheduleDisableRecords()
+    {
+        try {
+            $records = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
+                ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+                ->join('trimestres', 'trimestres.idTrimestre', '=', 'horarios_academicos.idTrimestre')
+                ->select(
+                    'fichas.ficha',
+                    'horarios_academicos.idHorario',
+                    'fichas.idFicha',
+                    'trimestres.trimestre',
+                    'trimestres.idTrimestre',
+                    'trimestres.fechaInicio',
+                )
+                ->where('horarios_academicos.estado', 'inhabilitado')
+                ->distinct()
+                ->get();
+
+            if ($records->isEmpty()) {
+                return response()->json([
+                    'status' => 0,
+                    'error' => 'Schedule Not Found'
+                ], Response::HTTP_NOT_FOUND); //404
+            }
+
+            return response()->json($records, Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Error Getting Schedule: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
     public function EnableSchedulesInstructors()
     {
         try {
@@ -862,6 +895,7 @@ class ScheduleController extends Controller
                     'trimestres.idTrimestre',
                     'trimestres.fechaInicio',
                 )
+                ->where('horarios_academicos.estado', 'habilitado')
                 ->groupBy(
                     'usuarios.idUsuario',
                     'usuarios.nombreCompleto',
@@ -892,6 +926,7 @@ class ScheduleController extends Controller
                     'trimestres.idTrimestre',
                     'trimestres.fechaInicio'
                 )
+                ->where('horarios_academicos.estado', 'habilitado')
                 ->groupBy(
                     'ambientes.idAmbiente',
                     'trimestres.trimestre',
@@ -905,6 +940,58 @@ class ScheduleController extends Controller
             return response()->json([
                 'error' => 'Error Getting Schedule: ' . $e->getMessage(),
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    public function enable(string $idHorario)
+    {
+        try {
+            $schedule = HorarioAcademico::findOrFail($idHorario);
+
+            $schedule->update(['estado' => 'habilitado']);
+
+            return response()->json([
+                'status' => 1,
+                'message' => 'Schedule Successfully Enabled'
+            ], Response::HTTP_OK); //200
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'status' => 0,
+                'error' => 'Schedule Not Found'
+            ], Response::HTTP_NOT_FOUND); //404
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Error Enabled Schedule: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
+    
+    public function disable(string $idHorario)
+    {
+        try {
+            $schedule = HorarioAcademico::findOrFail($idHorario);
+
+            $schedule->update(['estado' => 'inhabilitado']);
+
+            return response()->json([
+                'status' => 1,
+                'message' => 'Schedule Successfully Disable'
+            ], Response::HTTP_OK); //200
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'status' => 0,
+                'error' => 'Schedule Not Found'
+            ], Response::HTTP_NOT_FOUND); //404
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Error Disable Schedule: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
 }

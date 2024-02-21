@@ -10,7 +10,6 @@ import { getAñoByDate } from "../../hooks/useObjectFunction";
 
 export const InstructorWatch = () => {
 
-
     const { horarioInstructor, loading } = useFetchGetScheduleInstructor('/getScheduleInstructor');
     const [search, setSearch] = useState("");
 
@@ -44,10 +43,10 @@ export const InstructorWatch = () => {
                 </div>
             </div>{/*Titulo y buscador*/}
             <div className="contenedor">
-                {filteredData.map((horarios) => (
-                    <Link to={`/HorarioAdminInstructor/${horarios.idUsuario}`}>
+                {filteredData.map((horarios, index) => (
+                    <Link key={index} to={`/HorarioAdminInstructor/${horarios.idUsuario}/${horarios.idTrimestre}`}>
                         <div className="card">
-                            <span class="material-symbols-outlined icon">
+                            <span className="material-symbols-outlined icon">
                                 calendar_month
                             </span>
                             <div className="text-car">

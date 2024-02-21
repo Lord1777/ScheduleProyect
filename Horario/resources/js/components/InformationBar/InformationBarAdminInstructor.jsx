@@ -8,9 +8,8 @@ import '../../../css/InformationBar/InformationBar.css';
 
 export const InformationBarAdminInstructor = () => {
 
-    const dropdown2 = useDropdownGet();
-    const trimestreDropdown = useTrimestreDropdown();
-
+    // const dropdown2 = useDropdownGet();
+    // const trimestreDropdown = useTrimestreDropdown();
 
     const { setIdTrimestreValue, totalSeleccionado, setHorasAsignadasValue } = useContext(FilterScheduleInstructorContext);
 
@@ -43,8 +42,7 @@ export const InformationBarAdminInstructor = () => {
         <>
             <div className="information_bar">
                 <div className="deplegable-horas">
-
-                    
+{/*                     
                         <div className={`desplegable ${dropdown2.isDropdown ? 'open' : ''}`}>
                             <input
                                 type="text"
@@ -63,8 +61,11 @@ export const InformationBarAdminInstructor = () => {
                                     </div>
                                 ))}
                             </div>
-                        </div>
-                    
+                        </div> */}
+                    <div>
+                        <h3>Instructor: Ok</h3>
+                    </div>
+    
                     <div>
                         <h3>Total de Horas: {totalSeleccionado}</h3>
                     </div>

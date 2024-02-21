@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { API_URL } from '../../const/api';
 import { useNavigate } from 'react-router-dom';
 
-const useFetchGetScheduleRecord = (route, idFicha) => {
+const useFetchGetScheduleAdminRecord = (route, idFicha, /*setHorasAsignadasValue*/) => {
 
     const [dataSchedule, setDataSchedule] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -28,13 +28,21 @@ const useFetchGetScheduleRecord = (route, idFicha) => {
                 }
                 else if (response.ok) {
                     const result = await response.json();
-                    setDataSchedule(result);
 
+                    setDataSchedule(result);
+/*
+                    // Calcular las horas asignadas
+                    const totalHoras = result.reduce((total, scheduleItem) => total + (scheduleItem.horasAsignadas || 0), 0);
+
+                    // Llamar a setHorasAsignadasValue con el valor calculado
+                    setHorasAsignadasValue(totalHoras);
+*/
                 } else if (response.status === 404 || result.length === 0) {
                     const result = await response.json();
                     setAlertMessage(result.error)
                     setModalOpen(true);
                 }
+                
             } catch (error) {
                 console.log(`Error al obtener informacion del horario academico: ${error}`)
             }
@@ -44,7 +52,7 @@ const useFetchGetScheduleRecord = (route, idFicha) => {
         }
 
         fetchData();
-    }, []);
+    }, [/*setHorasAsignadasValue*/]);
 
     return {
         dataSchedule,
@@ -55,4 +63,4 @@ const useFetchGetScheduleRecord = (route, idFicha) => {
     }
 }
 
-export default useFetchGetScheduleRecord
+export default useFetchGetScheduleAdminRecord

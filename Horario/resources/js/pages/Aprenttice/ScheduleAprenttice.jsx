@@ -10,10 +10,8 @@ export const ScheduleAprenttice = () => {
             <NavBar />
             {/*los estilos del container horarios estan en SeeSchedule.css*/}
             <main className="container_all_horario2">
-                <FilterScheduleFichaContextProvider>
-                    <InformationBarAprenttice />
-                    <SeeSchedule />
-                </FilterScheduleFichaContextProvider>
+                <InformationBarAprenttice />
+                <SeeSchedule />
             </main>
         </>
     );

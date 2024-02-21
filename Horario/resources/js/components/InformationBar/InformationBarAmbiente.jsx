@@ -5,9 +5,9 @@ import FilterScheduleAmbienteContext from '../../context/FilterScheduleAmbienteC
 
 export const InformationBarAmbiente = () => {
 
-    const dropdown1 = useDropdownGet();
-    const dropdown2 = useDropdownGet();
-    const trimestreDropdown = useTrimestreDropdown();
+    // const dropdown1 = useDropdownGet();
+    // const dropdown2 = useDropdownGet();
+    // const trimestreDropdown = useTrimestreDropdown();
 
     const { totalSeleccionado, setHorasAsignadasValue } = useContext(FilterScheduleAmbienteContext);
 
@@ -24,7 +24,7 @@ export const InformationBarAmbiente = () => {
             <div className="information_bar">
                 <div className="deplegable-horas">
 
-                    <div className={`desplegable ${dropdown1.isDropdown ? 'open' : ''}`}>
+                    {/* <div className={`desplegable ${dropdown1.isDropdown ? 'open' : ''}`}>
                         <input
                             type="text"
                             className='textBox'
@@ -55,6 +55,10 @@ export const InformationBarAmbiente = () => {
                             <div onClick={() => dropdown2.handleOptionClick('Cedula')}>Cédula</div>
                             <div onClick={() => dropdown2.handleOptionClick('Cedula de Extranjeria')}>Cédula de Extranjería</div>
                         </div>
+                    </div> */}
+
+                    <div>
+                        <h3>Ambiente: {999}</h3>
                     </div>
 
 

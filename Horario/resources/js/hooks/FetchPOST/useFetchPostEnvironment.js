@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { getSedeByName, getTrueOrFalseByYesOrNot } from '../useObjectMapping';
 import { API_URL, csrf_token } from '../../const/api';
+import { useNavigate } from 'react-router-dom';
 
 const useFetchPostEnvironment = (route) => {
 
@@ -10,6 +11,8 @@ const useFetchPostEnvironment = (route) => {
     const [ errorModal, setErrorModal ] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const [ ruta , setRuta] = useState('');
+
+    const navigate = useNavigate();
 
     const fetchSubmitEnvironment = async (ambiente, cantidadMesas, capacidad, catidadComputadores, aireAcondicionados, tableros, videoBeams, sede,) => {
         console.log(
@@ -58,6 +61,11 @@ const useFetchPostEnvironment = (route) => {
                 const data = await response.json()
                 console.log(data.message)
                 setSuccesfullyModal(true);
+            }
+            else if (response.status === 401) {
+                // Redirigir a la pantalla de Forbidden (403)
+                navigate('/403-forbidden');
+                return;
             }
             else if(response.status === 422){
                 const data = await response.json();

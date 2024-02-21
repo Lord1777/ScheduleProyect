@@ -5,8 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 const useFetchLogin = (route) => {
 
-    const userToken = localStorage.getItem('access_token');
-
     const { authenticateUser } = useUser();
     const [ loading, setLoading ] = useState(false);
 
@@ -19,7 +17,6 @@ const useFetchLogin = (route) => {
                 headers: { 
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': csrf_token,
-                    'Authorization': `Bearer ${userToken}`,
                  },
                 body: JSON.stringify({ documento, password }),
             });

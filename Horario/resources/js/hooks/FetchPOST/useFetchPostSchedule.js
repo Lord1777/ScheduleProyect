@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { API_URL, csrf_token  } from '../../const/api';
 import { ContinuoModal } from '../../components/Modals/ContinuoModal';
+import { useNavigate } from 'react-router-dom';
 
 
 export const useFetchPostSchedule = (route) => {
@@ -10,9 +11,9 @@ export const useFetchPostSchedule = (route) => {
     const [duplicatesBox, setDuplicatesBox] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [ succesfullyModal, setSuccesfullyModal  ] = useState(false);
-    
     const [alertMessage, setAlertMessage] = useState('');
 
+    const navigate = useNavigate();
 
     const fetchSubmitSchedule = async({ idTrimestre, idFicha, globalStoreBoxes}) =>{
         try {
@@ -29,6 +30,12 @@ export const useFetchPostSchedule = (route) => {
                     globalStoreBoxes: Array.from(globalStoreBoxes)
                 })
             });
+
+            if (response.status === 401) {
+                // Redirigir a la pantalla de Forbidden (403)
+                navigate('/403-forbidden');
+                return;
+            }
 
             const data = await response.json();
 

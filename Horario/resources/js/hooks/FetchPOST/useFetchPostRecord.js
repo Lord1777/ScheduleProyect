@@ -2,6 +2,7 @@ import { getModalidadByName, getJornadaByName } from '../useObjectMapping';
 import { API_URL, csrf_token } from '../../const/api';
 import useModal from '../useModal';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const useFetchPostRecord = (route) => {
 
@@ -12,6 +13,7 @@ const useFetchPostRecord = (route) => {
     const [alertMessage, setAlertMessage] = useState('');
     const [ ruta , setRuta] = useState('');
 
+    const navigate = useNavigate();
 
     const fetchSubmitRecord = async (ficha, idPrograma, modalidad, jornada) => {
 
@@ -47,6 +49,11 @@ const useFetchPostRecord = (route) => {
                 const data = await response.json()
                 console.log(data.message)
                 openSuccessModal();
+            }
+            else if (response.status === 401) {
+                // Redirigir a la pantalla de Forbidden (403)
+                navigate('/403-forbidden');
+                return;
             }
             else if(response.status === 422){
                 const data = await response.json();

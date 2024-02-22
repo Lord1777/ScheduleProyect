@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { API_URL } from '../../const/api';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,6 +16,7 @@ const useFetchGetInstructor = (route, page, search) => {
             try {
                 setLoading(true);
                 const response = await fetch(`${API_URL}${route}?page=${page}&search=${search}`, {
+
                     method: "GET",
                     headers: {
                         'Content-Type': 'application/json',

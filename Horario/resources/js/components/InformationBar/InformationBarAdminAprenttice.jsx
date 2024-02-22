@@ -27,10 +27,6 @@ export const InformationBarAdminAprenttice = () => {
         await fetchManageSchedule('/enableSchedule', idHorario);
     }
 
-    // useEffect(() => {
-    //     updateHorasAsignadas();
-    // }, [totalSeleccionado, setHorasAsignadasValue]);
-
     return (
         <>
             <div className="informationBarAprenttice">

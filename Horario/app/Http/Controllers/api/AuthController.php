@@ -152,8 +152,6 @@ class AuthController extends Controller
     public function updatePassword(Request $request)
     {
         try {
-            //Log::info('Solicitud recibida para actualizar la contraseña', $request->all());
-
             // Validar la solicitud
             $validator = Validator::make($request->all(), [
                 'idUsuario' => 'required|exists:usuarios,idUsuario',
@@ -168,7 +166,7 @@ class AuthController extends Controller
             }
 
             // Buscar el usuario por su ID
-            $user = Usuario::find($request->idUsuario, 'idUsuario');
+            $user = Usuario::find($request->idUsuario);
 
             if (!$user) {
                 return response()->json([
@@ -177,13 +175,25 @@ class AuthController extends Controller
                 ], Response::HTTP_NOT_FOUND); //404
             }
 
+            // Log de inicio de la actualización de contraseña
+            Log::info('Iniciando actualización de contraseña para el usuario: ' . $user->idUsuario);
+
+            // Verificar si la nueva contraseña es diferente a la antigua
+            if (hash::check($request->password, $user->password)) {
+                Log::warning('Intento de actualizar la contraseña con la misma contraseña anterior para el usuario: ' . $user->idUsuario);
+                return response()->json([
+                    'status' => 0,
+                    'error' => 'La nueva contraseña debe ser diferente a la anterior.',
+                ], Response::HTTP_BAD_REQUEST); //400
+            }
+
             // Actualizar la contraseña
             $user->password = Hash::make($request->password);
             $user->sesion = 1;
             $user->save();
 
             // Log de éxito
-            Log::info('Contraseña actualizada correctamente');
+            Log::info('Contraseña actualizada correctamente para el usuario: ' . $user->idUsuario);
 
             return response()->json([
                 'status' => 1,
@@ -191,14 +201,15 @@ class AuthController extends Controller
             ]);
         } catch (\Exception $e) {
             // Log de error
-            //log::error('Error al actualizar la contraseña: ' . $e->getMessage());
+            Log::error('Error al actualizar la contraseña: ' . $e->getMessage());
 
             return response()->json([
                 "status" => 0,
                 "message" => "Error al actualizar la contraseña.",
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
-    }
+}
+
 
 
     public function forgotPassword(Request $request)

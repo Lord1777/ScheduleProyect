@@ -12,6 +12,7 @@ const useFecthPutPassword = () => {
     const { isModal: modalChangePasword, ShowOpenModal: openPasswordModal, ShowCloseModal: closePasswordModal } = useModal();
     const [alertMessage, setAlertMessage] = useState('');
     const [ruta, setRuta] = useState('');
+    const [ rutaPanel, setRutaPanel ] = ('');
 
     const fetchPutPassword = async (idUsuario, password) => {
 
@@ -61,6 +62,7 @@ const useFecthPutPassword = () => {
             else if (response.status === 500) {
                 setAlertMessage("Ha, ocurrido un error, intentalo más tarde.")
                 setRuta('/Perfil')
+                setRutaPanel('/Panel')
                 openErrorModal();
                 closePasswordModal();
             }
@@ -82,7 +84,8 @@ const useFecthPutPassword = () => {
         ruta,
         openPasswordModal,
         closePasswordModal,
-        modalChangePasword
+        modalChangePasword,
+        rutaPanel
     }
 }
 

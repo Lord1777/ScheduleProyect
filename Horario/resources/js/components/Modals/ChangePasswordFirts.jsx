@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
 import { ContinuoModal } from './ContinuoModal'
+import { Route } from 'react-router-dom/dist';
 
 export const ChangePasswordFirts = ({ IdUser, open, close }) => {
     if (!open) return null;
@@ -32,7 +33,8 @@ export const ChangePasswordFirts = ({ IdUser, open, close }) => {
         closeErrorModal,
         errorModalOpen,
         alertMessage,
-        ruta, } = useFecthPutPassword();
+        ruta,
+        rutaPanel } = useFecthPutPassword();
 
     const onSubmit = async (data) => {
         setLoading(true);
@@ -93,15 +95,17 @@ export const ChangePasswordFirts = ({ IdUser, open, close }) => {
                 </div>
             </main>
             <ContinuoModal
-                tittle="Error al actualizar de contraseña."
+                tittle="Error al actualizar la contraseña."
                 imagen={error}
                 message={alertMessage}
                 open={errorModalOpen}
-                close={() => {
-                    closeErrorModal();
-                    close(); // Cerrar el modal principal
-                }}
-                route="/Panel"
+                close={ closeErrorModal
+                //     () => {
+                //     closeErrorModal();
+                //     close(); // Cerrar el modal principal
+                // }
+            }
+            ruta={rutaPanel}
             />
             <ContinuoModal
                 tittle="Actualización Exitosa"

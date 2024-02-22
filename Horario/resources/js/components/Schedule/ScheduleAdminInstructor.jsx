@@ -59,7 +59,7 @@ export const ScheduleAdminInstructor = () => {
                             return (
                                 <div
                                     key={colIndex}
-                                    className={`${infoSchedule ? 'selected' : 'cuadricula'}`}
+                                    className={`${infoSchedule ? 'selectedInstructor' : 'cuadricula'}`}
                                 >
                                     {infoSchedule ? (
                                         <>

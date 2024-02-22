@@ -72,7 +72,9 @@ export const TableCoodinators = () => {
                         value={coordinador}
                         onChange={(e) => setCoordinador(e.target.value)}
                     />
-                    <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                    <div className="content-icon-bar">
+                        <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                    </div>
                 </div>
 
                 <div className="buttons">

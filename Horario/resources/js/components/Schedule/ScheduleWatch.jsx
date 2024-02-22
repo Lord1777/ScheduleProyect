@@ -13,7 +13,7 @@ export const ScheduleWatch = () => {
     const [manage, setManage] = useState(false);
 
     const { idHorario } = useParams();
-    const { horarios, loading, setLoading, fetchData } = useFetchGetSchedule( manage ? '/getScheduleRecord' : '/getDisableScheduleRecord');
+    const { horarios, loading, setLoading, fetchData } = useFetchGetSchedule( manage ? '/getDisableScheduleRecord' :  '/getScheduleRecord');
     const [searchFicha, setSearchFicha] = useState("");
 
     if (loading) {
@@ -59,7 +59,7 @@ export const ScheduleWatch = () => {
 
             <div className="contenedor">
 
-                {filteredFicha.length === 0 ? (
+                {filteredFicha.length === 0 || filteredFicha.size === 0 ? (
                     <p>No se encontraron resultados.</p>
                 ) : (
                 filteredFicha.map((horario) => (

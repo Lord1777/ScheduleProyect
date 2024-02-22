@@ -80,9 +80,9 @@ export const ScheduleUpdateFicha = () => {
                 }
                 initialHorasPorDia[idInstructor][dia] = 0;
             });
-    
+
             setHorasAsignadasPorDia(initialHorasPorDia);
-    
+
             // Actualizar el registro de horas asignadas por día
             const newHorasAsignadasPorDia = { ...initialHorasPorDia };
             globalStoreBoxes.forEach(box => {
@@ -94,17 +94,17 @@ export const ScheduleUpdateFicha = () => {
                 newHorasAsignadasPorDia[idInstructor][dia] += 1;
             });
             console.log('Updated horasAsignadasPorDia:', newHorasAsignadasPorDia);
-    
+
             // Verificar si se excede el límite diario de 10 horas para algún instructor en algún día
             const idInstructorExcedido = Object.keys(newHorasAsignadasPorDia).find(idInstructor => {
                 const horasPorDia = newHorasAsignadasPorDia[idInstructor];
                 return Object.values(horasPorDia).some(horas => horas > 10);
             });
-    
+
             if (idInstructorExcedido) {
                 return alert(`Se ha detectado que un instructor ha superado el límite diario de 10 horas en al menos uno de los días.`);
             }
-    
+
             await fetchUpdateScheduleRecord({
                 idTrimestre: dataQuarter.idTrimestre,
                 idFicha: idFicha,
@@ -112,14 +112,14 @@ export const ScheduleUpdateFicha = () => {
             });
         }
     }
-    
-    
+
+
     useEffect(() => {
         console.log("Inside useEffect");
-    
+
         if (dataSchedule && dataSchedule.length > 0 && globalStoreBoxes.size === 0) {
             console.log("Data Schedule:", dataSchedule);
-    
+
             //Inicializar globalStoreBoxes cuando existan los datos suministrados
             const newData = new Set(dataSchedule.map(item => ({
                 idInstructor: item.idUsuario,
@@ -130,7 +130,7 @@ export const ScheduleUpdateFicha = () => {
             })));
             console.log("New Data:", newData);
             setGlobalStoreBoxes(newData);
-    
+
             //Inicializar asignaciones cuando existan los datos suministrados
             const newAsignaciones = {};
             dataSchedule.forEach(item => {
@@ -143,10 +143,10 @@ export const ScheduleUpdateFicha = () => {
             console.log("New Asignaciones:", newAsignaciones);
             setAsignaciones(newAsignaciones);
         }
-    
+
         // Limpiar el estado horasAsignadasPorDia
         setHorasAsignadasPorDia({});
-    
+
         // Inicializa las horas asignadas a 0 para cada día de la semana para cada instructor
         const initialHorasPorDia = {};
         globalStoreBoxes.forEach(box => {
@@ -159,52 +159,35 @@ export const ScheduleUpdateFicha = () => {
         });
         console.log("Initial Horas Por Dia:", initialHorasPorDia);
         setHorasAsignadasPorDia(initialHorasPorDia);
-    
+
         if (duplicatesBox.length > 0 || duplicatesBox.size > 0) {
             console.log("Duplicates Box:", duplicatesBox);
-    
+
             const timer = setTimeout(() => {
                 setDuplicatesBox([]);
             }, 8000);
-    
+
             // Limpieza del temporizador cuando el componente se desmonta o cuando duplicatesBox cambia nuevamente
             return () => clearTimeout(timer);
         }
     }, [duplicatesBox, globalStoreBoxes, dataSchedule]);
-    
+
 
     return (
         <>
             <div className="information_bar">
-                {/* <div className={`desplegable ${isDropdown ? 'open' : ''}`}>
-                    <input
-                        type="text"
-                        className='textBox'
-                        name='Trimestres'
-                        placeholder='Trimestres'
-                        readOnly
+                <div className="container-label-input">
+                    <label>Trimestre:</label>
+                    <input type="text"
+                        className='info-trimestre'
+                        value={`${dataQuarter.trimestre} | ${dataQuarter.fechaInicio} - ${dataQuarter.fechaFinal}`}
+                        name='trimestre'
                         autoComplete='off'
-                        onClick={handleDropdown}
-                        value={selectedOption}
-                        {...register("trimestre", TRIMESTRE)}
+                        readOnly
+                        disabled={'on'}
+                        {...register("trimestre")}
                     />
-                    <div className={`desplegable-options ${isDropdown ? 'open' : ''}`}>
-                        <div key={dataQuarter.idTrimestre}
-                            onClick={() => handleOptionClick(`${dataQuarter.trimestre} ${dataQuarter.fechaInicio} - ${dataQuarter.fechaFinal}`)}
-                        >
-                            {dataQuarter.trimestre} | {dataQuarter.fechaInicio} - {dataQuarter.fechaFinal}
-                        </div>
-                    </div>
-                </div> */}
-                <input type="text"
-                className='desplegable'
-                value={`${dataQuarter.trimestre} | ${dataQuarter.fechaInicio} - ${dataQuarter.fechaFinal}`}
-                name='trimestre'
-                autoComplete='off'
-                readOnly
-                disabled={'on'}
-                {...register("trimestre")}
-                />
+                </div>
             </div>
 
             <div className="containergrid-buttons">

@@ -3,12 +3,21 @@ import { Link, useParams } from 'react-router-dom'
 import { useUser } from '../../context/UserContext';
 import useFetchGetInfoBarRecord from '../../hooks/FetchSchedule/useFetchGetInfoBarRecord'
 import '../../../css/InformationBar/InformationBarAprenttice.css'
+import exito from '../../assets/img/Exito.png'
+import error from '../../assets/img/Advertencia.png'
+import { ContinuoModal } from '../Modals/ContinuoModal';
 
 export const InformationBarAprenttice = () => {
 
     const { idFicha } = useParams();
 
-    const { dataInfoRecord } = useFetchGetInfoBarRecord('/getInfoBarRecord', idFicha);
+    const { 
+        dataInfoRecord,
+        modalOpen,
+        setModalOpen,
+        alertMessage,
+        ruta,
+    } = useFetchGetInfoBarRecord('/getInfoBarRecord', idFicha);
 
     return (
         <>
@@ -36,6 +45,14 @@ export const InformationBarAprenttice = () => {
                     </div>
                 </div>
             </div>
+            <ContinuoModal
+            tittle="Aviso"
+            imagen={error}
+            message={alertMessage}
+            open={modalOpen}
+            close={() => setModalOpen(false)}
+            route={ruta}
+            />
         </>
     )
 }

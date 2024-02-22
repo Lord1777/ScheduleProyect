@@ -16,17 +16,19 @@ export const ScheduleWatch = () => {
     const { horarios, loading, setLoading, fetchData } = useFetchGetSchedule( manage ? '/getScheduleRecord' : '/getDisableScheduleRecord');
     const [searchFicha, setSearchFicha] = useState("");
 
-    const filteredFicha = horarios.filter(horario =>
+    if (loading) {
+        return <Loading />
+    }
+
+    const filteredFicha = Array.isArray(horarios) ? horarios.filter(horario =>
         `${horario.ficha}`.toString().startsWith(searchFicha)
-    );
+    ) : [];
 
     const setManageValue = () =>{
         manage ? setManage(false) : setManage(true);
     }
 
-    if (loading) {
-        return <Loading />
-    }
+
 
     return (
         <>

@@ -8,6 +8,111 @@
     box-shadow: 0px 5px 10px 0px rgb(73, 73, 73);
 }
 
+.container-instructor{
+    margin-bottom: 1rem;
+}
+
+.desplegable-infoBar {
+    position: relative;
+    width: 20rem;
+    height: 3.5rem;
+    margin-bottom: 1rem;
+    user-select: none;
+    margin: 0rem 1rem;
+}
+
+.desplegable-infoBar::after{
+    width: 1rem;
+    height: 3.5rem;
+    border-radius: 0rem 0.3rem 0.3rem 0rem;
+    content: '';
+    position: absolute;
+    top: 0rem;
+    right: 0;
+    padding: 0 1em;
+    background: var(--primary-color);
+    cursor: pointer;
+    pointer-events: none;
+    transition: .25s all ease;
+}
+
+.desplegable-infoBar::before{
+    content: '';
+    position: absolute;
+    right: 20px;
+    top: 21px;
+    z-index: 1000;
+    width: 8px;
+    height: 8px;
+    border: 2px solid #fff;
+    border-top: 2px solid transparent;
+    border-right: 2px solid transparent;
+    transform: rotate(-135deg);
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+.desplegable-infoBar.open::before {
+    transform: rotate(-45deg);
+}
+
+.desplegable-infoBar input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    user-select: none;
+    caret-color: transparent;
+    border: none;
+    background-color: #D9D9D9;
+    border-radius: 0.2rem;
+    padding: 1rem;
+    outline: none;
+}
+
+.desplegable-infoBar .desplegable-options-form {
+    display: none;
+    height: 10rem;
+    overflow-y: auto;
+}
+
+.desplegable-infoBar .open{
+    position: absolute;
+    top: 4rem;
+    width: 100%;
+    background-color: #FFF;
+    border-radius: 5px;
+    box-shadow: 6px 9px 18px 0px rgba(83, 83, 83, 0.45);
+    z-index: 2;
+    display: block;
+}
+
+.desplegable-infoBar .desplegable-options-form .contenedor-options-form div {
+    padding: 12px 20px;
+    cursor: pointer;
+}
+
+.desplegable-infoBar .desplegable-options-form .contenedor-options-form div:hover {
+    background-color: var(--color-hover-option-select);
+    color: var(--color-text-hover-option);
+}
+
+.desplegable-infoBar .search-bar{
+    width: 100%;
+    height: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.desplegable-infoBar .search-bar #buscador-form{
+    margin: 0.6rem;
+    height: 2.5rem;
+    width: 18rem;
+    caret-color: black;
+    cursor: auto;
+}
+
 .deplegable-horas{
     display: flex;
     justify-content: space-between;
@@ -47,6 +152,46 @@
     .information_bar {
         max-width: 40rem;
     }
+
+    .desplegable-infoBar {
+        position: relative;
+        width: 12.5rem;
+        height: 3rem;
+        margin-bottom: 1rem;
+        user-select: none;
+        margin: 0rem 1rem;
+    }
+
+    .desplegable-infoBar::after {
+        width: 0rem;
+        height: 3rem;
+        border-radius: 0rem 0.3rem 0.3rem 0rem;
+        content: '';
+        position: absolute;
+        top: 0rem;
+        right: 0;
+        padding: 0 1em;
+        background: var(--primary-color);
+        cursor: pointer;
+        pointer-events: none;
+        transition: .25s all ease;
+    }
+
+    .desplegable-infoBar::before {
+        content: '';
+        position: absolute;
+        right: 14px;
+        top: 20px;
+        z-index: 1000;
+        width: 6px;
+        height: 6px;
+        border: 2px solid #fff;
+        border-top: 2px solid transparent;
+        border-right: 2px solid transparent;
+        transform: rotate(-135deg);
+        transition: 0.5s;
+        pointer-events: none;
+    }
 }
 
 @media (max-width: 680px){
@@ -67,11 +212,93 @@
     .information_bar {
         max-width: 30rem;
     }
+
+    .desplegable-infoBar {
+        position: relative;
+        width: 18rem;
+        height: 3rem;
+        margin-bottom: 1rem;
+        user-select: none;
+        margin: 1rem;
+    }
+
+    .desplegable-infoBar::after {
+        width: 1rem;
+        height: 3rem;
+        border-radius: 0rem 0.3rem 0.3rem 0rem;
+        content: '';
+        position: absolute;
+        top: 0rem;
+        right: 0;
+        padding: 0 1em;
+        background: var(--primary-color);
+        cursor: pointer;
+        pointer-events: none;
+        transition: .25s all ease;
+    }
+
+    .desplegable-infoBar::before{
+        content: '';
+        position: absolute;
+        right: 20px;
+        top: 21px;
+        z-index: 1000;
+        width: 6px;
+        height: 6px;
+        border: 2px solid #fff;
+        border-top: 2px solid transparent;
+        border-right: 2px solid transparent;
+        transform: rotate(-135deg);
+        transition: 0.5s;
+        pointer-events: none;
+    }
 }
 
 @media(max-width:520px){
     .information_bar {
         max-width: 22rem;
+    }
+}
+
+@media(max-width:380px){
+    .desplegable-infoBar {
+        position: relative;
+        width: 12rem;
+        height: 3rem;
+        margin-bottom: 1rem;
+        user-select: none;
+        margin: 1rem;
+    }
+
+    .desplegable-infoBar::after {
+        width: 0rem;
+        height: 3rem;
+        border-radius: 0rem 0.3rem 0.3rem 0rem;
+        content: '';
+        position: absolute;
+        top: 0rem;
+        right: 0;
+        padding: 0 0.8em;
+        background: var(--primary-color);
+        cursor: pointer;
+        pointer-events: none;
+        transition: .25s all ease;
+    }
+
+    .desplegable-infoBar::before {
+        content: '';
+        position: absolute;
+        right: 10px;
+        top: 20px;
+        z-index: 1000;
+        width: 4px;
+        height: 4px;
+        border: 2px solid #fff;
+        border-top: 2px solid transparent;
+        border-right: 2px solid transparent;
+        transform: rotate(-135deg);
+        transition: 0.5s;
+        pointer-events: none;
     }
 }
 

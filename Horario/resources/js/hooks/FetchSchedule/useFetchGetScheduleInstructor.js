@@ -40,6 +40,7 @@ export const useFetchGetScheduleInstructor = (route, idUsuario, idTrimestre, idF
                     setHorasAsignadasValue(totalHoras);
 
                 } else if (response.status === 404  || result.length === 0) {
+                    const result = await response.json();
                     setAlertMessage(result.error)
                     setModalOpen(true);
                 }

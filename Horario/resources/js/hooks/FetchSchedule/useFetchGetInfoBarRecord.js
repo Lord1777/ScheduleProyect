@@ -6,6 +6,9 @@ const useFetchGetInfoBarRecord = (route, idFicha) => {
 
     const [dataInfoRecord, setDataInfoRecord] = useState([]);
     const Navigate = useNavigate();
+    const [modalOpen, setModalOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [ ruta, setRuta ] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -18,12 +21,15 @@ const useFetchGetInfoBarRecord = (route, idFicha) => {
                     redirect: "follow",
                 });
                 if (response.status === 401) {
-                    // Redirigir a la pantalla de Forbidden (403)
+                    // Redirigir a la pantalla de Forbidden (403
                     Navigate('/403-forbidden');
                     return;
                 }
                 else if(response.status === 404){
-                    alert('No existe horario academico para esta ficha')
+                    //alert('No existe horario academico para esta ficha')
+                    setAlertMessage('No existe horario academico para esta ficha')
+                    setRuta('/ConsultaAprendiz')
+                    setModalOpen(true);
                 }
                 const result = await response.json();
 
@@ -38,6 +44,10 @@ const useFetchGetInfoBarRecord = (route, idFicha) => {
 
   return {
     dataInfoRecord,
+    modalOpen,
+    setModalOpen,
+    alertMessage,
+    ruta
   }
 }
 

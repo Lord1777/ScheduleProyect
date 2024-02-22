@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { API_URL } from '../../const/api';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,7 +6,7 @@ const useFetchGetSchedule = (route) => {
 
   const userToken = localStorage.getItem('access_token');
 
-  const fetchDataRef = useRef(() => {});
+  // const fetchDataRef = useRef(() => {});
   const [horarios, setHorarios] = useState([]);
   const [loading, setLoading] = useState(true);
   const Navigate = useNavigate();
@@ -38,8 +38,8 @@ const useFetchGetSchedule = (route) => {
       }
     }
 
-    // Asignar la función fetchData al ref
-    fetchDataRef.current = fetchData;
+    // // Asignar la función fetchData al ref
+    // fetchDataRef.current = fetchData;
 
     fetchData();
   }, [route]);
@@ -48,7 +48,7 @@ const useFetchGetSchedule = (route) => {
     horarios,
     loading,
     setLoading,
-    fetchData: () => fetchDataRef.current(), // Llamada a la función fetchData almacenada en el ref
+    // fetchData: () => fetchDataRef.current(), // Llamada a la función fetchData almacenada en el ref
   }
 };
 

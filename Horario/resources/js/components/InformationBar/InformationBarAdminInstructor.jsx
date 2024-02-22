@@ -6,6 +6,7 @@ import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
 import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
 import useFetchGetInstructor from '../../hooks/FetchGET/useFetchGetInstructor';
 import '../../../css/InformationBar/InformationBar.css';
+import { useParams } from 'react-router-dom';
 
 export const InformationBarAdminInstructor = () => {
 
@@ -13,8 +14,6 @@ export const InformationBarAdminInstructor = () => {
     // const trimestreDropdown = useTrimestreDropdown();
 
     const { setIdTrimestreValue, totalSeleccionado, setHorasAsignadasValue } = useContext(FilterScheduleInstructorContext);
-
-
 
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
 
@@ -29,9 +28,9 @@ export const InformationBarAdminInstructor = () => {
         return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
     };
 
-    const handleOptionClickTrimestre = (selectedOption) => {
-        setIdTrimestreValue(getQuarterId(selectedOption));
-    }
+    // const handleOptionClickTrimestre = (selectedOption) => {
+    //     setIdTrimestreValue(getQuarterId(selectedOption));
+    // }
 
     const updateHorasAsignadas = () => {
         // Utiliza la última versión de totalSeleccionado directamente del contexto

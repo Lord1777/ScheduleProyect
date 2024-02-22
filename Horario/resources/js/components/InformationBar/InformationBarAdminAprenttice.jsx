@@ -47,7 +47,7 @@ export const InformationBarAdminAprenttice = () => {
                                         <Link to={`/ScheduleUpdateFicha/${idFicha}/${idHorario}/${dataInfoRecord.idTrimestre}`} >
                                             <button>Editar</button>
                                         </Link>
-                                        <button onClick={() => manage === 'true' ? disableSchedule(idHorario) : enableSchedule(idHorario)}>
+                                        <button onClick={() => manage === 'true' ? enableSchedule(idHorario) : disableSchedule(idHorario)}>
                                             {manage === 'true' ? 'Habilitar' : 'Inhabilitar'}
                                         </button>
                                     </>

@@ -28,6 +28,19 @@ const useFetchPostCoordinator = (route) => {
         //Id de la sede
         let idSede = getSedeByName(sede);
 
+        // console.log(tipoDocumento,
+        //     ciudad,
+        //     documento,
+        //     email,
+        //     experiencia,
+        //     nombreCompleto,
+        //     profesion,
+        //     telefono,
+        //     limiteHoras,
+        //     idRol,
+        //     idContrato,
+        //     idSede,)
+
         try {
             const response = await fetch(`${API_URL}${route}`, {
                 method: "POST",

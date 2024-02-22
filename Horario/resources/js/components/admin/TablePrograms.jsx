@@ -69,7 +69,9 @@ export const TablePrograms = () => {
                         value={programa}
                         onChange={(e) => setPrograma(e.target.value)}
                     />
-                    <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                    <div className="content-icon-bar">
+                        <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                    </div>
                 </div>
 
                 <div className="buttons">

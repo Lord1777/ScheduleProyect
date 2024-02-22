@@ -19,19 +19,19 @@ export const TableInstructors = () => {
         disabled ? '/getDisableInstructors' : '/getEnabledInstructors',
         currentPage,
         Instructor
-        );
+    );
     const { fetchManageInstructor } = useFetchPutManageInstructor();
 
     let totalPage = dataInstructor.last_page;
 
-    const enableInstructor = async(idUsuario) => {
+    const enableInstructor = async (idUsuario) => {
         setLoading(true);
         await fetchManageInstructor('/enableInstructor', idUsuario);
         await fetchData();
         setLoading(false);
     }
 
-    const disableInstructor = async(idUsuario) => {
+    const disableInstructor = async (idUsuario) => {
         setLoading(true);
         await fetchManageInstructor('/disableInstructor', idUsuario);
         await fetchData();
@@ -70,7 +70,9 @@ export const TableInstructors = () => {
                         autoComplete='off'
                         value={Instructor}
                         onChange={(e) => setInstructor(e.target.value)} />
-                    <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                    <div className="content-icon-bar">
+                        <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                    </div>
                 </div>
 
                 <div className="buttons">

@@ -71,7 +71,9 @@ export const TableQuarter = () => {
                         value={fecha}
                         onChange={(e) => setFecha(e.target.value)}
                     />
-                    <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                    <div className="content-icon-bar">
+                        <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                    </div>
                 </div>
 
                 <div className="buttons">

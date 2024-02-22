@@ -23,10 +23,13 @@ export const ScheduleWatch = () => {
     const filteredFicha = Array.isArray(horarios) ? horarios.filter(horario =>
         `${horario.ficha}`.toString().startsWith(searchFicha)
     ) : [];
-    
 
     const setManageValue = () =>{
         manage ? setManage(false) : setManage(true);
+    }
+
+    if (loading) {
+        return <Loading />
     }
 
     return (

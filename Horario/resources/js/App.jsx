@@ -82,7 +82,7 @@ function App() {
                         <Route path='/Panel' element={<ControlPanel />} />
                         <Route path='/PanelHorarios' element={<HorariosPanel/>}/>
                         <Route path='/Card' element={<CardHorarios/>}/>
-                        <Route path='/HorarioAdminAprendiz/:idFicha/:idHorario/:manage' element={<ScheduleAdminAprenttice />} />
+                        <Route path='/HorarioAdminAprendiz/:idFicha/:idHorario/:manage?' element={<ScheduleAdminAprenttice />} />
                         <Route path='/HorariosFichas' element={<WatchSchedules />} />
                         <Route path='/HorarioAdminInstructor/:idUsuario/:idTrimestre' element={<SeeScheduleAdminInstructor />} />
                         <Route path='/HorariosInstructores' element={<WatchSchedulesInstructor/>} />

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Loading } from '../Loading/Loading';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
@@ -9,6 +9,7 @@ import { useFetchGetScheduleAdminInstructor } from '../../hooks/FetchSchedule/us
 export const ScheduleAdminInstructor = () => {
 
     const { idUsuario, idTrimestre } = useParams();
+    const navigate = useNavigate();
     const { setHorasAsignadasValue, setTotalSeleccionadoValue } = useContext(FilterScheduleInstructorContext);
     const {
         dataSchedule,
@@ -16,6 +17,8 @@ export const ScheduleAdminInstructor = () => {
         modalOpen,
         setModalOpen,
         alertMessage } = useFetchGetScheduleAdminInstructor('/getAdminScheduleInstructor', idUsuario, idTrimestre, setHorasAsignadasValue);
+
+        ///HorarioAdminAprendiz/${horario.idFicha}/${horario.idHorario}/${manage}
 
     
     useEffect(() => {
@@ -60,6 +63,7 @@ export const ScheduleAdminInstructor = () => {
                                 <div
                                     key={colIndex}
                                     className={`${infoSchedule ? 'selectedInstructor' : 'cuadricula'}`}
+                                    onClick={() => navigate(`/HorarioAdminAprendiz/${infoSchedule.idFicha}/${infoSchedule.idHorario}`)}
                                 >
                                     {infoSchedule ? (
                                         <>

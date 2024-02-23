@@ -37,7 +37,7 @@ export const InformationBarAdminAprenttice = () => {
                     <div>
                         <p><b>Ficha:</b> {dataInfoRecord.ficha}</p>
                         {
-                            rol === 'coordinador' ?
+                            manage != undefined ?
                                 (
                                     <>
                                         <Link to={`/ScheduleUpdateFicha/${idFicha}/${idHorario}/${dataInfoRecord.idTrimestre}`} >
@@ -49,7 +49,13 @@ export const InformationBarAdminAprenttice = () => {
                                     </>
                                 )
                                 :
-                                ''
+                                (
+                                    <>
+                                        <Link to={`/ScheduleUpdateFicha/${idFicha}/${idHorario}/${dataInfoRecord.idTrimestre}`} >
+                                            <button>Editar</button>
+                                        </Link>
+                                    </>
+                                )
                         }
                     </div>
                 </div>

@@ -1,25 +1,31 @@
-import React from 'react'
-import toggle from '../../assets/icons/Toggler.png'
-import calendar from '../../assets/icons/calendar3.png'
-import panel from '../../assets/icons/PanelAdmin.png'
-import instructores from '../../assets/icons/Instructores.png'
-import fichas from '../../assets/icons/Fichas.png'
-import ambientes from '../../assets/icons/Ambientes.png'
-import trimestres from '../../assets/icons/Trimestres.png'
-import Logout from '../../assets/icons/Logout.png'
-import perfil from '../../assets/icons/perfil.png'
-import ShowNavBar from '../../hooks/ShowNavBar'
-import { Link } from 'react-router-dom'
-import { useUser } from '../../context/UserContext'
-import '../../../css/NavBar/NavBar.css'
+import React from 'react';
+import toggle from '../../assets/icons/Toggler.png';
+import calendar from '../../assets/icons/calendar3.png';
+import panel from '../../assets/icons/PanelAdmin.png';
+import instructores from '../../assets/icons/Instructores.png';
+import fichas from '../../assets/icons/Fichas.png';
+import ambientes from '../../assets/icons/Ambientes.png';
+import trimestres from '../../assets/icons/Trimestres.png';
+import Logout from '../../assets/icons/Logout.png';
+import perfil from '../../assets/icons/perfil.png';
+import ShowNavBar from '../../hooks/ShowNavBar';
+import { Link, useNavigate } from 'react-router-dom';
+import { useUser } from '../../context/UserContext';
+import '../../../css/NavBar/NavBar.css';
 
 
 export const NavBar = () => {
 
     const { isNavOpen, showToggleNav } = ShowNavBar();
-    const { user } = useUser();
+    const navigate = useNavigate();
+    const { user, logout } = useUser();
     const userRole = user ? user.role : null;
     const userName = user && user.userData ? user.userData.nombreCompleto : null;
+
+    const handleLogout = async() => {
+        await logout();
+        navigate('/');
+    }
 
     return (
         <>
@@ -74,7 +80,7 @@ export const NavBar = () => {
                                 <li><img src={trimestres} alt="trimestres" />Trimestres</li>
                             </Link>
 
-                            <Link to={'/'}>
+                            <Link onClick={handleLogout}>
                                 <li><img src={Logout} alt="logout" />Cerrar Sesión</li>
                             </Link>
                         </>
@@ -86,7 +92,7 @@ export const NavBar = () => {
                                 <li><img src={perfil} alt="perfil" />Perfil</li>
                             </Link>
                             
-                            <Link to={'/'}>
+                            <Link onClick={handleLogout}>
                                 <li><img src={Logout} alt="logout" />Cerrar Sesión</li>
                             </Link>
                         </>

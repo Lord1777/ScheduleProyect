@@ -13,17 +13,17 @@ import '../../../css/Form/FormAddTrimestre.css';
 
 function FormAddTrimestre() {
 
-    const { control, register, handleSubmit, setValue, formState: { errors } } = useForm();
+    const { control, register, handleSubmit, setValue, formState: { errors }, getValues } = useForm();
     const { N_TRIMESTRE, FECHA_INI, FECHA_FIN } = useValidationForm();
-    const [ loading, setLoading ] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    const { 
-        fetchSubmitQuarter, 
-        successModalOpen, 
-        errorModalOpen, 
-        closeSuccessModal, 
-        closeErrorModal, 
-        alertMessage, 
+    const {
+        fetchSubmitQuarter,
+        successModalOpen,
+        errorModalOpen,
+        closeSuccessModal,
+        closeErrorModal,
+        alertMessage,
         ruta } = useFetchPostQuarter('/createQuarters');
 
     const onSubmit = async (data) => {
@@ -37,8 +37,13 @@ function FormAddTrimestre() {
         setLoading(false);
     }
 
-    if(loading){
-        return <Loading/>
+    const validateFechaFinal = (fechaFinal) => {
+        const fechaInicio = getValues("fechaInicio");
+        return fechaFinal > fechaInicio || 'La fecha final debe ser posterior a la fecha inicial';
+    };
+
+    if (loading) {
+        return <Loading />
     }
 
     return (
@@ -90,7 +95,10 @@ function FormAddTrimestre() {
                                         <Controller
                                             control={control}
                                             name="fechaFinal"
-                                            rules={{ required: 'Fecha Final es requerida' }}
+                                            rules={{
+                                                required: 'Fecha Final es requerida',
+                                                validate: validateFechaFinal
+                                            }}
                                             render={({ field }) => (
                                                 <>
                                                     <DatePicker

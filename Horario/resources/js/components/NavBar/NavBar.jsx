@@ -29,7 +29,8 @@ export const NavBar = () => {
                     <button className='toggle-nav' onClick={showToggleNav}>
                         <img src={toggle} alt="toggle" />
                     </button>
-                    <h3 className='username'>{userName}</h3>
+                        {userRole && <h3 className='user-rol'>{`${userRole}:`}</h3>}
+                        <h3 className='username'>{userName}</h3>
                 </div>
             </nav>
             <div className={`options-nav ${isNavOpen ? 'open' : ''}`}>

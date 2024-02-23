@@ -22,7 +22,13 @@
 }
 
 .username {
-    margin-left: 78rem;
+    margin-left: -4.5rem;
+    letter-spacing: normal;
+    font-weight: 400;
+}
+
+.user-rol {
+    margin-left: 65rem;
     letter-spacing: normal;
     font-weight: 400;
 }
@@ -119,11 +125,21 @@ h2 {
     .username {
         margin-left: 38rem;
     }
+
+    .name-proyect-toggle .Title {
+        margin-left: 0.5rem;
+        white-space: nowrap;
+    }
 }
 
 @media (max-width:1024px) {
     .username {
         margin-left: 22rem;
+    }
+
+    .name-proyect-toggle .Title {
+        margin-left: 0.5rem;
+        white-space: nowrap;
     }
 }
 
@@ -138,6 +154,11 @@ h2 {
     .username {
         margin-left: 8rem;
     }
+
+    .name-proyect-toggle .Title {
+        margin-left: 0.5rem;
+        white-space: nowrap;
+    }
 }
 
 @media (max-width:768px) {
@@ -145,6 +166,11 @@ h2 {
         margin-left: 6rem;
         font-weight: 400;
         letter-spacing: normal;
+    }
+
+    .name-proyect-toggle .Title {
+        margin-left: 0.5rem;
+        white-space: nowrap;
     }
 }
 

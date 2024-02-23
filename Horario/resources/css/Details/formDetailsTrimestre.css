@@ -99,21 +99,7 @@
 }
 
 @media(max-width:760px){
-    .DatePicker::after {
-        width: 1rem;
-        height: 3rem;
-        border-radius: 0rem 0.3rem 0.3rem 0rem;
-        content: '';
-        position: absolute;
-        top: 0rem;
-        right: 0;
-        padding: 0 1em;
-        background: var(--primary-color);
-        pointer-events: none;
-        transition: .25s all ease;
-        z-index: 0;
-        user-select: none;
-    }
+    
 
     .DatePicker .icon-calendar {
         color: var(--color-icons);

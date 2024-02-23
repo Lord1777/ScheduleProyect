@@ -53,11 +53,14 @@ export const FormUpdateTrimestre = () => {
             }
             const Data = await response.json();
             setTrimestre(Data.trimestre)
-            setFechaIni(Data.fechaInicio);
-            setFechaFin(Data.fechaFinal)
+            setValue('N_TRIMESTRE', Data.trimestre);
+            setFechaIni(new Date(Data.fechaInicio));
+            setFechaFin(new Date(Data.fechaFinal));
             setValue('N_TRIMESTRE', Data.trimestre);
             setValue('fechaInicio', new Date(Data.fechaInicio));
             setValue('fechaFinal', new Date(Data.fechaFinal));
+            console.log(Data.fechaInicio)
+            console.log(new Date(Data.fechaInicio))
         } catch (error) {
             console.error("Error al cargar los detalles ficha:", error);
             setLoading(false);
@@ -82,8 +85,8 @@ export const FormUpdateTrimestre = () => {
         await fetchPutQuarter(
             id,
             data.N_TRIMESTRE,
-            data.fechaInicio,
-            data.fechaFinal,
+            data.fechaInicio.toISOString(),
+            data.fechaFinal.toISOString(),
         );
     }
 
@@ -115,17 +118,17 @@ export const FormUpdateTrimestre = () => {
                                 </div>
 
                                 <div className="container-label-input">
-                                    <label>Fecha Inicial</label>
+                                    <label>Fecha Inicial (mm/dd/aaaa)</label>
                                     <div className="DatePicker">
                                         <DatePicker
                                             {...register("fechaInicio", FECHA_INI)}
                                             popperPlacement='bottom'
                                             autoComplete='off'
                                             placeholderText='Fecha Inicial'
-                                            selected={fechaIni ? new Date(fechaIni) : null}
+                                            selected={fechaIni ? new Date(fechaIni.getTime() + fechaFin.getTimezoneOffset() * 60000) : null}
                                             onChange={(date) => {
                                                 setFechaIni(date);
-                                                setValue('fechaInicio', date);
+                                                setValue('fechaInicio', date ? new Date(date.getTime() - date.getTimezoneOffset() * 60000) : null);
                                             }}
                                         />
                                     </div>
@@ -133,7 +136,7 @@ export const FormUpdateTrimestre = () => {
                                 </div>
 
                                 <div className="container-label-input">
-                                    <label>Fecha Final</label>
+                                    <label>Fecha Final (mm/dd/aaaa)</label>
                                     <div className="DatePicker">
                                         <DatePicker
                                             {...register("fechaFinal", {
@@ -143,10 +146,10 @@ export const FormUpdateTrimestre = () => {
                                             placeholderText='Fecha Final'
                                             popperPlacement='bottom'
                                             autoComplete='off'
-                                            selected={fechaFin ? new Date(fechaFin) : null}
+                                            selected={fechaFin ? new Date(fechaFin.getTime() + fechaFin.getTimezoneOffset() * 60000) : null}
                                             onChange={(date) => {
                                                 setFechaFin(date);
-                                                setValue('fechaFinal', date);
+                                                setValue('fechaFinal', date ? new Date(date.getTime() - date.getTimezoneOffset() * 60000) : null);
                                             }}
                                         />
                                     </div>

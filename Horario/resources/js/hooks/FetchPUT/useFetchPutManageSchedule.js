@@ -1,8 +1,12 @@
-import React from 'react';
+import { useState } from 'react'
 import { API_URL, csrf_token } from '../../const/api';
+import useModal from '../useModal';
 
 export const useFetchPutManageSchedule = () => {
 
+    const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
+    const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
+    const [alertMessage, setAlertMessage] = useState('');
     const userToken = localStorage.getItem('access_token');
 
     const fetchManageSchedule = async(route, idHorario) => {
@@ -20,9 +24,19 @@ export const useFetchPutManageSchedule = () => {
             if (response.ok) {
                 const data = await response.json();
                 console.log(data.message); // Mensaje definido en Laravel
+                openSuccessModal();
+            } else if (response.status === 422) {
+                const data = await response.json();
+                setAlertMessage(data.error)
+                openErrorModal();
+            }else if (response.status === 500) {
+                const data = await response.json();
+                setAlertMessage(data.error)
+                openErrorModal();
             }
         } catch (error) {
             console.log(`Error Updating Schedule: ${error}`);
+            openErrorModal();
         }
 
     }
@@ -30,6 +44,11 @@ export const useFetchPutManageSchedule = () => {
   return (
     {
         fetchManageSchedule,
+        successModalOpen,
+        errorModalOpen,
+        closeSuccessModal,
+        closeErrorModal,
+        alertMessage,
     }
   )
 }

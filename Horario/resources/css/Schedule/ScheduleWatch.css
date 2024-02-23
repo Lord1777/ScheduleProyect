@@ -82,6 +82,26 @@
     margin-top: 0.7rem;
 }
 
+.contain-buttons {
+    width: 4rem;
+    margin-top: 1rem;
+    margin-right: 11rem;
+
+    button {
+        width: 8rem;
+        height: 2.5rem;
+        border: none;
+        border-radius: 5px;
+        background-color: var(--primary-color);
+        color: white;
+        cursor: pointer;
+        transition: 0.5s;
+        font-size: 0.95rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+    }
+}
+
 /*Responsive*/
 
 @media (max-width:1280px){

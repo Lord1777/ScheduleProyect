@@ -10,6 +10,16 @@
 
 .container-instructor{
     margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.container-dropdowns{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .desplegable-infoBar {
@@ -18,7 +28,6 @@
     height: 3.5rem;
     margin-bottom: 1rem;
     user-select: none;
-    margin: 0rem 1rem;
 }
 
 .desplegable-infoBar::after{

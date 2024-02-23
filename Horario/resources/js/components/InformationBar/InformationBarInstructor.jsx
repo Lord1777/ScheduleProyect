@@ -1,6 +1,5 @@
 import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
 import React, { useState, useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { useFetchGetRecords } from '../../hooks/FetchGetResources/useFetchGetRecords';
 import useDropdownGet from '../../hooks/useDropdownGet';
 import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
@@ -14,7 +13,7 @@ export const InformationBarInstructor = () => {
     const dropdown2 = useDropdownGet();
     const trimestreDropdown = useTrimestreDropdown();
 
-    const { idUsuario } = useParams();
+    
 
     const { setIdTrimestreValue, setIdFichaValue } = useContext(FilterScheduleInstructorContext);
 

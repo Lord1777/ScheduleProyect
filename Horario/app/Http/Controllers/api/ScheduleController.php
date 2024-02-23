@@ -6,6 +6,7 @@ use App\Models\Ambiente;
 use App\Models\Asignacion;
 use App\Models\Ficha;
 use App\Models\HorarioAcademico;
+use App\Models\Trimestre;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
@@ -174,6 +175,14 @@ class ScheduleController extends Controller
                 return response()->json($schedule, Response::HTTP_OK); //200
             }
 
+            // Obtener el último trimestre asignado al instructor
+            $ultimoTrimestre = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                ->join('trimestres', 'horarios_academicos.idTrimestre', '=', 'trimestres.idTrimestre')
+                ->where('asignaciones.idUsuario', $idUsuario)
+                ->orderBy('trimestres.fechaInicio', 'desc')
+                ->pluck('trimestres.idTrimestre')
+                ->first();
+
             $schedule = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
                 ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
                 ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
@@ -184,6 +193,7 @@ class ScheduleController extends Controller
                     'asignaciones.boxIndex',
                 )
                 ->where('usuarios.idUsuario', $idUsuario)
+                ->where('horarios_academicos.idTrimestre', $ultimoTrimestre)
                 ->get();
 
             if ($schedule->isEmpty()) {
@@ -211,6 +221,8 @@ class ScheduleController extends Controller
                 ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
                 ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
                 ->select(
+                    'horarios_academicos.idHorario',
+                    'fichas.idFicha',
                     'fichas.ficha',
                     'ambientes.ambiente',
                     'asignaciones.boxIndex',
@@ -221,14 +233,14 @@ class ScheduleController extends Controller
             // Log::info('Tipo de $schedule: ' . gettype($schedule));
             // Log::info('Contenido de $schedule: ' . json_encode($schedule));
 
-                if ($schedule->isEmpty()) {
-                    return response()->json([
-                        'status' => 0,
-                        'error' => 'No existe un horario academico para el instructor seleccionado'
-                    ], Response::HTTP_NOT_FOUND); //404
-                }
-                return response()->json($schedule, Response::HTTP_OK); //200
-            } catch (\Exception $e) {
+            if ($schedule->isEmpty()) {
+                return response()->json([
+                    'status' => 0,
+                    'error' => 'No existe un horario academico para el instructor seleccionado'
+                ], Response::HTTP_NOT_FOUND); //404
+            }
+            return response()->json($schedule, Response::HTTP_OK); //200
+        } catch (\Exception $e) {
             return response()->json([
                 'error' => "Get Schedule Instructor Error " . $e->getMessage(),
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
@@ -249,6 +261,8 @@ class ScheduleController extends Controller
                 ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
                 ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
                 ->select(
+                    'horarios_academicos.idHorario',
+                    'fichas.idFicha',
                     'fichas.ficha',
                     'ambientes.ambiente',
                     'usuarios.nombreCompleto',
@@ -426,15 +440,15 @@ class ScheduleController extends Controller
                         ], Response::HTTP_BAD_REQUEST); //400
                     } /* else {
 
-              Log::info($fichaAsignadaInstructor);
+            Log::info($fichaAsignadaInstructor);
 
-              return response()->json([
-                  'status' => 0,
-                  'message' => "No se encontraron asignaciones para el instructor '{$nombreInstructor}' en la(s) caja(s) especificadas.",
-                  'error' => 'No assignments found for the instructor in the specified boxIndex',
-              ], Response::HTTP_NOT_FOUND); //404
-          }
-          */
+            return response()->json([
+                'status' => 0,
+                'message' => "No se encontraron asignaciones para el instructor '{$nombreInstructor}' en la(s) caja(s) especificadas.",
+                'error' => 'No assignments found for the instructor in the specified boxIndex',
+            ], Response::HTTP_NOT_FOUND); //404
+        }
+        */
                 }
                 if ($ambienteAsignado->isNotEmpty()) {
 
@@ -449,13 +463,13 @@ class ScheduleController extends Controller
                             'duplicates' => $ambienteAsignado,
                         ], Response::HTTP_BAD_REQUEST); //400
                     } /*else {
-              return response()->json([
-                  'status' => 0,
-                  'message' => "No se encontraron asignaciones para el ambiente '{$numeroAmbiente}' en la(s) caja(s) especificadas.",
-                  'error' => 'No assignments found for the instructor in the specified boxIndex',
-              ], Response::HTTP_NOT_FOUND); //404
-          }
-          */
+            return response()->json([
+                'status' => 0,
+                'message' => "No se encontraron asignaciones para el ambiente '{$numeroAmbiente}' en la(s) caja(s) especificadas.",
+                'error' => 'No assignments found for the instructor in the specified boxIndex',
+            ], Response::HTTP_NOT_FOUND); //404
+        }
+        */
                 }
 
                 if ($limiteHorasInstructor !== null && $limiteHorasAmbiente !== null && $limiteHorasFicha !== null) {
@@ -955,7 +969,7 @@ class ScheduleController extends Controller
         }
     }
 
-    
+
     public function disable(string $idHorario)
     {
         try {

@@ -6,6 +6,7 @@ import { ContinuoModal } from '../Modals/ContinuoModal';
 import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
 
 import error from '../../assets/img/Advertencia.png'
+import { initialsName } from '../../hooks/useObjectFunction';
 
 export const ScheduleInstructor = () => {
 
@@ -61,7 +62,7 @@ export const ScheduleInstructor = () => {
                                         <>
                                             <span>{infoSchedule.ficha}</span>
                                             <span>{infoSchedule.ambiente}</span>
-                                            <span>{infoSchedule.nombreCompleto}</span>
+                                            <span>{initialsName(infoSchedule.nombreCompleto)}</span>
                                         </>
                                     ) : (
                                         (

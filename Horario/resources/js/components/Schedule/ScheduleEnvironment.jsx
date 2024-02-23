@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Loading } from '../Loading/Loading';
 import { initialsName } from '../../hooks/useObjectFunction';
 import { useFetchGetScheduleEnvironment } from '../../hooks/FetchSchedule/useFetchGetScheduleEnvironment';
@@ -10,6 +10,7 @@ import FilterScheduleAmbienteContext from '../../context/FilterScheduleAmbienteC
 export const ScheduleEnvironment = () => {
 
     const { idAmbiente, idTrimestre } = useParams();
+    const navigate = useNavigate();
 
     const { setHorasAsignadasValue, setTotalSeleccionadoValue } = useContext(FilterScheduleAmbienteContext);
 
@@ -25,11 +26,6 @@ export const ScheduleEnvironment = () => {
         setHorasAsignadasValue(totalSeleccionado);
     }, [dataSchedule, setHorasAsignadasValue, setTotalSeleccionadoValue]);
 
-    const handleCellClick = (infoSchedule) => {
-        //Actualiza el total seleccionado
-        const totalSeleccionado = infoSchedule ? infoSchedule.horasAsignadas || 0 : 0;
-        setTotalSeleccionadoValue(totalSeleccionado);
-    };
 
     if(loading){
         return <Loading/>
@@ -62,8 +58,8 @@ export const ScheduleEnvironment = () => {
                             return (
                                 <div
                                     key={colIndex}
-                                    className={`${infoSchedule ? 'selected' : 'cuadricula'}`}
-                                    onClick={() => handleCellClick(infoSchedule)}
+                                    className={`${infoSchedule ? 'selectedAmbiente' : 'cuadricula'}`}
+                                    onClick={() => navigate(`/HorarioAdminAprendiz/${infoSchedule.idFicha}/${infoSchedule.idHorario}`)}
                                 >
                                     {infoSchedule ? (
                                         <>

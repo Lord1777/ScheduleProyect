@@ -26,6 +26,15 @@
     }
 }
 
+.deplegable-horas{
+    h3{
+        margin: 1rem;
+        span{
+            font-weight: 100; 
+        }
+    }
+}
+
 .container-dropdowns{
     display: flex;
     align-items: center;

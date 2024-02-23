@@ -7,6 +7,7 @@ import { useUser } from '../context/UserContext';
 import { ChangePasswordFirts } from '../components/Modals/ChangePasswordFirts';
 import useFecthPutPassword from '../hooks/FetchPUT/useFecthPutPassword';
 import { Loading } from '../components/Loading/Loading';
+import { InformationBarInstructor } from '../components/InformationBar/InformationBarInstructor'
 
 export const SeeScheduleInstructors = () => {
 
@@ -39,7 +40,7 @@ export const SeeScheduleInstructors = () => {
             {/*los estilos del container horarios estan en SeeSchedule.css*/}
             <main className="container_all_horario2">
                 <FilterScheduleInstructorContextProvider >
-                    <InformationBarAdminInstructor />
+                    <InformationBarInstructor />
                     <ScheduleInstructor />
                 </FilterScheduleInstructorContextProvider>
             </main>

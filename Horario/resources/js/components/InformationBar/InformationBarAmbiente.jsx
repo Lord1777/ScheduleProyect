@@ -2,6 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import useDropdownGet from '../../hooks/useDropdownGet'
 import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
 import FilterScheduleAmbienteContext from '../../context/FilterScheduleAmbienteContext';
+import { useFetchGetOneEnvironment } from '../../hooks/FetchGET/useFetchGetOneEnvironment';
+import { useParams } from 'react-router-dom';
 
 export const InformationBarAmbiente = () => {
 
@@ -9,7 +11,12 @@ export const InformationBarAmbiente = () => {
     // const dropdown2 = useDropdownGet();
     // const trimestreDropdown = useTrimestreDropdown();
 
+    const { idAmbiente, idTrimestre } = useParams();
+
     const { totalSeleccionado, setHorasAsignadasValue } = useContext(FilterScheduleAmbienteContext);
+
+    const { dataEnvironment } = useFetchGetOneEnvironment(`/getEnvironment`, idAmbiente);
+    console.log(dataEnvironment);
 
     const updateHorasAsignadas = () => {
         setHorasAsignadasValue(totalSeleccionado);
@@ -58,12 +65,13 @@ export const InformationBarAmbiente = () => {
                     </div> */}
 
                     <div>
-                        <h3>Ambiente: {999}</h3>
+                        <h3>Ambiente: <span>{dataEnvironment.ambiente}</span></h3>
+                        <h3>Sede: <span>{dataEnvironment.sede}</span></h3>
                     </div>
 
 
                     <div>
-                        <h3>Total de Horas: {totalSeleccionado}</h3>
+                        <h3>Horas Asignadas: <span>{totalSeleccionado}</span></h3>
                     </div>
                 </div>
                 {/* <div className='check_filter'>

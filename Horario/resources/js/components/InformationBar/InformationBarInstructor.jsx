@@ -4,21 +4,24 @@ import { useFetchGetRecords } from '../../hooks/FetchGetResources/useFetchGetRec
 import useDropdownGet from '../../hooks/useDropdownGet';
 import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
 import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
-
 import '../../../css/InformationBar/InformationBar.css';
+import { useParams } from 'react-router-dom';
+import useFetchGetInstructor from '../../hooks/FetchGET/useFetchGetInstructor';
 
 export const InformationBarInstructor = () => {
+
+    const { idUsuario } = useParams();
 
     const dropdown1 = useDropdownGet();
     const dropdown2 = useDropdownGet();
     const trimestreDropdown = useTrimestreDropdown();
 
-    
-
     const { setIdTrimestreValue, setIdFichaValue } = useContext(FilterScheduleInstructorContext);
 
     const { dataRecords } = useFetchGetRecords('/getRecords');
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
+    const { dataInstructor } = useFetchGetInstructor(`/getInstructor/${idUsuario}`);
+
 
     const rol = localStorage.getItem('role');
 
@@ -43,19 +46,49 @@ export const InformationBarInstructor = () => {
     const handleOptionClickFicha = (selectedOption) => {
         setIdFichaValue(getRecordId(selectedOption));
     }
-    
-    const updateHorasAsignadas = () => {
-        setTotalHoras(horasAsignadas);
-    };
 
-    useEffect(() => {
-        updateHorasAsignadas();
-    }, [totalHoras]);
-    
+    // const updateHorasAsignadas = () => {
+    //     setTotalHoras(horasAsignadas);
+    // };
+
+    // useEffect(() => {
+    //     updateHorasAsignadas();
+    // }, [totalHoras]);
+
     return (
         <>
             <div className="information_bar">
+                <div className='container-instructor'>
+                    <div>
+                        <h3>Instructor: {dataInstructor.nombreCompleto}</h3>
+                    </div>
+                    <div>
+                        <h3>Limite de horas: {dataInstructor.limiteHoras}</h3>
+                        <h3>Horas asignadas: {/*totalSeleccionado*/}</h3>
+                    </div>
+                </div>
+
                 <div className="deplegable-horas">
+                    <div className={`desplegable ${dropdown2.isDropdown ? 'open' : ''}`}>
+                        <input
+                            type="text"
+                            className='textBox'
+                            name='trimestres'
+                            placeholder='Trimestres'
+                            readOnly
+                            onClick={dropdown2.handleDropdown}
+                            value={dropdown2.selectedOption}
+                        />
+                        <div className={`desplegable-options ${dropdown2.isDropdown ? 'open' : ''}`}>
+                            {dataQuarters && dataQuarters.length > 0 && dataQuarters.map((quarter) => (
+                                <div key={quarter.idTrimestre} onClick={() =>
+                                    handleOptionClickTrimestre(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`)}>
+                                    {quarter.trimestre} | {quarter.fechaInicio} - {quarter.fechaFinal}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
 
                     <div className={`desplegable1 ${dropdown1.isDropdown ? 'open' : ''}`}>
                         <input
@@ -87,36 +120,12 @@ export const InformationBarInstructor = () => {
                                         `${record.ficha}`.toLowerCase().startsWith(fichas.toLowerCase())
                                     )
                                     .map((record) => (
-                                        <div className='option' onClick={() => handleOptionClickFicha(`${record.ficha} - ${record.nombre}`)}>
+                                        <div key={record.idFicha} className='option' onClick={() => handleOptionClickFicha(`${record.ficha} - ${record.nombre}`)}>
                                             {record.ficha} - {record.nombre}
                                         </div>
                                     ))}
                             </div>
                         </div>
-                    </div>
-
-                        <div className={`desplegable ${dropdown2.isDropdown ? 'open' : ''}`}>
-                            <input
-                                type="text"
-                                className='textBox'
-                                name='trimestres'
-                                placeholder='Trimestres'
-                                readOnly
-                                onClick={dropdown2.handleDropdown}
-                                value={dropdown2.selectedOption}
-                            />
-                            <div className={`desplegable-options ${dropdown2.isDropdown ? 'open' : ''}`}>
-                                {dataQuarters && dataQuarters.length > 0 && dataQuarters.map((quarter) => (
-                                    <div key={quarter.idTrimestre} onClick={() =>
-                                        handleOptionClickTrimestre(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`)}>
-                                        {quarter.trimestre} | {quarter.fechaInicio} - {quarter.fechaFinal}
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    
-                    <div>
-                        <h3>Total de Horas: {totalHoras}</h3>
                     </div>
                 </div>
                 {/* <div className='check_filter'>
@@ -131,5 +140,3 @@ export const InformationBarInstructor = () => {
         </>
     )
 }
-
-export default InformationBarInstructor;

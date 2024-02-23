@@ -10,7 +10,6 @@ import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarte
 
 export const InformationBarAdminInstructor = () => {
 
-
     // const trimestreDropdown = useTrimestreDropdown();
     const { register, setValue } = useForm()
     const dropdown1 = useDropdown(setValue, "fichaProgram");
@@ -22,19 +21,22 @@ export const InformationBarAdminInstructor = () => {
     const { dataInstructor } = useFetchGetInstructor(`/getInstructor/${idUsuario}`)
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
     const { dataRecords } = useFetchGetRecords('/getRecords');
-    // console.log(dataRecords)
 
-    const rol = localStorage.getItem('role');
+    // const rol = localStorage.getItem('role');
 
-    const getRecordId = (nombreRecord) => {
-        const record = dataRecords.find((record) => `${record.ficha} - ${record.nombre}` === nombreRecord);
-        return record ? record.idFicha : null;
-    }
+    // const getRecordId = (nombreRecord) => {
+    //     const record = dataRecords.find((record) => `${record.ficha} - ${record.nombre}` === nombreRecord);
+    //     return record ? record.idFicha : null;
+    // }
 
     const getQuarterId = (dataTrimestre) => {
         const quarter = dataQuarters.find((quarter) => `${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}` === dataTrimestre);
         return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
     };
+
+    const handleOptionClickTrimestre = (selectedOption) => {
+        setIdTrimestreValue(getQuarterId(selectedOption));
+    }
 
     const updateHorasAsignadas = () => {
 
@@ -65,7 +67,7 @@ export const InformationBarAdminInstructor = () => {
                 </div>
 
                 <div className="container-dropdowns">
-                    <div className={`desplegable ${dropdown2.isDropdown ? 'open' : ''}`}>
+                    {/* <div className={`desplegable ${dropdown2.isDropdown ? 'open' : ''}`}>
                         <input
                             type="text"
                             className='textBox'
@@ -124,7 +126,7 @@ export const InformationBarAdminInstructor = () => {
                                     ))}
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
 
             </div>

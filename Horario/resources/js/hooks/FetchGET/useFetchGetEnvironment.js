@@ -7,15 +7,17 @@ const useFetchGetEnvironment = (route, page, search) => {
     const userToken = localStorage.getItem('access_token');
 
     const [dataEnvironment, setDataEnvironment] = useState([]);
-    const fetchDataRef = useRef(() => {});
-    const [ loading, setLoading ] = useState(true);
+    const fetchDataRef = useRef(() => { });
+    const [loading, setLoading] = useState(true);
     const Navigate = useNavigate()
 
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                setLoading(true);
+                if (!search) {
+                    setLoading(true);
+                }
                 const response = await fetch(`${API_URL}${route}?page=${page}&search=${search}`, {
                     method: "GET",
                     headers: {
@@ -34,7 +36,7 @@ const useFetchGetEnvironment = (route, page, search) => {
             } catch (err) {
                 console.error('Error al obtener datos:', err);
             }
-            finally{
+            finally {
                 setLoading(false);
             }
         };

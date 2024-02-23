@@ -15,6 +15,8 @@ export const TableCoodinators = () => {
     const [disabled, setDisabled] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [coordinador, setCoordinador] = useState('');
+    
+
 
     const { dataCoordinator, fetchData, loading, setLoading, loadingPagination, setLoadingPagination } = useFetchGetCoordinator(
         disabled ? '/getDisableCoordinators' : '/getEnabledCoordinators',

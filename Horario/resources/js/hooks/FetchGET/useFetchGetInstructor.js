@@ -14,7 +14,9 @@ const useFetchGetInstructor = (route, page, search) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                setLoading(true);
+                if(!search){
+                    setLoading(true);
+                }
                 const response = await fetch(`${API_URL}${route}?page=${page}&search=${search}`, {
 
                     method: "GET",

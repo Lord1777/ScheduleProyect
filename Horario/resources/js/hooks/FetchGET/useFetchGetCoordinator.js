@@ -6,17 +6,17 @@ import { useNavigate } from 'react-router-dom';
 const useFetchGetCoordinator = (route, page, search) => {
     const userToken = localStorage.getItem('access_token');
     const [dataCoordinator, setDataCoordinator] = useState([]);
-    const fetchDataRef = useRef(() => {});
+    const fetchDataRef = useRef(() => { });
     const [loading, setLoading] = useState(true);
-    const [loadingPagination, setLoadingPagination] = useState(true);
     const Navigate = useNavigate()
 
     if (userToken) {
         useEffect(() => {
             const fetchData = async () => {
                 try {
-                    setLoading(true); // Activar el estado de carga total
-                    //setLoadingPagination(true)
+                    if (!search) {
+                        setLoading(true); // Activar el estado de carga total
+                    }
                     const response = await fetch(`${API_URL}${route}?page=${page}&search=${search}`, {
                         method: "GET",
                         headers: {

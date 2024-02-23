@@ -30,6 +30,7 @@ export const FormUpdateTrimestre = () => {
     const { fetchPutQuarter, successModalOpen, errorModalOpen, closeSuccessModal, closeErrorModal, } = useFetchPutQuarter(id);
     const Navigate = useNavigate();
 
+
     const fetchData = async () => {
         try {
             setLoading(true)
@@ -61,7 +62,7 @@ export const FormUpdateTrimestre = () => {
             console.error("Error al cargar los detalles ficha:", error);
             setLoading(false);
         }
-        finally{
+        finally {
             setLoading(false);
         }
     }
@@ -77,7 +78,7 @@ export const FormUpdateTrimestre = () => {
     }
 
     const onSubmit = async (data) => {
-        console.log(data)
+        //console.log(data)
         await fetchPutQuarter(
             id,
             data.N_TRIMESTRE,
@@ -100,7 +101,7 @@ export const FormUpdateTrimestre = () => {
                         <form method='PUT' onSubmit={handleSubmit(onSubmit)} >
                             <div className='grid-column'>
 
-                            <div className="container-label-input">
+                                <div className="container-label-input">
                                     <label>N° Trimestre</label>
                                     <input
                                         type="number"
@@ -116,27 +117,16 @@ export const FormUpdateTrimestre = () => {
                                 <div className="container-label-input">
                                     <label>Fecha Inicial</label>
                                     <div className="DatePicker">
-                                        <Controller
-                                            control={control}
-                                            name="fechaInicio"
-                                            rules={FECHA_INI}
-                                           
-                                            render={({ field }) => (
-                                                <>
-                                                    <DatePicker
-                                                        {...field}
-                                                        //value={fechaIni}
-                                                        popperPlacement='bottom'
-                                                        autoComplete='off'
-                                                        placeholderText='Fecha Inicial'
-                                                        selected={field.value}
-                                                        onChange={(date) => {
-                                                            setValue('fechaInicio', date);
-                                                            field.onChange(date);
-                                                        }}
-                                                    />
-                                                </>
-                                            )}
+                                        <DatePicker
+                                            {...register("fechaInicio", FECHA_INI)}
+                                            popperPlacement='bottom'
+                                            autoComplete='off'
+                                            placeholderText='Fecha Inicial'
+                                            selected={fechaIni ? new Date(fechaIni) : null}
+                                            onChange={(date) => {
+                                                setFechaIni(date);
+                                                setValue('fechaInicio', date);
+                                            }}
                                         />
                                     </div>
                                     {errors.fechaInicio && <p className='errors_forms'>{errors.fechaInicio.message}</p>}
@@ -145,30 +135,19 @@ export const FormUpdateTrimestre = () => {
                                 <div className="container-label-input">
                                     <label>Fecha Final</label>
                                     <div className="DatePicker">
-                                        <Controller
-                                            control={control}
-                                            name="fechaFinal"
-                                            rules={{
+                                        <DatePicker
+                                            {...register("fechaFinal", {
                                                 required: 'Fecha Final es requerida',
-                                                validate: validateFechaFinal
+                                                validate: validateFechaFinal,
+                                            })}
+                                            placeholderText='Fecha Final'
+                                            popperPlacement='bottom'
+                                            autoComplete='off'
+                                            selected={fechaFin ? new Date(fechaFin) : null}
+                                            onChange={(date) => {
+                                                setFechaFin(date);
+                                                setValue('fechaFinal', date);
                                             }}
-                                            
-                                            render={({ field }) => (
-                                                <>
-                                                    <DatePicker
-                                                        {...field}
-                                                        //value={fechaFin}
-                                                        placeholderText='Fecha Final'
-                                                        popperPlacement='bottom'
-                                                        autoComplete='off'
-                                                        selected={field.value}
-                                                        onChange={(date) => {
-                                                            setValue('fechaFinal', date);
-                                                            field.onChange(date);
-                                                        }}
-                                                    />
-                                                </>
-                                            )}
                                         />
                                     </div>
                                     {errors.fechaFinal && <p className='errors_forms'>{errors.fechaFinal.message}</p>}

@@ -18,8 +18,10 @@ import useFetchGetScheduleRecord from '../../hooks/FetchSchedule/useFetchGetSche
 import { useFetchPutScheduleRecord } from '../../hooks/FetchPUT/useFetchPutScheduleRecord';
 import { useFetchGetOneQuarter } from '../../hooks/FetchGET/useFetchGetOneQuarter';
 import { NavBar } from '../NavBar/NavBar';
+import { Loading } from '../Loading/Loading';
 
 export const ScheduleUpdateFicha = () => {
+
 
     const { idFicha, idHorario, idTrimestre } = useParams();
 
@@ -34,7 +36,7 @@ export const ScheduleUpdateFicha = () => {
     // Almacena todos los índices, id-instructor, id-ambiente asignados,
     const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
 
-    const { dataSchedule } = useFetchGetScheduleRecord('/getScheduleApprentice', idFicha);
+    const { dataSchedule, loading} = useFetchGetScheduleRecord('/getScheduleApprentice', idFicha);
 
     // console.log('boxes: ', globalStoreBoxes);
     // console.log('data: ', dataSchedule);
@@ -172,6 +174,10 @@ export const ScheduleUpdateFicha = () => {
         }
     }, [duplicatesBox, globalStoreBoxes, dataSchedule]);
 
+
+    if (loading) {
+        return <Loading />
+    }
 
     return (
         <>

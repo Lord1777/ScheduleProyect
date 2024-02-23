@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { Loading } from '../Loading/Loading';
 import useFetchGetScheduleAmbiente from "../../hooks/FetchGET/useFetchGetScheduleAmbiente";
 import { getAñoByDate } from "../../hooks/useObjectFunction";
+import gifNoResults from '../../assets/img/no_results.gif'
 
 export const ScheduleWatchAmbiente = () => {
 
@@ -43,7 +44,16 @@ export const ScheduleWatchAmbiente = () => {
                 </div>
             </div>{/*Titulo y buscador*/}
             <div className="contenedor">
-                {filteredData.map((horario, index) => (
+                
+                {filteredData.length === 0 || filteredData.size === 0 ? (
+                    <>
+                        <div className="no-results">
+                            <p>No se encontraron resultados.</p>
+                            <img src={gifNoResults} alt="gif" />
+                        </div>
+
+                    </>
+                ) : (filteredData.map((horario, index) => (
                     <Link  key={index} to={`/HorarioAmbiente/${horario.idAmbiente}/${horario.idTrimestre}`}>
                         <div className="card">
                             <span className="material-symbols-outlined icon">
@@ -57,7 +67,7 @@ export const ScheduleWatchAmbiente = () => {
                             </div>
                         </div>
                     </Link>
-                ))}
+                )))}
             </div>
             
         </>

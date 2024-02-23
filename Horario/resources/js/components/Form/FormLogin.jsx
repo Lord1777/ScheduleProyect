@@ -12,8 +12,8 @@ import { Link } from 'react-router-dom'
 import { Loading } from '../Loading/Loading'
 import ASPS from '../../assets/img/ASPS.png'
 import '../../../css/Form/FormLogin.css'
-
-
+import { ContinuoModal } from '../Modals/ContinuoModal'
+import error from '../../assets/img/Advertencia.png'
 
 export const FormLogin = () => {
     const { password, showPassword, setPassword, handleTogglePassword } = usePasswordToggle();
@@ -23,7 +23,14 @@ export const FormLogin = () => {
     const [tipoDocumentoValue, setTipoDocumentoValue] = React.useState('');
     const { TIPO_DOCUMENTO, DOCUMENTO, PASSWORD } = useValidationForm();
 
-    const { authUser, loading, setLoading } = useFetchLogin('/login');
+    const { 
+        authUser,
+        loading,
+        setLoading,
+        alertMessage,
+        openErrorModal,
+        setOpenErrorModal
+    } = useFetchLogin('/login');
 
     const onSubmit = async (data) => {
         setLoading(true);
@@ -31,8 +38,8 @@ export const FormLogin = () => {
         setLoading(false);
     };
 
-    if(loading){
-        return <Loading/>
+    if (loading) {
+        return <Loading />
     }
 
 
@@ -42,7 +49,7 @@ export const FormLogin = () => {
                 <div className="container_form_login">
                     <div className="container-icon-sena">
                         <img src={LogoSena} alt="LogoSena" />
-                    </div> 
+                    </div>
                     {/* <img src={ASPS} alt="Logo ASPS" className='ASPS'/> */}
                     <h2>Ingreso usuarios registrados</h2>
                     <form method="POST" onSubmit={handleSubmit(onSubmit)}>
@@ -104,6 +111,13 @@ export const FormLogin = () => {
                 </div>
                 <TooltipHorario></TooltipHorario>
             </main>
+            <ContinuoModal
+            tittle="Error"
+            imagen={error}
+            message={alertMessage}
+            open={openErrorModal}
+            close={() => setOpenErrorModal(false)}
+            />
         </>
     );
 };

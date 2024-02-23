@@ -7,6 +7,8 @@ const useFetchLogin = (route) => {
 
     const { authenticateUser } = useUser();
     const [ loading, setLoading ] = useState(false);
+    const [ alertMessage, setAlertMessage ] = useState("");
+    const [ openErrorModal, setOpenErrorModal ] = useState(false);
 
     const navigate = useNavigate();
 
@@ -34,6 +36,10 @@ const useFetchLogin = (route) => {
                     navigate(`/HorarioInstructor/${data.data.idUsuario}`);
                 }
             }
+            else if( response.status === 401 ){
+                setAlertMessage("Documento o contraseña incorrecta, por favor vuelva a intentarlo.")
+                setOpenErrorModal(true);
+            }
         } catch (error) {
             console.log(`Server Error: ${error}`);
         }
@@ -43,7 +49,10 @@ const useFetchLogin = (route) => {
     return {
         authUser,
         loading,
-        setLoading
+        setLoading,
+        alertMessage,
+        openErrorModal,
+        setOpenErrorModal
     };
 };
 

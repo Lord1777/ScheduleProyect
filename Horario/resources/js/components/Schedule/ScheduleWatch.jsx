@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import "../../../css/Schedule/ScheduleWatch.css";
-import '../../../css/Cards/CardHorarios.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Link, useParams } from "react-router-dom";
-import useFetchGetSchedule from '../../hooks/FetchGET/useFetchGetSchedule';
 import { Loading } from '../Loading/Loading';
 import { getAñoByDate } from "../../hooks/useObjectFunction";
+import useFetchGetSchedule from '../../hooks/FetchGET/useFetchGetSchedule';
+import "../../../css/Schedule/ScheduleWatch.css";
+import '../../../css/Cards/CardHorarios.css'
 import gifNoResults from '../../assets/img/no_results.gif'
 
 export const ScheduleWatch = () => {
@@ -36,12 +36,15 @@ export const ScheduleWatch = () => {
             <div className="title-and-search">
                 <h2>Horarios Académicos {manage ? 'inhabilitados' : 'habilitados'}</h2>
                 <div className="search-input">
-                    {
-                        manage ?
-                            <button onClick={setManageValue} >habilitados</button>
-                            :
-                            <button onClick={setManageValue} >inhabilitados</button>
-                    }
+                    <div className="contain-buttons">
+                        {
+                            manage ?
+                                <button onClick={setManageValue} >Habilitados</button>
+                                :
+                                <button onClick={setManageValue} >Inhabilitados</button>
+                        }
+                    </div>
+
                     <input
                         type="search"
                         name="search"

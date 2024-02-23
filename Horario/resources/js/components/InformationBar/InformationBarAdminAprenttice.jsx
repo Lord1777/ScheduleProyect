@@ -1,17 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useFetchPutManageSchedule } from '../../hooks/FetchPUT/useFetchPutManageSchedule';
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom';
+import { ContinuoModal } from '../Modals/ContinuoModal';
+import { Loading } from '../Loading/Loading';
 import useFetchGetInfoBarRecord from '../../hooks/FetchSchedule/useFetchGetInfoBarRecord'
 import FilterScheduleFichaContext from '../../context/FilterScheduleFichaContext';
+import exito from '../../assets/img/Exito.png'
 import '../../../css/InformationBar/InformationBarAprenttice.css'
 
 export const InformationBarAdminAprenttice = () => {
 
+    const [ loading, setLoading ] = useState(false);
     const { idFicha, idHorario, manage } = useParams();
     const { totalSeleccionado, setHorasAsignadasValue } = useContext(FilterScheduleFichaContext);
 
     const { dataInfoRecord } = useFetchGetInfoBarRecord('/getInfoBarRecord', idFicha, setHorasAsignadasValue);
-    const { fetchManageSchedule } = useFetchPutManageSchedule();
+    const { fetchManageSchedule, successModalOpen, closeSuccessModal } = useFetchPutManageSchedule();
 
     const rol = localStorage.getItem('role');
 
@@ -20,11 +24,19 @@ export const InformationBarAdminAprenttice = () => {
     };
 
     const disableSchedule = async (idHorario) => {
+        setLoading(true)
         await fetchManageSchedule('/disableSchedule', idHorario);
+        setLoading(false)
     }
 
     const enableSchedule = async (idHorario) => {
+        setLoading(true)
         await fetchManageSchedule('/enableSchedule', idHorario);
+        setLoading(false)
+    }
+
+    if(loading){
+        return <Loading/>
     }
 
     return (
@@ -70,6 +82,14 @@ export const InformationBarAdminAprenttice = () => {
                     }
                 </div>
             </div>
+            <ContinuoModal
+                tittle="¡Exito!"
+                imagen={exito}
+                message="El horario se ha inhabilitado correctamente."
+                open={successModalOpen}
+                close={closeSuccessModal}
+                route="/HorariosFichas"
+            />
         </>
     )
 }

@@ -1,9 +1,11 @@
 import {useState, useEffect} from 'react';
 import { API_URL } from '../../const/api';
 import { useNavigate } from 'react-router-dom';
+import useModal from '../useModal';
 
 const useFetchGetInfoBarRecord = (route, idFicha) => {
 
+    const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
     const [dataInfoRecord, setDataInfoRecord] = useState([]);
     const Navigate = useNavigate();
     const [modalOpen, setModalOpen] = useState(false);
@@ -31,9 +33,14 @@ const useFetchGetInfoBarRecord = (route, idFicha) => {
                     setRuta('/ConsultaAprendiz')
                     setModalOpen(true);
                 }
-                const result = await response.json();
+                if (response.ok) {
+                    const result = await response.json();
+                    setDataInfoRecord(result);
+                    openSuccessModal();
+                }
+                
 
-                setDataInfoRecord(result);
+                
 
             } catch (err) {
                 console.log('Error al obtener datos:', err);

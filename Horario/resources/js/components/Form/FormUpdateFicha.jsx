@@ -213,11 +213,11 @@ export const FormUpdateFicha = () => {
                                     </Link>
 
                                 </div>
-                                <Link to={`/AddHorario/${id}`} >
+                                {/* <Link to={`/AddHorario/${id}`} >
                                     <button className="horario" >
                                         Crear horario
                                     </button>
-                                </Link>
+                                </Link> */}
                             </div>
                         </form>
                     </div>

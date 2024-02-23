@@ -10,7 +10,7 @@ import '../../../css/admin/SearchButtons.css';
 import '../../../css/admin/TableInstructors.css';
 
 export const TableRecords = () => {
-    
+
     const [disabled, setDisabled] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [Ficha, setFicha] = useState("");
@@ -101,6 +101,7 @@ export const TableRecords = () => {
                             <th>Modalidad</th>
                             <th>Estado</th>
                             <th>Editar</th>
+                            <th>Horario</th>
                             {disabled ? <th>Habilitar</th> : <th>Inhabilitar</th>}
                         </tr>
                     </thead>
@@ -120,6 +121,15 @@ export const TableRecords = () => {
                                             <button>
                                                 <span className="material-symbols-outlined" id='iconCrud'>
                                                     edit
+                                                </span>
+                                            </button>
+                                        </Link>
+                                    </td>
+                                    <td>
+                                        <Link to={`/AddHorario/${record.idFicha}`}>
+                                            <button>
+                                                <span class="material-symbols-outlined" id='iconCrud'>
+                                                    calendar_add_on
                                                 </span>
                                             </button>
                                         </Link>

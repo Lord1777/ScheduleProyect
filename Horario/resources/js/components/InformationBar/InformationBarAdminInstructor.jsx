@@ -36,10 +36,6 @@ export const InformationBarAdminInstructor = () => {
         return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
     };
 
-    // const handleOptionClickTrimestre = (selectedOption) => {
-    //     setIdTrimestreValue(getQuarterId(selectedOption));
-    // }
-
     const updateHorasAsignadas = () => {
 
         setHorasAsignadasValue((prevTotal) => {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../../../css/Schedule/ScheduleWatch.css";
 import '../../../css/Cards/CardHorarios.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Link, useParams } from "react-router-dom";
 import useFetchGetSchedule from '../../hooks/FetchGET/useFetchGetSchedule';
 import { Loading } from '../Loading/Loading';
@@ -86,8 +86,6 @@ export const ScheduleWatch = () => {
                     )))}
 
             </div>
-
-            {/* <div className="Space"></div> */}
         </>
     );
 };

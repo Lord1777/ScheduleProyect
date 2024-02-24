@@ -5,20 +5,23 @@ import { useFetchPostSchedule } from '../../hooks/FetchPOST/useFetchPostSchedule
 import { useParams } from 'react-router-dom';
 import { ContinuoModal } from '../Modals/ContinuoModal'
 import { initialsName } from '../../hooks/useObjectFunction';
+import { Loading } from '../Loading/Loading';
 import useSelectedBoxes from '../../hooks/useSelectedBoxes';
 import useModalAsignar from '../../hooks/useModalAsignar';
 import useValidationForm from '../../hooks/useValidationForm';
 import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
 import useDropdown from '../../hooks/useDropdown';
+import useFetchGetInfoUnitFicha from '../../hooks/FetchGET/useFetchGetInfoUnitFicha';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
-import { Loading } from '../Loading/Loading';
 import '../../../css/Schedule/ScheduleAdd.css';
-import useFetchGetInfoUnitFicha from '../../hooks/FetchGET/useFetchGetInfoUnitFicha';
+
 
 export const ScheduleAdd = () => {
 
-    const { selectedBoxes, handleBoxClick, resetSelectedBoxes } = useSelectedBoxes();
+    const [horasAsignadas, setHorasAsignadas] = useState(0);
+    const { selectedBoxes, totalHoras, handleBoxClick, resetSelectedBoxes } = useSelectedBoxes();
+
     const { isModal, openModal, closeModal, asignaciones, setAsignaciones } = useModalAsignar();
     const { TRIMESTRE } = useValidationForm();
     const { register, setValue, handleSubmit } = useForm();
@@ -44,18 +47,98 @@ export const ScheduleAdd = () => {
     };
 
     // Función para des-asignar un instructor y ambiente al hacer clic en una casilla asignada
-    const handleAssignedBoxClick = (boxIndex) => {
-        setGlobalStoreBoxes(prevStoreBoxes => {
-            const newStoreBoxes = prevStoreBoxes.filter(box => box.boxIndex !== boxIndex);
-            return newStoreBoxes;
-        });
+    // El original
+    // const handleAssignedBoxClick = (boxIndex) => {
+    //     setGlobalStoreBoxes(prevStoreBoxes => {
+    //         const newStoreBoxes = prevStoreBoxes.filter(box => box.boxIndex !== boxIndex);
+    //         return newStoreBoxes;
+    //     });
+        
+    //     setAsignaciones(prevAsignaciones => {
+    //         const newAsignaciones = { ...prevAsignaciones };
+    //         delete newAsignaciones[boxIndex];
+    //         return newAsignaciones;
+    //     });
+    // };
+    
+    
+    // const handleAssignedBoxClick = (boxIndex) => {
+    //     console.log("handleAssignedBoxClick called for boxIndex:", boxIndex);
+    
+    //     // ... el resto de tu código ...
+        
+    //     if (boxData) {
+    //         setGlobalStoreBoxes(prevStoreBoxes => {
+    //             const newStoreBoxes = prevStoreBoxes.filter(box => box.boxIndex !== boxIndex);
+    //             return newStoreBoxes;
+    //         });
+    
+    //         setAsignaciones(prevAsignaciones => {
+    //             const newAsignaciones = { ...prevAsignaciones };
+    //             delete newAsignaciones[boxIndex];
+    //             return newAsignaciones;
+    //         });
+    
+    //         // Resta las horas asignadas solo si la casilla estaba asignada y las horas asignadas son mayores a 0
+    //         if (horasAsignadas > 0) {
+    //             setHorasAsignadas((prevHoras) => prevHoras - 1);
+    //         }
+    //     }
+    // };
+    
+    // const handleAssignedBoxClick = (boxIndex) => {
+    //     console.log("handleAssignedBoxClick called for boxIndex:", boxIndex);
+    
+    //     // ... el resto de tu código ...
+    //     const boxData = asignaciones[boxIndex];
+    
+    //     if (boxData) {
+    //         setGlobalStoreBoxes(prevStoreBoxes => {
+    //             const newStoreBoxes = prevStoreBoxes.filter(box => box.boxIndex !== boxIndex);
+    //             return newStoreBoxes;
+    //         });
+    
+    //         setAsignaciones(prevAsignaciones => {
+    //             const newAsignaciones = { ...prevAsignaciones };
+    //             delete newAsignaciones[boxIndex];
+    //             return newAsignaciones;
+    //         });
+    
+    //         // Resta las horas asignadas solo si la casilla estaba asignada y las horas asignadas son mayores a 0
+    //         if (horasAsignadas > 0) {
+    //             setHorasAsignadas((prevHoras) => Math.max(prevHoras - 1, 0));
+    //         }
+    //     }
+    // };
 
-        setAsignaciones(prevAsignaciones => {
-            const newAsignaciones = { ...prevAsignaciones };
-            delete newAsignaciones[boxIndex];
-            return newAsignaciones;
-        });
+    const handleAssignedBoxClick = (boxIndex) => {
+        console.log("handleAssignedBoxClick called for boxIndex:", boxIndex);
+    
+        const boxData = asignaciones[boxIndex];
+    
+        if (boxData) {
+            setGlobalStoreBoxes(prevStoreBoxes => {
+                const newStoreBoxes = prevStoreBoxes.filter(box => box.boxIndex !== boxIndex);
+                return newStoreBoxes;
+            });
+    
+            setAsignaciones(prevAsignaciones => {
+                const newAsignaciones = { ...prevAsignaciones };
+                delete newAsignaciones[boxIndex];
+                return newAsignaciones;
+            });
+    
+            // Resta las horas asignadas solo si la casilla estaba asignada y las horas asignadas son mayores a 0
+            setHorasAsignadas((prevHoras) => Math.max(prevHoras - 1, 0));
+        }
     };
+    
+    useEffect(() => {
+        // Calcular las horas asignadas al cargar el componente
+        const horasIniciales = Object.values(asignaciones).length;
+        setHorasAsignadas(horasIniciales);
+    }, [asignaciones]);
+    
 
     const onSubmit = async (data) => {
 
@@ -143,7 +226,7 @@ export const ScheduleAdd = () => {
                     <h3>Ficha: <span>{dataFicha.ficha}</span></h3>
                     <h3>Programa: <span>{dataFicha.nombre}</span></h3>
                     <h3>Limite de horas: <span>{dataFicha.limiteHoras}</span></h3>
-                    <h3>Horas Asignadas: <span></span></h3>
+                    <h3>Horas Asignadas: <span>{totalHoras}</span></h3>
                 </div>
                 <div className={`desplegable ${isDropdown ? 'open' : ''}`}>
                     <input
@@ -203,6 +286,7 @@ export const ScheduleAdd = () => {
                                                 handleAssignedBoxClick(boxIndex);
                                             } else {
                                                 handleBoxClick(boxIndex);
+                                                setHorasAsignadas((prevHoras) => prevHoras + 1);
                                             }
                                         }}
                                     >

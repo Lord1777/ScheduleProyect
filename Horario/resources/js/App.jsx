@@ -46,6 +46,7 @@ import { MyProfile } from './pages/MyProfile.jsx';
 import { SeeScheduleAdminInstructor } from './pages/SeeScheduleAdminInstructor.jsx';
 import { ModalChangePassword } from './components/Modals/ModalChangePassword.jsx';
 import { ScheduleAdminAprenttice } from './pages/ScheduleAdminAprenttice.jsx';
+import { ModalConfirmLogout } from './components/Modals/ModalConfirmLogout.jsx';
 
 
 function App() {

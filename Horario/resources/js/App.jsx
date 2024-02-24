@@ -46,13 +46,14 @@ import { MyProfile } from './pages/MyProfile.jsx';
 import { SeeScheduleAdminInstructor } from './pages/SeeScheduleAdminInstructor.jsx';
 import { ModalChangePassword } from './components/Modals/ModalChangePassword.jsx';
 import { ScheduleAdminAprenttice } from './pages/ScheduleAdminAprenttice.jsx';
-import { ModalConfirmLogout } from './components/Modals/ModalConfirmLogout.jsx';
+import { ContinuoModal } from './components/Modals/ContinuoModal.jsx';
+import error from './assets/img/Advertencia.png'
 
 
 function App() {
 
 
-    useSessionControl();
+    const { isModal, ShowCloseModal, alertMessage, ruta } = useSessionControl();
 
     const { authenticateUser } = useUser();
 
@@ -79,23 +80,23 @@ function App() {
 
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={storedRole} />}  >
-                        <Route path='/PerfilCoordinador' element={<MyProfile/>}/>
+                        <Route path='/PerfilCoordinador' element={<MyProfile />} />
                         <Route path='/Panel' element={<ControlPanel />} />
-                        <Route path='/PanelHorarios' element={<HorariosPanel/>}/>
-                        <Route path='/Card' element={<CardHorarios/>}/>
+                        <Route path='/PanelHorarios' element={<HorariosPanel />} />
+                        <Route path='/Card' element={<CardHorarios />} />
                         <Route path='/HorarioAdminAprendiz/:idFicha/:idHorario/:manage?' element={<ScheduleAdminAprenttice />} />
                         <Route path='/HorariosFichas' element={<WatchSchedules />} />
                         <Route path='/HorarioAdminInstructor/:idUsuario/:idTrimestre' element={<SeeScheduleAdminInstructor />} />
-                        <Route path='/HorariosInstructores' element={<WatchSchedulesInstructor/>} />
+                        <Route path='/HorariosInstructores' element={<WatchSchedulesInstructor />} />
                         <Route path='/HorarioAmbiente/:idAmbiente/:idTrimestre' element={<SeeScheduleAmbiente />} />
-                        <Route path='/HorariosAmbientes' element={<WatchScheduleAmbiente/>}/>
+                        <Route path='/HorariosAmbientes' element={<WatchScheduleAmbiente />} />
                         <Route path='/CrudInstructor' element={<CrudInstructor />} />
                         <Route path='/CrudFichas' element={<CrudRecords />} />
                         <Route path='/CrudTrimestres' element={<CrudQuarters />} />
                         <Route path='/CrudCoordinadores' element={<CrudCoordinators />} />
                         <Route path='/CrudAmbientes' element={<CrudEnvironments />} />
-                        <Route path='/CrudProgramas' element={<CrudPrograms/>}/>
-                        
+                        <Route path='/CrudProgramas' element={<CrudPrograms />} />
+
                         <Route path='/AddInstructor' element={<AddInstructors />} />
                         <Route path='/AddAmbiente' element={<AddEnvironments />} />
                         <Route path='/AddPrograma' element={<AddProgram />} />
@@ -113,16 +114,25 @@ function App() {
                         <Route path='/UpdateAmbiente/:id' element={<UpdateEnvironments />} />
                         <Route path='/UpdateTrimestre/:id' element={<UpdateQuaters />} />
                         <Route path='/UpdatePrograma/:id' element={<UpdateProgram />} />
-                        <Route path='/ScheduleUpdateFicha/:idFicha/:idHorario/:idTrimestre' element={<ManageScheduleUpdateFicha/>} />
+                        <Route path='/ScheduleUpdateFicha/:idFicha/:idHorario/:idTrimestre' element={<ManageScheduleUpdateFicha />} />
                     </Route>
 
                     {/* Vistas del instructor */}
                     <Route element={<ProtectedRoute role={'instructor'} userRole={storedRole} />} >
                         <Route path='/HorarioInstructor/:idUsuario' element={<SeeScheduleInstructors />} />
-                        <Route path='/PerfilInstructor' element={<MyProfile/>}/>
+                        <Route path='/PerfilInstructor' element={<MyProfile />} />
                     </Route>
                 </Routes>
+                <ContinuoModal
+                    tittle="Alerta"
+                    imagen={error}
+                    message={alertMessage}
+                    open={isModal}
+                    close={ShowCloseModal}
+                    route={ruta}
+                />
             </Router>
+
         </>
     );
 }

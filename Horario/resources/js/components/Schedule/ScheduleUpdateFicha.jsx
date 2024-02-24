@@ -27,6 +27,8 @@ export const ScheduleUpdateFicha = () => {
 
     const { selectedBoxes, handleBoxClick, resetSelectedBoxes } = useSelectedBoxes();
     const { isModal, openModal, closeModal, asignaciones, setAsignaciones } = useModalAsignar();
+    const [ alertShowModal, setAlertShowModal ] = useState(false);
+    const [ messageAlert, setMessageAlert ] = useState('');
     const { TRIMESTRE } = useValidationForm();
     const { register, setValue, handleSubmit } = useForm();
     const { isDropdown, selectedOption, handleDropdown, handleOptionClick } = useDropdown(setValue, "trimestre");
@@ -36,13 +38,22 @@ export const ScheduleUpdateFicha = () => {
     // Almacena todos los índices, id-instructor, id-ambiente asignados,
     const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
 
-    const { dataSchedule, loading} = useFetchGetScheduleRecord('/getScheduleApprentice', idFicha);
+    const { dataSchedule, loading } = useFetchGetScheduleRecord('/getScheduleApprentice', idFicha);
 
     // console.log('boxes: ', globalStoreBoxes);
     // console.log('data: ', dataSchedule);
     // console.log('asignaciones: ', asignaciones);
 
-    const { fetchUpdateScheduleRecord, duplicatesBox, setDuplicatesBox } = useFetchPutScheduleRecord('/updateScheduleRecord', idHorario);
+    const { 
+        fetchUpdateScheduleRecord,
+        duplicatesBox,
+        setDuplicatesBox,
+        modalOpen,
+        setModalOpen,
+        alertMessage,
+        succesfullyModal,
+        setSuccesfullyModal 
+    } = useFetchPutScheduleRecord('/updateScheduleRecord', idHorario);
 
     // Inicializa el registro de horas asignadas por día para cada instructor
     const [horasAsignadasPorDia, setHorasAsignadasPorDia] = useState({})
@@ -104,7 +115,9 @@ export const ScheduleUpdateFicha = () => {
             });
 
             if (idInstructorExcedido) {
-                return alert(`Se ha detectado que un instructor ha superado el límite diario de 10 horas en al menos uno de los días.`);
+                setMessageAlert('Se ha detectado que un instructor ha superado el límite diario de 10 horas en al menos uno de los días.');
+                setAlertShowModal(true);
+                return 
             }
 
             await fetchUpdateScheduleRecord({
@@ -276,6 +289,28 @@ export const ScheduleUpdateFicha = () => {
                 resetSelectedBoxes={resetSelectedBoxes}
                 storeBoxes={globalStoreBoxes}
                 setStoreBoxes={setGlobalStoreBoxes}
+            />
+            <ContinuoModal
+                tittle="Error"
+                imagen={error}
+                message={alertMessage}
+                open={modalOpen}
+                close={() => setModalOpen(false)}
+            />
+            <ContinuoModal
+                tittle="¡Exito!"
+                imagen={exito}
+                message={alertMessage}
+                open={succesfullyModal}
+                close={() => setSuccesfullyModal(false)}
+                route="/CrudFichas"
+            />
+            <ContinuoModal
+                tittle="Advertencia"
+                imagen={error}
+                message={messageAlert}
+                open={alertShowModal}
+                close={() => setAlertShowModal(false)}
             />
         </>
     );

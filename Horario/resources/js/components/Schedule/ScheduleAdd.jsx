@@ -23,6 +23,8 @@ export const ScheduleAdd = () => {
     const { selectedBoxes, totalHoras, handleBoxClick, resetSelectedBoxes } = useSelectedBoxes();
 
     const { isModal, openModal, closeModal, asignaciones, setAsignaciones } = useModalAsignar();
+    const [ alertShowModal, setAlertShowModal ] = useState(false);
+    const [ messageAlert, setMessageAlert ] = useState('');
     const { TRIMESTRE } = useValidationForm();
     const { register, setValue, handleSubmit } = useForm();
     const { isDropdown, selectedOption, handleDropdown, handleOptionClick } = useDropdown(setValue, "trimestre");
@@ -176,7 +178,9 @@ export const ScheduleAdd = () => {
             });
 
             if (idInstructorExcedido) {
-                return alert(`Se ha detectado que un instructor ha superado el límite diario de 10 horas en al menos uno de los días.`);
+                setMessageAlert('Se ha detectado que un instructor ha superado el límite diario de 10 horas en al menos uno de los días.');
+                setAlertShowModal(true);
+                return 
             }
 
             setLoading(true);
@@ -340,6 +344,13 @@ export const ScheduleAdd = () => {
                 open={succesfullyModal}
                 close={() => setSuccesfullyModal(false)}
                 route="/CrudFichas"
+            />
+            <ContinuoModal
+            tittle="Advertencia"
+            imagen={error}
+            message={messageAlert}
+            open={alertShowModal}
+            close={() => setAlertShowModal(false)}
             />
         </>
     );

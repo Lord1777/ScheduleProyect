@@ -51,6 +51,7 @@ Route::get('/PanelHorarios', fn()=> view('welcome'));
 Route::get('/Card', fn()=> view('welcome'));
 Route::match(['get', 'put'], '/PerfilCoordinador', fn() => view('welcome'));
 Route::match(['get', 'put'], '/PerfilInstructor', fn() => view('welcome'));
+Route::get('/Acerca-de', fn() => view('welcome'));
 
 // Route::get('/{any}', function () {
 //     //Todas las rutas retornan welcome porque ahí es donde se está renderizando React

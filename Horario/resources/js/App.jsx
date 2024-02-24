@@ -48,6 +48,7 @@ import { ModalChangePassword } from './components/Modals/ModalChangePassword.jsx
 import { ScheduleAdminAprenttice } from './pages/ScheduleAdminAprenttice.jsx';
 import { ContinuoModal } from './components/Modals/ContinuoModal.jsx';
 import error from './assets/img/Advertencia.png'
+import { AboutDevelopers } from './pages/Developers/aboutDevelopers.jsx';
 
 
 function App() {
@@ -76,6 +77,7 @@ function App() {
                     <Route path='/RecuperarContraseña' element={<Password />} />
                     <Route path='/ConsultaAprendiz' element={<ConsultAprenttice />} />
                     <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />
+                    <Route path='/Acerca-de' element={<AboutDevelopers/>}/>
                     <Route path='/AddCoordinador' element={<AddCoordinator />} />
 
                     {/* Vistas del coordinador */}

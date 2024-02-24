@@ -1,28 +1,29 @@
 import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
 import React, { useState, useContext, useEffect } from 'react';
 import { useFetchGetRecords } from '../../hooks/FetchGetResources/useFetchGetRecords';
-import useDropdownGet from '../../hooks/useDropdownGet';
 import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
 import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
 import '../../../css/InformationBar/InformationBar.css';
 import { useParams } from 'react-router-dom';
 import useFetchGetInstructor from '../../hooks/FetchGET/useFetchGetInstructor';
+import { useForm } from 'react-hook-form';
+import useDropdown from '../../hooks/useDropdown';
 
 export const InformationBarInstructor = () => {
 
-    
 
-    const dropdown1 = useDropdownGet();
-    const dropdown2 = useDropdownGet();
-    const trimestreDropdown = useTrimestreDropdown();
+    const { register, setValue } = useForm();
+    const dropdown1 = useDropdown(setValue, "programa");
+    const dropdown2 = useDropdown(setValue, "trimestres");
+    //const trimestreDropdown = useTrimestreDropdown();
 
-    const { setIdTrimestreValue, setIdFichaValue, totalSeleccionado, setHorasAsignadasValue  } = useContext(FilterScheduleInstructorContext);
+    const { setIdTrimestreValue, setIdFichaValue, totalSeleccionado, setHorasAsignadasValue } = useContext(FilterScheduleInstructorContext);
 
     const { dataRecords } = useFetchGetRecords('/getRecords');
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
     const { idUsuario } = useParams();
     const { dataInstructor } = useFetchGetInstructor(`/getInstructor/${idUsuario}`);
-   
+
 
 
     // const rol = localStorage.getItem('role');
@@ -86,11 +87,14 @@ export const InformationBarInstructor = () => {
                             readOnly
                             onClick={dropdown2.handleDropdown}
                             value={dropdown2.selectedOption}
+                            {...register("trimestres")}
                         />
                         <div className={`desplegable-options ${dropdown2.isDropdown ? 'open' : ''}`}>
                             {dataQuarters && dataQuarters.length > 0 && dataQuarters.map((quarter) => (
-                                <div key={quarter.idTrimestre} onClick={() =>
-                                    handleOptionClickTrimestre(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`)}>
+                                <div key={quarter.idTrimestre} onClick={() => {
+                                    dropdown2.handleOptionClick(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`);
+                                    handleOptionClickTrimestre(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`);
+                                }}>
                                     {quarter.trimestre} | {quarter.fechaInicio} - {quarter.fechaFinal}
                                 </div>
                             ))}
@@ -108,6 +112,7 @@ export const InformationBarInstructor = () => {
                             onClick={dropdown1.handleDropdown}
                             onChange={(e) => setFichaPrograma(e.target.value)}
                             value={dropdown1.selectedOption}
+                            {...register("programa")}
                         />
                         <div className={`desplegable-options1 ${dropdown1.isDropdown ? 'open' : ''}`}>
                             <div className="search-bar">
@@ -128,7 +133,10 @@ export const InformationBarInstructor = () => {
                                         `${record.ficha}`.toLowerCase().startsWith(fichas.toLowerCase())
                                     )
                                     .map((record) => (
-                                        <div key={record.idFicha} className='option' onClick={() => handleOptionClickFicha(`${record.ficha} - ${record.nombre}`)}>
+                                        <div key={record.idFicha} className='option' onClick={() => {
+                                            dropdown1.handleOptionClick(`${record.ficha} - ${record.nombre}`)
+                                            handleOptionClickFicha(`${record.ficha} - ${record.nombre}`);
+                                            }}>
                                             {record.ficha} - {record.nombre}
                                         </div>
                                     ))}

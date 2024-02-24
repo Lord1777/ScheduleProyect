@@ -1,7 +1,10 @@
 import React from 'react'
 import '../../../css/Modals/ModalConfirmLogout.css'
 
-export const ModalConfirmLogout = () => {
+export const ModalConfirmLogout = ({ open, close, action }) => {
+    if (!open) return null;
+
+
   return (
     <>
         <main className="box-shadow-modal-logout">
@@ -10,11 +13,11 @@ export const ModalConfirmLogout = () => {
                         <h2>Advertencia</h2>
                     </div>
                     <div className="container-message">
-                        <p>¿Estas seguro de cerrar sesión?</p>
+                        <p>¿Estas seguro que quieres cerrar sesión?</p>
                     </div>
                     <div className="modal-logout-btns">
-                        <button className='confirmar'>Confirmar</button>
-                        <button className='cancelar'>Cancelar</button>
+                        <button className='confirmar' onClick={action}>Confirmar</button>
+                        <button className='cancelar' onClick={close}>Cancelar</button>
                     </div>
                 </div>
             </main>

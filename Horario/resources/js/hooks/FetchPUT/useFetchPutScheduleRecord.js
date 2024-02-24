@@ -7,6 +7,9 @@ export const useFetchPutScheduleRecord = (route, idHorario) => {
     const userToken = localStorage.getItem('access_token');
 
     const [duplicatesBox, setDuplicatesBox] = useState([]);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [succesfullyModal, setSuccesfullyModal] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
 
     const fetchUpdateScheduleRecord = async ({ idTrimestre, idFicha, globalStoreBoxes }) => {
 
@@ -26,13 +29,20 @@ export const useFetchPutScheduleRecord = (route, idHorario) => {
             });
 
             const data = await response.json();
-
-            if(response.ok){
-                console.log(data.message);
+            if (response.status === 401) {
+                // Redirigir a la pantalla de Forbidden (403)
+                navigate('/403-forbidden');
+                return;
             }
-
-            if (data.error) {
-                console.error('Error:', data.error);
+            else if (response.ok) {
+                //console.log(data.message);
+                setAlertMessage(data.message);
+                setSuccesfullyModal(true);
+            }
+            else if (data.error) {
+                //console.error('Error:', data.error);
+                setModalOpen(true);
+                setAlertMessage(data.message);
                 if (data.duplicates) {
                     setDuplicatesBox(data.duplicates);
                 }
@@ -46,7 +56,12 @@ export const useFetchPutScheduleRecord = (route, idHorario) => {
         {
             fetchUpdateScheduleRecord,
             duplicatesBox,
-            setDuplicatesBox
+            setDuplicatesBox,
+            modalOpen,
+            setModalOpen,
+            alertMessage,
+            succesfullyModal,
+            setSuccesfullyModal
         }
     )
 }

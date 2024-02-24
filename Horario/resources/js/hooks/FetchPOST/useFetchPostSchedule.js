@@ -40,7 +40,7 @@ export const useFetchPostSchedule = (route) => {
             const data = await response.json();
 
             if (data.error) {
-                console.error('Error:', data.error);
+                //console.error('Error:', data.error);
                 //alert(data.error);
                 //alert(data.message);
                 setModalOpen(true);

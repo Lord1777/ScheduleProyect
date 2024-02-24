@@ -12,6 +12,8 @@ import ShowNavBar from '../../hooks/ShowNavBar';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/UserContext';
 import '../../../css/NavBar/NavBar.css';
+import { ModalConfirmLogout } from '../Modals/ModalConfirmLogout';
+import useModal from '../../hooks/useModal';
 
 
 export const NavBar = () => {
@@ -21,6 +23,7 @@ export const NavBar = () => {
     const { user, logout } = useUser();
     const userRole = user ? user.role : null;
     const userName = user && user.userData ? user.userData.nombreCompleto : null;
+    const { isModal, ShowOpenModal, ShowCloseModal } = useModal();
 
     const handleLogout = async() => {
         await logout();
@@ -81,7 +84,7 @@ export const NavBar = () => {
                                 <li><img src={trimestres} alt="trimestres" />Trimestres</li>
                             </Link>
 
-                            <Link onClick={handleLogout}>
+                            <Link onClick={ShowOpenModal}>
                                 <li><img src={Logout} alt="logout" />Cerrar Sesión</li>
                             </Link>
                         </>
@@ -93,13 +96,18 @@ export const NavBar = () => {
                                 <li><img src={perfil} alt="perfil" />Perfil</li>
                             </Link>
                             
-                            <Link onClick={handleLogout}>
+                            <Link onClick={ShowOpenModal}>
                                 <li><img src={Logout} alt="logout" />Cerrar Sesión</li>
                             </Link>
                         </>
                     )}
                 </ul>
             </div>
+            <ModalConfirmLogout
+            open={isModal}
+            close={ShowCloseModal}
+            action={handleLogout}
+            />
         </>
 
 

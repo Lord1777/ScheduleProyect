@@ -10,20 +10,22 @@ import useFetchGetInstructor from '../../hooks/FetchGET/useFetchGetInstructor';
 
 export const InformationBarInstructor = () => {
 
-    const { idUsuario } = useParams();
+    
 
     const dropdown1 = useDropdownGet();
     const dropdown2 = useDropdownGet();
     const trimestreDropdown = useTrimestreDropdown();
 
-    const { setIdTrimestreValue, setIdFichaValue } = useContext(FilterScheduleInstructorContext);
+    const { setIdTrimestreValue, setIdFichaValue, totalSeleccionado, setHorasAsignadasValue  } = useContext(FilterScheduleInstructorContext);
 
     const { dataRecords } = useFetchGetRecords('/getRecords');
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
+    const { idUsuario } = useParams();
     const { dataInstructor } = useFetchGetInstructor(`/getInstructor/${idUsuario}`);
+   
 
 
-    const rol = localStorage.getItem('role');
+    // const rol = localStorage.getItem('role');
 
     const getRecordId = (nombreRecord) => {
         const record = dataRecords.find((record) => `${record.ficha} - ${record.nombre}` === nombreRecord);
@@ -47,13 +49,19 @@ export const InformationBarInstructor = () => {
         setIdFichaValue(getRecordId(selectedOption));
     }
 
-    // const updateHorasAsignadas = () => {
-    //     setTotalHoras(horasAsignadas);
-    // };
+    const updateHorasAsignadas = () => {
 
-    // useEffect(() => {
-    //     updateHorasAsignadas();
-    // }, [totalHoras]);
+        setHorasAsignadasValue((prevTotal) => {
+            if (prevTotal !== totalSeleccionado) {
+                return totalSeleccionado;
+            }
+            return prevTotal;
+        });
+    };
+
+    useEffect(() => {
+        updateHorasAsignadas();
+    }, [totalSeleccionado, setHorasAsignadasValue]);
 
     return (
         <>
@@ -64,7 +72,7 @@ export const InformationBarInstructor = () => {
                     </div>
                     <div>
                         <h3>Limite de horas: {dataInstructor.limiteHoras}</h3>
-                        <h3>Horas asignadas: {/*totalSeleccionado*/}</h3>
+                        <h3>Horas asignadas: {totalSeleccionado}</h3>
                     </div>
                 </div>
 

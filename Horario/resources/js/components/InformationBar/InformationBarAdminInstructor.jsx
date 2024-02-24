@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
-import useFetchGetInstructor from '../../hooks/FetchGET/useFetchGetInstructor';
-import '../../../css/InformationBar/InformationBar.css';
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useFetchGetRecords } from '../../hooks/FetchGetResources/useFetchGetRecords';
+import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
+import useFetchGetInstructor from '../../hooks/FetchGET/useFetchGetInstructor';
 import useDropdown from '../../hooks/useDropdown';
 import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
+import '../../../css/InformationBar/InformationBar.css';
 
 export const InformationBarAdminInstructor = () => {
 

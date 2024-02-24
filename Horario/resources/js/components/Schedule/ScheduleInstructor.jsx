@@ -11,7 +11,8 @@ import { initialsName } from '../../hooks/useObjectFunction';
 export const ScheduleInstructor = () => {
 
     const { idUsuario } = useParams();
-    const { idTrimestre, idFicha, setHorasAsignadasValue } = useContext(FilterScheduleInstructorContext);
+    
+    const { idTrimestre, idFicha, setHorasAsignadasValue, setTotalSeleccionadoValue } = useContext(FilterScheduleInstructorContext);
     const {
         dataSchedule,
         loading,
@@ -19,11 +20,15 @@ export const ScheduleInstructor = () => {
         setModalOpen,
         alertMessage } = useFetchGetScheduleInstructor('/getScheduleInstructor', idUsuario, idTrimestre, idFicha, setHorasAsignadasValue);
 
-    useEffect(() => {
-        // Calcula el total de horas por boxIndex
-        const totalHoras = dataSchedule.reduce((total, infoSchedule) => total + (infoSchedule.horasAsignadas || 0), 0);
-        setHorasAsignadasValue(totalHoras);
-    }, [dataSchedule, setHorasAsignadasValue]);
+        useEffect(() => {
+            const selectedSchedules = dataSchedule.filter(infoSchedule => infoSchedule);
+        
+            const totalSeleccionado = selectedSchedules.length;
+        
+            setTotalSeleccionadoValue(totalSeleccionado);
+        
+            setHorasAsignadasValue(totalSeleccionado);
+        }, [dataSchedule, setHorasAsignadasValue, setTotalSeleccionadoValue]);
 
     if (loading) {
         return <Loading />
@@ -56,7 +61,6 @@ export const ScheduleInstructor = () => {
                                 <div
                                     key={colIndex}
                                     className={`${infoSchedule ? 'selected' : 'cuadricula'}`}
-                                    onClick={() => handleCellClick(infoSchedule)}
                                 >
                                     {infoSchedule ? (
                                         <>

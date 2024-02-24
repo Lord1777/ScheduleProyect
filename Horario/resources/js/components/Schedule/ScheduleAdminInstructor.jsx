@@ -2,9 +2,10 @@ import React, { useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Loading } from '../Loading/Loading';
 import { ContinuoModal } from '../Modals/ContinuoModal';
+import { useFetchGetScheduleAdminInstructor } from '../../hooks/FetchSchedule/useFetchGetScheduleAdminInstructor';
 import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
 import error from '../../assets/img/Advertencia.png';
-import { useFetchGetScheduleAdminInstructor } from '../../hooks/FetchSchedule/useFetchGetScheduleAdminInstructor';
+
 
 export const ScheduleAdminInstructor = () => {
 

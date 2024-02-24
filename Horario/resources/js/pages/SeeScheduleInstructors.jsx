@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { NavBar } from '../components/NavBar/NavBar'
 import { ScheduleInstructor } from '../components/Schedule/ScheduleInstructor'
 import { FilterScheduleInstructorContextProvider } from '../context/FilterScheduleInstructorContext'
-import { InformationBarAdminInstructor } from '../components/InformationBar/InformationBarAdminInstructor'
 import { useUser } from '../context/UserContext';
 import { ChangePasswordFirts } from '../components/Modals/ChangePasswordFirts';
-import useFecthPutPassword from '../hooks/FetchPUT/useFecthPutPassword';
 import { Loading } from '../components/Loading/Loading';
 import { InformationBarInstructor } from '../components/InformationBar/InformationBarInstructor'
+import useFecthPutPassword from '../hooks/FetchPUT/useFecthPutPassword';
 
 export const SeeScheduleInstructors = () => {
 

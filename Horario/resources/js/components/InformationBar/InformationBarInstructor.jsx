@@ -1,19 +1,19 @@
 import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
 import React, { useState, useContext, useEffect } from 'react';
 import { useFetchGetRecords } from '../../hooks/FetchGetResources/useFetchGetRecords';
-import useDropdownGet from '../../hooks/useDropdownGet';
+import useDropdown from '../../hooks/useDropdown';
 import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
 import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
 import '../../../css/InformationBar/InformationBar.css';
 import { useParams } from 'react-router-dom';
 import useFetchGetInstructor from '../../hooks/FetchGET/useFetchGetInstructor';
+import { useForm } from 'react-hook-form';
 
 export const InformationBarInstructor = () => {
 
-    
-
-    const dropdown1 = useDropdownGet();
-    const dropdown2 = useDropdownGet();
+    const { register, setValue } = useForm();
+    const dropdown1 = useDropdown(setValue, 'fichas');
+    const dropdown2 = useDropdown(setValue, 'trimestres');
     const trimestreDropdown = useTrimestreDropdown();
 
     const { setIdTrimestreValue, setIdFichaValue, totalSeleccionado, setHorasAsignadasValue  } = useContext(FilterScheduleInstructorContext);
@@ -86,6 +86,7 @@ export const InformationBarInstructor = () => {
                             readOnly
                             onClick={dropdown2.handleDropdown}
                             value={dropdown2.selectedOption}
+                            {...register('trimestres')}
                         />
                         <div className={`desplegable-options ${dropdown2.isDropdown ? 'open' : ''}`}>
                             {dataQuarters && dataQuarters.length > 0 && dataQuarters.map((quarter) => (
@@ -108,6 +109,7 @@ export const InformationBarInstructor = () => {
                             onClick={dropdown1.handleDropdown}
                             onChange={(e) => setFichaPrograma(e.target.value)}
                             value={dropdown1.selectedOption}
+                            {...register('fichas')}
                         />
                         <div className={`desplegable-options1 ${dropdown1.isDropdown ? 'open' : ''}`}>
                             <div className="search-bar">

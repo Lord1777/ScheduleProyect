@@ -15,12 +15,14 @@ export const InformationBarAdminInstructor = () => {
     const dropdown1 = useDropdown(setValue, "fichaProgram");
     const dropdown2 = useDropdown(setValue, "trimestres");
 
-    const { setIdTrimestreValue, totalSeleccionado, setHorasAsignadasValue } = useContext(FilterScheduleInstructorContext);
+    const { setIdTrimestreValue, totalSeleccionado, setHorasAsignadasValue, recordsColors } = useContext(FilterScheduleInstructorContext);
     const [searchProgram, setSearchPogram] = useState('');
     const { idUsuario } = useParams();
     const { dataInstructor } = useFetchGetInstructor(`/getInstructor/${idUsuario}`)
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
     const { dataRecords } = useFetchGetRecords('/getRecords');
+
+    console.log(recordsColors);
 
     // const rol = localStorage.getItem('role');
 
@@ -55,6 +57,7 @@ export const InformationBarAdminInstructor = () => {
 
     return (
         <>
+
             <div className="information_bar">
                 <div className='container-instructor'>
                     <div>
@@ -64,6 +67,19 @@ export const InformationBarAdminInstructor = () => {
                         <h3>Limite de horas: {dataInstructor.limiteHoras}</h3>
                         <h3>Horas asignadas: {totalSeleccionado}</h3>
                     </div>
+                </div>
+
+                <div className='hola' >
+                    {
+                        recordsColors && Object.entries(recordsColors).map(([clave, valor]) => (
+                            <>
+                                <div key={clave} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+                                    <p style={{ marginRight: '10px' }}>{clave}:</p>
+                                    <div style={{ width: '20px', height: '15px', backgroundColor: valor }}></div>
+                                </div>
+                            </>
+                        ))
+                    }
                 </div>
 
                 <div className="container-dropdowns">

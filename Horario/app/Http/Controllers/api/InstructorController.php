@@ -123,9 +123,9 @@ class InstructorController extends Controller
     public function update(Request $request, string $idUsuario)
     {
         $validator = Validator::make($request->all(), [
-            'nombreCompleto' => 'required|unique:usuarios',
+            'nombreCompleto' => 'required|unique:usuarios,nombreCompleto,'.$idUsuario.',idUsuario',
             'tipoDocumento' => 'required',
-            'documento' => 'required|unique:usuarios',
+            'documento' => 'required|unique:usuarios,documento,'.$idUsuario.',idUsuario',
             'email' => 'required',
             'telefono' => 'required',
             'idContrato' => 'required|integer',

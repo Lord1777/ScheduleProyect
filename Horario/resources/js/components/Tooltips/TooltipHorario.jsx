@@ -11,11 +11,11 @@ export const TooltipHorario = () => {
     const showNavigation = () => {
         Navigate('/ConsultaAprendiz')
     }
-    
+
     return (
         <>
             <div className="container-logo-caledario" onClick={showNavigation}>
-                    <FaCalendarCheck style={{ color: 'white', fontSize: '2rem' }} />
+                <FaCalendarCheck style={{ color: 'white', fontSize: '2rem' }} />
             </div>
             <Tooltip
                 anchorSelect='.container-logo-caledario'

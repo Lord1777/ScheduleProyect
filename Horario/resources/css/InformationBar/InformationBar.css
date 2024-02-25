@@ -28,7 +28,7 @@
 
 .deplegable-horas{
     h3{
-        margin: 1rem;
+        margin-bottom: 1rem;
         span{
             font-weight: 100; 
         }
@@ -164,6 +164,13 @@
     margin-right: 5px;
 }
 
+.colorRecords{
+    display: grid;
+    justify-items: start;
+    grid-template-columns: 150px 150px 150px 150px;
+    gap: 5px;
+}
+
 @media (max-width: 1295px) {
     .information_bar {
         width: 75rem;
@@ -219,6 +226,11 @@
         transform: rotate(-135deg);
         transition: 0.5s;
         pointer-events: none;
+    }
+
+    .colorRecords{
+        grid-template-columns: 120px 120px 120px 120px;
+        gap: 3px;
     }
 }
 
@@ -290,11 +302,25 @@
             margin: 0rem 0rem 1rem 0rem;
         }
     }
+
+    .colorRecords{
+        grid-template-columns: 120px 120px 120px;
+        gap: 3px;
+
+        p{
+            font-size: 13px;
+        }
+    }
 }
 
 @media(max-width:520px){
     .information_bar {
         max-width: 22rem;
+    }
+
+    .colorRecords{
+        grid-template-columns: 120px 120px;
+        gap: 2px;
     }
 }
 
@@ -337,6 +363,11 @@
         transform: rotate(-135deg);
         transition: 0.5s;
         pointer-events: none;
+    }
+
+    .colorRecords{
+        grid-template-columns: 95px 95px;
+        gap: 2px;
     }
 }
 

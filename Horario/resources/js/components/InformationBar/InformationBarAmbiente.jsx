@@ -13,7 +13,7 @@ export const InformationBarAmbiente = () => {
 
     const { idAmbiente, idTrimestre } = useParams();
 
-    const { totalSeleccionado, setHorasAsignadasValue } = useContext(FilterScheduleAmbienteContext);
+    const { totalSeleccionado, setHorasAsignadasValue, environmentColors } = useContext(FilterScheduleAmbienteContext);
 
     const { dataEnvironment } = useFetchGetOneEnvironment(`/getEnvironment`, idAmbiente);
     console.log(dataEnvironment);
@@ -73,6 +73,19 @@ export const InformationBarAmbiente = () => {
                     <div>
                         <h3>Horas Asignadas: <span>{totalSeleccionado}</span></h3>
                     </div>
+                </div>
+
+                <div className='colorRecords'>
+                    {
+                        environmentColors && Object.entries(environmentColors).map(([clave, valor]) => (
+                            <>
+                                <div key={clave} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+                                    <p style={{ marginRight: '10px' }}>{clave}:</p>
+                                    <div style={{ width: '20px', height: '15px', backgroundColor: valor }}></div>
+                                </div>
+                            </>
+                        ))
+                    }
                 </div>
                 {/* <div className='check_filter'>
                     <label htmlFor="trimestresCheckbox"><h3>Filtra por Trimestres</h3></label>

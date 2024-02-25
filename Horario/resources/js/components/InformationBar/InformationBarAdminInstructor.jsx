@@ -69,7 +69,7 @@ export const InformationBarAdminInstructor = () => {
                     </div>
                 </div>
 
-                <div className='hola' >
+                <div className='colorRecords'>
                     {
                         recordsColors && Object.entries(recordsColors).map(([clave, valor]) => (
                             <>

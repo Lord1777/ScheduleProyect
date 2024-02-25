@@ -1,25 +1,25 @@
 import React from 'react'
-import '../../../css/Tooltips/TooltipHorario.css'
-import { FaCalendarCheck } from "react-icons/fa";
 import { Tooltip } from 'react-tooltip';
+import '../../../css/Tooltips/TooltipAbout.css'
 import { useNavigate } from 'react-router-dom';
 
-
-export const TooltipHorario = () => {
+export const TooltipAbout = () => {
 
     const Navigate = useNavigate();
     const showNavigation = () => {
-        Navigate('/ConsultaAprendiz')
+        Navigate('/Acerca-de')
     }
-    
+
     return (
         <>
-            <div className="container-logo-caledario" onClick={showNavigation}>
-                    <FaCalendarCheck style={{ color: 'white', fontSize: '2rem' }} />
+            <div className="container-logo-about" onClick={showNavigation}>
+                <span className="material-symbols-outlined">
+                    copyright
+                </span>
             </div>
             <Tooltip
-                anchorSelect='.container-logo-caledario'
-                content='Consultar Horario Aprendiz'
+                anchorSelect='.container-logo-about'
+                content='Acerca de'
                 style={{
                     backgroundColor: '#5CB85C',
                     width: '10rem',

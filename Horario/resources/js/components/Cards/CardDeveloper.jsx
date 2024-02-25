@@ -2,7 +2,7 @@ import React from 'react'
 import '../../../css/Cards/CardDeveloper.css'
 import ricardo from '../../assets/img/Desarrolladores/Ricardo.jpeg'
 
-export const CardDeveloper = () => {
+export const CardDeveloper = ({ developer, name, phone, email }) => {
     return (
         <>
             <div className="card-developer">
@@ -10,12 +10,12 @@ export const CardDeveloper = () => {
                 <div className="circle"></div>
                 <div className="card-inner">
                     <div className="container-img">
-                        <img src={ricardo} alt="developer" />
+                        <img src={developer} alt="developer" />
                     </div>
                     <div className="content-info-developer">
-                        <h3>Ricardo Polania Rubiano</h3>
-                        <span>+57 3205781997</span>
-                        <span>rpolaniarubiano@gmail.com</span>
+                        <h3>{name}</h3>
+                        <span>{phone}</span>
+                        <span>{email}</span>
                     </div>
                 </div>
             </div>

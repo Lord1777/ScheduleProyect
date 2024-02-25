@@ -1,8 +1,8 @@
-.container-logo-caledario{
+.container-logo-about{
     position: fixed;
     width: 5rem;
     height: 5rem;
-    bottom: 1rem;
+    bottom: 7rem;
     right: 5rem;
     background-color: #5CB85C;
     border-radius: 50% 50% 0% 50%;
@@ -10,18 +10,22 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-}
+    z-index: 1;
 
-/*responsive*/
+    span{
+        font-size: 2rem;
+        color: white;
+    }
+}
 
 @media (max-width:800px){
 
-    .container-logo-caledario {
+    .container-logo-about {
         position: fixed;
         width: 5rem;
         height: 5rem;
         top: 1rem;
-        right: 1rem;
+        right: 7rem;
         background-color: #5CB85C;
         border-radius: 50% 0% 50% 50%;
         display: flex;
@@ -34,12 +38,12 @@
 
 @media (max-width:400px){
 
-    .container-logo-caledario {
+    .container-logo-about {
         position: fixed;
         width: 3.5rem;
         height: 3.5rem;
         top: 1rem;
-        right: 1rem;
+        right: 7rem;
         background-color: #5CB85C;
         border-radius: 50% 0% 50% 50%;
         display: flex;

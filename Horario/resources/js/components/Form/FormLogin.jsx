@@ -14,6 +14,7 @@ import ASPS from '../../assets/img/ASPS.png'
 import '../../../css/Form/FormLogin.css'
 import { ContinuoModal } from '../Modals/ContinuoModal'
 import error from '../../assets/img/Advertencia.png'
+import { TooltipAbout } from '../Tooltips/TooltipAbout'
 
 export const FormLogin = () => {
     const { password, showPassword, setPassword, handleTogglePassword } = usePasswordToggle();
@@ -110,6 +111,7 @@ export const FormLogin = () => {
                     </form>
                 </div>
                 <TooltipHorario></TooltipHorario>
+                <TooltipAbout/>
             </main>
             <ContinuoModal
             tittle="Error"

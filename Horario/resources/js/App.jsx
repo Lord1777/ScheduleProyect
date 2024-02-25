@@ -48,7 +48,7 @@ import { ModalChangePassword } from './components/Modals/ModalChangePassword.jsx
 import { ScheduleAdminAprenttice } from './pages/ScheduleAdminAprenttice.jsx';
 import { ContinuoModal } from './components/Modals/ContinuoModal.jsx';
 import error from './assets/img/Advertencia.png'
-import { AboutDevelopers } from './pages/Developers/aboutDevelopers.jsx';
+import { AboutDevelopers } from './pages/Developers/AboutDevelopers.jsx';
 
 
 function App() {

@@ -1,34 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import useSelectedBoxes from '../../hooks/useSelectedBoxes';
+import React, { useState, useEffect, useContext } from 'react';
 import { ModalAsignar } from '../Modals/ModalAsignar';
-import useModalAsignar from '../../hooks/useModalAsignar';
-import useDropdownGet from '../../hooks/useDropdownGet';
-import { useForm } from 'react-hook-form';
-import useValidationForm from '../../hooks/useValidationForm';
-import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
-import { useParams } from 'react-router-dom';
-import useDropdown from '../../hooks/useDropdown';
-import '../../../css/Schedule/ScheduleAdd.css';
-import { ContinuoModal } from '../Modals/ContinuoModal'
-import exito from '../../assets/img/Exito.png'
-import error from '../../assets/img/Advertencia.png'
-import { initialsName } from '../../hooks/useObjectFunction';
-import { useFetchGetScheduleInstructor } from '../../hooks/FetchSchedule/useFetchGetScheduleInstructor';
-import useFetchGetScheduleRecord from '../../hooks/FetchSchedule/useFetchGetScheduleRecord';
 import { useFetchPutScheduleRecord } from '../../hooks/FetchPUT/useFetchPutScheduleRecord';
 import { useFetchGetOneQuarter } from '../../hooks/FetchGET/useFetchGetOneQuarter';
 import { NavBar } from '../NavBar/NavBar';
 import { Loading } from '../Loading/Loading';
+import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
+import { initialsName } from '../../hooks/useObjectFunction';
+import { useFetchGetScheduleInstructor } from '../../hooks/FetchSchedule/useFetchGetScheduleInstructor';
+import { ContinuoModal } from '../Modals/ContinuoModal'
+import useSelectedBoxes from '../../hooks/useSelectedBoxes';
+import useModalAsignar from '../../hooks/useModalAsignar';
+import useDropdownGet from '../../hooks/useDropdownGet';
+import useValidationForm from '../../hooks/useValidationForm';
+import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
+import useDropdown from '../../hooks/useDropdown';
+import '../../../css/Schedule/ScheduleAdd.css';
+import exito from '../../assets/img/Exito.png'
+import error from '../../assets/img/Advertencia.png'
+import useFetchGetScheduleRecord from '../../hooks/FetchSchedule/useFetchGetScheduleRecord';
+import FilterScheduleFichaContext from '../../context/FilterScheduleFichaContext';
+
 
 export const ScheduleUpdateFicha = () => {
 
 
     const { idFicha, idHorario, idTrimestre } = useParams();
-
+    const { setTotalSeleccionadoValue, totalSeleccionado } = useContext(FilterScheduleFichaContext);
     const { selectedBoxes, handleBoxClick, resetSelectedBoxes } = useSelectedBoxes();
     const { isModal, openModal, closeModal, asignaciones, setAsignaciones } = useModalAsignar();
-    const [ alertShowModal, setAlertShowModal ] = useState(false);
-    const [ messageAlert, setMessageAlert ] = useState('');
+    const [alertShowModal, setAlertShowModal] = useState(false);
+    const [messageAlert, setMessageAlert] = useState('');
     const { TRIMESTRE } = useValidationForm();
     const { register, setValue, handleSubmit } = useForm();
     const { isDropdown, selectedOption, handleDropdown, handleOptionClick } = useDropdown(setValue, "trimestre");
@@ -40,11 +42,7 @@ export const ScheduleUpdateFicha = () => {
 
     const { dataSchedule, loading } = useFetchGetScheduleRecord('/getScheduleApprentice', idFicha);
 
-    // console.log('boxes: ', globalStoreBoxes);
-    // console.log('data: ', dataSchedule);
-    // console.log('asignaciones: ', asignaciones);
-
-    const { 
+    const {
         fetchUpdateScheduleRecord,
         duplicatesBox,
         setDuplicatesBox,
@@ -52,7 +50,7 @@ export const ScheduleUpdateFicha = () => {
         setModalOpen,
         alertMessage,
         succesfullyModal,
-        setSuccesfullyModal 
+        setSuccesfullyModal
     } = useFetchPutScheduleRecord('/updateScheduleRecord', idHorario);
 
     // Inicializa el registro de horas asignadas por día para cada instructor
@@ -79,6 +77,7 @@ export const ScheduleUpdateFicha = () => {
             return newAsignaciones;
         });
     };
+
 
     const onSubmit = async (data) => {
         if (globalStoreBoxes.length > 0 || globalStoreBoxes.size) {
@@ -117,7 +116,7 @@ export const ScheduleUpdateFicha = () => {
             if (idInstructorExcedido) {
                 setMessageAlert('Se ha detectado que un instructor ha superado el límite diario de 10 horas en al menos uno de los días.');
                 setAlertShowModal(true);
-                return 
+                return
             }
 
             await fetchUpdateScheduleRecord({
@@ -127,6 +126,18 @@ export const ScheduleUpdateFicha = () => {
             });
         }
     }
+
+    useEffect(() => {
+        // Supongamos que dataSchedule es la información de los horarios obtenida del componente SeeSchedule
+        const selectedSchedules = dataSchedule.filter(infoSchedule => infoSchedule);
+
+        // Calcular la cantidad total de horas semanales
+        const totalSeleccionado = selectedSchedules.length;
+
+        // Actualizar el contexto con el total de horas
+        setTotalSeleccionadoValue(totalSeleccionado);
+
+    }, [dataSchedule, setTotalSeleccionadoValue]);
 
 
     useEffect(() => {
@@ -206,6 +217,11 @@ export const ScheduleUpdateFicha = () => {
                         disabled={'on'}
                         {...register("trimestre")}
                     />
+                </div>
+                <div className="trimestre-jornada-horas">
+                    <div>
+                        <p><b>Horas semanales:</b> {totalSeleccionado}</p>
+                    </div>
                 </div>
             </div>
 

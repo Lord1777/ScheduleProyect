@@ -1,15 +1,16 @@
-import React from 'react';
-import { Link, useParams } from 'react-router-dom'
-import { useUser } from '../../context/UserContext';
-import useFetchGetInfoBarRecord from '../../hooks/FetchSchedule/useFetchGetInfoBarRecord'
-import '../../../css/InformationBar/InformationBarAprenttice.css'
-import exito from '../../assets/img/Exito.png'
-import error from '../../assets/img/Advertencia.png'
+import React, { useContext } from 'react';
 import { ContinuoModal } from '../Modals/ContinuoModal';
+import { useParams } from 'react-router-dom';
+import useFetchGetInfoBarRecord from '../../hooks/FetchSchedule/useFetchGetInfoBarRecord';
+import '../../../css/InformationBar/InformationBarAprenttice.css';
+import error from '../../assets/img/Advertencia.png';
+import FilterScheduleFichaContext from '../../context/FilterScheduleFichaContext';
+
 
 export const InformationBarAprenttice = () => {
 
     const { idFicha } = useParams();
+    const { totalSeleccionado, setHorasAsignadasValue } = useContext(FilterScheduleFichaContext);
 
     const { 
         dataInfoRecord,
@@ -18,6 +19,10 @@ export const InformationBarAprenttice = () => {
         alertMessage,
         ruta,
     } = useFetchGetInfoBarRecord('/getInfoBarRecord', idFicha);
+
+    const updateHorasAsignadas = () => {
+        setHorasAsignadasValue(totalSeleccionado);
+    };
 
     return (
         <>
@@ -41,7 +46,7 @@ export const InformationBarAprenttice = () => {
                         <p><b>Fecha final:</b> {dataInfoRecord.fechaFinal}</p>
                     </div>
                     <div>
-                        <p><b>Horas semanales:</b></p>
+                        <p><b>Horas semanales: </b>{totalSeleccionado}</p>
                     </div>
                 </div>
             </div>

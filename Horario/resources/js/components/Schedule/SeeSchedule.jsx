@@ -10,6 +10,7 @@ import '../../../css/Schedule/SeeSchedule.css';
 export const SeeSchedule = () => {
 
     const { idFicha } = useParams();
+    const { setHorasAsignadasValue, setTotalSeleccionadoValue } = useContext(FilterScheduleFichaContext);
 
     const { dataSchedule,
         loading,
@@ -28,6 +29,19 @@ export const SeeSchedule = () => {
         const totalSeleccionado = infoSchedule ? infoSchedule.horasAsignadas || 0 : 0;
         setTotalSeleccionadoValue(totalSeleccionado);
     }; 
+
+    useEffect(() => {
+        // Supongamos que dataSchedule es la información de los horarios obtenida del componente SeeSchedule
+        const selectedSchedules = dataSchedule.filter(infoSchedule => infoSchedule);
+
+        // Calcular la cantidad total de horas semanales
+        const totalSeleccionado = selectedSchedules.length;
+
+        // Actualizar el contexto con el total de horas
+        setTotalSeleccionadoValue(totalSeleccionado);
+
+    }, [dataSchedule, setTotalSeleccionadoValue, setHorasAsignadasValue,]);
+
     
     if (loading) {
         return <Loading />

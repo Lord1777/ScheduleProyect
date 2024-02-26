@@ -128,6 +128,8 @@
     color: var(--color-text-hover-option);
 }
 
+/*Responsive*/
+
 @media(max-width: 980px){
     .desplegable {
         position: relative;

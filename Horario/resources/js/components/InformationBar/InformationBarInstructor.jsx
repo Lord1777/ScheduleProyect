@@ -1,13 +1,14 @@
 import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
 import React, { useState, useContext, useEffect } from 'react';
 import { useFetchGetRecords } from '../../hooks/FetchGetResources/useFetchGetRecords';
+import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
 import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
-import '../../../css/InformationBar/InformationBar.css';
-import { useParams } from 'react-router-dom';
 import useFetchGetInstructor from '../../hooks/FetchGET/useFetchGetInstructor';
-import { useForm } from 'react-hook-form';
 import useDropdown from '../../hooks/useDropdown';
+import '../../../css/InformationBar/InformationBar.css';
+import '../../../css/Form/DesignAddInstructor.css'
 
 export const InformationBarInstructor = () => {
 
@@ -78,7 +79,7 @@ export const InformationBarInstructor = () => {
                 </div>
 
                 <div className="deplegable-horas">
-                    <div className={`desplegable ${dropdown2.isDropdown ? 'open' : ''}`}>
+                    <div className={`desplegable-trimestre ${dropdown2.isDropdown ? 'open' : ''}`}>
                         <input
                             type="text"
                             className='textBox'
@@ -144,14 +145,6 @@ export const InformationBarInstructor = () => {
                         </div>
                     </div>
                 </div>
-                {/* <div className='check_filter'>
-                    <label htmlFor="trimestresCheckbox"><h3>Filtrar por <Trimestres></Trimestres></h3></label>
-                    <input
-                        className='custom-checkbox'
-                        id="trimestresCheckbox"
-                        type="checkbox"
-                        onChange={trimestreDropdown.toggleTrimestreDropdown} />
-                </div> */}
             </div>
         </>
     )

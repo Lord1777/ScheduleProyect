@@ -105,6 +105,7 @@ Route::middleware(['cors', 'auth:sanctum'])->group(function () {
     Route::get('/getScheduleInstructor/{idUsuario}/{idTrimestre?}/{idFicha?}', [ScheduleController::class, 'scheduleInstructor']);
     Route::get('/getAdminScheduleInstructor/{idUsuario}/{idTrimestre}', [ScheduleController::class, 'scheduleAdminInstructor']);
     Route::get('/getScheduleEnvironment/{idAmbiente}/{idTrimestre}', [ScheduleController::class, 'scheduleEnvironment']);
+    Route::get('/getScheduleAdminApprentice/{idFicha}/{idHorario}', [ScheduleController::class, 'scheduleRecord']);
     Route::get('/getScheduleRecord', [ScheduleController::class, 'scheduleEnableRecords']);
     Route::get('/getDisableScheduleRecord', [ScheduleController::class, 'scheduleDisableRecords']);
     Route::get('/getScheduleInstructor', [ScheduleController::class, 'EnableSchedulesInstructors']);

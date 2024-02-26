@@ -10,7 +10,7 @@ import { generateRandomColors } from '../../hooks/useObjectFunction';
 
 export const SeeScheduleAdmin = () => {
 
-    const { idFicha } = useParams();
+    const { idFicha, idHorario } = useParams();
     
     const { setHorasAsignadasValue, setTotalSeleccionadoValue, setInstructorColorValue } = useContext(FilterScheduleFichaContext);
 
@@ -18,7 +18,7 @@ export const SeeScheduleAdmin = () => {
         loading,
         modalOpen,
         setModalOpen,
-        alertMessage } = useFetchGetScheduleAdminRecord('/getScheduleApprentice', idFicha, setHorasAsignadasValue);
+        alertMessage } = useFetchGetScheduleAdminRecord('/getScheduleAdminApprentice', idFicha, idHorario);
 
     function initialsName(nombreCompleto) {
         const words = nombreCompleto.split(' ');
@@ -29,8 +29,6 @@ export const SeeScheduleAdmin = () => {
     const [colorMap, setColorMap] = useState({});
     //bandera
     const [isInitialized, setIsInitialized] = useState(false);
-
-    console.log(colorMap)
 
     useEffect(() => {
 

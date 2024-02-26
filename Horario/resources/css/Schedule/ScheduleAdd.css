@@ -88,6 +88,7 @@
     border-radius: 0.2rem;
 }
 
+/*Responsive*/
 
 @media (max-width: 1270px) {
     .containergrid-buttons {
@@ -147,6 +148,12 @@
     }
 }
 
+@media (max-width:1024px) {
+    .desplegable {
+        margin-top: 0.5rem;
+    }
+}
+
 @media (max-width: 985px) {
     .grid_schedule {
         width: 70rem;
@@ -185,9 +192,33 @@
         padding-bottom: 1rem;
     }
 }
+@media (max-width:540px) {
+    .desplegable {
+        margin-left: 4.3rem;
+    }
+}
 
 @media (max-width: 480px) {
     .containergrid-buttons {
         width: 90%;
+    }
+}
+
+@media (max-width:412px) {
+    .desplegable {
+        margin-left: 0.1rem;
+    }
+}
+
+@media (max-width:390px) {
+    .desplegable {
+        margin-left: -0.5rem;
+    }
+}
+
+@media (max-width:375px) {
+    
+    .desplegable {
+        margin-left: -0.5rem;
     }
 }

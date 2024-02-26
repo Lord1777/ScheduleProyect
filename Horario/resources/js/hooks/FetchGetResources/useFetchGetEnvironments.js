@@ -29,7 +29,7 @@ export const useFetchGetEnvironments = (route) => {
                 setDataEnvironments(data);
             } catch (err) {
                 console.log(`Error Fetch Data: ${err}`)
-            } 
+            }
         };
 
         fetchData();

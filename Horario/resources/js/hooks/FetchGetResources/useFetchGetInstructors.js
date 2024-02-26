@@ -30,7 +30,7 @@ export const useFetchGetInstructors = (route) => {
                 setDataInstructors(data);
             } catch (err) {
                 console.log(`Error Fetch Data: ${err}`)
-            } 
+            }
         };
 
         fetchData();

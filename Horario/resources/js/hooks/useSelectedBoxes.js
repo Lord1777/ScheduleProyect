@@ -1,9 +1,10 @@
-import {useState} from 'react'
+import { useState } from 'react'
 
-const useSelectedBoxes = () => {
+const useSelectedBoxes = (initialAsignaciones = {}) => {
 
     const [selectedBoxes, setSelectedBoxes] = useState(new Set());
-    const [totalHoras, setTotalHoras] = useState(0);
+    const [horasAsignadas, setHorasAsignadas] = useState(0);
+    const [asignaciones, setAsignaciones] = useState(initialAsignaciones);
 
 
     const handleBoxClick = (index) => {
@@ -11,26 +12,30 @@ const useSelectedBoxes = () => {
 
         if (updatedSelectedBoxes.has(index)) {
             updatedSelectedBoxes.delete(index);
-            setTotalHoras((prevTotal) => Math.max(prevTotal - 1, 0));
+            const boxData = asignaciones[index];
+            if (!boxData) {
+              setHorasAsignadas((prevTotal) => Math.max(prevTotal - 1, 0));
+            }
         } else {
             updatedSelectedBoxes.add(index);
-            setTotalHoras((prevTotal) => prevTotal + 1);
+            setHorasAsignadas((prevTotal) => prevTotal + 1);
         }
 
         setSelectedBoxes(updatedSelectedBoxes);
     };
 
-    const resetSelectedBoxes = () => {
+      const resetSelectedBoxes = () => {
         setSelectedBoxes(new Set());
-    };
+      };
 
 
   return {
     selectedBoxes,
-    totalHoras,
+    horasAsignadas,
     handleBoxClick,
     resetSelectedBoxes,
-  }
-}
+    setHorasAsignadas,
+  };
+};
 
 export default useSelectedBoxes

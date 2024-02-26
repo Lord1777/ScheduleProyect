@@ -69,7 +69,7 @@ export const TableCoodinators = () => {
                         type="search"
                         name="search"
                         id="search"
-                        placeholder="Buscar"
+                        placeholder="Buscar por documento o nombre"
                         autoComplete='off'
                         value={coordinador}
                         onChange={(e) => setCoordinador(e.target.value)}

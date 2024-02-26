@@ -22,8 +22,6 @@ export const InformationBarAdminInstructor = () => {
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
     const { dataRecords } = useFetchGetRecords('/getRecords');
 
-    console.log(recordsColors);
-
     // const rol = localStorage.getItem('role');
 
     // const getRecordId = (nombreRecord) => {
@@ -63,7 +61,7 @@ export const InformationBarAdminInstructor = () => {
                     <div>
                         <h3>Instructor: {dataInstructor.nombreCompleto}</h3>
                     </div>
-                    <div>
+                    <div className='hoursSchedule'>
                         <h3>Limite de horas: {dataInstructor.limiteHoras}</h3>
                         <h3>Horas asignadas: {totalSeleccionado}</h3>
                     </div>
@@ -75,7 +73,7 @@ export const InformationBarAdminInstructor = () => {
                             <>
                                 <div key={clave} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
                                     <p style={{ marginRight: '10px' }}>{clave}:</p>
-                                    <div style={{ width: '20px', height: '15px', backgroundColor: valor }}></div>
+                                    <div style={{ width: '20px', height: '15px', backgroundColor: valor, border: '1px black solid', borderRadius: '2px'  }}></div>
                                 </div>
                             </>
                         ))

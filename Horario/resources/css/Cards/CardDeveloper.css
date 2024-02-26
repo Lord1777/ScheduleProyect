@@ -8,8 +8,8 @@
 }
 
 .card-developer {
-    width: 32rem;
-    height: 15rem;
+    width: 25rem;
+    height: 12rem;
     transition: all 0.2s;
     position: relative;
     cursor: pointer;
@@ -29,7 +29,7 @@
     border-radius: 8px;
 
     img {
-        width: 12rem;
+        width: 8rem;
         border-radius: 0.3rem;
     }
 }
@@ -41,10 +41,12 @@
 
     h3 {
         margin: 0.5rem;
+        font-size: 1.2rem;
     }
 
     span {
         margin: 0.5rem;
+        font-size: 1rem;
     }
 }
 

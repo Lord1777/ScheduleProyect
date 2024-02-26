@@ -9,6 +9,7 @@ import useDropdown from '../../hooks/useDropdown';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
 import "../../../css/Form/FormAddInstructor.css";
+import '../../../css/Form/DesignAddinstructor.css'
 
 
 const FormAddInstructor = () => {

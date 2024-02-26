@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Loading } from '../Loading/Loading';
 import { ContinuoModal } from '../Modals/ContinuoModal';
@@ -6,18 +6,19 @@ import FilterScheduleFichaContext from '../../context/FilterScheduleFichaContext
 import error from '../../assets/img/Advertencia.png';
 import '../../../css/Schedule/SeeSchedule.css';
 import useFetchGetScheduleAdminRecord from '../../hooks/FetchSchedule/useFetchGetScheduleAdminRecord';
+import { generateRandomColors } from '../../hooks/useObjectFunction';
 
 export const SeeScheduleAdmin = () => {
 
-    const { idFicha } = useParams();
+    const { idFicha, idHorario } = useParams();
     
-    const { setHorasAsignadasValue, setTotalSeleccionadoValue } = useContext(FilterScheduleFichaContext);
+    const { setHorasAsignadasValue, setTotalSeleccionadoValue, setInstructorColorValue } = useContext(FilterScheduleFichaContext);
 
     const { dataSchedule,
         loading,
         modalOpen,
         setModalOpen,
-        alertMessage } = useFetchGetScheduleAdminRecord('/getScheduleApprentice', idFicha, setHorasAsignadasValue);
+        alertMessage } = useFetchGetScheduleAdminRecord('/getScheduleAdminApprentice', idFicha, idHorario);
 
     function initialsName(nombreCompleto) {
         const words = nombreCompleto.split(' ');
@@ -25,9 +26,27 @@ export const SeeScheduleAdmin = () => {
         return initials.join('');
     }
 
-   
+    const [colorMap, setColorMap] = useState({});
+    //bandera
+    const [isInitialized, setIsInitialized] = useState(false);
 
     useEffect(() => {
+
+        if (!isInitialized && dataSchedule && dataSchedule.length > 0) {
+            const uniqueInstructor = Array.from(new Set(dataSchedule.map(infoSchedule => infoSchedule.nombreCompleto)));
+            const colors = generateRandomColors(uniqueInstructor.length);
+            const colorMapping = {};
+            uniqueInstructor.forEach((ficha, index) => {
+                colorMapping[ficha] = colors[index];
+            });
+            setColorMap(colorMapping);
+            setIsInitialized(true); // Marca que la inicialización ha ocurrido
+        }
+
+        if (isInitialized) {
+            setInstructorColorValue(colorMap);
+        }
+
         // Supongamos que dataSchedule es la información de los horarios obtenida del componente SeeSchedule
         const selectedSchedules = dataSchedule.filter(infoSchedule => infoSchedule);
 
@@ -38,7 +57,7 @@ export const SeeScheduleAdmin = () => {
         setTotalSeleccionadoValue(totalSeleccionado);
 
         setHorasAsignadasValue(totalSeleccionado);
-    }, [dataSchedule, setTotalSeleccionadoValue, setHorasAsignadasValue,]);
+    }, [dataSchedule, setTotalSeleccionadoValue, setHorasAsignadasValue, isInitialized]);
 
     const handleCellClick = (infoSchedule) => {
         //Actualiza el total seleccionado
@@ -78,6 +97,7 @@ export const SeeScheduleAdmin = () => {
                                 <div
                                     key={colIndex}
                                     className={`${infoSchedule ? 'selected' : 'cuadricula'}`}
+                                    style={{ backgroundColor: infoSchedule ? colorMap[infoSchedule.nombreCompleto] : '#D9D9D9' }}
                                     onClick={() => handleCellClick(infoSchedule)}
                                 >
                                     {infoSchedule ? (

@@ -20,7 +20,7 @@ const useSessionControl = () => {
             const lastActivity = localStorage.getItem('lastActivity');
             const sessionTimeout = 15 * 60 * 1000; // 10 minutos en milisegundos
 
-            if (lastActivity && Date.now() - lastActivity > sessionTimeout && storedToken) {
+            if (lastActivity && Date.now() - lastActivity > sessionTimeout && storedToken != null) {
                 setAlertMessage('Sesión cerrada debido a inactividad')
                 setRuta('/')
                 ShowOpenModal()

@@ -7,21 +7,22 @@ import useFetchGetInfoBarRecord from '../../hooks/FetchSchedule/useFetchGetInfoB
 import FilterScheduleFichaContext from '../../context/FilterScheduleFichaContext';
 import exito from '../../assets/img/Exito.png'
 import '../../../css/InformationBar/InformationBarAprenttice.css'
+import { initialsName } from '../../hooks/useObjectFunction';
 
 export const InformationBarAdminAprenttice = () => {
 
     const [ loading, setLoading ] = useState(false);
     const { idFicha, idHorario, manage } = useParams();
-    const { totalSeleccionado, setHorasAsignadasValue } = useContext(FilterScheduleFichaContext);
+    const { totalSeleccionado, setHorasAsignadasValue, instructorColors } = useContext(FilterScheduleFichaContext);
 
     const { dataInfoRecord } = useFetchGetInfoBarRecord('/getInfoBarRecord', idFicha, setHorasAsignadasValue);
-    const { fetchManageSchedule, successModalOpen, closeSuccessModal } = useFetchPutManageSchedule();
+    const { fetchManageSchedule, successModalOpen, closeSuccessModal, alertMessage } = useFetchPutManageSchedule();
 
     const rol = localStorage.getItem('role');
 
-    const updateHorasAsignadas = () => {
-        setHorasAsignadasValue(totalSeleccionado);
-    };
+    // const updateHorasAsignadas = () => {
+    //     setHorasAsignadasValue(totalSeleccionado);
+    // };
 
     const disableSchedule = async (idHorario) => {
         setLoading(true)
@@ -48,7 +49,7 @@ export const InformationBarAdminAprenttice = () => {
                     </div>
                     <div>
                         <p><b>Ficha:</b> {dataInfoRecord.ficha}</p>
-                        {
+                        {/* {
                             manage != undefined ?
                                 (
                                     <>
@@ -68,7 +69,7 @@ export const InformationBarAdminAprenttice = () => {
                                         </Link>
                                     </>
                                 )
-                        }
+                        } */}
                     </div>
                 </div>
                 <div className="trimestre-jornada-horas">
@@ -102,11 +103,24 @@ export const InformationBarAdminAprenttice = () => {
                             ''
                     }
                 </div>
+
+                <div className='colorRecords'>
+                    {
+                        instructorColors && Object.entries(instructorColors).map(([clave, valor]) => (
+                            <>
+                                <div key={clave} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+                                    <p style={{ marginRight: '10px' }}>{initialsName(clave)}:</p>
+                                    <div style={{ width: '20px', height: '15px', backgroundColor: valor, border: '1px black solid', borderRadius: '2px' }}></div>
+                                </div>
+                            </>
+                        ))
+                    }
+                </div>
             </div>
             <ContinuoModal
                 tittle="¡Exito!"
                 imagen={exito}
-                message="El horario se ha inhabilitado correctamente."
+                message={alertMessage}
                 open={successModalOpen}
                 close={closeSuccessModal}
                 route="/HorariosFichas"

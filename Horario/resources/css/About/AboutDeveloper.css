@@ -18,3 +18,27 @@
         }
     }
 }
+
+.container-text{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 65rem;
+    padding: 1rem 5rem;
+    
+    p{
+        margin: 1rem;
+    }
+}
+
+@media(max-width:440px){
+    .container-text{
+        padding: 1rem 2rem;
+    }
+}
+
+@media(max-width:440px){
+    .container-text{
+        padding: 1rem;
+    }
+}

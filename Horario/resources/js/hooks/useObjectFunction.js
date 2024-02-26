@@ -62,6 +62,8 @@ export const generateRandomColors = (length) => {
                                  "#FFC0CB",
                                   "#fabfb7",
                                    "#c5c6c8",
+                                    "#fdfd96",
+                                     "#d3bcf6"
                                     
         ];
 

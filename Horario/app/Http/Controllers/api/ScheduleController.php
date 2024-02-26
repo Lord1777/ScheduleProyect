@@ -91,6 +91,38 @@ class ScheduleController extends Controller
     }
 
 
+    public function scheduleRecord(string $idFicha, string $idHorario)
+    {
+        try {
+            $schedule = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
+                ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
+                ->select(
+                    'asignaciones.boxIndex',
+                    'ambientes.ambiente',
+                    'ambientes.idAmbiente',
+                    'usuarios.nombreCompleto',
+                    'usuarios.idUsuario',
+                )
+                ->where('horarios_academicos.idHorario', $idHorario)
+                ->get();
+
+            if (!$schedule) {
+                return response()->json([
+                    'error' => 'Schedule not found'
+                ], Response::HTTP_NOT_FOUND); //404
+            }
+
+            return response()->json($schedule, Response::HTTP_OK); //200
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => "Get Schedule Record Error " . $e->getMessage(),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
+
     public function scheduleInstructor(string $idUsuario, string $idTrimestre, string $idFicha)
     {
         try {
@@ -953,18 +985,18 @@ class ScheduleController extends Controller
 
             return response()->json([
                 'status' => 1,
-                'message' => 'Schedule Successfully Enabled'
+                'message' => 'Horario habilitado exitosamente.'
             ], Response::HTTP_OK); //200
 
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
                 'status' => 0,
-                'error' => 'Schedule Not Found'
+                'error' => 'Horario no encontrado.'
             ], Response::HTTP_NOT_FOUND); //404
 
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'Error Enabled Schedule: ' . $e->getMessage()
+                'error' => 'Error al habilitar horario ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
@@ -979,18 +1011,18 @@ class ScheduleController extends Controller
 
             return response()->json([
                 'status' => 1,
-                'message' => 'Schedule Successfully Disable'
+                'message' => 'Horario inhabilitado exitosamente.'
             ], Response::HTTP_OK); //200
 
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
                 'status' => 0,
-                'error' => 'Schedule Not Found'
+                'error' => 'Horario no encontrado.'
             ], Response::HTTP_NOT_FOUND); //404
 
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'Error Disable Schedule: ' . $e->getMessage()
+                'error' => 'Error al habilitar horario, intentelo más tarde ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }

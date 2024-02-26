@@ -16,7 +16,6 @@ export const InformationBarAmbiente = () => {
     const { totalSeleccionado, setHorasAsignadasValue, environmentColors } = useContext(FilterScheduleAmbienteContext);
 
     const { dataEnvironment } = useFetchGetOneEnvironment(`/getEnvironment`, idAmbiente);
-    console.log(dataEnvironment);
 
     const updateHorasAsignadas = () => {
         setHorasAsignadasValue(totalSeleccionado);
@@ -81,7 +80,7 @@ export const InformationBarAmbiente = () => {
                             <>
                                 <div key={clave} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
                                     <p style={{ marginRight: '10px' }}>{clave}:</p>
-                                    <div style={{ width: '20px', height: '15px', backgroundColor: valor }}></div>
+                                    <div style={{ width: '20px', height: '15px', backgroundColor: valor, border: '1px black solid', borderRadius: '2px' }}></div>
                                 </div>
                             </>
                         ))

@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { API_URL } from '../../const/api';
 import { useNavigate } from 'react-router-dom';
 
-const useFetchGetScheduleAdminRecord = (route, idFicha, /*setHorasAsignadasValue*/) => {
+const useFetchGetScheduleAdminRecord = (route, idFicha, idHorario/*setHorasAsignadasValue*/) => {
+
+    const userToken = localStorage.getItem('access_token');
 
     const [dataSchedule, setDataSchedule] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -14,10 +16,11 @@ const useFetchGetScheduleAdminRecord = (route, idFicha, /*setHorasAsignadasValue
         const fetchData = async () => {
 
             try {
-                const response = await fetch(`${API_URL}${route}/${idFicha}`, {
+                const response = await fetch(`${API_URL}${route}/${idFicha}/${idHorario}`, {
                     method: "GET",
                     headers: {
                         'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${userToken}`,
                     },
                     redirect: "follow",
                 })

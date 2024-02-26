@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import toggle from '../../assets/icons/Toggler.png';
 import calendar from '../../assets/icons/calendar3.png';
 import panel from '../../assets/icons/PanelAdmin.png';
@@ -24,8 +24,17 @@ export const NavBar = () => {
     const userRole = user ? user.role : null;
     const userName = user && user.userData ? user.userData.nombreCompleto : null;
     const { isModal, ShowOpenModal, ShowCloseModal } = useModal();
+    const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
-    const handleLogout = async() => {
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowHeight(window.innerHeight);
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const handleLogout = async () => {
         await logout();
         navigate('/');
     }
@@ -34,12 +43,17 @@ export const NavBar = () => {
         <>
             <nav className='nav-bar'>
                 <div className="name-proyect-toggle">
-                    <h2 className='Title'>ASPS - CBI</h2>
-                    <button className='toggle-nav' onClick={showToggleNav}>
-                        <img src={toggle} alt="toggle" />
-                    </button>
+                    <div className='title-btn'>
+                        <h2 className='Title'>ASPS - CBI</h2>
+                        <button className='toggle-nav' onClick={showToggleNav}>
+                            <img src={toggle} alt="toggle" />
+                        </button>
+                    </div>
+
+                    <div className='rol-name'>
                         {userRole && <h3 className='user-rol'>{`${userRole}:`}</h3>}
                         <h3 className='username'>{userName}</h3>
+                    </div>
                 </div>
             </nav>
             <div className={`options-nav ${isNavOpen ? 'open' : ''}`}>
@@ -60,29 +74,35 @@ export const NavBar = () => {
                                 <li><img src={panel} alt="panel" />Panel de Control</li>
                             </Link>
 
-                            <Link to={'/CrudInstructor'}>
-                                <li><img src={instructores} alt="instructores" />Instructores</li>
-                            </Link>
+                            {
+                                windowHeight > 700 &&
+                                <>
 
-                            <Link to={'/CrudCoordinadores'}>
-                                <li><img src={instructores} alt="instructores" />Coordinadores</li>
-                            </Link>
+                                    <Link to={'/CrudInstructor'}>
+                                        <li><img src={instructores} alt="instructores" />Instructores</li>
+                                    </Link>
 
-                            <Link to={'/CrudAmbientes'}>
-                                <li><img src={ambientes} alt="ambientes" />Ambientes</li>
-                            </Link>
+                                    <Link to={'/CrudCoordinadores'}>
+                                        <li><img src={instructores} alt="instructores" />Coordinadores</li>
+                                    </Link>
 
-                            <Link to={'/CrudFichas'}>
-                                <li><img src={fichas} alt="fichas" />Fichas</li>
-                            </Link>
+                                    <Link to={'/CrudAmbientes'}>
+                                        <li><img src={ambientes} alt="ambientes" />Ambientes</li>
+                                    </Link>
 
-                            <Link to={'/CrudProgramas'}>
-                                <li><img src={fichas} alt="fichas" />Programas</li>
-                            </Link>
+                                    <Link to={'/CrudFichas'}>
+                                        <li><img src={fichas} alt="fichas" />Fichas</li>
+                                    </Link>
 
-                            <Link to={'/CrudTrimestres'}>
-                                <li><img src={trimestres} alt="trimestres" />Trimestres</li>
-                            </Link>
+                                    <Link to={'/CrudProgramas'}>
+                                        <li><img src={fichas} alt="fichas" />Programas</li>
+                                    </Link>
+
+                                    <Link to={'/CrudTrimestres'}>
+                                        <li><img src={trimestres} alt="trimestres" />Trimestres</li>
+                                    </Link>
+                                </>
+                            }
 
                             <Link onClick={ShowOpenModal}>
                                 <li><img src={Logout} alt="logout" />Cerrar Sesión</li>
@@ -95,7 +115,7 @@ export const NavBar = () => {
                             <Link to={'/PerfilInstructor'}>
                                 <li><img src={perfil} alt="perfil" />Perfil</li>
                             </Link>
-                            
+
                             <Link onClick={ShowOpenModal}>
                                 <li><img src={Logout} alt="logout" />Cerrar Sesión</li>
                             </Link>
@@ -104,9 +124,9 @@ export const NavBar = () => {
                 </ul>
             </div>
             <ModalConfirmLogout
-            open={isModal}
-            close={ShowCloseModal}
-            action={handleLogout}
+                open={isModal}
+                close={ShowCloseModal}
+                action={handleLogout}
             />
         </>
 

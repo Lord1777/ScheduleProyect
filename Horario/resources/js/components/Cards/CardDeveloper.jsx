@@ -1,8 +1,7 @@
 import React from 'react'
 import '../../../css/Cards/CardDeveloper.css'
-import ricardo from '../../assets/img/Desarrolladores/Ricardo.jpeg'
 
-export const CardDeveloper = ({ developer, name, phone, email }) => {
+export const CardDeveloper = ({ developer, name, phone, email, rol }) => {
     return (
         <>
             <div className="card-developer">
@@ -16,6 +15,7 @@ export const CardDeveloper = ({ developer, name, phone, email }) => {
                         <h3>{name}</h3>
                         <span>{phone}</span>
                         <span>{email}</span>
+                        <span>Rol: {rol}</span>
                     </div>
                 </div>
             </div>

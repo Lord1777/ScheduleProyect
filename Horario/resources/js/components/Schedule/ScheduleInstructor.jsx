@@ -1,34 +1,32 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useFetchGetScheduleInstructor } from '../../hooks/FetchSchedule/useFetchGetScheduleInstructor';
 import { Loading } from '../Loading/Loading';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
-
 import error from '../../assets/img/Advertencia.png'
 import { initialsName } from '../../hooks/useObjectFunction';
 
 export const ScheduleInstructor = () => {
 
     const { idUsuario } = useParams();
-    
-    const { idTrimestre, idFicha, setHorasAsignadasValue, setTotalSeleccionadoValue } = useContext(FilterScheduleInstructorContext);
+
+    const { idTrimestre, idFicha, setTotalSeleccionadoValue } = useContext(FilterScheduleInstructorContext);
     const {
         dataSchedule,
         loading,
         modalOpen,
         setModalOpen,
-        alertMessage } = useFetchGetScheduleInstructor('/getScheduleInstructor', idUsuario, idTrimestre, idFicha, setHorasAsignadasValue);
+        alertMessage } = useFetchGetScheduleInstructor('/getScheduleInstructor', idUsuario, idTrimestre, idFicha);
 
-        useEffect(() => {
-            const selectedSchedules = dataSchedule.filter(infoSchedule => infoSchedule);
-        
-            const totalSeleccionado = selectedSchedules.length;
-        
-            setTotalSeleccionadoValue(totalSeleccionado);
-        
-            setHorasAsignadasValue(totalSeleccionado);
-        }, [dataSchedule, setHorasAsignadasValue, setTotalSeleccionadoValue]);
+
+    useEffect(() => {
+        const selectedSchedules = dataSchedule.filter(infoSchedule => infoSchedule);
+
+        const totalSeleccionado = selectedSchedules.length;
+
+        setTotalSeleccionadoValue(totalSeleccionado);
+    }, [dataSchedule]);
 
     if (loading) {
         return <Loading />

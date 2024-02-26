@@ -41,7 +41,7 @@ export const InformationBarAprenttice = () => {
                         <p><b>Fecha final:</b> {dataInfoRecord.fechaFinal}</p>
                     </div>
                     <div>
-                        <p><b>Horas semanales:</b></p>
+                        <p><b>Horas semanales: </b></p>
                     </div>
                 </div>
             </div>

@@ -21,26 +21,40 @@
     justify-content: space-between;
 }
 
+.rol-name {
+    display: flex;
+    justify-content: space-around;
+}
+
 .username {
-    margin-left: -4.5rem;
+    margin-left: 1rem;
     letter-spacing: normal;
     font-weight: 400;
 }
 
 .user-rol {
-    margin-left: 65rem;
+    /* margin-left: 65rem; */
     letter-spacing: normal;
     font-weight: 400;
 }
 
 .nav-bar .name-proyect-toggle {
     display: flex;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
     padding-left: 2rem;
     padding-right: 2rem;
     color: var(--color-text-white);
     gap: 5rem;
+
+    .title-btn {
+        display: flex;
+
+        .Title {
+            margin: 1rem;
+        }
+    }
 }
 
 .name-proyect-toggle .name-Coordinator {
@@ -115,19 +129,9 @@ h2 {
 
 /*Responsive*/
 
-@media(max-width:1366px){
-    .username {
-        margin-left: -4.5rem;
-    }
-
-    .user-rol {
-        margin-left:37rem ;
-    }
-}
-
 @media (max-width:1280px) {
     .username {
-        margin-left: 38rem;
+        margin-left: 1rem;
     }
 
     .name-proyect-toggle .Title {
@@ -137,9 +141,6 @@ h2 {
 }
 
 @media (max-width:1024px) {
-    .username {
-        margin-left: 22rem;
-    }
 
     .name-proyect-toggle .Title {
         margin-left: 0.5rem;
@@ -147,16 +148,9 @@ h2 {
     }
 }
 
-@media (max-width:912px) {
-    .username {
-        margin-left: 15rem;
-        letter-spacing: normal;
-    }
-}
-
 @media (max-width:820px) {
     .username {
-        margin-left: 8rem;
+        margin-left: 1rem;
     }
 
     .name-proyect-toggle .Title {
@@ -167,7 +161,6 @@ h2 {
 
 @media (max-width:768px) {
     .username {
-        margin-left: 6rem;
         font-weight: 400;
         letter-spacing: normal;
     }
@@ -178,7 +171,17 @@ h2 {
     }
 }
 
-@media (max-width:540px) {
+
+@media (max-width:700px) {
+    .username {
+        font-size: 1rem;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
+
+@media (max-width:640px) {
 
     .nav-bar .Title {
         white-space: nowrap;
@@ -189,6 +192,7 @@ h2 {
     }
 
 }
+
 
 @media (max-width:465px) {
     .nav-bar .name-proyect-toggle {
@@ -202,10 +206,41 @@ h2 {
     }
 }
 
+@media(max-width:400px){
+    .nav-bar .name-proyect-toggle {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        color: var(--color-text-white);
+        gap: 1rem;
+    }
+
+    .nav-bar .name-proyect-toggle {
+    
+        .title-btn {
+            display: flex;
+    
+            .Title {
+                margin: 0.5rem;
+                font-size: 1.2rem;
+            }
+        }
+    }
+}
+
 @media (max-width:420px) {
-    .nav-bar .name-proyect-toggle h2 {
-        font-size: 1.5rem;
-        font-size: 0.9rem;
+    .nav-bar .name-proyect-toggle {
+    
+        .title-btn {
+            display: flex;
+    
+            .Title {
+                margin: 0.5rem;
+                font-size: 1.2rem;
+            }
+        }
     }
 }
 
@@ -217,7 +252,7 @@ h2 {
     }
 
     .nav-bar .name-proyect-toggle button img {
-        margin-left: -3.7rem;
+        margin-left: 0rem;
     }
 
     .username {
@@ -251,12 +286,30 @@ h2 {
     }
 }
 
+@media (max-width:310px) {
+    .nav-bar .name-proyect-toggle {
+    
+        .title-btn {
+            display: flex;
+    
+            .Title {
+                margin: 0.5rem;
+                font-size: 1.2rem;
+            }
+        }
+    }
+}
+
 @media (max-width:280px) {
     .nav-bar .toggle-nav {
-        margin-left: 1rem;
+        margin-left: 0rem;
     }
 
     .nav-bar .name-proyect-toggle {
-        margin-left: 1rem;
+        margin-left: 0rem;
+    }
+
+    .user-rol{
+        display: none;
     }
 }

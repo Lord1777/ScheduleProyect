@@ -15,7 +15,7 @@ export const InformationBarAdminAprenttice = () => {
     const { totalSeleccionado, setHorasAsignadasValue } = useContext(FilterScheduleFichaContext);
 
     const { dataInfoRecord } = useFetchGetInfoBarRecord('/getInfoBarRecord', idFicha, setHorasAsignadasValue);
-    const { fetchManageSchedule, successModalOpen, closeSuccessModal } = useFetchPutManageSchedule();
+    const { fetchManageSchedule, successModalOpen, closeSuccessModal, alertMessage } = useFetchPutManageSchedule();
 
     const rol = localStorage.getItem('role');
 
@@ -106,7 +106,7 @@ export const InformationBarAdminAprenttice = () => {
             <ContinuoModal
                 tittle="¡Exito!"
                 imagen={exito}
-                message="El horario se ha inhabilitado correctamente."
+                message={alertMessage}
                 open={successModalOpen}
                 close={closeSuccessModal}
                 route="/HorariosFichas"

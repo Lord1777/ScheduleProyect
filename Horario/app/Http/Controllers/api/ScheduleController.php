@@ -953,18 +953,18 @@ class ScheduleController extends Controller
 
             return response()->json([
                 'status' => 1,
-                'message' => 'Schedule Successfully Enabled'
+                'message' => 'Horario habilitado exitosamente.'
             ], Response::HTTP_OK); //200
 
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
                 'status' => 0,
-                'error' => 'Schedule Not Found'
+                'error' => 'Horario no encontrado.'
             ], Response::HTTP_NOT_FOUND); //404
 
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'Error Enabled Schedule: ' . $e->getMessage()
+                'error' => 'Error al habilitar horario ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
@@ -979,18 +979,18 @@ class ScheduleController extends Controller
 
             return response()->json([
                 'status' => 1,
-                'message' => 'Schedule Successfully Disable'
+                'message' => 'Horario inhabilitado exitosamente.'
             ], Response::HTTP_OK); //200
 
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
                 'status' => 0,
-                'error' => 'Schedule Not Found'
+                'error' => 'Horario no encontrado.'
             ], Response::HTTP_NOT_FOUND); //404
 
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'Error Disable Schedule: ' . $e->getMessage()
+                'error' => 'Error al habilitar horario, intentelo más tarde ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }

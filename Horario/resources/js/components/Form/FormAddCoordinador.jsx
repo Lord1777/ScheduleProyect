@@ -8,6 +8,7 @@ import useValidationForm from '../../hooks/useValidationForm';
 import useDropdown from '../../hooks/useDropdown';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
+import '../../../css/Form/DesignAddinstructor.css'
 
 
 export const FormAddCoordinador = () => {

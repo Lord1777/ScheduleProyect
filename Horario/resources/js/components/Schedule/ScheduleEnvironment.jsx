@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Loading } from '../Loading/Loading';
-import { initialsName } from '../../hooks/useObjectFunction';
+import { generateRandomColors, initialsName } from '../../hooks/useObjectFunction';
 import { useFetchGetScheduleEnvironment } from '../../hooks/FetchSchedule/useFetchGetScheduleEnvironment';
 import '../../../css/Schedule/SeeSchedule.css';
 
@@ -12,11 +12,31 @@ export const ScheduleEnvironment = () => {
     const { idAmbiente, idTrimestre } = useParams();
     const navigate = useNavigate();
 
-    const { setHorasAsignadasValue, setTotalSeleccionadoValue } = useContext(FilterScheduleAmbienteContext);
+    const { setHorasAsignadasValue, setTotalSeleccionadoValue, setEnvironmentColorsValue } = useContext(FilterScheduleAmbienteContext);
 
     const { dataSchedule, loading } = useFetchGetScheduleEnvironment('/getScheduleEnvironment', idAmbiente, idTrimestre);
 
+    const [colorMap, setColorMap] = useState({});
+    //bandera
+    const [isInitialized, setIsInitialized] = useState(false);
+
     useEffect(() => {
+        if (!isInitialized && dataSchedule && dataSchedule.length > 0) {
+            const uniqueFichas = Array.from(new Set(dataSchedule.map(infoSchedule => infoSchedule.ficha)));
+            const colors = generateRandomColors(uniqueFichas.length);
+            const colorMapping = {};
+            uniqueFichas.forEach((ficha, index) => {
+                colorMapping[ficha] = colors[index];
+            });
+            setColorMap(colorMapping);
+            setIsInitialized(true); // Marca que la inicialización ha ocurrido
+        }
+
+        if (isInitialized) {
+            setEnvironmentColorsValue(colorMap);
+        }
+
+
         const selectedSchedules = dataSchedule.filter(infoSchedule => infoSchedule);
     
         const totalSeleccionado = selectedSchedules.length;
@@ -59,6 +79,7 @@ export const ScheduleEnvironment = () => {
                                 <div
                                     key={colIndex}
                                     className={`${infoSchedule ? 'selectedAmbiente' : 'cuadricula'}`}
+                                    style={{ backgroundColor: infoSchedule ? colorMap[infoSchedule.ficha] : '#D9D9D9' }}
                                     onClick={() => navigate(`/HorarioAdminAprendiz/${infoSchedule.idFicha}/${infoSchedule.idHorario}`)}
                                 >
                                     {infoSchedule ? (

@@ -42,6 +42,8 @@ export const ScheduleAdd = () => {
     const [horasAsignadasPorDia, setHorasAsignadasPorDia] = useState({})
     const diaSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 
+    console.log(duplicatesBox);
+
     //Funcion que retorna el id del trimestre
     const getQuarterId = (dataTrimestre) => {
         const quarter = dataQuarters.find((quarter) => `${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}` === dataTrimestre);
@@ -237,7 +239,7 @@ export const ScheduleAdd = () => {
                                                 <span>{boxData.ambiente}</span>
                                             </>
                                         )}
-                                        {/* {console.log(`Box at index ${boxIndex} has classes: ${'box'} ${selectedBoxes.has(boxIndex) ? 'selected' : ''} ${duplicateSelectedBoxes.has(boxIndex) ? 'duplicate-box' : ''}`)} */}
+                                        {/*console.log(`Box at index ${boxIndex} has classes: ${'box'} ${selectedBoxes.has(boxIndex) ? 'selected' : ''} ${duplicateSelectedBoxes.has(boxIndex) ? 'duplicate-box' : ''}`)*/} 
                                     </div>
                                 );
                             })}

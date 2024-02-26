@@ -1,23 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { useFetchPutCoordinator } from '../../hooks/FetchPUT/useFetchPutCoordinator';
-import { Loading } from '../Loading/Loading';
+import React, { useState } from 'react'
+import { NavBar } from '../components/NavBar/NavBar'
+import '../../css/Form/DesignAddinstructor.css'
 import { useForm } from 'react-hook-form'
-import { API_URL, csrf_token } from '../../const/api';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { ContinuoModal } from '../Modals/ContinuoModal';
-import useValidationForm from '../../hooks/useValidationForm'
-import useDropdown from "../../hooks/useDropdown";
-import exito from '../../assets/img/Exito.png'
-import error from '../../assets/img/Advertencia.png'
-import '../../../css/Form/FormUpdateCoordinator.css'
+import useValidationForm from '../hooks/useValidationForm'
+import useDropdown from '../hooks/useDropdown'
+import { Link } from 'react-router-dom'
 
-
-export const FormUpdateCoordinator = () => {
-
-    const userToken = localStorage.getItem('access_token');
+export const DesignAddinstructor = () => {
 
     const { register, setValue, handleSubmit, formState: { errors } } = useForm();
-    const { NOMBRE,
+    const {
+        NOMBRE,
         TIPO_DOCUMENTO,
         DOCUMENTO,
         TIPO_CONTRATO,
@@ -28,11 +21,9 @@ export const FormUpdateCoordinator = () => {
         EXPERIENCIA,
         SEDE
     } = useValidationForm();
-
     const dropdown1 = useDropdown(setValue, "TipoDocumento");
     const dropdown2 = useDropdown(setValue, "TipoContrato");
     const dropdown3 = useDropdown(setValue, "Sede");
-    const { id } = useParams();
     const [nombre, setNombre] = useState(null);
     const [tipoDocument, setTipoDocument] = useState(null);
     const [documento, setDocumento] = useState(null);
@@ -45,94 +36,18 @@ export const FormUpdateCoordinator = () => {
     const [sede, setSede] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const { fetchPutCoordinator, successModalOpen, errorModalOpen, closeErrorModal, closeSuccessModal, alertMessage, ruta } = useFetchPutCoordinator(id);
-    const Navigate = useNavigate();
+    const onSubmit = (data) => {
 
-    const fetchData = async () => {
-        try {
-            const response = await fetch(`${API_URL}/getCoordinator/${id}`, {
-                method: "GET",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${userToken}`,
-                    'Cookie': csrf_token,
-                },
-                redirect: "follow",
-            });
-            if (response.status === 401) {
-                // Redirigir a la pantalla de Forbidden (403)
-                Navigate('/403-forbidden');
-                return;
-            }
-            else if (!response.ok) {
-                throw new Error(`Network response was not ok: ${response.statusText}`);
-            }
-            const Data = await response.json();
-            setNombre(Data.nombreCompleto)
-            setTipoDocument(Data.tipoDocumento)
-            setDocumento(Data.documento)
-            setEmail(Data.email)
-            setTelefono(Data.telefono)
-            setTipoContrato(Data.tipoContrato)
-            setCiudad(Data.ciudad)
-            setProfesion(Data.profesion)
-            setExperiencia(Data.experiencia)
-            setSede(Data.sede)
-            setValue("nombreCompleto", Data.nombreCompleto)
-            setValue("TipoDocumento", Data.tipoDocumento)
-            setValue("documento", Data.documento)
-            setValue("email", Data.email)
-            setValue("telefono", Data.telefono)
-            setValue("TipoContrato", Data.tipoContrato)
-            setValue("ciudad", Data.ciudad)
-            setValue("profesion", Data.profesion)
-            setValue("experiencia", Data.experiencia)
-            setValue("Sede", Data.sede)
-            dropdown1.setSelectedOption(Data.tipoDocumento);
-            dropdown2.setSelectedOption(Data.tipoContrato);
-            dropdown3.setSelectedOption(Data.sede);
-            setLoading(false);
-
-        } catch (error) {
-            console.error("Error al cargar los detalles coordinador:", error);
-            setLoading(false);
-        }
-    }
-    useEffect(() => {
-        if (id) {
-            fetchData();
-        }
-    }, [id, setValue]);
-
-    const onSubmit = async (data) => {
-        // console.log("Valores del formulario:", data);
-        setLoading(true);
-        await fetchPutCoordinator(
-            data.nombreCompleto,
-            data.TipoDocumento,
-            data.documento,
-            data.email,
-            data.telefono,
-            data.TipoContrato,
-            data.ciudad,
-            data.profesion,
-            data.experiencia,
-            data.Sede,
-        )
-        setLoading(false);
-    }
-
-    if (loading) {
-        return <Loading />
     }
 
     return (
         <>
+            <NavBar />
             <main className='contenedor__formAdd'>
                 <div className="container__box_form">
                     <div className="title_form">
                         <h2>
-                            Editar Coordinador
+                            Agregar Instructor
                         </h2>
                     </div>
 
@@ -146,10 +61,10 @@ export const FormUpdateCoordinator = () => {
                                     placeholder='Nombre Completo'
                                     autoComplete='off'
                                     {...register("nombreCompleto", NOMBRE)}
-                                    value={nombre}
-                                    onChange={(e) =>
-                                        setNombre(e.target.value)
-                                    }
+                                            value={nombre}
+                                            onChange={(e) =>
+                                                setNombre(e.target.value)
+                                            }
                                 />
                                 {errors.nombreCompleto && <p className='errors_forms'>{errors.nombreCompleto.message}</p>}
                             </div>
@@ -322,7 +237,7 @@ export const FormUpdateCoordinator = () => {
 
                                 <div className="btns-form">
                                     <button className='guardar' type="submit">Guardar</button>
-                                    <Link to={'/CrudCoordinadores'}>
+                                    <Link to={'/CrudInstructor'}>
                                         <button className='cancelar'>Cancelar</button>
                                     </Link>
                                 </div>
@@ -332,22 +247,6 @@ export const FormUpdateCoordinator = () => {
                     </div>
                 </div>
             </main>
-            <ContinuoModal
-                tittle="Error en la Actualización"
-                imagen={error}
-                message={alertMessage}
-                open={errorModalOpen}
-                close={closeErrorModal}
-                route={ruta}
-            />
-            <ContinuoModal
-                tittle="Actualización Exitosa"
-                imagen={exito}
-                message="Los datos se actualizaron correctamente."
-                open={successModalOpen}
-                close={closeSuccessModal}
-                route="/CrudCoordinadores"
-            />
         </>
     )
 }

@@ -25,9 +25,6 @@ export const InformationBarInstructor = () => {
     const { dataInstructor } = useFetchGetInstructor(`/getInstructor/${idUsuario}`);
 
 
-
-    // const rol = localStorage.getItem('role');
-
     const getRecordId = (nombreRecord) => {
         const record = dataRecords.find((record) => `${record.ficha} - ${record.nombre}` === nombreRecord);
         return record ? record.idFicha : null;
@@ -71,7 +68,7 @@ export const InformationBarInstructor = () => {
                     <div>
                         <h3>Instructor: {dataInstructor.nombreCompleto}</h3>
                     </div>
-                    <div>
+                    <div className='hoursSchedule'>
                         <h3>Limite de horas: {dataInstructor.limiteHoras}</h3>
                         <h3>Horas asignadas: {totalSeleccionado}</h3>
                     </div>

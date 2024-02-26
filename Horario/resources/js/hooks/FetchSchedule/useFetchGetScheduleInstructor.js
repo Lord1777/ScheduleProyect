@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { API_URL } from '../../const/api';
 import { useNavigate } from 'react-router-dom';
 
-export const useFetchGetScheduleInstructor = (route, idUsuario, idTrimestre, idFicha, setHorasAsignadasValue) => {
+export const useFetchGetScheduleInstructor = (route, idUsuario, idTrimestre, idFicha) => {
 
     const userToken = localStorage.getItem('access_token');
 
@@ -33,12 +33,6 @@ export const useFetchGetScheduleInstructor = (route, idUsuario, idTrimestre, idF
 
                     setDataSchedule(result);
 
-                    // Calcular las horas asignadas
-                    const totalHoras = result.reduce((total, scheduleItem) => total + (scheduleItem.horasAsignadas || 0), 0);
-
-                    // Llamar a setHorasAsignadasValue con el valor calculado
-                    setHorasAsignadasValue(totalHoras);
-
                 } else if (response.status === 404  || result.length === 0) {
                     const result = await response.json();
                     setAlertMessage(result.error)
@@ -54,7 +48,7 @@ export const useFetchGetScheduleInstructor = (route, idUsuario, idTrimestre, idF
         }
 
         fetchData();
-    }, [idTrimestre, idFicha, setHorasAsignadasValue])
+    }, [idTrimestre, idFicha])
 
     return {
         dataSchedule,

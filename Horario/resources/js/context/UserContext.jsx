@@ -17,12 +17,12 @@ export const UserProvider = ({ children }) => {
     };
   
     const logout = () => {
+      fetchLogout('/logout');
       setUser(null);
       localStorage.removeItem('access_token');
       localStorage.removeItem('role');
       localStorage.removeItem('user_data');
       localStorage.removeItem('lastActivity');
-      fetchLogout('/logout');
     };
   
     return (

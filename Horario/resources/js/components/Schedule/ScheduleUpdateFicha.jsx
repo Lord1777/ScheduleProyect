@@ -22,7 +22,6 @@ import { Loading } from '../Loading/Loading';
 
 export const ScheduleUpdateFicha = () => {
 
-
     const { idFicha, idHorario, idTrimestre } = useParams();
 
     const { selectedBoxes, handleBoxClick, resetSelectedBoxes } = useSelectedBoxes();
@@ -196,7 +195,7 @@ export const ScheduleUpdateFicha = () => {
         <>
             <div className="information_bar">
                 <div className="container-label-input">
-                    <label>Trimestre:</label>
+                    <label>Trimestre (yyyy-mm-dd):</label>
                     <input type="text"
                         className='info-trimestre'
                         value={`${dataQuarter.trimestre} | ${dataQuarter.fechaInicio} - ${dataQuarter.fechaFinal}`}
@@ -303,7 +302,7 @@ export const ScheduleUpdateFicha = () => {
                 message={alertMessage}
                 open={succesfullyModal}
                 close={() => setSuccesfullyModal(false)}
-                route="/CrudFichas"
+                route={`/HorarioAdminAprendiz/${idFicha}/${idHorario}`}
             />
             <ContinuoModal
                 tittle="Advertencia"

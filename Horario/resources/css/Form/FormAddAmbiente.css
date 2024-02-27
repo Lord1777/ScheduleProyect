@@ -40,6 +40,22 @@
     font-weight: 400;
 }
 
+#aireAcondicionado{
+    z-index: 10;
+}
+
+#videoBeam{
+    z-index: 9;
+}
+
+#Sede{
+    z-index: 8;
+}
+
+#tablero{
+    z-index: 7;
+}
+
 /*Responsive*/
 
 @media(max-width:830px){

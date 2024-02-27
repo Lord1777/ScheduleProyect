@@ -76,13 +76,13 @@
     border: 2px solid #fff;
     border-top: 2px solid transparent;
     border-right: 2px solid transparent;
-    transform: rotate(-135deg);
+    transform: rotate(-45deg);
     transition: 0.5s;
     pointer-events: none;
 }
 
 .desplegable.open::before {
-    transform: rotate(-45deg);
+    transform: rotate(-225deg);
 }
 
 .desplegable input {

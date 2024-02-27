@@ -73,6 +73,8 @@ export const getRolByName = (name) => {
     const roles = {
         coordinador: 1,
         instructor: 2,
+        Coordinador: 1,
+        Instructor: 2,
     }
     return roles[name]
 }

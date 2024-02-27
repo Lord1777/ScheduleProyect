@@ -37,10 +37,9 @@ export const InstructorWatch = () => {
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
-                    <FontAwesomeIcon
-                        icon={faSearch}
-                        className="search-icon"
-                    />
+                    <div className="content-icon-bar">
+                        <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                    </div>
                 </div>
             </div>{/*Titulo y buscador*/}
             <div className="contenedor">

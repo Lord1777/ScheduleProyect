@@ -11,6 +11,8 @@ import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png';
 import '../../../css/Form/BoxContainerFormAdd.css';
 import '../../../css/Form/FormAddFicha.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 
 export const FormAddFicha = () => {
@@ -21,7 +23,7 @@ export const FormAddFicha = () => {
     const dropdown3 = useDropdown(setValue, 'jornada');
     const { PROGRAMA, NFICHA, MODALIDAD, JORNADA_ACADEMICA } = useValidationForm();
     const [searchProgram, setSearchPogram] = useState('');
-    const [ loading, setLoading ] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const {
         fetchSubmitRecord,
@@ -49,8 +51,8 @@ export const FormAddFicha = () => {
         setLoading(false);
     }
 
-    if(loading){
-        return <Loading/>
+    if (loading) {
+        return <Loading />
     }
 
     return (
@@ -107,6 +109,9 @@ export const FormAddFicha = () => {
                                                     value={searchProgram}
                                                     onChange={(e) => setSearchPogram(e.target.value)}
                                                 />
+                                                <div className="icon-search-bar-form">
+                                                    <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                                                </div>
                                             </div>
 
                                             <div className="contenedor-options-form">

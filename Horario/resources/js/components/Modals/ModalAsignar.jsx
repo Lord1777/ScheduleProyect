@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form'
 import useValidationForm from '../../hooks/useValidationForm'
 import { useFetchGetInstructors } from '../../hooks/FetchGetResources/useFetchGetInstructors'
 import { useFetchGetEnvironments } from '../../hooks/FetchGetResources/useFetchGetEnvironments'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const ModalAsignar = ({
     openModal,
@@ -108,14 +110,18 @@ export const ModalAsignar = ({
                                 autoComplete='off'
                                 {...register("instructor", INSTRUCTOR)}
                             />
-                            <div className={`desplegable-options1 ${dropdown1.isDropdown ? 'open' : ''}`}>
+                            <div className={`desplegable-options1 ${dropdown1.isDropdown ? 'open' : ''}`} id='instructores'>
                                 <div className="search-bar">
                                     <input
                                         type="text"
                                         className='buscador-desplegables'
                                         id='buscador'
                                         value={searchInstructor}
-                                        onChange={(e) => setSearchInstructor(e.target.value)} />
+                                        onChange={(e) => setSearchInstructor(e.target.value)}
+                                    />
+                                    <div className="icon-search-bar">
+                                        <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                                    </div>
                                 </div>
 
                                 <div className="contenedor-options">
@@ -155,6 +161,9 @@ export const ModalAsignar = ({
                                         value={searchAmbiente}
                                         onChange={(e) => setSearchAmbiente(e.target.value)}
                                     />
+                                    <div className="icon-search-bar">
+                                        <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                                    </div>
                                 </div>
 
                                 <div className="contenedor-options">

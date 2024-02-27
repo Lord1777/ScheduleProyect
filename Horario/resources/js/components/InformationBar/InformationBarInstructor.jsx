@@ -9,7 +9,7 @@ import useFetchGetInstructor from '../../hooks/FetchGET/useFetchGetInstructor';
 import useDropdown from '../../hooks/useDropdown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import '../../../css/InformationBar/InformationBar.css';
+import '../../../css/InformationBar/InformationBarInstructor.css';
 import '../../../css/Form/DesignAddInstructor.css'
 
 export const InformationBarInstructor = () => {
@@ -78,7 +78,7 @@ export const InformationBarInstructor = () => {
                 </div>
 
                 <div className="deplegable-horas">
-                    <div className={`desplegable-trimestre ${dropdown2.isDropdown ? 'open' : ''}`}>
+                    <div className={`desplegable-trimestre-instructor ${dropdown2.isDropdown ? 'open' : ''}`}>
                         <input
                             type="text"
                             className='textBox'

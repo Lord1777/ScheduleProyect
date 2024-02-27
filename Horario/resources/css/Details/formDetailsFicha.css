@@ -59,7 +59,7 @@
     border: 2px solid #fff;
     border-top: 2px solid var(--primary-color);
     border-right: 2px solid var(--primary-color);
-    transform: rotate(-135deg);
+    transform: rotate(-45deg);
     transition: 0.5s;
     pointer-events: none;
 }
@@ -80,7 +80,7 @@
 }
 
 .Dropdown.open::before {
-    transform: rotate(-45deg);
+    transform: rotate(-225deg);
 }
 
 .Dropdown input {
@@ -223,7 +223,6 @@
         border: 2px solid #fff;
         border-top: 2px solid var(--primary-color);
         border-right: 2px solid var(--primary-color);
-        transform: rotate(-135deg);
         transition: 0.5s;
         pointer-events: none;
     }
@@ -560,7 +559,6 @@
         border: 2px solid #fff;
         border-top: 2px solid var(--primary-color);
         border-right: 2px solid var(--primary-color);
-        transform: rotate(-135deg);
         transition: 0.5s;
         pointer-events: none;
     }

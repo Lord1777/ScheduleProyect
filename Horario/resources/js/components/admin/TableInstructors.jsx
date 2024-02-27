@@ -66,7 +66,7 @@ export const TableInstructors = () => {
                         type="search"
                         name="search"
                         id="search"
-                        placeholder="Buscar"
+                        placeholder="Buscar por documento o nombre"
                         autoComplete='off'
                         value={Instructor}
                         onChange={(e) => setInstructor(e.target.value)} />

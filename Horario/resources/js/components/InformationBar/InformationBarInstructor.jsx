@@ -7,6 +7,8 @@ import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
 import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
 import useFetchGetInstructor from '../../hooks/FetchGET/useFetchGetInstructor';
 import useDropdown from '../../hooks/useDropdown';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import '../../../css/InformationBar/InformationBar.css';
 import '../../../css/Form/DesignAddInstructor.css'
 
@@ -121,6 +123,9 @@ export const InformationBarInstructor = () => {
                                     value={fichas}
                                     onChange={(e) => setFichas(e.target.value)}
                                 />
+                                <div className="icon-search-bar">
+                                    <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                                </div>
                             </div>
 
                             <div className="contenedor-options">
@@ -134,7 +139,7 @@ export const InformationBarInstructor = () => {
                                         <div key={record.idFicha} className='option' onClick={() => {
                                             dropdown1.handleOptionClick(`${record.ficha} - ${record.nombre}`)
                                             handleOptionClickFicha(`${record.ficha} - ${record.nombre}`);
-                                            }}>
+                                        }}>
                                             {record.ficha} - {record.nombre}
                                         </div>
                                     ))}

@@ -66,7 +66,7 @@ export const TableEnvironments = () => {
                         type="search"
                         name="search"
                         id="search"
-                        placeholder="Buscar"
+                        placeholder="Buscar por ambiente"
                         autoComplete='off'
                         value={ambiente}
                         onChange={(e) => setAmbiente(e.target.value)}

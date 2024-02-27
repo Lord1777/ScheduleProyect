@@ -78,7 +78,7 @@ export const FormAddAmbiente = () => {
                                 </div>
 
                                 <div>
-                                    <div className={`Dropdown ${dropdown1.isDropdown ? 'open' : ''}`}>
+                                    <div className={`Dropdown ${dropdown1.isDropdown ? 'open' : ''}`} id='aireAcondicionado'>
                                         <input
                                             type='text'
                                             name='aireAcondicionados'
@@ -108,7 +108,7 @@ export const FormAddAmbiente = () => {
                                 </div>
 
                                 <div>
-                                    <div className={`Dropdown ${dropdown2.isDropdown ? 'open' : ''}`}>
+                                    <div className={`Dropdown ${dropdown2.isDropdown ? 'open' : ''}`} id='videoBeam'>
                                         <input
                                             type='text'
                                             name='videoBeams'
@@ -138,7 +138,7 @@ export const FormAddAmbiente = () => {
                                 </div>
 
                                 <div>
-                                    <div className={`Dropdown ${dropdown3.isDropdown ? 'open' : ''}`}>
+                                    <div className={`Dropdown ${dropdown3.isDropdown ? 'open' : ''}`} id='Sede'>
                                         <input
                                             type='text'
                                             name='sede'
@@ -168,7 +168,7 @@ export const FormAddAmbiente = () => {
                                 </div>
 
                                 <div>
-                                    <div className={`Dropdown ${dropdown4.isDropdown ? 'open' : ''}`}>
+                                    <div className={`Dropdown ${dropdown4.isDropdown ? 'open' : ''}`} id='tablero'>
                                         <input
                                             type='text'
                                             name='tableros'

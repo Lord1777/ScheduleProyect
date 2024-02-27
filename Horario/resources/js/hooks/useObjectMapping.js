@@ -3,6 +3,9 @@ export const getSedeByName = (name) =>{
         industrial: 1,
         cbi: 2,
         ambos: 3,
+        Industrial: 1,
+        Cbi: 2,
+        Ambos: 3,
     }
     return sedes[name]
 }
@@ -20,6 +23,8 @@ export const getContratoByName = (name) =>{
     const contratos = {
         planta: 1,
         contratista: 2,
+        Planta: 1,
+        Contratista: 2,
     }
     return contratos[name]
 }
@@ -68,6 +73,8 @@ export const getRolByName = (name) => {
     const roles = {
         coordinador: 1,
         instructor: 2,
+        Coordinador: 1,
+        Instructor: 2,
     }
     return roles[name]
 }
@@ -76,6 +83,8 @@ export const getLimiteHorasByTypeContrato = (string) =>{
     const limiteHoras = {
         contratista: 35,
         planta: 40,
+        Contratista: 35,
+        Planta: 40,
     }
     return limiteHoras[string]
 }

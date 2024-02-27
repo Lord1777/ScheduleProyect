@@ -66,7 +66,7 @@ export const TableRecords = () => {
                         type="search"
                         name="search"
                         id="search"
-                        placeholder="Buscar"
+                        placeholder="Buscar por ficha o programa"
                         autoComplete='off'
                         value={Ficha}
                         onChange={(e) => setFicha(e.target.value)}

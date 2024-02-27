@@ -169,9 +169,9 @@ export const FormUpdateCoordinator = () => {
                                             {...register("TipoDocumento", TIPO_DOCUMENTO)}
                                         />
                                         <div className={`opciones_form ${dropdown1.isDropdown ? 'open' : ''}`}>
-                                            <div onClick={() => dropdown1.handleOptionClick('tarjeta identidad', setValue, 'TipoDocumento')}>Tarjeta Identidad</div>
-                                            <div onClick={() => dropdown1.handleOptionClick('cedula ciudadania', setValue, 'TipoDocumento')}>Cédula Ciudadanía</div>
-                                            <div onClick={() => dropdown1.handleOptionClick('cedula extrangeria', setValue, 'TipoDocumento')}>Cédula Extranjería</div>
+                                            <div onClick={() => dropdown1.handleOptionClick('Tarjeta Identidad', setValue, 'TipoDocumento')}>Tarjeta Identidad</div>
+                                            <div onClick={() => dropdown1.handleOptionClick('Cedula Ciudadania', setValue, 'TipoDocumento')}>Cedula Ciudadanía</div>
+                                            <div onClick={() => dropdown1.handleOptionClick('Cedula Extrangeria', setValue, 'TipoDocumento')}>Cedula Extranjería</div>
                                         </div>
                                     </div>
                                     {errors.TipoDocumento && <p className='errors_forms'>{errors.TipoDocumento.message}</p>}
@@ -185,10 +185,10 @@ export const FormUpdateCoordinator = () => {
                                         placeholder='Número de Documento'
                                         autoComplete='off'
                                         {...register("documento", DOCUMENTO)}
-                                            value={documento}
-                                            onChange={(e) =>
-                                                setDocumento(e.target.value)
-                                            }
+                                        value={documento}
+                                        onChange={(e) =>
+                                            setDocumento(e.target.value)
+                                        }
                                     />
                                     {errors.documento && <p className='errors_forms'>{errors.documento.message}</p>}
                                 </div>
@@ -203,10 +203,10 @@ export const FormUpdateCoordinator = () => {
                                     placeholder='E-mail'
                                     autoComplete='off'
                                     {...register("email", EMAIL)}
-                                            value={email}
-                                            onChange={(e) =>
-                                                setEmail(e.target.value)
-                                            }
+                                    value={email}
+                                    onChange={(e) =>
+                                        setEmail(e.target.value)
+                                    }
                                 />
                                 {errors.email && <p className='errors_forms'>{errors.email.message}</p>}
                             </div>
@@ -220,10 +220,10 @@ export const FormUpdateCoordinator = () => {
                                         placeholder='Telefono'
                                         autoComplete='off'
                                         {...register("telefono", TELEFONO_CELULAR)}
-                                            value={telefono}
-                                            onChange={(e) =>
-                                                setTelefono(e.target.value)
-                                            }
+                                        value={telefono}
+                                        onChange={(e) =>
+                                            setTelefono(e.target.value)
+                                        }
                                     />
                                     {errors.telefono && <p className='errors_forms'>{errors.telefono.message}</p>}
                                 </div>
@@ -241,8 +241,8 @@ export const FormUpdateCoordinator = () => {
                                             {...register("TipoContrato", TIPO_CONTRATO)}
                                         />
                                         <div className={`opciones_form ${dropdown2.isDropdown ? 'open' : ''}`}>
-                                            <div onClick={() => dropdown2.handleOptionClick('contratista', setValue, 'TipoContrato')}>Contratista</div>
-                                            <div onClick={() => dropdown2.handleOptionClick('planta', setValue, 'TipoContrato')}>Planta</div>
+                                            <div onClick={() => dropdown2.handleOptionClick('Contratista', setValue, 'TipoContrato')}>Contratista</div>
+                                            <div onClick={() => dropdown2.handleOptionClick('Planta', setValue, 'TipoContrato')}>Planta</div>
                                         </div>
                                     </div>
                                     {errors.TipoContrato && <p className='errors_forms'>{errors.TipoContrato.message}</p>}
@@ -258,10 +258,10 @@ export const FormUpdateCoordinator = () => {
                                     placeholder='Ciudad'
                                     autoComplete='off'
                                     {...register("ciudad", CIUDAD)}
-                                            value={ciudad}
-                                            onChange={(e) =>
-                                                setCiudad(e.target.value)
-                                            }
+                                    value={ciudad}
+                                    onChange={(e) =>
+                                        setCiudad(e.target.value)
+                                    }
                                 />
                                 {errors.ciudad && <p className='errors_forms'>{errors.ciudad.message}</p>}
                             </div>
@@ -274,10 +274,10 @@ export const FormUpdateCoordinator = () => {
                                     placeholder='Profesión'
                                     autoComplete='off'
                                     {...register("profesion", PROFESION)}
-                                            value={profesion}
-                                            onChange={(e) =>
-                                                setProfesion(e.target.value)
-                                            }
+                                    value={profesion}
+                                    onChange={(e) =>
+                                        setProfesion(e.target.value)
+                                    }
                                 />
                                 {errors.profesion && <p className='errors_forms'>{errors.profesion.message}</p>}
                             </div>
@@ -291,10 +291,10 @@ export const FormUpdateCoordinator = () => {
                                     placeholder='Experiencia:'
                                     autoComplete='off'
                                     {...register("experiencia", EXPERIENCIA)}
-                                            value={experiencia}
-                                            onChange={(e) =>
-                                                setExperiencia(e.target.value)
-                                            }
+                                    value={experiencia}
+                                    onChange={(e) =>
+                                        setExperiencia(e.target.value)
+                                    }
                                 ></textarea>
                                 {errors.experiencia && <p className='errors_forms'>{errors.experiencia.message}</p>}
                             </div>
@@ -312,10 +312,10 @@ export const FormUpdateCoordinator = () => {
                                             value={dropdown3.selectedOption}
                                             {...register("Sede", SEDE)}
                                         />
-                                        <div className={`opciones_form ${dropdown3.isDropdown ? 'open' : ''}`}>
-                                            <div onClick={() => dropdown3.handleOptionClick('cbi', setValue, 'Sede')}>CBI</div>
-                                            <div onClick={() => dropdown3.handleOptionClick('industrial', setValue, 'Sede')}>Industrial</div>
-                                            <div onClick={() => dropdown3.handleOptionClick('ambos', setValue, 'Sede')}>Ambos</div>
+                                        <div className={`opciones_form ${dropdown3.isDropdown ? 'open' : ''}`} id='dropdown-form-sede'>
+                                            <div onClick={() => dropdown3.handleOptionClick('Cbi', setValue, 'Sede')}>Cbi</div>
+                                            <div onClick={() => dropdown3.handleOptionClick('Industrial', setValue, 'Sede')}>Industrial</div>
+                                            <div onClick={() => dropdown3.handleOptionClick('Ambos', setValue, 'Sede')}>Ambos</div>
                                         </div>
                                     </div>
                                     {errors.Sede && <p className='errors_forms'>{errors.Sede.message}</p>}

@@ -142,7 +142,7 @@ export const FormUpdateAmbiente = () => {
 
                                 <div className="container-label-input">
                                     <label>Aire Acondicionado</label>
-                                    <div className={`Dropdown ${dropdown1.isDropdown ? "open" : ""}`}>
+                                    <div className={`Dropdown ${dropdown1.isDropdown ? "open" : ""}`} id='aireAcondicionado'>
                                         <input
                                             type="text"
                                             name="aireAcondicionado"
@@ -214,10 +214,7 @@ export const FormUpdateAmbiente = () => {
 
                                 <div className="container-label-input">
                                     <label>Video Beam</label>
-                                    <div
-                                        className={`Dropdown ${dropdown2.isDropdown ? "open" : ""
-                                            }`}
-                                    >
+                                    <div className={`Dropdown ${dropdown2.isDropdown ? "open" : "" }`} id='videoBeam'>
                                         <input
                                             type="text"
                                             name="videoBeam"
@@ -289,10 +286,7 @@ export const FormUpdateAmbiente = () => {
 
                                 <div className="container-label-input">
                                     <label>Sede</label>
-                                    <div
-                                        className={`Dropdown ${dropdown3.isDropdown ? "open" : ""
-                                            }`}
-                                    >
+                                    <div className={`Dropdown ${dropdown3.isDropdown ? "open" : "" }`} id='Sede'>
                                         <input
                                             type="text"
                                             name="idSede"
@@ -361,10 +355,7 @@ export const FormUpdateAmbiente = () => {
 
                                 <div className="container-label-input">
                                     <label>Tablero</label>
-                                    <div
-                                        className={`Dropdown ${dropdown4.isDropdown ? "open" : ""
-                                            }`}
-                                    >
+                                    <div className={`Dropdown ${dropdown4.isDropdown ? "open" : "" }`} id='tablero'>
                                         <input
                                             type="text"
                                             name="tablero"

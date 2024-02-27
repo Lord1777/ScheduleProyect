@@ -64,7 +64,7 @@ export const TablePrograms = () => {
                         type="search"
                         name="search"
                         id="search"
-                        placeholder="Buscar"
+                        placeholder="Buscar por programa"
                         autoComplete='off'
                         value={programa}
                         onChange={(e) => setPrograma(e.target.value)}

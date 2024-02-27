@@ -70,7 +70,7 @@
 .Desplegable__form::before {
     content: '';
     position: absolute;
-    right: 20px;
+    right: 18px;
     top: 38px;
     z-index: 10;
     width: 8px;
@@ -78,13 +78,13 @@
     border: 2px solid #fff;
     border-top: 2px solid transparent;
     border-right: 2px solid transparent;
-    transform: rotate(-135deg);
+    transform: rotate(-45deg);
     transition: 0.5s;
     pointer-events: none;
 }
 
 .Desplegable__form.open::before {
-    transform: rotate(-45deg);
+    transform: rotate(-225deg);
 }
 
 .Desplegable__form input {
@@ -118,7 +118,11 @@
     border-radius: 5px;
     box-shadow: 6px 9px 18px 0px rgba(83, 83, 83, 0.45);
     z-index: 2;
-    display: block;
+    display: block;    
+}
+
+#dropdown-form-sede{
+    top: -8rem;
 }
 
 .Desplegable__form .opciones_form div {

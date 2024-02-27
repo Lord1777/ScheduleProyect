@@ -168,9 +168,9 @@ export const FormUpdateInstructor = () => {
                                             {...register("TipoDocumento", TIPO_DOCUMENTO)}
                                         />
                                         <div className={`opciones_form ${dropdown1.isDropdown ? 'open' : ''}`}>
-                                            <div onClick={() => dropdown1.handleOptionClick('tarjeta identidad', setValue, 'TipoDocumento')}>Tarjeta Identidad</div>
-                                            <div onClick={() => dropdown1.handleOptionClick('cedula ciudadania', setValue, 'TipoDocumento')}>Cédula Ciudadanía</div>
-                                            <div onClick={() => dropdown1.handleOptionClick('cedula extrangeria', setValue, 'TipoDocumento')}>Cédula Extranjería</div>
+                                            <div onClick={() => dropdown1.handleOptionClick('Tarjeta Identidad', setValue, 'TipoDocumento')}>Tarjeta Identidad</div>
+                                            <div onClick={() => dropdown1.handleOptionClick('Cedula Ciudadania', setValue, 'TipoDocumento')}>Cedula Ciudadanía</div>
+                                            <div onClick={() => dropdown1.handleOptionClick('Cedula Extrangeria', setValue, 'TipoDocumento')}>Cedula Extranjería</div>
                                         </div>
                                     </div>
                                     {errors.TipoDocumento && <p className='errors_forms'>{errors.TipoDocumento.message}</p>}
@@ -240,8 +240,8 @@ export const FormUpdateInstructor = () => {
                                             {...register("TipoContrato", TIPO_CONTRATO)}
                                         />
                                         <div className={`opciones_form ${dropdown2.isDropdown ? 'open' : ''}`}>
-                                            <div onClick={() => dropdown2.handleOptionClick('contratista', setValue, 'TipoContrato')}>Contratista</div>
-                                            <div onClick={() => dropdown2.handleOptionClick('planta', setValue, 'TipoContrato')}>Planta</div>
+                                            <div onClick={() => dropdown2.handleOptionClick('Contratista', setValue, 'TipoContrato')}>Contratista</div>
+                                            <div onClick={() => dropdown2.handleOptionClick('Planta', setValue, 'TipoContrato')}>Planta</div>
                                         </div>
                                     </div>
                                     {errors.TipoContrato && <p className='errors_forms'>{errors.TipoContrato.message}</p>}
@@ -311,10 +311,10 @@ export const FormUpdateInstructor = () => {
                                             value={dropdown3.selectedOption}
                                             {...register("Sede", SEDE)}
                                         />
-                                        <div className={`opciones_form ${dropdown3.isDropdown ? 'open' : ''}`}>
-                                            <div onClick={() => dropdown3.handleOptionClick('cbi', setValue, 'Sede')}>CBI</div>
-                                            <div onClick={() => dropdown3.handleOptionClick('industrial', setValue, 'Sede')}>Industrial</div>
-                                            <div onClick={() => dropdown3.handleOptionClick('ambos', setValue, 'Sede')}>Ambos</div>
+                                        <div className={`opciones_form ${dropdown3.isDropdown ? 'open' : ''}`} id='dropdown-form-sede'>
+                                            <div onClick={() => dropdown3.handleOptionClick('Cbi', setValue, 'Sede')}>Cbi</div>
+                                            <div onClick={() => dropdown3.handleOptionClick('Industrial', setValue, 'Sede')}>Industrial</div>
+                                            <div onClick={() => dropdown3.handleOptionClick('Ambos', setValue, 'Sede')}>Ambos</div>
                                         </div>
                                     </div>
                                     {errors.Sede && <p className='errors_forms'>{errors.Sede.message}</p>}

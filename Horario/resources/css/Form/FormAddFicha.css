@@ -191,13 +191,13 @@
     border: 2px solid #fff;
     border-top: 2px solid transparent;
     border-right: 2px solid transparent;
-    transform: rotate(-135deg);
+    transform: rotate(-45deg);
     transition: 0.5s;
     pointer-events: none;
 }
 
 .desplegable-form.open::before {
-    transform: rotate(-45deg);
+    transform: rotate(-225deg);
 }
 
 .desplegable-form input {
@@ -218,7 +218,7 @@
 
 .desplegable-form .desplegable-options-form {
     display: none;
-    height: 10rem;
+    max-height: 10rem;
     overflow-y: auto;
 }
 
@@ -233,6 +233,10 @@
     display: block;
 }
 
+.contenedor-options-form{
+    margin-top: 4rem !important;
+}
+
 .desplegable-form .desplegable-options-form .contenedor-options-form div {
     padding: 12px 20px;
     cursor: pointer;
@@ -244,9 +248,20 @@
 }
 
 .desplegable-options-form .search-bar{
-    width: 100%;
+    width: 19rem;
     height: 2.5rem;
     margin-bottom: 1rem;
+    background: #fff;
+}
+
+.icon-search-bar-form{
+    position: relative;
+    background-color: var(--primary-color);
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0rem 0.3rem 0.3rem 0rem;
+    top: 10px;
+    left: 258px;
 }
 
 .desplegable-options-form .search-bar #buscador-form{
@@ -324,6 +339,23 @@
         font-size: 0.9rem;
         padding: 0.8rem 0.5rem;
         cursor: pointer;
+    }
+
+    .desplegable-form {
+        width: 15rem;
+    }
+
+    .desplegable-options-form .search-bar #buscador-form {
+        width: 12.5rem;
+    }
+
+    .desplegable-options-form .search-bar {
+        width: 12.5rem
+    }
+
+    .icon-search-bar-form {
+        top: 9px;
+        left: 170px;
     }
 }
 @media(max-width:610px){
@@ -425,8 +457,16 @@
         border: 2px solid #fff;
         border-top: 2px solid var(--primary-color);
         border-right: 2px solid var(--primary-color);
-        transform: rotate(-135deg);
         transition: 0.5s;
         pointer-events: none;
+    }
+
+    .desplegable-form {
+        width: 12rem;
+    }
+
+    .desplegable-form::after {
+        width: 0.5rem;
+        height: 3rem;
     }
 }

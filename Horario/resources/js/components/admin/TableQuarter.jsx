@@ -66,7 +66,7 @@ export const TableQuarter = () => {
                         type="search"
                         name="search"
                         id="search"
-                        placeholder="Buscar"
+                        placeholder="Buscar por fecha inicio"
                         autoComplete='off'
                         value={fecha}
                         onChange={(e) => setFecha(e.target.value)}

@@ -18,7 +18,6 @@ export const InformationBarInstructor = () => {
     const { register, setValue } = useForm();
     const dropdown1 = useDropdown(setValue, "programa");
     const dropdown2 = useDropdown(setValue, "trimestres");
-    //const trimestreDropdown = useTrimestreDropdown();
 
     const { setIdTrimestreValue, setIdFichaValue, totalSeleccionado, setHorasAsignadasValue } = useContext(FilterScheduleInstructorContext);
 
@@ -40,7 +39,6 @@ export const InformationBarInstructor = () => {
     //Buscador
     const [fichaPrograma, setFichaPrograma] = useState("");
     const [fichas, setFichas] = useState("");
-    const [totalHoras, setTotalHoras] = useState("");
 
     const handleOptionClickTrimestre = (selectedOption) => {
         setIdTrimestreValue(getQuarterId(selectedOption));
@@ -66,7 +64,7 @@ export const InformationBarInstructor = () => {
 
     return (
         <>
-            <div className="information_bar">
+            <div className="information_bar_instructor">
                 <div className='container-instructor'>
                     <div>
                         <h3>Instructor: {dataInstructor.nombreCompleto}</h3>
@@ -102,7 +100,7 @@ export const InformationBarInstructor = () => {
                     </div>
 
 
-                    <div className={`desplegable1 ${dropdown1.isDropdown ? 'open' : ''}`}>
+                    <div className={`desplegable-fichas-instructor ${dropdown1.isDropdown ? 'open' : ''}`}>
                         <input
                             type="text"
                             className='textBox'
@@ -114,8 +112,8 @@ export const InformationBarInstructor = () => {
                             value={dropdown1.selectedOption}
                             {...register("programa")}
                         />
-                        <div className={`desplegable-options1 ${dropdown1.isDropdown ? 'open' : ''}`}>
-                            <div className="search-bar">
+                        <div className={`desplegable-options1-instructor ${dropdown1.isDropdown ? 'open' : ''}`}>
+                            <div className="search-bar-instructor">
                                 <input
                                     type="text"
                                     className='buscador-desplegables'
@@ -123,7 +121,7 @@ export const InformationBarInstructor = () => {
                                     value={fichas}
                                     onChange={(e) => setFichas(e.target.value)}
                                 />
-                                <div className="icon-search-bar">
+                                <div className="icon-search-bar-instructor">
                                     <FontAwesomeIcon icon={faSearch} className="search-icon" />
                                 </div>
                             </div>

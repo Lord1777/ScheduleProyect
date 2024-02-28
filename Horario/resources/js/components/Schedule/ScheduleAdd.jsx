@@ -15,6 +15,7 @@ import useFetchGetInfoUnitFicha from '../../hooks/FetchGET/useFetchGetInfoUnitFi
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
 import '../../../css/Schedule/ScheduleAdd.css';
+import { useFetchGetQuarterScheduleAdd } from '../../hooks/FetchGET/useFetchGetQuarterScheduleAdd';
 
 
 export const ScheduleAdd = () => {
@@ -25,7 +26,7 @@ export const ScheduleAdd = () => {
     const { TRIMESTRE } = useValidationForm();
     const { register, setValue, handleSubmit } = useForm();
     const { fetchSubmitSchedule, duplicatesBox, setDuplicatesBox, modalOpen, setModalOpen, alertMessage, succesfullyModal, setSuccesfullyModal } = useFetchPostSchedule('/createSchedule');
-    const { dataQuarters } = useFetchGetQuarters('/getQuarters');
+    const { dataQuarters } = useFetchGetQuarterScheduleAdd('/getQuartersSchedule', id);
 
     const { selectedBoxes, handleBoxClick, resetSelectedBoxes } = useSelectedBoxes();
 
@@ -34,15 +35,12 @@ export const ScheduleAdd = () => {
     const [messageAlert, setMessageAlert] = useState('');
     const { isDropdown, selectedOption, handleDropdown, handleOptionClick } = useDropdown(setValue, "trimestre");
 
-
     // Almacena todos los índices, id-instructor, id-ambiente asignados,
     const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
 
     // Inicializa el registro de horas asignadas por día para cada instructor
     const [horasAsignadasPorDia, setHorasAsignadasPorDia] = useState({})
     const diaSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-
-    console.log(duplicatesBox);
 
     //Funcion que retorna el id del trimestre
     const getQuarterId = (dataTrimestre) => {
@@ -51,28 +49,28 @@ export const ScheduleAdd = () => {
     };
 
     const handleAssignedBoxClick = (boxIndex) => {
-        
+
         const boxData = asignaciones[boxIndex];
-    
+
         if (boxData) {
-          setGlobalStoreBoxes((prevStoreBoxes) => {
-            const newStoreBoxes = prevStoreBoxes.filter((box) => box.boxIndex !== boxIndex);
-            return newStoreBoxes;
-          });
-    
-          setAsignaciones((prevAsignaciones) => {
-            const newAsignaciones = { ...prevAsignaciones };
-            delete newAsignaciones[boxIndex];
-            return newAsignaciones;
-          });
-    
-          // Resta las horas asignadas solo si la casilla estaba asignada y las horas asignadas son mayores a 0
-          setHorasAsignadas((prevHoras) => {
-            const newHoras = Math.max(prevHoras - 1, 0);
-            return newHoras;
-          });
+            setGlobalStoreBoxes((prevStoreBoxes) => {
+                const newStoreBoxes = prevStoreBoxes.filter((box) => box.boxIndex !== boxIndex);
+                return newStoreBoxes;
+            });
+
+            setAsignaciones((prevAsignaciones) => {
+                const newAsignaciones = { ...prevAsignaciones };
+                delete newAsignaciones[boxIndex];
+                return newAsignaciones;
+            });
+
+            // Resta las horas asignadas solo si la casilla estaba asignada y las horas asignadas son mayores a 0
+            setHorasAsignadas((prevHoras) => {
+                const newHoras = Math.max(prevHoras - 1, 0);
+                return newHoras;
+            });
         }
-      };
+    };
 
 
     useEffect(() => {
@@ -185,12 +183,16 @@ export const ScheduleAdd = () => {
                         {...register("trimestre", TRIMESTRE)}
                     />
                     <div className={`desplegable-options ${isDropdown ? 'open' : ''}`}>
-                        {dataQuarters && dataQuarters.length > 0 && dataQuarters.map((quarter) => (
-                            <div key={quarter.idTrimestre} onClick={() =>
-                                handleOptionClick(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`)}>
-                                {quarter.trimestre} | {quarter.fechaInicio} - {quarter.fechaFinal}
-                            </div>
-                        ))}
+                        {dataQuarters && dataQuarters.length === 0 ? (
+                            <div>No hay trimestres disponibles</div>
+                        ) : (
+                            dataQuarters.map((quarter) => (
+                                <div key={quarter.idTrimestre} onClick={() =>
+                                    handleOptionClick(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`)}>
+                                    {quarter.trimestre} | {quarter.fechaInicio} - {quarter.fechaFinal}
+                                </div>
+                            ))
+                        )}
                     </div>
                 </div>
             </div>
@@ -224,6 +226,7 @@ export const ScheduleAdd = () => {
                                         className={
                                             `box ${selectedBoxes.has(rowIndex * 6 + colIndex) ? 'selected' : ''}
                                             ${duplicatesBox && duplicatesBox.some(item => item.boxIndex === rowIndex * 6 + colIndex) ? 'duplicate-box' : ''}
+                                            ${[...globalStoreBoxes].some(item => item.boxIndex === rowIndex * 6 + colIndex) ? 'assignment-box' : ''}
                                             `}
                                         onClick={() => {
                                             if (boxData) {
@@ -239,7 +242,7 @@ export const ScheduleAdd = () => {
                                                 <span>{boxData.ambiente}</span>
                                             </>
                                         )}
-                                        {/*console.log(`Box at index ${boxIndex} has classes: ${'box'} ${selectedBoxes.has(boxIndex) ? 'selected' : ''} ${duplicateSelectedBoxes.has(boxIndex) ? 'duplicate-box' : ''}`)*/} 
+                                        {/*console.log(`Box at index ${boxIndex} has classes: ${'box'} ${selectedBoxes.has(boxIndex) ? 'selected' : ''} ${duplicateSelectedBoxes.has(boxIndex) ? 'duplicate-box' : ''}`)*/}
                                     </div>
                                 );
                             })}
@@ -254,7 +257,9 @@ export const ScheduleAdd = () => {
                         </button>
                     )}
                     <form method="post" onSubmit={handleSubmit(onSubmit)}>
-                        <button className='guardar' type='submit'>Guardar</button>
+                        {globalStoreBoxes.size > 0 || globalStoreBoxes.length > 0 && (
+                            <button className='guardar' type='submit'>Guardar</button>
+                        )}
                     </form>
                 </div>
 

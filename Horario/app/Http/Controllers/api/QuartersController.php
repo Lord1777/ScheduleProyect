@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 
@@ -23,6 +24,28 @@ class QuartersController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => "Request quarters error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
+    }
+
+
+    public function getQuartersSchedule(string $idFicha)
+    {
+        try {
+            $quarters = Trimestre::whereNotExists(function ($query) use ($idFicha) {
+                $query->select(DB::raw(1))
+                    ->from('horarios_academicos')
+                    ->whereRaw('horarios_academicos.idTrimestre = trimestres.idTrimestre')
+                    ->where('horarios_academicos.idFicha', '=', $idFicha)
+                    ->where('horarios_academicos.estado', 'habilitado');
+            })
+                ->where('estado', 'habilitado')
+                ->orderBy('fechaInicio', 'asc')
+                ->get();
+
+            return response()->json($quarters, Response::HTTP_OK); //200
+        } catch (\Exception $e) {
+            return response()->json(['error' => "Error al solicitar los trimestres: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+
     }
 
 
@@ -78,7 +101,7 @@ class QuartersController extends Controller
             return response()->json([
                 'staus' => 0,
                 'error' => "Error a registrar la informacion, por favor intentelo mas tarde."
-        ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
 

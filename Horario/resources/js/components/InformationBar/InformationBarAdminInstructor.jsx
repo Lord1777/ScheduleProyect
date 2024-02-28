@@ -5,10 +5,13 @@ import { useFetchGetRecords } from '../../hooks/FetchGetResources/useFetchGetRec
 import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
 import useFetchGetInstructor from '../../hooks/FetchGET/useFetchGetInstructor';
 import useDropdown from '../../hooks/useDropdown';
-import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
+// import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
 import '../../../css/InformationBar/InformationBar.css';
+import { useFetchGetOneQuarter } from '../../hooks/FetchGET/useFetchGetOneQuarter';
 
 export const InformationBarAdminInstructor = () => {
+
+    const { idUsuario, idTrimestre } = useParams();
 
     // const trimestreDropdown = useTrimestreDropdown();
     const { register, setValue } = useForm()
@@ -17,10 +20,10 @@ export const InformationBarAdminInstructor = () => {
 
     const { setIdTrimestreValue, totalSeleccionado, setHorasAsignadasValue, recordsColors } = useContext(FilterScheduleInstructorContext);
     const [searchProgram, setSearchPogram] = useState('');
-    const { idUsuario } = useParams();
     const { dataInstructor } = useFetchGetInstructor(`/getInstructor/${idUsuario}`)
-    const { dataQuarters } = useFetchGetQuarters('/getQuarters');
-    const { dataRecords } = useFetchGetRecords('/getRecords');
+    // const { dataQuarters } = useFetchGetQuarters('/getQuarters');
+    // const { dataRecords } = useFetchGetRecords('/getRecords');
+    const { dataQuarter } = useFetchGetOneQuarter(`/GetTrimestre/${idTrimestre}`);
 
     // const rol = localStorage.getItem('role');
 
@@ -29,14 +32,14 @@ export const InformationBarAdminInstructor = () => {
     //     return record ? record.idFicha : null;
     // }
 
-    const getQuarterId = (dataTrimestre) => {
-        const quarter = dataQuarters.find((quarter) => `${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}` === dataTrimestre);
-        return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
-    };
+    // const getQuarterId = (dataTrimestre) => {
+    //     const quarter = dataQuarters.find((quarter) => `${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}` === dataTrimestre);
+    //     return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
+    // };
 
-    const handleOptionClickTrimestre = (selectedOption) => {
-        setIdTrimestreValue(getQuarterId(selectedOption));
-    }
+    // const handleOptionClickTrimestre = (selectedOption) => {
+    //     setIdTrimestreValue(getQuarterId(selectedOption));
+    // }
 
     const updateHorasAsignadas = () => {
 
@@ -67,6 +70,18 @@ export const InformationBarAdminInstructor = () => {
                     </div>
                 </div>
 
+                <div className="trimestre-jornada-horas-horario">
+                    <div>
+                        <p><b>Trimestre:</b> {dataQuarter.trimestre}</p>
+                    </div>
+                    <div>
+                        <p><b>Fecha inicio:</b> {dataQuarter.fechaInicio}</p>
+                    </div>
+                    <div>
+                        <p><b>Fecha final:</b> {dataQuarter.fechaFinal}</p>
+                    </div>
+                </div>
+
                 <div className='colorRecords'>
                     {
                         recordsColors && Object.entries(recordsColors).map(([clave, valor]) => (
@@ -80,7 +95,6 @@ export const InformationBarAdminInstructor = () => {
                     }
                 </div>
 
-                <div className="container-dropdowns">
                     {/* <div className={`desplegable ${dropdown2.isDropdown ? 'open' : ''}`}>
                         <input
                             type="text"
@@ -142,8 +156,6 @@ export const InformationBarAdminInstructor = () => {
                         </div>
                     </div> */}
                 </div>
-
-            </div>
         </>
     )
 }

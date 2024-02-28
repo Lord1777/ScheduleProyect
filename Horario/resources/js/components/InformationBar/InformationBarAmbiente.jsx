@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react';
-import useDropdownGet from '../../hooks/useDropdownGet'
-import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
+// import useDropdownGet from '../../hooks/useDropdownGet'
+// import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
 import FilterScheduleAmbienteContext from '../../context/FilterScheduleAmbienteContext';
 import { useFetchGetOneEnvironment } from '../../hooks/FetchGET/useFetchGetOneEnvironment';
 import { useParams } from 'react-router-dom';
+import { useFetchGetOneQuarter } from '../../hooks/FetchGET/useFetchGetOneQuarter';
 
 export const InformationBarAmbiente = () => {
 
@@ -16,6 +17,8 @@ export const InformationBarAmbiente = () => {
     const { totalSeleccionado, setHorasAsignadasValue, environmentColors } = useContext(FilterScheduleAmbienteContext);
 
     const { dataEnvironment } = useFetchGetOneEnvironment(`/getEnvironment`, idAmbiente);
+
+    const { dataQuarter } = useFetchGetOneQuarter(`/GetTrimestre/${idTrimestre}`);
 
     const updateHorasAsignadas = () => {
         setHorasAsignadasValue(totalSeleccionado);
@@ -71,6 +74,18 @@ export const InformationBarAmbiente = () => {
 
                     <div>
                         <h3>Horas Asignadas: <span>{totalSeleccionado}</span></h3>
+                    </div>
+                </div>
+
+                <div className="trimestre-jornada-horas-horario">
+                    <div>
+                        <p><b>Trimestre:</b> {dataQuarter.trimestre}</p>
+                    </div>
+                    <div>
+                        <p><b>Fecha inicio:</b> {dataQuarter.fechaInicio}</p>
+                    </div>
+                    <div>
+                        <p><b>Fecha final:</b> {dataQuarter.fechaFinal}</p>
                     </div>
                 </div>
 

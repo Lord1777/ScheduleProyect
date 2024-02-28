@@ -20,9 +20,9 @@ export const InformationBarAprenttice = () => {
         ruta,
     } = useFetchGetInfoBarRecord('/getInfoBarRecord', idFicha);
 
-    const updateHorasAsignadas = () => {
-        setHorasAsignadasValue(totalSeleccionado);
-    };
+    // const updateHorasAsignadas = () => {
+    //     setHorasAsignadasValue(totalSeleccionado);
+    // };
 
     return (
         <>

@@ -1,4 +1,4 @@
-.information_bar_instructor{
+.information_bar_instructor {
     width: 80rem;
     height: auto;
     background-color: #fff;
@@ -8,34 +8,35 @@
     box-shadow: 0px 1px 5px 0px rgb(73, 73, 73);
 }
 
-.container-instructor{
+.container-instructor {
     margin-bottom: 1rem;
     display: flex;
     justify-content: space-between;
 }
 
-.content-info-ficha{
+.content-info-ficha {
     display: flex;
-    
-    h3{
+
+    h3 {
         margin: 1rem;
 
-        span{
+        span {
             font-weight: 100;
         }
     }
 }
 
-.deplegable-horas{
-    h3{
+.deplegable-horas {
+    h3 {
         margin-bottom: 1rem;
-        span{
-            font-weight: 100; 
+
+        span {
+            font-weight: 100;
         }
     }
 }
 
-.desplegable-trimestre-instructor{
+.desplegable-trimestre-instructor {
     position: relative;
     width: 20rem;
     height: 3.5rem;
@@ -44,7 +45,7 @@
     margin-left: 1rem;
 }
 
-.desplegable-trimestre-instructor::after{
+.desplegable-trimestre-instructor::after {
     width: 1rem;
     height: 3.5rem;
     border-radius: 0rem 0.3rem 0.3rem 0rem;
@@ -59,7 +60,7 @@
     transition: .25s all ease;
 }
 
-.desplegable-trimestre-instructor::before{
+.desplegable-trimestre-instructor::before {
     content: '';
     position: absolute;
     left: 17.2rem;
@@ -95,13 +96,13 @@
     outline: none;
 }
 
-.desplegable-trimestre-instructor .desplegable-options{
+.desplegable-trimestre-instructor .desplegable-options {
     display: none;
     height: 10rem;
     overflow-y: auto;
 }
 
-.desplegable-trimestre-instructor .open{
+.desplegable-trimestre-instructor .open {
     position: absolute;
     top: 4rem;
     right: 1rem;
@@ -124,24 +125,24 @@
     color: var(--color-text-hover-option);
 }
 
-.container-dropdowns{
+.container-dropdowns {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.deplegable-horas{
+.deplegable-horas {
     display: flex;
     justify-content: space-between;
 }
 
-.check_filter{
+.check_filter {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
 }
 
-.check_filter label{
+.check_filter label {
     margin-right: 2rem;
 }
 
@@ -153,14 +154,14 @@
     margin-right: 5px;
 }
 
-.colorRecords{
+.colorRecords {
     display: grid;
     justify-items: start;
     grid-template-columns: 150px 150px 150px 150px;
     gap: 5px;
 }
 
-.desplegable-fichas-instructor{
+.desplegable-fichas-instructor {
     position: relative;
     width: 20rem;
     height: 3.5rem;
@@ -168,7 +169,7 @@
     user-select: none;
 }
 
-.desplegable-fichas-instructor::after{
+.desplegable-fichas-instructor::after {
     width: 1rem;
     height: 3.5rem;
     border-radius: 0rem 0.3rem 0.3rem 0rem;
@@ -183,7 +184,7 @@
     transition: .25s all ease;
 }
 
-.desplegable-fichas-instructor::before{
+.desplegable-fichas-instructor::before {
     content: '';
     position: absolute;
     right: 1.1rem;
@@ -219,7 +220,7 @@
     outline: none;
 }
 
-.desplegable-fichas-instructor .desplegable-options1-instructor{
+.desplegable-fichas-instructor .desplegable-options1-instructor {
     display: none;
     max-height: 15rem;
     min-height: 5rem;
@@ -227,7 +228,7 @@
 }
 
 
-.desplegable-fichas-instructor .open{
+.desplegable-fichas-instructor .open {
     position: absolute;
     top: 4rem;
     width: 100%;
@@ -248,7 +249,7 @@
     color: var(--color-text-hover-option);
 }
 
-.hoursSchedule{
+.hoursSchedule {
     display: flex;
     flex-direction: column;
     align-items: end;
@@ -298,7 +299,7 @@
 
 @media (max-width:1130px) {
     .information_bar_instructor {
-        width: 65rem;
+        width: 70rem;
         margin-left: 3rem;
     }
 }
@@ -319,8 +320,16 @@
 
 @media (max-width:1040px) {
     .information_bar_instructor {
-        width: 63rem;
+        width: 61rem;
         margin-left: 0.1rem;
+    }
+
+    .icon-search-bar-instructor {
+        margin-left: 1rem;
+    }
+
+    .search-bar-instructor #buscador {
+        margin-top: 0.55rem;
     }
 }
 
@@ -338,7 +347,7 @@
 
 @media (max-width: 980px) {
 
-    .colorRecords{
+    .colorRecords {
         grid-template-columns: 120px 120px 120px 120px;
         gap: 3px;
     }
@@ -379,8 +388,39 @@
         width: 45rem;
     }
 
+    .desplegable-fichas-instructor input {
+        width: 18rem;
+        margin-left: 2rem;
+    }
+
+    .desplegable-fichas-instructor .open {
+        left: 2rem;
+        width: 18rem;
+    }
+
+    .search-bar-instructor #buscador {
+        width: 15rem;
+    }
+
+    .icon-search-bar-instructor {
+        margin-left: -1rem;
+    }
+
+    .desplegable-trimestre-instructor input {
+        width: 17rem;
+    }
+
+    .desplegable-trimestre-instructor::after {
+        margin-left: -3.1rem;
+    }
+
+    .desplegable-trimestre-instructor::before {
+        margin-left: -3.1rem;
+    }
+
     .desplegable-trimestre-instructor .open {
-        left: -1rem;
+        width: 17rem;
+        margin-right: rem;
     }
 }
 
@@ -395,11 +435,7 @@
         width: 43rem;
     }
 
-    .desplegable-trimestre-instructor .open {
-        left: -1rem;
-    }
-
-    .desplegable-trimestre-instructor input{
+    .desplegable-trimestre-instructor input {
         width: 15rem;
     }
 
@@ -414,6 +450,7 @@
     .desplegable-trimestre-instructor .open {
         width: 15rem;
         height: 16rem;
+        margin-right: 4rem;
     }
 
     .desplegable-fichas-instructor input {
@@ -423,7 +460,7 @@
 
     .desplegable-fichas-instructor .open {
         width: 16rem;
-        margin-left: 3rem;
+        margin-left: 1rem;
     }
 
     .search-bar-instructor {
@@ -460,6 +497,10 @@
 
     .icon-search-bar-instructor {
         margin-left: -4.5rem;
+    }
+
+    .desplegable-trimestre-instructor .open {
+        left: -1rem;
     }
 }
 
@@ -504,7 +545,7 @@
 
     .desplegable-fichas-instructor .open {
         margin-top: -5rem;
-        margin-left: 12rem;
+        margin-left: 10rem;
         width: 16rem;
     }
 
@@ -521,7 +562,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-    } 
+    }
 
     .check_filter {
         display: flex;
@@ -529,23 +570,23 @@
         flex-wrap: wrap;
         align-items: center;
         margin-top: 1rem;
-    } 
+    }
 
     .content-info-ficha {
         display: flex;
         flex-direction: column;
         align-items: center;
 
-        h3{
+        h3 {
             margin: 0rem 0rem 1rem 0rem;
         }
     }
 
-    .colorRecords{
+    .colorRecords {
         grid-template-columns: 120px 120px 120px;
         gap: 3px;
 
-        p{
+        p {
             font-size: 13px;
         }
     }
@@ -554,6 +595,36 @@
 @media (max-width:660px) {
     .information_bar_instructor {
         width: 37rem;
+    }
+
+    .desplegable-trimestre-instructor input {
+        margin-left: -6rem;
+        width: 13.5rem;
+    }
+
+    .desplegable-trimestre-instructor .open {
+        width: 13.5rem;
+        margin-left: -6rem;
+    }
+
+    .desplegable-fichas-instructor::after {
+        margin-right: -6.5rem;
+    }
+
+    .desplegable-fichas-instructor::before {
+        margin-right: -6.5rem;
+    }
+
+    .desplegable-fichas-instructor .open {
+        width: 14.5rem;
+    }
+
+    .search-bar-instructor #buscador {
+        width: 12rem;
+    }
+
+    .icon-search-bar-instructor {
+        margin-left: -4.5rem;
     }
 }
 
@@ -659,13 +730,13 @@
         }
     }
 
-    .desplegable-trimestre-instructor input{
+    .desplegable-trimestre-instructor input {
         margin-right: 5rem;
     }
 }
 
-@media(max-width:520px){
-    .colorRecords{
+@media(max-width:520px) {
+    .colorRecords {
         grid-template-columns: 120px 120px;
         gap: 2px;
     }
@@ -695,7 +766,7 @@
 
     .desplegable-fichas-instructor .open {
         width: 11.5rem;
-        margin-left: 11rem;
+        margin-left: 9rem;
     }
 
     .search-bar-instructor #buscador {
@@ -811,9 +882,9 @@
 
     .desplegable-fichas-instructor .open {
         margin-top: 2rem;
-        margin-left: 2.5rem;
+        margin-left: 0.8rem;
         width: 15rem;
-    } 
+    }
 
     .icon-search-bar-instructor {
         margin-left: -4rem;
@@ -825,6 +896,14 @@
 }
 
 @media (max-width:414px) {
+
+    .container-instructor {
+
+        h3 {
+            margin-left: 0.5rem;
+        }
+    }
+
     .information_bar_instructor {
         width: 22rem;
     }
@@ -841,30 +920,34 @@
     }
 
     .desplegable-trimestre-instructor input {
-        width: 20rem;
+        width: 15rem;
+        margin-left: -1.3rem;
     }
 
     .desplegable-trimestre-instructor::before {
-        margin-left: -0.1rem;
+        margin-left: -6.4rem;
     }
 
     .desplegable-trimestre-instructor::after {
-        margin-left: -0.1rem;
+        margin-left: -6.4rem;
     }
 
     .desplegable-trimestre-instructor .open {
-        width: 20rem;
+        width: 15.1rem;
         left: -1rem;
     }
 }
 
 @media (max-width:412px) {
-        .desplegable-trimestre-instructor {
-            margin-right: 18rem;
+    .container-instructor {
+
+        h3 {
+            margin-left: 0.1rem;
         }
+    }
 }
 
-@media(max-width:390px){
+@media(max-width:390px) {
 
     .check_filter {
         font-size: 0.8rem;
@@ -880,9 +963,9 @@
     }
 }
 
-@media(max-width:380px){
+@media(max-width:380px) {
 
-    .colorRecords{
+    .colorRecords {
         grid-template-columns: 95px 95px;
         gap: 2px;
     }
@@ -901,23 +984,22 @@
 
     .desplegable-trimestre-instructor input {
         width: 14.8rem;
-        margin-left: 2.5rem;
+        margin-left: -1.4rem;
     }
 
     .desplegable-trimestre-instructor::after {
-        left: 8.4rem;
+        left: 16rem;
     }
 
     .desplegable-trimestre-instructor::before {
-        left: 9.3rem;
-        transform: rotate(-135deg);
+        margin-left: -6.5rem;
         transition: 0.5s;
     }
 
     .desplegable-trimestre-instructor .open {
         width: 15rem;
         height: 16rem;
-        left: 1.5rem;
+        margin-left: -1.5rem;
     }
 }
 
@@ -927,15 +1009,85 @@
     }
 
     .desplegable-trimestre-instructor::before {
-        left: 14.5rem;
+        margin-left: -6.4rem;
     }
 
     .desplegable-trimestre-instructor::after {
-        margin-left: 5.1rem;
+        margin-left: -6.4rem;
     }
 
     .desplegable-trimestre-instructor .open {
         width: 15rem;
+    }
+}
+
+@media (max-width:320px) {
+    .information_bar_instructor {
+        width: 18rem;
+    }
+
+    .container-instructor {
+
+        h3 {
+            margin-left: -0.5rem;
+        }
+    }
+}
+
+@media (max-width:290px) {
+    .information_bar_instructor {
+        width: 16.5rem;
+    }
+
+    .container-instructor {
+
+        h3 {
+            margin-left: -1.5rem;
+        }
+    }
+
+    .desplegable-trimestre-instructor input {
+        margin-left: -0.5rem;
+        width: 13rem;
+    }
+
+    .desplegable-trimestre-instructor::after {
+        margin-left: -7.5rem;
+    }
+
+    .desplegable-trimestre-instructor::before {
+        margin-left: -7.5rem;
+    }
+
+    .desplegable-trimestre-instructor .open {
+        width: 13rem;
+        margin-left: -0.5rem;
+    }
+
+    .desplegable-fichas-instructor input {
+        margin-left: 3.5rem;
+        width: 13rem;
+    }
+
+    .desplegable-fichas-instructor::after {
+        margin-right: 3.5rem;
+    }
+
+    .desplegable-fichas-instructor::before {
+        margin-right: 3.5rem;
+    }
+
+    .desplegable-fichas-instructor .open {
+        margin-left: 1.5rem;
+        width: 13rem;
+    }
+
+    .search-bar-instructor #buscador {
+        width: 10rem;
+    }
+
+    .icon-search-bar-instructor {
+        margin-left: -6rem;
     }
 }
 
@@ -944,12 +1096,12 @@
         width: 15.5rem;
     }
 
-    .container-instructor h3{
+    .container-instructor h3 {
         white-space: nowrap;
         margin-left: -2rem;
     }
 
-    .desplegable-trimestre-instructor {
+    .desplegable-trimestre-instructor input {
         margin-right: 18rem;
     }
 }

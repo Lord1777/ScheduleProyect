@@ -179,6 +179,7 @@
     cursor: auto;
 }
 
+/*Responsive*/
 
 @media (max-width:420px){
     .box-modal-asignar {

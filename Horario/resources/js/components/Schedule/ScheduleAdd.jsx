@@ -23,8 +23,8 @@ export const ScheduleAdd = () => {
     const { id } = useParams();
     const { dataFicha, loading, setLoading, fetchData } = useFetchGetInfoUnitFicha("/GetFicha", id);
     const { isModal, openModal, closeModal, asignaciones, setAsignaciones } = useModalAsignar();
-    const { TRIMESTRE } = useValidationForm();
-    const { register, setValue, handleSubmit } = useForm();
+    const { TRIMESTRE_INFO } = useValidationForm();
+    const { register, setValue, handleSubmit, formState: {errors}, } = useForm();
     const { fetchSubmitSchedule, duplicatesBox, setDuplicatesBox, modalOpen, setModalOpen, alertMessage, succesfullyModal, setSuccesfullyModal } = useFetchPostSchedule('/createSchedule');
     const { dataQuarters } = useFetchGetQuarterScheduleAdd('/getQuartersSchedule', id);
 
@@ -170,30 +170,33 @@ export const ScheduleAdd = () => {
                     <h3>Limite de horas: <span>{dataFicha.limiteHoras}</span></h3>
                     <h3>Horas Asignadas: <span>{horasAsignadas}</span></h3>
                 </div>
-                <div className={`desplegable ${isDropdown ? 'open' : ''}`}>
-                    <input
-                        type="text"
-                        className='textBox'
-                        name='Trimestres'
-                        placeholder='Trimestres'
-                        readOnly
-                        autoComplete='off'
-                        onClick={handleDropdown}
-                        value={selectedOption}
-                        {...register("trimestre", TRIMESTRE)}
-                    />
-                    <div className={`desplegable-options ${isDropdown ? 'open' : ''}`}>
-                        {dataQuarters && dataQuarters.length === 0 ? (
-                            <div>No hay trimestres disponibles</div>
-                        ) : (
-                            dataQuarters.map((quarter) => (
-                                <div key={quarter.idTrimestre} onClick={() =>
-                                    handleOptionClick(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`)}>
-                                    {quarter.trimestre} | {quarter.fechaInicio} - {quarter.fechaFinal}
-                                </div>
-                            ))
-                        )}
+                <div>
+                    <div className={`desplegable ${isDropdown ? 'open' : ''}`}>
+                        <input
+                            type="text"
+                            className='textBox'
+                            name='Trimestres'
+                            placeholder='Trimestres'
+                            readOnly
+                            autoComplete='off'
+                            onClick={handleDropdown}
+                            value={selectedOption}
+                            {...register("trimestre", TRIMESTRE_INFO)}
+                        />
+                        <div className={`desplegable-options ${isDropdown ? 'open' : ''}`}>
+                            {dataQuarters && dataQuarters.length === 0 ? (
+                                <div>No hay trimestres disponibles</div>
+                            ) : (
+                                dataQuarters.map((quarter) => (
+                                    <div key={quarter.idTrimestre} onClick={() =>
+                                        handleOptionClick(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`)}>
+                                        {quarter.trimestre} | {quarter.fechaInicio} - {quarter.fechaFinal}
+                                    </div>
+                                ))
+                            )}
+                        </div>
                     </div>
+                    {errors.trimestre && <p className='errors_forms'>{errors.trimestre.message}</p>}
                 </div>
             </div>
 

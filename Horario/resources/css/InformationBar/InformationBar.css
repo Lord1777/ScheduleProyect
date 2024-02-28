@@ -268,6 +268,23 @@
     align-items: end;
 }
 
+.trimestre-jornada-horas-horario{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 1.5rem 0rem;
+}
+
+.trimestre-jornada-horas-horario div {
+    margin-right: 1.5rem;
+}
+
+.trimestre-jornada-horas-horario div p {
+    /* Ocultar el contenido que desborda */
+    text-overflow: ellipsis;
+    /* Mostrar puntos suspensivos (...) para el texto que desborda */
+}
+
 @media (max-width: 1295px) {
     .information_bar {
         width: 75rem;
@@ -287,6 +304,13 @@
 }
 
 @media (max-width: 980px) {
+
+    .trimestre-jornada-horas-horario {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        /* margin-top: -1.5rem; */
+    }
 
     .desplegable-infoBar {
         position: relative;
@@ -337,6 +361,11 @@
 @media (max-width:912px) {
     .information_bar {
         width: 51rem;
+    }
+
+    .trimestre-jornada-horas-horario {
+        display: grid;
+        grid-template-columns: 1fr;
     }
 }
 
@@ -432,6 +461,30 @@
         p{
             font-size: 13px;
         }
+    }
+}
+
+@media (max-width:650px){
+    .trimestre-jornada-horas-horario {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width:570px){
+    .trimestre-jornada-horas-horario {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+
+    .trimestre-jornada-horas-horario div p {
+        width: 20rem;
+    }
+
+    .trimestre-jornada-horas-horario {
+        display: grid;
+        grid-template-columns: 1fr;
     }
 }
 

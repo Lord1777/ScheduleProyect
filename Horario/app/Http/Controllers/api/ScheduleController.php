@@ -18,9 +18,49 @@ use Illuminate\Support\Facades\Validator;
 
 class ScheduleController extends Controller
 {
-    public function indexRecord(string $idFicha)
+    public function indexRecord(string $idFicha, string $idHorario = 'null')
     {
         try {
+            if ($idHorario !== 'null') {
+                $recordInfo = HorarioAcademico::join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+                    ->join('programas', 'fichas.idPrograma', '=', 'programas.idPrograma')
+                    ->join('trimestres', 'horarios_academicos.idTrimestre', '=', 'trimestres.idTrimestre')
+                    ->select(
+                        'fichas.ficha',
+                        'fichas.horasAsignadas',
+                        'trimestres.idTrimestre',
+                        'trimestres.trimestre',
+                        'trimestres.fechaInicio',
+                        'trimestres.fechaFinal',
+                        'programas.nombre',
+                    )
+                    ->where('fichas.idFicha', $idFicha)
+                    ->where('horarios_academicos.idHorario', $idHorario)
+                    ->first();
+
+                if (!$recordInfo) {
+                    return response()->json([
+                        'error' => 'Record not found'
+                    ], Response::HTTP_NOT_FOUND); //404
+                }
+
+                return response()->json($recordInfo, Response::HTTP_OK); //200
+            }
+
+            // Obtener el ID del último trimestre asociado a la ficha
+            $idTrimestre = HorarioAcademico::join('trimestres', 'horarios_academicos.idTrimestre', '=', 'trimestres.idTrimestre')
+                ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+                ->where('fichas.idFicha', $idFicha)
+                ->orderBy('trimestres.fechaInicio', 'desc')
+                ->select('trimestres.idTrimestre')
+                ->first();
+
+            if (!$idTrimestre) {
+                return response()->json([
+                    'error' => 'Trimestre not found for the specified ficha'
+                ], Response::HTTP_NOT_FOUND);
+            }
+
             $recordInfo = HorarioAcademico::join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
                 ->join('programas', 'fichas.idPrograma', '=', 'programas.idPrograma')
                 ->join('trimestres', 'horarios_academicos.idTrimestre', '=', 'trimestres.idTrimestre')
@@ -34,6 +74,7 @@ class ScheduleController extends Controller
                     'programas.nombre',
                 )
                 ->where('fichas.idFicha', $idFicha)
+                ->where('horarios_academicos.idTrimestre', $idTrimestre->idTrimestre)
                 ->first();
 
             if (!$recordInfo) {
@@ -43,7 +84,6 @@ class ScheduleController extends Controller
             }
 
             return response()->json($recordInfo, Response::HTTP_OK); //200
-
         } catch (\Exception $e) {
             return response()->json([
                 'error' => "Get Schedule Data Error: " . $e->getMessage(),
@@ -472,15 +512,15 @@ class ScheduleController extends Controller
                         ], Response::HTTP_BAD_REQUEST); //400
                     } /* else {
 
-            Log::info($fichaAsignadaInstructor);
+         Log::info($fichaAsignadaInstructor);
 
-            return response()->json([
-                'status' => 0,
-                'message' => "No se encontraron asignaciones para el instructor '{$nombreInstructor}' en la(s) caja(s) especificadas.",
-                'error' => 'No assignments found for the instructor in the specified boxIndex',
-            ], Response::HTTP_NOT_FOUND); //404
-        }
-        */
+         return response()->json([
+             'status' => 0,
+             'message' => "No se encontraron asignaciones para el instructor '{$nombreInstructor}' en la(s) caja(s) especificadas.",
+             'error' => 'No assignments found for the instructor in the specified boxIndex',
+         ], Response::HTTP_NOT_FOUND); //404
+     }
+     */
                 }
                 if ($ambienteAsignado->isNotEmpty()) {
 
@@ -495,13 +535,13 @@ class ScheduleController extends Controller
                             'duplicates' => $ambienteAsignado,
                         ], Response::HTTP_BAD_REQUEST); //400
                     } /*else {
-            return response()->json([
-                'status' => 0,
-                'message' => "No se encontraron asignaciones para el ambiente '{$numeroAmbiente}' en la(s) caja(s) especificadas.",
-                'error' => 'No assignments found for the instructor in the specified boxIndex',
-            ], Response::HTTP_NOT_FOUND); //404
-        }
-        */
+         return response()->json([
+             'status' => 0,
+             'message' => "No se encontraron asignaciones para el ambiente '{$numeroAmbiente}' en la(s) caja(s) especificadas.",
+             'error' => 'No assignments found for the instructor in the specified boxIndex',
+         ], Response::HTTP_NOT_FOUND); //404
+     }
+     */
                 }
 
                 if ($limiteHorasInstructor !== null && $limiteHorasAmbiente !== null && $limiteHorasFicha !== null) {

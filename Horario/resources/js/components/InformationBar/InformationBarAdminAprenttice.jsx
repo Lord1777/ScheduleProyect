@@ -8,6 +8,7 @@ import FilterScheduleFichaContext from '../../context/FilterScheduleFichaContext
 import exito from '../../assets/img/Exito.png'
 import '../../../css/InformationBar/InformationBarAprenttice.css'
 import { initialsName } from '../../hooks/useObjectFunction';
+import { useFetchGetInfoBarAdminRecord } from '../../hooks/FetchSchedule/useFetchGetInfoBarAdminRecord';
 
 export const InformationBarAdminAprenttice = () => {
 
@@ -15,7 +16,7 @@ export const InformationBarAdminAprenttice = () => {
     const { idFicha, idHorario, manage } = useParams();
     const { totalSeleccionado, setHorasAsignadasValue, instructorColors } = useContext(FilterScheduleFichaContext);
 
-    const { dataInfoRecord } = useFetchGetInfoBarRecord('/getInfoBarRecord', idFicha, setHorasAsignadasValue);
+    const { dataInfoRecord } = useFetchGetInfoBarAdminRecord('/getInfoBarRecord', idFicha, idHorario);
     const { fetchManageSchedule, successModalOpen, closeSuccessModal, alertMessage } = useFetchPutManageSchedule();
 
     const rol = localStorage.getItem('role');

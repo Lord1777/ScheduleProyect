@@ -38,6 +38,9 @@ export const ScheduleUpdateFicha = () => {
 
     // Almacena todos los índices, id-instructor, id-ambiente asignados,
     const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
+    const [point, setPoint] = useState(false);
+
+    console.log(globalStoreBoxes);
 
     const { dataSchedule, loading } = useFetchGetScheduleRecord('/getScheduleApprentice', idFicha);
 
@@ -104,7 +107,6 @@ export const ScheduleUpdateFicha = () => {
                 }
                 newHorasAsignadasPorDia[idInstructor][dia] += 1;
             });
-            console.log('Updated horasAsignadasPorDia:', newHorasAsignadasPorDia);
 
             // Verificar si se excede el límite diario de 10 horas para algún instructor en algún día
             const idInstructorExcedido = Object.keys(newHorasAsignadasPorDia).find(idInstructor => {
@@ -140,10 +142,17 @@ export const ScheduleUpdateFicha = () => {
 
 
     useEffect(() => {
-        console.log("Inside useEffect");
 
-        if (dataSchedule && dataSchedule.length > 0 && globalStoreBoxes.size === 0) {
-            console.log("Data Schedule:", dataSchedule);
+
+
+
+        if (dataSchedule && dataSchedule.length > 0 && !globalStoreBoxes.size) {
+
+            if(point === true && globalStoreBoxes.size === 0){
+                alert('No puedes eliminar todas las asignaciones de un horario academico');
+            }
+
+            setPoint(true);
 
             //Inicializar globalStoreBoxes cuando existan los datos suministrados
             const newData = new Set(dataSchedule.map(item => ({
@@ -153,7 +162,6 @@ export const ScheduleUpdateFicha = () => {
                 ambiente: item.ambiente,
                 boxIndex: item.boxIndex,
             })));
-            console.log("New Data:", newData);
             setGlobalStoreBoxes(newData);
 
             //Inicializar asignaciones cuando existan los datos suministrados
@@ -165,7 +173,6 @@ export const ScheduleUpdateFicha = () => {
                     instructor: item.nombreCompleto,
                 };
             });
-            console.log("New Asignaciones:", newAsignaciones);
             setAsignaciones(newAsignaciones);
         }
 
@@ -182,11 +189,9 @@ export const ScheduleUpdateFicha = () => {
             }
             initialHorasPorDia[idInstructor][dia] = 0;
         });
-        console.log("Initial Horas Por Dia:", initialHorasPorDia);
         setHorasAsignadasPorDia(initialHorasPorDia);
 
         if (duplicatesBox.length > 0 || duplicatesBox.size > 0) {
-            console.log("Duplicates Box:", duplicatesBox);
 
             const timer = setTimeout(() => {
                 setDuplicatesBox([]);
@@ -255,6 +260,7 @@ export const ScheduleUpdateFicha = () => {
                                         className={
                                             `box ${selectedBoxes.has(rowIndex * 6 + colIndex) ? 'selected' : ''}
                                              ${duplicatesBox && duplicatesBox.some(item => item.boxIndex === rowIndex * 6 + colIndex) ? 'duplicate-box' : ''}
+                                             ${[...globalStoreBoxes].some(item => item.boxIndex === rowIndex * 6 + colIndex) ? 'assignment-box' : ''}
                                             `}
                                         onClick={() => {
                                             if (boxData) {

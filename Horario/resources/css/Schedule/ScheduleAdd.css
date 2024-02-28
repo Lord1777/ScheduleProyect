@@ -79,6 +79,10 @@
     background-color: #ff9999; /* Puedes ajustar el color según tu preferencia */
 }
 
+.box.assignment-box {
+    background-color: lightgreen;
+}
+
 .info-trimestre{
     padding: 1rem;
     width: 20rem;

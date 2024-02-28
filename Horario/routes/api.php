@@ -23,7 +23,7 @@ Route::middleware(['cors'])->group(function (){
     Route::get('/password-reset/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
     Route::post('/password-reset', [AuthController::class, 'resetPassword']);
 
-    Route::get('/getInfoBarRecord/{idFicha}', [ScheduleController::class, 'indexRecord']);
+    Route::get('/getInfoBarRecord/{idFicha}/{idHorario?}', [ScheduleController::class, 'indexRecord']);
     Route::get('/getScheduleApprentice/{idFicha}', [ScheduleController::class, 'scheduleApprentice']);
     Route::get('/getRecords', [RecordsController::class, 'getRecords']);
 });
@@ -91,6 +91,7 @@ Route::middleware(['cors', 'auth:sanctum'])->group(function () {
 
     //Trimestres
     Route::get('/getQuarters', [QuartersController::class, 'getQuarters']);
+    Route::get('/getQuartersSchedule/{idFicha}', [QuartersController::class, 'getQuartersSchedule']);
     Route::get('/getEnabledQuarters', [QuartersController::class, 'indexEnabled']);
     Route::get('/getDisableQuarters', [QuartersController::class, 'indexDisable']);
     Route::post('/createQuarters', [QuartersController::class, 'store']);

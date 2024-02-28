@@ -20,6 +20,7 @@ import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
 import useFetchGetScheduleRecord from '../../hooks/FetchSchedule/useFetchGetScheduleRecord';
 import FilterScheduleFichaContext from '../../context/FilterScheduleFichaContext';
+import useFetchGetInfoBarRecord from '../../hooks/FetchSchedule/useFetchGetInfoBarRecord';
 
 
 export const ScheduleUpdateFicha = () => {
@@ -35,6 +36,8 @@ export const ScheduleUpdateFicha = () => {
     const { isDropdown, selectedOption, handleDropdown, handleOptionClick } = useDropdown(setValue, "trimestre");
 
     const { dataQuarter } = useFetchGetOneQuarter(`/GetTrimestre/${idTrimestre}`);
+    const { dataInfoRecord } = useFetchGetInfoBarRecord('/getInfoBarRecord', idFicha);
+    console.log(dataInfoRecord)
 
     // Almacena todos los índices, id-instructor, id-ambiente asignados,
     const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
@@ -205,7 +208,17 @@ export const ScheduleUpdateFicha = () => {
     return (
         <>
             <div className="information_bar">
-                <div className="container-label-input">
+                <div className="information-update-bar">
+                    <div>
+                        <p><b>Programa de Formación:</b> {dataInfoRecord.nombre}</p>
+                    </div>
+                    <div>
+                        <p><b>Ficha:</b> {dataInfoRecord.ficha}</p>
+                        <p><b>Horas semanales:</b> {totalSeleccionado}</p>
+                    </div>
+                </div>
+
+                <div className="container-label-input input-laber-bar">
                     <label>Trimestre (yyyy-mm-dd):</label>
                     <input type="text"
                         className='info-trimestre'
@@ -217,11 +230,11 @@ export const ScheduleUpdateFicha = () => {
                         {...register("trimestre")}
                     />
                 </div>
-                <div className="trimestre-jornada-horas">
+
+                {/* <div className="trimestre-jornada-horas">
                     <div>
-                        <p><b>Horas semanales:</b> {totalSeleccionado}</p>
                     </div>
-                </div>
+                </div> */}
             </div>
 
             <div className="containergrid-buttons">

@@ -88,7 +88,23 @@
     border-radius: 0.2rem;
 }
 
+.information-update-bar{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    p{
+        margin: 1rem;
+    }
+}
+
 /*Responsive*/
+@media (max-width: 1220px) {
+    .information_bar {
+        width: 65rem;
+    }
+}
 
 @media (max-width: 1270px) {
     .containergrid-buttons {
@@ -142,6 +158,12 @@
     }
 }
 
+@media (max-width: 1065px) {
+    .information_bar {
+        width: 55rem;
+    }
+}
+
 @media (max-width: 1050px) {
     .containergrid-buttons {
         width: 61rem;
@@ -192,6 +214,41 @@
         padding-bottom: 1rem;
     }
 }
+@media (max-width: 900px) {
+    .information_bar {
+        width: 45rem;
+    }
+}
+
+@media (max-width: 735px) {
+    .information_bar {
+        width: 35rem;
+    }
+}
+
+@media (max-width: 580px) {
+    .information-update-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        flex-direction: column;
+
+        p{
+            margin: 0.5rem;
+        }
+    }
+
+    .input-laber-bar{
+        display: flex;
+        align-items: center;
+        margin-top: 0.5rem;
+    }
+
+    .information_bar {
+        width: 25rem;
+    }
+}
+
 @media (max-width:540px) {
     .desplegable {
         margin-left: 4.3rem;
@@ -207,6 +264,21 @@
 @media (max-width:412px) {
     .desplegable {
         margin-left: 0.1rem;
+    }
+}
+
+@media (max-width:405px) {
+    .info-trimestre {
+        width: 14rem;
+    }
+
+    .information_bar {
+        width: 16rem;
+
+        p{
+            font-size: 0.9rem;
+            text-align: center;
+        }
     }
 }
 

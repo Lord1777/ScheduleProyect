@@ -26,6 +26,7 @@ import useFetchGetInfoBarRecord from '../../hooks/FetchSchedule/useFetchGetInfoB
 export const ScheduleUpdateFicha = () => {
 
     const { idFicha, idHorario, idTrimestre } = useParams();
+    const [horasAsignadas, setHorasAsignadas] = useState(0);
     const { setTotalSeleccionadoValue, totalSeleccionado } = useContext(FilterScheduleFichaContext);
     const { selectedBoxes, handleBoxClick, resetSelectedBoxes } = useSelectedBoxes();
     const { isModal, openModal, closeModal, asignaciones, setAsignaciones } = useModalAsignar();
@@ -61,24 +62,24 @@ export const ScheduleUpdateFicha = () => {
 
 
     // Función para des-asignar un instructor y ambiente al hacer clic en una casilla asignada
-    const handleAssignedBoxClick = (boxIndex) => {
-        setGlobalStoreBoxes(prevStoreBoxes => {
-            const newStoreBoxes = new Set(prevStoreBoxes);
-            for (const item of newStoreBoxes) {
-                if (item.boxIndex === boxIndex) {
-                    newStoreBoxes.delete(item);
-                    break; // Una vez eliminado, salimos del bucle
-                }
-            }
-            return newStoreBoxes;
-        });
+    // const handleAssignedBoxClick = (boxIndex) => {
+    //     setGlobalStoreBoxes(prevStoreBoxes => {
+    //         const newStoreBoxes = new Set(prevStoreBoxes);
+    //         for (const item of newStoreBoxes) {
+    //             if (item.boxIndex === boxIndex) {
+    //                 newStoreBoxes.delete(item);
+    //                 break; // Una vez eliminado, salimos del bucle
+    //             }
+    //         }
+    //         return newStoreBoxes;
+    //     });
 
-        setAsignaciones(prevAsignaciones => {
-            const newAsignaciones = { ...prevAsignaciones };
-            delete newAsignaciones[boxIndex];
-            return newAsignaciones;
-        });
-    };
+    //     setAsignaciones(prevAsignaciones => {
+    //         const newAsignaciones = { ...prevAsignaciones };
+    //         delete newAsignaciones[boxIndex];
+    //         return newAsignaciones;
+    //     });
+    // };
 
 
     const onSubmit = async (data) => {
@@ -200,6 +201,37 @@ export const ScheduleUpdateFicha = () => {
         }
     }, [duplicatesBox, globalStoreBoxes, dataSchedule]);
 
+    const handleAssignedBoxClick = (boxIndex) => {
+        
+        const boxData = asignaciones[boxIndex];
+    
+        if (boxData) {
+          setGlobalStoreBoxes((prevStoreBoxes) => {
+            const newStoreBoxes = prevStoreBoxes.filter((box) => box.boxIndex !== boxIndex);
+            return newStoreBoxes;
+          });
+    
+          setAsignaciones((prevAsignaciones) => {
+            const newAsignaciones = { ...prevAsignaciones };
+            delete newAsignaciones[boxIndex];
+            return newAsignaciones;
+          });
+    
+          // Resta las horas asignadas solo si la casilla estaba asignada y las horas asignadas son mayores a 0
+          setHorasAsignadas((prevHoras) => {
+            const newHoras = Math.max(prevHoras - 1, 0);
+            return newHoras;
+          });
+        }
+      };
+
+
+    useEffect(() => {
+        // Calcular las horas asignadas al cargar el componente
+        const horasIniciales = Object.values(asignaciones).length;
+        setHorasAsignadas(horasIniciales);
+    }, [asignaciones]);
+
 
     if (loading) {
         return <Loading />
@@ -214,7 +246,7 @@ export const ScheduleUpdateFicha = () => {
                     </div>
                     <div>
                         <p><b>Ficha:</b> {dataInfoRecord.ficha}</p>
-                        <p><b>Horas semanales:</b> {totalSeleccionado}</p>
+                        <p><b>Horas semanales:</b> {horasAsignadas}</p>
                     </div>
                 </div>
 

@@ -102,46 +102,51 @@ export const TableInstructors = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredInstructor.map((instructor) => {
+                        {filteredInstructor.length === 0 || filteredInstructor.size === 0 ? (
+                            <tr className='notResult'>
+                                <td>No hay resultados</td>
+                            </tr>
+                        ) : (
+                        filteredInstructor.map((instructor) => {
 
                             return (
-                                <tr key={instructor.idUsuario}>
-                                    <td>{instructor.documento}</td>
-                                    <td className='align-left'>{instructor.nombreCompleto}</td>
-                                    <td className='align-left'>{instructor.email}</td>
-                                    <td>{instructor.tipoContrato}</td>
-                                    <td className='align-left'>{instructor.profesion}</td>
-                                    <td>{disabled ? 'Inhabilitado' : 'Habilitado'}</td>
-                                    <td>
-                                        <Link to={`/UpdateInstructor/${instructor.idUsuario}`}>
-                                            <button>
-                                                <span class="material-symbols-outlined" id='iconCrud'>
-                                                    person_edit
-                                                </span>
-                                            </button>
-                                        </Link>
-                                    </td>
-                                    {disabled ? (
-                                        <td>
-                                            <button onClick={() => enableInstructor(instructor.idUsuario)}>
-                                                <span class="material-symbols-outlined iconHabilitar" id='iconCrud'>
-                                                    person_check
-                                                </span>
-                                            </button>
-                                        </td>
-                                    ) : (
-                                        <td>
-                                            <button onClick={() => disableInstructor(instructor.idUsuario)}>
-                                                <span class="material-symbols-outlined iconInhabilitar" id='iconCrud'>
-                                                    person_cancel
-                                                </span>
-                                            </button>
-                                        </td>
+                        <tr key={instructor.idUsuario}>
+                            <td>{instructor.documento}</td>
+                            <td className='align-left'>{instructor.nombreCompleto}</td>
+                            <td className='align-left'>{instructor.email}</td>
+                            <td>{instructor.tipoContrato}</td>
+                            <td className='align-left'>{instructor.profesion}</td>
+                            <td>{disabled ? 'Inhabilitado' : 'Habilitado'}</td>
+                            <td>
+                                <Link to={`/UpdateInstructor/${instructor.idUsuario}`}>
+                                    <button>
+                                        <span class="material-symbols-outlined" id='iconCrud'>
+                                            person_edit
+                                        </span>
+                                    </button>
+                                </Link>
+                            </td>
+                            {disabled ? (
+                                <td>
+                                    <button onClick={() => enableInstructor(instructor.idUsuario)}>
+                                        <span class="material-symbols-outlined iconHabilitar" id='iconCrud'>
+                                            person_check
+                                        </span>
+                                    </button>
+                                </td>
+                            ) : (
+                                <td>
+                                    <button onClick={() => disableInstructor(instructor.idUsuario)}>
+                                        <span class="material-symbols-outlined iconInhabilitar" id='iconCrud'>
+                                            person_cancel
+                                        </span>
+                                    </button>
+                                </td>
 
-                                    )}
-                                </tr>
-                            )
-                        })}
+                            )}
+                        </tr>
+                        )
+                        }))}
                     </tbody>
                 </table>
             </div>

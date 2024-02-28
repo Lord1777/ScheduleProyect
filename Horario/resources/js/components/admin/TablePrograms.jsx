@@ -100,7 +100,12 @@ export const TablePrograms = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredPrograma.map((program) => {
+                        {filteredPrograma.length === 0 || filteredPrograma.size === 0 ? (
+                            <tr className='notResult'>
+                                <td>No hay resultados</td>
+                            </tr>
+                        ) : (
+                        filteredPrograma.map((program) => {
 
                             return (
                                 <tr key={program.idPrograma}>
@@ -138,7 +143,7 @@ export const TablePrograms = () => {
                                     )}
                                 </tr>
                             )
-                        })}
+                        }))}
                     </tbody>
                 </table>
             </div>

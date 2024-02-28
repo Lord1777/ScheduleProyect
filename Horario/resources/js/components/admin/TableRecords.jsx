@@ -106,7 +106,12 @@ export const TableRecords = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredFicha.map((record) => {
+                        {filteredFicha.length === 0 || filteredFicha.size === 0 ? (
+                            <tr className='notResult'>
+                                <td>No hay resultados</td>
+                            </tr>
+                        ) : (
+                        filteredFicha.map((record) => {
 
                             return (
                                 <tr key={record.id}>
@@ -154,7 +159,7 @@ export const TableRecords = () => {
                                     )}
                                 </tr>
                             )
-                        })}
+                        }))}
                     </tbody>
                 </table>
             </div>

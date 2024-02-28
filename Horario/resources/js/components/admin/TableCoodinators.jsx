@@ -107,7 +107,12 @@ export const TableCoodinators = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredCoordinators.map((coordinator) => (
+                        {filteredCoordinators.length === 0 || filteredCoordinators.size === 0 ? (
+                                <tr className='notResult'>
+                                    <td>No hay resultados</td>
+                                </tr>                            
+                        ) : (
+                        filteredCoordinators.map((coordinator) => (
                             <tr key={coordinator.idUsuario}>
                                 <td>{coordinator.documento}</td>
                                 <td className='align-left'>{coordinator.nombreCompleto}</td>
@@ -141,7 +146,7 @@ export const TableCoodinators = () => {
                                     </td>
                                 )}
                             </tr>
-                        ))}
+                        )))}
                     </tbody>
                 </table>
             </div>

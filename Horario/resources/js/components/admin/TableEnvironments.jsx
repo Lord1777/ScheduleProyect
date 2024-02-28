@@ -11,7 +11,7 @@ import '../../../css/admin/Board.css'
 
 
 export const TableEnvironments = () => {
-    
+
     const [disabled, setDisabled] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [ambiente, setAmbiente] = useState("")
@@ -103,44 +103,49 @@ export const TableEnvironments = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredAmbiente.map((environment) => {
+                        {filteredAmbiente.length === 0 || filteredAmbiente.size === 0 ? (
+                            <tr className='notResult'>
+                                <td>No hay resultados</td>
+                            </tr>
+                        ) : (
+                            filteredAmbiente.map((environment) => {
 
-                            return (
-                                <tr>
-                                    <td>{environment.ambiente}</td>
-                                    <td>{environment.capacidad}</td>
-                                    <td>{environment.sede}</td>
-                                    <td>{disabled ? 'Inhabilitado' : 'Habilitado'}</td>
-                                    <td>
-                                        <Link to={`/UpdateAmbiente/${environment.idAmbiente}`}>
-                                            <button className='editar'>
-                                                <span class="material-symbols-outlined" id='iconCrud'>
-                                                    edit
-                                                </span>
-                                            </button>
-                                        </Link>
-                                    </td>
-                                    {disabled ? (
+                                return (
+                                    <tr>
+                                        <td>{environment.ambiente}</td>
+                                        <td>{environment.capacidad}</td>
+                                        <td>{environment.sede}</td>
+                                        <td>{disabled ? 'Inhabilitado' : 'Habilitado'}</td>
                                         <td>
-                                            <button onClick={() => enableEnvironment(environment.idAmbiente)} >
-                                                <span class="material-symbols-outlined iconHabilitar" id='iconCrud'>
-                                                    check_circle
-                                                </span>
-                                            </button>
+                                            <Link to={`/UpdateAmbiente/${environment.idAmbiente}`}>
+                                                <button className='editar'>
+                                                    <span class="material-symbols-outlined" id='iconCrud'>
+                                                        edit
+                                                    </span>
+                                                </button>
+                                            </Link>
                                         </td>
-                                    ) : (
-                                        <td>
-                                            <button onClick={() => disableEnvironment(environment.idAmbiente)}>
-                                                <span class="material-symbols-outlined iconInhabilitar" id='iconCrud'>
-                                                    cancel
-                                                </span>
-                                            </button>
-                                        </td>
+                                        {disabled ? (
+                                            <td>
+                                                <button onClick={() => enableEnvironment(environment.idAmbiente)} >
+                                                    <span class="material-symbols-outlined iconHabilitar" id='iconCrud'>
+                                                        check_circle
+                                                    </span>
+                                                </button>
+                                            </td>
+                                        ) : (
+                                            <td>
+                                                <button onClick={() => disableEnvironment(environment.idAmbiente)}>
+                                                    <span class="material-symbols-outlined iconInhabilitar" id='iconCrud'>
+                                                        cancel
+                                                    </span>
+                                                </button>
+                                            </td>
 
-                                    )}
-                                </tr>
-                            )
-                        })}
+                                        )}
+                                    </tr>
+                                )
+                            }))}
                     </tbody>
                 </table>
             </div>

@@ -104,7 +104,12 @@ export const TableQuarter = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredTrimestre.map((quarter) => {
+                        {filteredTrimestre.length === 0 || filteredTrimestre.size === 0 ? (
+                            <tr className='notResult'>
+                                <td>No hay resultados</td>
+                            </tr>
+                        ) : (
+                        filteredTrimestre.map((quarter) => {
                             return (
                                 <tr>
                                     <td>{quarter.trimestre}</td>
@@ -140,8 +145,7 @@ export const TableQuarter = () => {
                                     )}
                                 </tr>
                             )
-                        })
-                        }
+                        }))}
                     </tbody>
                 </table>
             </div>

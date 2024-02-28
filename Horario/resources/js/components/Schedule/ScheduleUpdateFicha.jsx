@@ -60,28 +60,6 @@ export const ScheduleUpdateFicha = () => {
     const [horasAsignadasPorDia, setHorasAsignadasPorDia] = useState({})
     const diaSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 
-
-    // Función para des-asignar un instructor y ambiente al hacer clic en una casilla asignada
-    // const handleAssignedBoxClick = (boxIndex) => {
-    //     setGlobalStoreBoxes(prevStoreBoxes => {
-    //         const newStoreBoxes = new Set(prevStoreBoxes);
-    //         for (const item of newStoreBoxes) {
-    //             if (item.boxIndex === boxIndex) {
-    //                 newStoreBoxes.delete(item);
-    //                 break; // Una vez eliminado, salimos del bucle
-    //             }
-    //         }
-    //         return newStoreBoxes;
-    //     });
-
-    //     setAsignaciones(prevAsignaciones => {
-    //         const newAsignaciones = { ...prevAsignaciones };
-    //         delete newAsignaciones[boxIndex];
-    //         return newAsignaciones;
-    //     });
-    // };
-
-
     const onSubmit = async (data) => {
         if (globalStoreBoxes.length > 0 || globalStoreBoxes.size) {
 
@@ -201,6 +179,7 @@ export const ScheduleUpdateFicha = () => {
         }
     }, [duplicatesBox, globalStoreBoxes, dataSchedule]);
 
+    // Función para des-asignar un instructor y ambiente al hacer clic en una casilla asignada
     const handleAssignedBoxClick = (boxIndex) => {
         
         const boxData = asignaciones[boxIndex];

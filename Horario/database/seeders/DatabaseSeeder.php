@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ContratoSeeder::class);
         $this->call(ProgramaSeeder::class);
         $this->call(TrimestreSeeder::class);
+        $this->call(CoordinatorSedeer::class);
         Ambiente::factory(50)->create();
         Usuario::factory(100)->create();
         Ficha::factory(80)->create();

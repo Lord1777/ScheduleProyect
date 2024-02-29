@@ -28,7 +28,7 @@ class AmbienteFactory extends Factory
             'limiteHoras' => 96,
             'horasAsignadas' => 0,
             'estado' => $this->faker->randomElement(['habilitado', 'inhabilitado']),
-            'idSede' => Sede::all()->random()->idSede,
+            'idSede' => $this->faker->randomElement([1, 2]),
         ];
     }
 }

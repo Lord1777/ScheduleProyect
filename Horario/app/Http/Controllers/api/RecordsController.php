@@ -39,7 +39,6 @@ class RecordsController extends Controller
     }
 
 
-
     public function indexEnabled(Request $request)
     {
         try {
@@ -64,7 +63,9 @@ class RecordsController extends Controller
                     $query->where('fichas.ficha', 'like', '%' . $search . '%')
                     ->orWhere('programas.nombre', 'like', '%' . $search . '%');
                 })
-                ->paginate(15);
+                ->orderBy('idFicha', 'desc')
+                ->paginate(30);
+
             return response()->json($records, Response::HTTP_OK); //200
 
         } catch (\Exception $e) {
@@ -96,7 +97,9 @@ class RecordsController extends Controller
                     $query->where('fichas.ficha', 'like', '%' . $search . '%')
                     ->orWhere('programas.nombre', 'like', '%' . $search . '%');
                 })
-                ->paginate(15);
+                ->orderBy('idFicha', 'desc')
+                ->paginate(30);
+
             return response()->json($records, Response::HTTP_OK); //200
 
         } catch (\Exception $e) {

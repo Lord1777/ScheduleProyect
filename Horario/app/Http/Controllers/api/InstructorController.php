@@ -42,7 +42,8 @@ class InstructorController extends Controller
                     'contratos.tipoContrato',
                     'usuarios.profesion',
                     'usuarios.estado',
-                    'usuarios.experiencia'
+                    'usuarios.experiencia',
+                    'usuarios.ciudad',
                 )
                 ->where('usuarios.estado', 'habilitado')
                 ->where('usuarios.idRol', 2)
@@ -51,7 +52,8 @@ class InstructorController extends Controller
                     $query->where('documento', 'like', '%' . $search . '%')
                         ->orWhere('nombreCompleto', 'like', '%' . $search . '%');
                 })
-                ->paginate(15);
+                ->orderBy('idUsuario', 'desc')
+                ->paginate(30);
             return response()->json($instructors, Response::HTTP_OK); //200
 
         } catch (\Exception $e) {
@@ -84,8 +86,8 @@ class InstructorController extends Controller
                     $query->where('documento', 'like', '%' . $search . '%')
                         ->orWhere('nombreCompleto', 'like', '%' . $search . '%');
                 })
-                ->paginate(15);
-                Log::info($instructors);
+                ->orderBy('idUsuario', 'desc')
+                ->paginate(30);
                 
             return response()->json($instructors, Response::HTTP_OK); //200
 

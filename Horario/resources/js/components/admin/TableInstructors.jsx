@@ -93,9 +93,10 @@ export const TableInstructors = () => {
                         <tr>
                             <th>Documento</th>
                             <th className='align-left'>Nombre</th>
-                            <th className='align-left'>Email</th>
-                            <th>Contrato</th>
                             <th className='align-left'>Profesión</th>
+                            <th className='align-left'>Email</th>
+                            <th className='align-left'>Ciudad</th>
+                            <th>Contrato</th>
                             <th>Estado</th>
                             <th>Editar</th>
                             {disabled ? <th>Habilitar</th> : <th>Inhabilitar</th>}
@@ -113,9 +114,10 @@ export const TableInstructors = () => {
                         <tr key={instructor.idUsuario}>
                             <td>{instructor.documento}</td>
                             <td className='align-left'>{instructor.nombreCompleto}</td>
-                            <td className='align-left'>{instructor.email}</td>
-                            <td>{instructor.tipoContrato}</td>
                             <td className='align-left'>{instructor.profesion}</td>
+                            <td className='align-left'>{instructor.email}</td>
+                            <td className='align-left'>{instructor.ciudad}</td>
+                            <td>{instructor.tipoContrato}</td>
                             <td>{disabled ? 'Inhabilitado' : 'Habilitado'}</td>
                             <td>
                                 <Link to={`/UpdateInstructor/${instructor.idUsuario}`}>

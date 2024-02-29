@@ -38,7 +38,8 @@ class ProgramsController extends Controller
                     //Lógica de búsqueda aquí
                     $query->where('nombre', 'like', '%' . $search . '%');
                 })
-                ->paginate(15);
+                ->orderBy('idPrograma', 'desc')
+                ->paginate(30);
             return response()->json($programa, Response::HTTP_OK); //200;
         } catch (\Exception $e) {
             return response()->json([
@@ -63,7 +64,8 @@ class ProgramsController extends Controller
                     //Lógica de búsqueda aquí
                     $query->where('nombre', 'like', '%' . $search . '%');
                 })
-                ->paginate(15);
+                ->orderBy('idPrograma', 'desc')
+                ->paginate(30);
             return response()->json($programa, Response::HTTP_OK); //200;
         } catch (\Exception $e) {
             return response()->json([

@@ -101,6 +101,7 @@ export const TableCoodinators = () => {
                             <th className='align-left'>Nombre</th>
                             <th className='align-left'>Telefono</th>
                             <th className='align-left'>Email</th>
+                            <th className='align-left'>Ciudad</th>
                             <th>Estado</th>
                             <th>Editar</th>
                             {disabled ? <th>Habilitar</th> : <th>Inhabilitar</th>}
@@ -118,6 +119,7 @@ export const TableCoodinators = () => {
                                 <td className='align-left'>{coordinator.nombreCompleto}</td>
                                 <td className='align-left'>{coordinator.telefono}</td>
                                 <td className='align-left'>{coordinator.email}</td>
+                                <td className='align-left'>{coordinator.ciudad}</td>
                                 <td>{disabled ? 'Inhabilitado' : 'Habilitado'}</td>
                                 <td>
                                     <Link to={`/UpdateCoordinador/${coordinator.idUsuario}`}>

@@ -21,7 +21,8 @@ class CoordinatorsController extends Controller
                     $query->where('documento', 'like', '%' . $search . '%')
                         ->orWhere('nombreCompleto', 'like', '%' . $search . '%');
                 })
-                ->paginate(15);
+                ->orderBy('idUsuario', 'desc')
+                ->paginate(30);
     
             return response()->json($coordinators, Response::HTTP_OK); //200
         } catch (\Exception $e) {
@@ -40,7 +41,8 @@ class CoordinatorsController extends Controller
                     $query->where('documento', 'like', '%' . $search . '%')
                         ->orWhere('nombreCompleto', 'like', '%' . $search . '%');
                 })
-                ->paginate(15);
+                ->orderBy('idUsuario', 'desc')
+                ->paginate(30);
 
             return response()->json($coordinators, Response::HTTP_OK); //200
         } catch (\Exception $e) {

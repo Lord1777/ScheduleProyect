@@ -58,6 +58,7 @@ class QuartersController extends Controller
                     // Lógica de búsqueda 
                     $query->where('trimestres.fechaInicio', 'like', '%' . $search . '%');
                 })
+                ->orderBy('fechaInicio', 'desc')
                 ->paginate(15);
 
             return response()->json($quarter, Response::HTTP_OK); // 200
@@ -76,6 +77,7 @@ class QuartersController extends Controller
                     // Lógica de búsqueda 
                     $query->where('trimestres.fechaInicio', 'like', '%' . $search . '%');
                 })
+                ->orderBy('fechaInicio', 'desc')
                 ->paginate(15);
             return response()->json($quarter, Response::HTTP_OK); //200
         } catch (\Exception $e) {

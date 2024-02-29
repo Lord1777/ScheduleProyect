@@ -39,7 +39,8 @@ class EnvironmentsController extends Controller
                     // Lógica de búsqueda 
                     $query->where('ambientes.ambiente', 'like', '%' . $search . '%');
                 })
-                ->paginate(15);
+                ->orderBy('idAmbiente', 'desc')
+                ->paginate(30);
     
             return response()->json($environment, Response::HTTP_OK); //200
         } catch (\Exception $e) {
@@ -59,7 +60,8 @@ class EnvironmentsController extends Controller
                     'sedes.sede',
                 )
                 ->where('ambientes.estado', 'inhabilitado')
-                ->paginate(15);
+                ->orderBy('idAmbiente', 'desc')
+                ->paginate(30);
 
             return response()->json($environment, Response::HTTP_OK); //200
         } catch (\Exception $e) {

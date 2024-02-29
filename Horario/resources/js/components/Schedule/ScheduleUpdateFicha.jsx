@@ -38,13 +38,10 @@ export const ScheduleUpdateFicha = () => {
 
     const { dataQuarter } = useFetchGetOneQuarter(`/GetTrimestre/${idTrimestre}`);
     const { dataInfoRecord } = useFetchGetInfoBarRecord('/getInfoBarRecord', idFicha);
-    console.log(dataInfoRecord)
 
     // Almacena todos los índices, id-instructor, id-ambiente asignados,
     const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
     const [point, setPoint] = useState(false);
-
-    console.log(globalStoreBoxes);
 
     const { dataSchedule, loading } = useFetchGetScheduleRecord('/getScheduleApprentice', idFicha);
 
@@ -125,12 +122,13 @@ export const ScheduleUpdateFicha = () => {
 
     useEffect(() => {
 
+        console.log("Data Schedule:", dataSchedule);
+        console.log("Global Store Boxes:", globalStoreBoxes);
+        console.log("Asignaciones:", asignaciones);
 
+        if (dataSchedule && dataSchedule.length > 0 && globalStoreBoxes.size === 0) {
 
-
-        if (dataSchedule && dataSchedule.length > 0 && !globalStoreBoxes.size) {
-
-            if(point === true && globalStoreBoxes.size === 0){
+            if (point === true && globalStoreBoxes.size === 0) {
                 alert('No puedes eliminar todas las asignaciones de un horario academico');
             }
 
@@ -177,7 +175,7 @@ export const ScheduleUpdateFicha = () => {
 
             const timer = setTimeout(() => {
                 setDuplicatesBox([]);
-            }, 8000);
+            }, 10000);
 
             // Limpieza del temporizador cuando el componente se desmonta o cuando duplicatesBox cambia nuevamente
             return () => clearTimeout(timer);
@@ -186,28 +184,29 @@ export const ScheduleUpdateFicha = () => {
 
     // Función para des-asignar un instructor y ambiente al hacer clic en una casilla asignada
     const handleAssignedBoxClick = (boxIndex) => {
-        
+
         const boxData = asignaciones[boxIndex];
-    
+
         if (boxData) {
-          setGlobalStoreBoxes((prevStoreBoxes) => {
-            const newStoreBoxes = prevStoreBoxes.filter((box) => box.boxIndex !== boxIndex);
-            return newStoreBoxes;
-          });
-    
-          setAsignaciones((prevAsignaciones) => {
-            const newAsignaciones = { ...prevAsignaciones };
-            delete newAsignaciones[boxIndex];
-            return newAsignaciones;
-          });
-    
-          // Resta las horas asignadas solo si la casilla estaba asignada y las horas asignadas son mayores a 0
-          setHorasAsignadas((prevHoras) => {
-            const newHoras = Math.max(prevHoras - 1, 0);
-            return newHoras;
-          });
+            setGlobalStoreBoxes((prevStoreBoxes) => {
+                const prevStoreArray = [...prevStoreBoxes];
+                const newStoreBoxes = prevStoreArray.filter((box) => box.boxIndex !== boxIndex);
+                return new Set(newStoreBoxes);
+            });
+
+            setAsignaciones((prevAsignaciones) => {
+                const newAsignaciones = { ...prevAsignaciones };
+                delete newAsignaciones[boxIndex];
+                return newAsignaciones;
+            });
+
+            // Resta las horas asignadas solo si la casilla estaba asignada y las horas asignadas son mayores a 0
+            setHorasAsignadas((prevHoras) => {
+                const newHoras = Math.max(prevHoras - 1, 0);
+                return newHoras;
+            });
         }
-      };
+    };
 
 
     useEffect(() => {

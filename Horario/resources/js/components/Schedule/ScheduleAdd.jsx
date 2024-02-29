@@ -16,6 +16,7 @@ import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
 import '../../../css/Schedule/ScheduleAdd.css';
 import { useFetchGetQuarterScheduleAdd } from '../../hooks/FetchGET/useFetchGetQuarterScheduleAdd';
+import { Modal } from '../Modals/Modal';
 
 
 export const ScheduleAdd = () => {
@@ -27,6 +28,8 @@ export const ScheduleAdd = () => {
     const { register, setValue, handleSubmit, formState: {errors}, } = useForm();
     const { fetchSubmitSchedule, duplicatesBox, setDuplicatesBox, modalOpen, setModalOpen, alertMessage, succesfullyModal, setSuccesfullyModal } = useFetchPostSchedule('/createSchedule');
     const { dataQuarters } = useFetchGetQuarterScheduleAdd('/getQuartersSchedule', id);
+    const [ modalMenosHoras, setModalMenosHoras ] = useState(false);
+    const [ messageAlertHoras, setMessageAlertHoras] = useState('');
 
     const { selectedBoxes, handleBoxClick, resetSelectedBoxes } = useSelectedBoxes();
 
@@ -118,6 +121,14 @@ export const ScheduleAdd = () => {
             if (idInstructorExcedido) {
                 setMessageAlert('Se ha detectado que un instructor ha superado el límite diario de 10 horas en al menos uno de los días.');
                 setAlertShowModal(true);
+                return
+            }
+
+            if(globalStoreBoxes.length < 40 || globalStoreBoxes.size < 40){
+                alert("El horario de la ficha tiene menos de 40 horas");
+                setMessageAlertHoras("El horario de la ficha tiene menos de 40 horas");
+                setModalMenosHoras(true);
+                
                 return
             }
 
@@ -298,6 +309,14 @@ export const ScheduleAdd = () => {
                 message={messageAlert}
                 open={alertShowModal}
                 close={() => setAlertShowModal(false)}
+            />
+            {/* Modal en caso de que tena menos de 40  */}
+            <Modal
+            tittle="Advertencia"
+            imagen={error}
+            message={messageAlertHoras}
+            open={modalMenosHoras}
+            close={() => setModalMenosHoras(false)}
             />
         </>
     );

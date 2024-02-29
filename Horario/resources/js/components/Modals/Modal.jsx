@@ -3,13 +3,16 @@ import '../../../css/Modals/Modal.css'
 import { useNavigate } from 'react-router-dom'
 
 
-export const Modal = ( { tittle, imagen, message, route, open, close } ) => {
+export const Modal = ({ tittle, imagen, message, route, open, close }) => {
     if (!open) return null;
 
-    const Navigate = useNavigate()
-    const Navegar = () => {
-        Navigate(`/${route}`)
-    }
+    const handleContinue = () => {
+        close(); // Cierra el modal
+        if (route) {
+            Navigate(route)
+        }
+    };
+
 
     return (
         <>
@@ -25,7 +28,8 @@ export const Modal = ( { tittle, imagen, message, route, open, close } ) => {
                         <p>{message}</p>
                     </div>
                     <div className="modal-btns">
-                        <button className='confirmar' onClick={Navegar}>Confirmar</button>
+                        <button className='confirmar' onClick={handleContinue}>Confirmar</button>
+                        <button className='cancelar' onClick={close}>Cancelar</button>
                     </div>
                 </div>
             </main>

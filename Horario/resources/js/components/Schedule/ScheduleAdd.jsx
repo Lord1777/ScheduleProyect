@@ -25,11 +25,12 @@ export const ScheduleAdd = () => {
     const { dataFicha, loading, setLoading, fetchData } = useFetchGetInfoUnitFicha("/GetFicha", id);
     const { isModal, openModal, closeModal, asignaciones, setAsignaciones } = useModalAsignar();
     const { TRIMESTRE_INFO } = useValidationForm();
-    const { register, setValue, handleSubmit, formState: {errors}, } = useForm();
+    const { register, setValue, handleSubmit, formState: { errors }, } = useForm();
     const { fetchSubmitSchedule, duplicatesBox, setDuplicatesBox, modalOpen, setModalOpen, alertMessage, succesfullyModal, setSuccesfullyModal } = useFetchPostSchedule('/createSchedule');
     const { dataQuarters } = useFetchGetQuarterScheduleAdd('/getQuartersSchedule', id);
-    const [ modalMenosHoras, setModalMenosHoras ] = useState(false);
-    const [ messageAlertHoras, setMessageAlertHoras] = useState('');
+    const [modalMenosHoras, setModalMenosHoras] = useState(false);
+    const [messageAlertHoras, setMessageAlertHoras] = useState('');
+    const [formData, setFormData] = useState(null);
 
     const { selectedBoxes, handleBoxClick, resetSelectedBoxes } = useSelectedBoxes();
 
@@ -83,7 +84,9 @@ export const ScheduleAdd = () => {
     }, [asignaciones]);
 
 
+
     const onSubmit = async (data) => {
+        setFormData(data)
 
         if (globalStoreBoxes.length > 0 || globalStoreBoxes.size) {
 
@@ -121,11 +124,12 @@ export const ScheduleAdd = () => {
             if (idInstructorExcedido) {
                 setMessageAlert('Se ha detectado que un instructor ha superado el límite diario de 10 horas en al menos uno de los días.');
                 setAlertShowModal(true);
+                await saveScheduleModal(data)
                 return
             }
 
-            if(globalStoreBoxes.length < 40 || globalStoreBoxes.size < 40){
-                alert("El horario de la ficha tiene menos de 40 horas");
+            if (globalStoreBoxes.length < 40 || globalStoreBoxes.size < 40) {
+                
                 setMessageAlertHoras("El horario de la ficha tiene menos de 40 horas");
                 setModalMenosHoras(true);
                 
@@ -141,6 +145,18 @@ export const ScheduleAdd = () => {
             setLoading(false);
         }
     }
+
+    const saveScheduleModal = async(data) => {
+        setLoading(true);
+        console.log('save' + data)
+        await fetchSubmitSchedule({
+            idTrimestre: getQuarterId(data.trimestre),
+            idFicha: id,
+            globalStoreBoxes
+        });
+        setLoading(false);
+    };
+
 
     useEffect(() => {
         // Inicializa las horas asignadas a 0 para cada día de la semana para cada instructor
@@ -312,11 +328,12 @@ export const ScheduleAdd = () => {
             />
             {/* Modal en caso de que tena menos de 40  */}
             <Modal
-            tittle="Advertencia"
-            imagen={error}
-            message={messageAlertHoras}
-            open={modalMenosHoras}
-            close={() => setModalMenosHoras(false)}
+                tittle="Advertencia"
+                imagen={error}
+                message={messageAlertHoras}
+                open={modalMenosHoras}
+                close={() => setModalMenosHoras(false)}
+                funcion={() => saveScheduleModal(formData)}
             />
         </>
     );

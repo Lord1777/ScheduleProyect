@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import '../../../css/Profile/Profile.css'
-import logoSena from "../../assets/img/LogoSena.png";
 import { useUser } from '../../context/UserContext';
 import { getContratoById, getSedeById } from '../../hooks/useObjectMapping';
 import { Loading } from '../Loading/Loading';

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../../../css/Details/formDetailsInstructor.css';
 import { getContratoByName, getSedeByName } from '../../hooks/useObjectMapping';
 import useFetchPostInstructor from '../../hooks/FetchPOST/useFetchPostInstructor';
-import logoSena from "../../assets/img/LogoSena.png";
+import logoSena from "../../assets/img/LogoSena.jpeg";
 
 export const FormDetailsInstructor = () => {
 

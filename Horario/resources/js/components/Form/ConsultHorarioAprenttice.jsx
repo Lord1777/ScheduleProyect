@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useFetchGetRecords } from '../../hooks/FetchGetResources/useFetchGetRecords'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import logosena from '../../assets/img/LogoSena.png'
+import logosena from '../../assets/img/LogoSena.jpeg'
 import useDropdown from '../../hooks/useDropdown'
 import '../../../css/Form/ConsultHorarioAprenttice.css'
 
@@ -36,7 +36,7 @@ export const ConsultHorarioAprenttice = () => {
             <main className='background-consult-horario'>
                 <div className="container-consult-form">
                     <img src={logosena} alt="sena" id='sena' />
-                    <h2>Consultar Horario</h2>
+                    <h2 id='consultar-horario-h2' >Consultar Horario</h2>
                     <form method='POST' onSubmit={handleSubmit(onSubmit)}>
 
                         <div className={`select-ficha ${isDropdown ? 'open' : ''}`}>

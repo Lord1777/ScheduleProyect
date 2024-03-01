@@ -23,12 +23,6 @@ const useFetchPostRecord = (route) => {
         // id de la Jornada
         let idJornada = getJornadaByName(jornada);
 
-        console.log(
-            ficha,
-            idPrograma,
-            idModalidad,
-            idJornada)
-
         try {
             const response = await fetch(`${API_URL}${route}`, {
                 method: 'POST',
@@ -47,7 +41,6 @@ const useFetchPostRecord = (route) => {
 
             if (response.ok) {
                 const data = await response.json()
-                console.log(data.message)
                 openSuccessModal();
             }
             else if (response.status === 401) {

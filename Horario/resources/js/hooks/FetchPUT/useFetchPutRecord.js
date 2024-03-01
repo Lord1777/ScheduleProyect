@@ -14,15 +14,8 @@ export const useFetchPutRecord = (id) => {
 
     const fetchPutRecord = async (ficha, modalidad, jornada) => {
 
-
         let idJornada = getJornadaByName(jornada);
         let idModalidad = getModalidadByName(modalidad);
-
-        console.log(
-            `NumeroF: ${ficha},
-            idModalidad: ${idModalidad},
-            idJornadaAcademica: ${idJornada}`
-        )
 
         try {
             const response = await fetch(`${API_URL}/updateRecord/${id}`, {
@@ -41,7 +34,6 @@ export const useFetchPutRecord = (id) => {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data.message);
                 openSuccessModal();
             } 
             else if (response.status === 422) {

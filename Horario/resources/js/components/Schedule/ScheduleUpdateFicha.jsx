@@ -7,13 +7,11 @@ import { Loading } from '../Loading/Loading';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { initialsName } from '../../hooks/useObjectFunction';
-import { useFetchGetScheduleInstructor } from '../../hooks/FetchSchedule/useFetchGetScheduleInstructor';
 import { ContinuoModal } from '../Modals/ContinuoModal'
 import useSelectedBoxes from '../../hooks/useSelectedBoxes';
 import useModalAsignar from '../../hooks/useModalAsignar';
 import useDropdownGet from '../../hooks/useDropdownGet';
 import useValidationForm from '../../hooks/useValidationForm';
-import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
 import useDropdown from '../../hooks/useDropdown';
 import '../../../css/Schedule/ScheduleAdd.css';
 import exito from '../../assets/img/Exito.png'
@@ -121,10 +119,6 @@ export const ScheduleUpdateFicha = () => {
 
 
     useEffect(() => {
-
-        console.log("Data Schedule:", dataSchedule);
-        console.log("Global Store Boxes:", globalStoreBoxes);
-        console.log("Asignaciones:", asignaciones);
 
         if (dataSchedule && dataSchedule.length > 0 && globalStoreBoxes.size === 0) {
 

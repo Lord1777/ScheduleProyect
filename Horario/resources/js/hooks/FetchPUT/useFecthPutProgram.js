@@ -34,7 +34,6 @@ export const useFecthPutProgram = (id) => {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data.message);
                 openSuccessModal();
             } else if (response.status === 422) {
                 const data = await response.json();

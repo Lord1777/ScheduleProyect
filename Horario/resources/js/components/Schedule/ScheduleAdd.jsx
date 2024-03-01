@@ -113,7 +113,6 @@ export const ScheduleAdd = () => {
                 }
                 newHorasAsignadasPorDia[idInstructor][dia] += 1;
             });
-            console.log('Updated horasAsignadasPorDia:', newHorasAsignadasPorDia);
 
             // Verificar si se excede el límite diario de 10 horas
             const idInstructorExcedido = Object.keys(newHorasAsignadasPorDia).find(idInstructor => {
@@ -148,7 +147,6 @@ export const ScheduleAdd = () => {
 
     const saveScheduleModal = async(data) => {
         setLoading(true);
-        console.log('save' + data)
         await fetchSubmitSchedule({
             idTrimestre: getQuarterId(data.trimestre),
             idFicha: id,

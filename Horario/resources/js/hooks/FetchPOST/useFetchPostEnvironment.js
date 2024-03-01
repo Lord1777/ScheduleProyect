@@ -15,16 +15,7 @@ const useFetchPostEnvironment = (route) => {
     const navigate = useNavigate();
 
     const fetchSubmitEnvironment = async (ambiente, cantidadMesas, capacidad, catidadComputadores, aireAcondicionados, tableros, videoBeams, sede,) => {
-        console.log(
-            `ambiente: ${ambiente},
-            cantidadMesas: ${cantidadMesas}, 
-            capacidad: ${capacidad}, 
-            catidadComputadores: ${catidadComputadores}, 
-            aireAcondicionados: ${aireAcondicionados}, 
-            tableros: ${tableros}, 
-            videoBeams: ${videoBeams}, 
-            sede: ${sede},`
-        )
+
         //Id de la sede
         let idSede = getSedeByName(sede);
 
@@ -59,7 +50,6 @@ const useFetchPostEnvironment = (route) => {
 
             if (response.ok) {
                 const data = await response.json()
-                console.log(data.message)
                 setSuccesfullyModal(true);
             }
             else if (response.status === 401) {
@@ -77,9 +67,6 @@ const useFetchPostEnvironment = (route) => {
                 setAlertMessage(data.error)
                 setRuta('/CrudAmbientes')
                 setErrorModal(true);
-            }
-            else{
-                console.log(data.error)
             }
 
         } catch (err) {

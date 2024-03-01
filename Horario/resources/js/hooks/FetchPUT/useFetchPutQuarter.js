@@ -34,12 +34,10 @@ export const useFetchPutQuarter = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data.message);
                 openSuccessModal();
             } else {
                 console.error(`Error updating quater: ${response.statusText}`);
                 const data = await response.json();
-                console.log(data.error);
                 openErrorModal()
             }
 

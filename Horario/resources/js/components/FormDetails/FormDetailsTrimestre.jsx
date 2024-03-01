@@ -16,7 +16,6 @@ export const FormDetailsTrimestre = () => {
     const { fetchSubmitQuarter } = useFetchPostQuarter();
 
     const onSubmit = async(data) => {
-        console.log(data);
         await fetchSubmitQuarter(
             data.trimestre,
             data.fechaInicio,

@@ -130,7 +130,7 @@ export const ScheduleAdd = () => {
 
             if (globalStoreBoxes.length < 40 || globalStoreBoxes.size < 40) {
                 
-                setMessageAlertHoras("El horario de la ficha tiene menos de 40 horas");
+                setMessageAlertHoras("El horario de la ficha tiene menos de 40 horas, ¿Quieres continuar?");
                 setModalMenosHoras(true);
                 
                 return

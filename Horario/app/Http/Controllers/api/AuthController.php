@@ -175,9 +175,6 @@ class AuthController extends Controller
                 ], Response::HTTP_NOT_FOUND); //404
             }
 
-            // Log de inicio de la actualización de contraseña
-            Log::info('Iniciando actualización de contraseña para el usuario: ' . $user->idUsuario);
-
             // Verificar si la nueva contraseña es diferente a la antigua
             if (hash::check($request->password, $user->password)) {
                 Log::warning('Intento de actualizar la contraseña con la misma contraseña anterior para el usuario: ' . $user->idUsuario);
@@ -192,8 +189,6 @@ class AuthController extends Controller
             $user->sesion = 1;
             $user->save();
 
-            // Log de éxito
-            Log::info('Contraseña actualizada correctamente para el usuario: ' . $user->idUsuario);
 
             return response()->json([
                 'status' => 1,

@@ -59,8 +59,6 @@ export const FormUpdateTrimestre = () => {
             setValue('N_TRIMESTRE', Data.trimestre);
             setValue('fechaInicio', new Date(Data.fechaInicio));
             setValue('fechaFinal', new Date(Data.fechaFinal));
-            console.log(Data.fechaInicio)
-            console.log(new Date(Data.fechaInicio))
         } catch (error) {
             console.error("Error al cargar los detalles ficha:", error);
             setLoading(false);

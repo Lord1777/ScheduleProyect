@@ -54,7 +54,6 @@ const useFetchPostInstructor = (route) => {
             })
             if (response.ok) {
                 const data = await response.json();
-                console.log(data.message); // Mensaje definido en Laravel
                 openSuccessModal();
             } else if (response.status === 401) {
                 // Redirigir a la pantalla de Forbidden (403)

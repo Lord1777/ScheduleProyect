@@ -40,7 +40,6 @@ export const ModalChangePassword = ({ IdUser, open, close, }) => {
             data.newPassword
         )
         setLoading(false);
-        console.log(IdUser)
     }
 
     if (loading) {

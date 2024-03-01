@@ -34,7 +34,6 @@ const useFetchPostQuarter = (route) => {
     
             if (response.ok) {
                 const data = await response.json();
-                console.log(data.message); // Mensaje definido en Laravel
                 openSuccessModal();
             }
             else if (response.status === 401) {

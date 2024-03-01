@@ -823,8 +823,6 @@ class ScheduleController extends Controller
 
                     if (($nuevasHorasFicha > $limiteHorasFicha)) {
 
-                        Log::info($disponibilidadFicha - $nuevasHorasFicha);
-
                         //Si el incremento supera el limite:
                         DB::rollBack();
 
@@ -882,10 +880,7 @@ class ScheduleController extends Controller
 
     public function scheduleEnableRecords()
     {
-        Log::info('antes del try');
         try {
-
-            Log::info('dentro del try');
             $records = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
                 ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
                 ->join('trimestres', 'trimestres.idTrimestre', '=', 'horarios_academicos.idTrimestre')
@@ -901,11 +896,8 @@ class ScheduleController extends Controller
                 ->distinct()
                 ->get();
 
-            Log::info($records);
-            Log::info('hola');
 
             if ($records->isEmpty()) {
-                Log::info('dentro del vacio');
                 return response()->json([
                     'status' => 0,
                     'error' => 'Schedule Not Found'

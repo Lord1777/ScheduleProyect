@@ -85,8 +85,6 @@ export const ModalAsignar = ({
         await updateStateRecursively([...selectedBoxes]);
     };
 
-    console.log(storeBoxes);
-
     const [searchInstructor, setSearchInstructor] = useState("");
     const [searchAmbiente, setSearchAmbiente] = useState("");
 

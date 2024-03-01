@@ -20,7 +20,7 @@ export const useFetchPostForgotPassword = (route) => {
             }
 
             const data = await response.json();
-            console.log(data.message);
+            
         } catch (error) {
             console.error(error.message);
         }

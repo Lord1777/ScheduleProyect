@@ -155,10 +155,6 @@ class EnvironmentsController extends Controller
 
         try {
 
-            Log::info($request->videoBeam);
-            Log::info($request->aireAcondicionado);
-            Log::info($request->tablero);
-
             $ambiente = Ambiente::findOrFail($idAmbiente);
 
             $ambiente->update([

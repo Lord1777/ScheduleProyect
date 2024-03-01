@@ -169,7 +169,11 @@
 }
 
 #sena{
-    width: 10rem;
+    width: 18rem;
+}
+
+#consultar-horario-h2{
+    margin-top: 3rem;
 }
 
 /*Responsive*/

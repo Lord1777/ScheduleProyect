@@ -25,7 +25,7 @@ export const FormPassword = () => {
                     <div className="container-icon-sena-password">
                         <img src={LogoSena} alt="LogoSena" />
                     </div>
-                    <h2>Restablecer contraseña</h2>
+                    <h2 id='restablecer-contraseña-h2' >Restablecer contraseña</h2>
 
                     <form method="POST" onSubmit={handleSubmit(onSubmit)}>
                         <div className='grid-column-password'>

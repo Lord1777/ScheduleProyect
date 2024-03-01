@@ -36,7 +36,7 @@ export const ConsultHorarioAprenttice = () => {
             <main className='background-consult-horario'>
                 <div className="container-consult-form">
                     <img src={logosena} alt="sena" id='sena' />
-                    <h2>Consultar Horario</h2>
+                    <h2 id='consultar-horario-h2' >Consultar Horario</h2>
                     <form method='POST' onSubmit={handleSubmit(onSubmit)}>
 
                         <div className={`select-ficha ${isDropdown ? 'open' : ''}`}>

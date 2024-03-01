@@ -37,7 +37,7 @@ export const Modal = ({ tittle, imagen, message, route, open, close, funcion }) 
                         <p>{message}</p>
                     </div>
                     <div className="modal-btns">
-                        <button className='confirmar' onClick={handleContinue}>Confirmar</button>
+                        <button className='confirmar' onClick={handleContinue}>Continuar</button>
                         <button className='cancelar' onClick={handleCancel}>Cancelar</button>
                     </div>
                 </div>

@@ -19,6 +19,7 @@ import error from '../../assets/img/Advertencia.png'
 import useFetchGetScheduleRecord from '../../hooks/FetchSchedule/useFetchGetScheduleRecord';
 import FilterScheduleFichaContext from '../../context/FilterScheduleFichaContext';
 import useFetchGetInfoBarRecord from '../../hooks/FetchSchedule/useFetchGetInfoBarRecord';
+import { Modal } from '../Modals/Modal';
 
 
 export const ScheduleUpdateFicha = () => {
@@ -33,6 +34,9 @@ export const ScheduleUpdateFicha = () => {
     const { TRIMESTRE } = useValidationForm();
     const { register, setValue, handleSubmit } = useForm();
     const { isDropdown, selectedOption, handleDropdown, handleOptionClick } = useDropdown(setValue, "trimestre");
+    const [modalMenosHoras, setModalMenosHoras] = useState(false);
+    const [messageAlertHoras, setMessageAlertHoras] = useState('');
+    const [formData, setFormData] = useState(null);
 
     const { dataQuarter } = useFetchGetOneQuarter(`/GetTrimestre/${idTrimestre}`);
     const { dataInfoRecord } = useFetchGetInfoBarRecord('/getInfoBarRecord', idFicha);
@@ -59,6 +63,7 @@ export const ScheduleUpdateFicha = () => {
     const diaSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 
     const onSubmit = async (data) => {
+        setFormData(data)
         if (globalStoreBoxes.length > 0 || globalStoreBoxes.size) {
 
             // Reiniciar horasAsignadasPorDia a un estado inicial
@@ -97,6 +102,12 @@ export const ScheduleUpdateFicha = () => {
                 return
             }
 
+            if (globalStoreBoxes.length < 40 || globalStoreBoxes.size < 40) {               
+                setMessageAlertHoras("El horario de la ficha tiene menos de 40 horas, ¿Quieres continuar?");
+                setModalMenosHoras(true);   
+                return
+            }
+
             await fetchUpdateScheduleRecord({
                 idTrimestre: dataQuarter.idTrimestre,
                 idFicha: idFicha,
@@ -104,6 +115,15 @@ export const ScheduleUpdateFicha = () => {
             });
         }
     }
+
+    const saveScheduleModal = async () => {
+        console.log('save')
+        await fetchUpdateScheduleRecord({
+            idTrimestre: dataQuarter.idTrimestre,
+            idFicha: idFicha,
+            globalStoreBoxes
+        });
+    };
 
     useEffect(() => {
         // Supongamos que dataSchedule es la información de los horarios obtenida del componente SeeSchedule
@@ -169,7 +189,7 @@ export const ScheduleUpdateFicha = () => {
 
             const timer = setTimeout(() => {
                 setDuplicatesBox([]);
-            }, 10000);
+            }, 30000);
 
             // Limpieza del temporizador cuando el componente se desmonta o cuando duplicatesBox cambia nuevamente
             return () => clearTimeout(timer);
@@ -349,6 +369,14 @@ export const ScheduleUpdateFicha = () => {
                 message={messageAlert}
                 open={alertShowModal}
                 close={() => setAlertShowModal(false)}
+            />
+            <Modal
+                tittle="Advertencia"
+                imagen={error}
+                message={messageAlertHoras}
+                open={modalMenosHoras}
+                close={() => setModalMenosHoras(false)}
+                funcion={() => saveScheduleModal()}
             />
         </>
     );

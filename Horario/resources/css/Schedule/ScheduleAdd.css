@@ -76,7 +76,7 @@
 }
 
 .grid_schedule .duplicate-box {
-    background-color: #ff9999; /* Puedes ajustar el color según tu preferencia */
+    background-color: #ff9999 !important; /* Puedes ajustar el color según tu preferencia */
 }
 
 .box.assignment-box {

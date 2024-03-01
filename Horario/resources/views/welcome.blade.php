@@ -6,6 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="icon" href="{{ asset('favicon.ico') }}" />
     <title>ASPS - CBI</title>
     <!-- <link rel="icon" href="{{ asset('resources/assets/icons/Iconosena.png') }}" type="image/png"> -->
     @viteReactRefresh

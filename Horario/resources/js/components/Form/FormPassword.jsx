@@ -1,6 +1,6 @@
 import React from 'react'
 import '../../../css/Form/FormPassword.css'
-import LogoSena from '../../assets/img/LogoSena.png'
+import LogoSena from '../../assets/img/LogoSena.jpeg'
 import useValidationForm from '../../hooks/useValidationForm'
 import useFetchLogin from '../../hooks/FetchPOST/useFetchLogin'
 import { useForm } from 'react-hook-form'

@@ -14,12 +14,22 @@
 
 .container-p{
     margin-top: 2rem;
+    transition: all 0.3ms;
 }
 
 .container-p h2 {
     font-size: 1rem;
     font-weight: 500;
     color: #000;
+}
+
+.container-p:hover {
+    color: #203DBA;
+    text-decoration: underline;
+}
+
+.container-p h2:hover{
+    color: #203DBA;
 }
 
 .container_form_login {

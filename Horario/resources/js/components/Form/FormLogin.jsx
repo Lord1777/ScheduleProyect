@@ -1,5 +1,4 @@
 import React from 'react'
-import LogoSena from '../../assets/img/LogoSena.png'
 import CloseEye from '../../assets/icons/close-eye.png'
 import OpenEye from '../../assets/icons/open-eye.png'
 import usePasswordToggle from '../../hooks/usePasswordToggle'
@@ -8,13 +7,13 @@ import useValidationForm from '../../hooks/useValidationForm'
 import useFetchLogin from '../../hooks/FetchPOST/useFetchLogin'
 import { useForm } from 'react-hook-form'
 import { TooltipHorario } from '../Tooltips/TooltipHorario'
-import { Link } from 'react-router-dom'
-import { Loading } from '../Loading/Loading'
-import ASPS from '../../assets/img/ASPS.png'
+import { Link } from 'react-router-dom';
+import { Loading } from '../Loading/Loading';
 import '../../../css/Form/FormLogin.css'
 import { ContinuoModal } from '../Modals/ContinuoModal'
 import error from '../../assets/img/Advertencia.png'
 import { TooltipAbout } from '../Tooltips/TooltipAbout'
+import LogoSena from '../../assets/img/LogoSena.jpeg';
 
 export const FormLogin = () => {
     const { password, showPassword, setPassword, handleTogglePassword } = usePasswordToggle();
@@ -48,10 +47,9 @@ export const FormLogin = () => {
         <>
             <main className='background_form_login'>
                 <div className="container_form_login">
-                    <div className="container-icon-sena">
+                    <div className="container-logo-sena">
                         <img src={LogoSena} alt="LogoSena" />
                     </div>
-                    {/* <img src={ASPS} alt="Logo ASPS" className='ASPS'/> */}
                     <h2>Ingreso usuarios registrados</h2>
                     <form method="POST" onSubmit={handleSubmit(onSubmit)}>
                         <div className='grid-column'>

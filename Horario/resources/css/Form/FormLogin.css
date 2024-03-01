@@ -38,11 +38,6 @@
     margin-top: 2rem;
 }
 
-/* .ASPS {
-    width: 20rem;
-    height: 15rem;
-    margin-top: 2rem;
-} */
 
 .container_form_login .grid-column {
     display: flex;
@@ -126,14 +121,13 @@ form .container_info_product input::placeholder {
     font-size: 0.9rem;
 }
 
-.container-icon-sena{
+.container-logo-sena{
     display: flex;
     align-items: center;
-    /* margin-top: -2rem; */
 }
 
-.container-icon-sena img {
-    width: 6rem;
+.container-logo-sena img {
+    width: 16rem;
     height: 6rem;
 }
 
@@ -273,6 +267,13 @@ form .container_info_product input::placeholder {
 
 }
 
+@media (max-width:1295px) {
+    .container-logo-sena img{
+        width: 20rem;
+        height: 6.5rem;
+    }
+}
+
 @media (max-width:860px) {
 
     .container_form_login form {
@@ -330,8 +331,8 @@ form .container_info_product input::placeholder {
         font-size: 1.2rem;
     }
 
-    .container_form_login .container-icon-sena img {
-        width: 6rem;
+    .container_form_login .container-logo-sena img {
+        width: 19rem;
     }
 
     .container-p h2{
@@ -389,6 +390,10 @@ form .container_info_product input::placeholder {
         user-select: none;
         flex-direction: column;
         align-items: center;
+    }
+
+    .container_form_login .container-logo-sena img {
+        width: 17rem;
     }
 
 }
@@ -456,7 +461,7 @@ form .container_info_product input::placeholder {
         font-size: 1rem;
     }
 
-    .container-icon-sena .name-proyect{
+    .container-logo-sena .name-proyect{
         span{
             font-size: 1.2rem;
         }
@@ -485,16 +490,12 @@ form .container_info_product input::placeholder {
         font-size: 0.7rem;
     }
 
-    .container_form_login .container-icon-sena img {
-        width: 4rem;
-        height: 4rem;
+    .container_form_login .container-logo-sena img {
+        width: 13rem;
+        height: 5.5rem;
     }
 
-    .container-icon-sena .name-proyect{
+    .container-logo-sena .name-proyect{
         font-size: 0.5rem;
     }
-}
-
-@media(max-width: 375px) {
-
 }

@@ -43,7 +43,6 @@ import { Password } from './pages/Password.jsx';
 import { ManageScheduleUpdateFicha } from './pages/ManageScheduleUpdateFicha.jsx';
 import { MyProfile } from './pages/MyProfile.jsx';
 import { SeeScheduleAdminInstructor } from './pages/SeeScheduleAdminInstructor.jsx';
-import { ModalChangePassword } from './components/Modals/ModalChangePassword.jsx';
 import { ScheduleAdminAprenttice } from './pages/ScheduleAdminAprenttice.jsx';
 import { ContinuoModal } from './components/Modals/ContinuoModal.jsx';
 import error from './assets/img/Advertencia.png'
@@ -64,15 +63,22 @@ function App() {
 
     useEffect(() => {
 
-        fetch('/csrf-token')
-            .then(response => response.json())
-            .then(data => {
-                // Asignar el token CSRF a una variable de entorno
-                console.log(data)
-            })
-            .catch(error => {
-                console.error('Error al obtener el token CSRF:', error);
-            });
+        // const getToken = async () => {
+        //     try {
+        //         await fetch(`${API_URL}/sanctum/csrf-cookie`, {
+        //             method: "GET",
+        //             headers: {
+        //                 'Content-Type': 'application/json'
+        //             },
+        //             credentials: 'include',
+        //         })
+        //         .then(response => response.json());
+        //     } catch (error) {
+        //         console.log('');
+        //     }
+        // }
+
+        // getToken();
 
         if (storedToken && storedRole && storedUserData) {
             authenticateUser(storedToken, storedRole, JSON.parse(storedUserData));

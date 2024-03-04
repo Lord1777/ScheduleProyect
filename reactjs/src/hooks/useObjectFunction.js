@@ -39,32 +39,32 @@ export const generateRandomColors = (length) => {
         //Colores pastel
         const allColors = [
             "#58D68D",
-             "#FFD1DC",
-              "#FFDAB9",
-               "#B0E0E6",
-                "#E6E6FA",
-                 "#F5F5F5",
-                  "#7FFFD4",
-                   "#FFF8DC",
-                    "#AFEEEE",
-                     "#E0EEE0",
-                      "#F08080",
-                       "#FA8072",
-                        "#D8BFD8",
-                         "#98FF98",
-                          "#ADD8E6",
-                           "#AFEEEE",
-                            "#FFD700",
-                             "#F5F5DC",
-                              "#E0FFFF",
-                               "#89CFF0",
-                                "#FFE4B5",
-                                 "#FFC0CB",
-                                  "#fabfb7",
-                                   "#c5c6c8",
-                                    "#fdfd96",
-                                     "#d3bcf6"
-                                    
+            "#FFD1DC",
+            "#FFDAB9",
+            "#B0E0E6",
+            "#E6E6FA",
+            "#F5F5F5",
+            "#7FFFD4",
+            "#FFF8DC",
+            "#AFEEEE",
+            "#E0EEE0",
+            "#F08080",
+            "#FA8072",
+            "#D8BFD8",
+            "#98FF98",
+            "#ADD8E6",
+            "#AFEEEE",
+            "#FFD700",
+            "#F5F5DC",
+            "#E0FFFF",
+            "#89CFF0",
+            "#FFE4B5",
+            "#FFC0CB",
+            "#fabfb7",
+            "#c5c6c8",
+            "#fdfd96",
+            "#d3bcf6"
+
         ];
 
         let lastColorIndex = -1;
@@ -77,7 +77,24 @@ export const generateRandomColors = (length) => {
             lastColorIndex = randomIndex;
         }
         return colors;
-    }else {
+    } else {
         return [];
     }
 };
+
+
+export const getCookieCsrf = () => {
+    const cookies = document.cookie.split(';');
+    let csrfToken = null;
+
+    for (let cookie of cookies) {
+        const [name, value] = cookie.trim().split('=');
+
+        if (name === 'XSRF-TOKEN') {
+            csrfToken = decodeURIComponent(value);
+            break;
+        }
+    }
+
+    return csrfToken;
+}

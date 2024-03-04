@@ -12,6 +12,8 @@ const useFetchLogin = (route) => {
 
     const navigate = useNavigate();
 
+    // console.log(csrf_token)
+
     const authUser = async (documento, password) => {
         try {
             const response = await fetch(`${API_URL}${route}`, {

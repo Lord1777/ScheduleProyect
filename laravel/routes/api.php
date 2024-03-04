@@ -1,6 +1,6 @@
 <?php
 
-
+// use Laravel\Sanctum\Http\Controllers\CsrfCookieController;
 use App\Http\Controllers\api\CoordinatorsController;
 use App\Http\Controllers\api\EnvironmentsController;
 use App\Http\Controllers\api\InstructorController;
@@ -16,9 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['cors'])->group(function (){
 
-    // Ruta para obtener el token CSRF
-    Route::get('/csrf-token', [AuthController::class, 'csrf']);
-
+    // // Ruta para obtener el token CSRF
+    // Route::get('/sanctum/csrf-cookie', [CsrfCookieController::class, 'show']);  
     //Users
     Route::post('/register', [AuthController::class, 'register']);
     Route::match(['get', 'post'], '/login', [AuthController::class, 'login'])->name('login');

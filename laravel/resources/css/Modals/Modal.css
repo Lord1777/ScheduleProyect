@@ -1,0 +1,137 @@
+.box-shadow-modal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(38, 38, 38, 0.6);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 9998;
+}
+
+.box_modal{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 1rem;
+    width: 30rem;
+    height: 35rem;
+    padding: 1rem;
+}
+
+.container-tittle{
+    text-align: center;
+    width: 90%;
+    margin: 1rem 0.5rem;
+}
+
+.container-img-modal{
+    margin: 1rem 0.5rem;
+}
+
+.container-img-modal img{
+    width: 13rem;
+    height: 13rem;
+}
+
+.container-message{
+    width: 90%;
+    text-align: center;
+    margin: 1rem;
+}
+
+.modal-btns{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.modal-btns button{
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0.8rem 2rem;
+    margin: 0.5rem;
+    border-radius: 0.2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.modal-btns .confirmar{
+    background-color: var(--color-btn-guardar);
+    color: var(--color-text-btn);
+}
+
+.modal-btns .cancelar{
+    background-color: var(--color-btn-cancelar);
+    color: var(--color-text-btn);
+}
+
+@media(max-width: 490px){
+    .box_modal {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        background-color: #fff;
+        border-radius: 1rem;
+        width: 22rem;
+        height: 25rem;
+        padding: 1rem;
+    }
+
+    .container-img-modal img {
+        width: 9rem;
+        height: 9rem;
+    }
+
+    .container-tittle {
+        text-align: center;
+        width: 90%;
+        margin: 1rem 0.5rem;
+        font-size: 0.9rem;
+    } 
+}
+
+@media(max-width: 350px){
+    .box_modal {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        background-color: #fff;
+        border-radius: 1rem;
+        width: 17rem;
+        height: 22rem;
+        padding: 1rem;
+    }
+
+    .modal-btns button {
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 0.6rem 1rem;
+        margin: 0rem;
+        border-radius: 0.2rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        font-size: 0.7rem;
+    }
+
+    .container-img-modal img {
+        width: 7rem;
+        height: 7rem;
+    }
+
+    .container-tittle {
+        text-align: center;
+        width: 90%;
+        margin: 1rem 0.5rem;
+        font-size: 0.8rem;
+    }
+}

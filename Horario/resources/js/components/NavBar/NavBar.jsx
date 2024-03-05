@@ -44,7 +44,7 @@ export const NavBar = () => {
             <nav className='nav-bar'>
                 <div className="name-proyect-toggle">
                     <div className='title-btn'>
-                        <h2 className='Title'>ASPS - CBI</h2>
+                        <h2 className='Title'>SPH</h2>
                         <button className='toggle-nav' onClick={showToggleNav}>
                             <img src={toggle} alt="toggle" />
                         </button>

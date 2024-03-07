@@ -12,7 +12,7 @@ export const useFetchPutManageRecord = () => {
                 method: "PUT",
                 headers: { 
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrf_token,
+                    // 'X-CSRF-TOKEN': csrf_token,
                     'Authorization': `Bearer ${userToken}`,
                  },
             })

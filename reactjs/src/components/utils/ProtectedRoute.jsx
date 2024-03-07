@@ -53,7 +53,7 @@ const roleConfig = {
     coordinador: {
         allowedRoles: ['coordinador'],
         components: {
-            // 'controlPanel': ControlPanel,
+            'controlPanel': ControlPanel,
             'PanelHorarios': HorariosPanel,
             'Card': CardHorarios,
             'HorariosFichas': WatchSchedules,

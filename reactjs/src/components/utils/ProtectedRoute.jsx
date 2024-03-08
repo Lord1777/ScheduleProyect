@@ -39,6 +39,7 @@ import { ManageScheduleUpdateFicha } from '../../pages/ManageScheduleUpdateFicha
 import { SeeScheduleAdminInstructor } from '../../pages/SeeScheduleAdminInstructor';
 import { MyProfile } from '../../pages/MyProfile';
 import { ScheduleAdminAprenttice } from '../../pages/ScheduleAdminAprenttice';
+import { ComparationsSchedule } from '../../pages/ComparationsSchedule';
 
 
 const roleConfig = {
@@ -54,6 +55,7 @@ const roleConfig = {
         allowedRoles: ['coordinador'],
         components: {
             'controlPanel': ControlPanel,
+            'ComparacionHorarios': ComparationsSchedule,
             'PanelHorarios': HorariosPanel,
             'Card': CardHorarios,
             'HorariosFichas': WatchSchedules,

@@ -1,0 +1,185 @@
+.container_comparation_schedules {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    padding-top: 5rem;
+    padding-bottom: 2rem;
+}
+
+.contenedor-de-dropdowns{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contenedor-horario {
+    max-width: 50rem;
+    max-height: 40rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 0rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    overflow: auto;
+    box-shadow: 0px 1px 5px 0px rgb(73, 73, 73);
+
+    .item-horario {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 3rem;
+        height: 2.5rem;
+        font-size: 0.8rem;
+    }
+
+    .hora-horario {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 2.5rem;
+        font-size: 0.7rem;
+    }
+
+    .cuadriculaHorario {
+        background-color: #D9D9D9;
+        width: 3rem;
+        height: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.3rem;
+        margin: 0.3rem;
+    }
+}
+
+.desplegable-comparacion {
+    position: relative;
+    width: 14rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+    user-select: none;
+}
+
+#instructores {
+    z-index: 3;
+}
+
+.desplegable-comparacion::after {
+    width: 1rem;
+    height: 3rem;
+    border-radius: 0rem 0.3rem 0.3rem 0rem;
+    content: '';
+    position: absolute;
+    top: 0rem;
+    right: 0;
+    padding: 0 1em;
+    background: var(--primary-color);
+    cursor: pointer;
+    pointer-events: none;
+    transition: .25s all ease;
+}
+
+.desplegable-comparacion::before {
+    content: '';
+    position: absolute;
+    right: 20px;
+    top: 18px;
+    z-index: 1;
+    width: 6px;
+    height: 6px;
+    border: 2px solid #fff;
+    border-top: 2px solid transparent;
+    border-right: 2px solid transparent;
+    transform: rotate(-45deg);
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+.desplegable-comparacion.open::before {
+    transform: rotate(-225deg);
+}
+
+.desplegable-comparacion input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    user-select: none;
+    caret-color: transparent;
+    border: none;
+    background-color: #D9D9D9;
+    border-radius: 0.2rem;
+    padding: 1rem;
+    outline: none;
+}
+
+.desplegable-comparacion .option-drop-comparation {
+    display: none;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    max-height: 25rem;
+    min-height: 5rem;
+    overflow-y: auto;
+}
+
+.desplegable-comparacion .open {
+    position: absolute;
+    top: 4rem;
+    width: 100%;
+    background-color: #FFF;
+    border-radius: 5px;
+    box-shadow: 6px 9px 18px 0px rgba(83, 83, 83, 0.45);
+    z-index: 2;
+    display: block;
+}
+
+.contenedor-options-comparacion div {
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.contenedor-options-comparacion div:hover {
+    background-color: var(--color-hover-option-select);
+    color: var(--color-text-hover-option);
+}
+
+.contenedor-options-comparacion {
+    margin-top: 1rem;
+}
+
+.search-bar-comparation {
+    width: 12rem;
+    height: 3.5rem;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+}
+
+.icon-search-comparation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: var(--primary-color);
+    left: 162px;
+    top: 10px;
+    border-radius: 0rem 0.2rem 0.2rem 0rem;
+}
+
+.search-bar-comparation #buscador {
+    margin: 0.6rem;
+    height: 2.5rem;
+    width: 12rem;
+    caret-color: black;
+    cursor: auto;
+}

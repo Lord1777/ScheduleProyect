@@ -53,6 +53,6 @@ use Illuminate\Support\Facades\Route;
 // Route::match(['get', 'put'], '/PerfilInstructor', fn() => view('welcome'));
 // Route::get('/Acerca-de', fn() => view('welcome'));
 
-Route::get('/{any}', function () {
-    return view('index');
-})->where('any', '.*');
+// Route::get('/{any}', function () {
+//     return view('index');
+// })->where('any', '.*');

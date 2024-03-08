@@ -1,0 +1,308 @@
+.contenedor__formAdd {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #D9D9D9;
+    padding-top: 5rem;
+}
+
+.container__box_form {
+    width: 70rem;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 1rem;
+    background-color: #fff;
+    padding: 2rem;
+    caret-color: transparent;
+    margin: 6rem 1rem;
+}
+
+.container_form_instructor form input {
+    margin-top: 1rem;
+    padding: 1.2rem;
+    border-radius: 0.3rem;
+    width: 20rem;
+    height: 3.5rem;
+    border: none;
+    background-color: #e7e7e7;
+    outline: none;
+    caret-color: black;
+}
+
+.container_form_instructor form .input-large {
+    margin-top: 1rem;
+    padding: 1.2rem;
+    border-radius: 0.3rem;
+    width: 41rem;
+    border: none;
+    background-color: #e7e7e7;
+    outline: none;
+}
+
+.Desplegable__form {
+    position: relative;
+    width: 20rem;
+    height: 3.5rem;
+    margin-bottom: 1rem;
+    user-select: none;
+}
+
+.Desplegable__form::after {
+    width: 1rem;
+    height: 3.5rem;
+    border-radius: 0rem 0.3rem 0.3rem 0rem;
+    content: '';
+    position: absolute;
+    top: 1rem;
+    right: 0rem;
+    padding: 0 1em;
+    background: var(--primary-color);
+    cursor: pointer;
+    pointer-events: none;
+    transition: .25s all ease;
+}
+
+.Desplegable__form::before {
+    content: '';
+    position: absolute;
+    right: 18px;
+    top: 38px;
+    z-index: 10;
+    width: 8px;
+    height: 8px;
+    border: 2px solid #fff;
+    border-top: 2px solid transparent;
+    border-right: 2px solid transparent;
+    transform: rotate(-45deg);
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+.Desplegable__form.open::before {
+    transform: rotate(-225deg);
+}
+
+.Desplegable__form input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    user-select: none;
+    caret-color: transparent;
+    border: none;
+    background-color: #D9D9D9;
+    border-radius: 0.2rem;
+    padding: 1rem;
+    outline: none;
+}
+
+.Desplegable__form .opciones_form {
+    display: none;
+    height: 10rem;
+    overflow-y: auto;
+}
+
+.Desplegable__form .open {
+    position: absolute;
+    top: 5rem;
+    width: 100%;
+    height: auto;
+    background-color: #FFF;
+    border-radius: 5px;
+    box-shadow: 6px 9px 18px 0px rgba(83, 83, 83, 0.45);
+    z-index: 2;
+    display: block;    
+}
+
+#dropdown-form-sede{
+    top: -8rem;
+}
+
+.Desplegable__form .opciones_form div {
+    padding: 12px 20px;
+    cursor: pointer;
+}
+
+.Desplegable__form .opciones_form div:hover {
+    background-color: var(--color-hover-option-select);
+    color: var(--color-text-hover-option);
+}
+
+.contenedor_two_inputs {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container_form_instructor form input[type="number"]::-webkit-inner-spin-button,
+.container_form_instructor form input[type="number"]::-webkit-outer-spin-button {
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.container_form_instructor form input[type="number"] {
+    appearance: textfield;
+}
+
+.textArea {
+    margin-top: 1rem;
+    width: 41rem;
+    background-color: #e7e7e7;
+    caret-color: black;
+}
+
+.btns-form {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 20rem;
+    height: 3.5rem;
+    margin-top: 1rem;
+
+    button {
+        width: 8rem;
+        height: 3rem;
+        border: none;
+        cursor: pointer;
+        outline: none;
+        border-radius: 0.3rem;
+    }
+
+    .guardar {
+        background-color: var(--color-btn-guardar);
+        color: var(--color-text-btn);
+    }
+
+    .cancelar {
+        background-color: var(--color-btn-cancelar);
+        color: var(--color-text-btn);
+    }
+}
+
+@media(max-width:780px) {
+    .container_form_instructor form .input-large {
+        width: 30rem;
+    }
+
+    .textArea {
+        width: 30rem;
+    }
+
+    .Desplegable__form {
+        width: 14rem;
+    }
+
+    .container_form_instructor form input {
+        width: 14rem;
+    }
+
+    .contenedor_two_inputs {
+        width: 30rem;
+    }
+
+    .btns-form {
+        button {
+            width: 7rem;
+            height: 2.8rem;
+        }
+    }
+}
+
+@media(max-width:570px) {
+    .contenedor_two_inputs {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .Desplegable__form {
+        width: 20rem;
+    }
+
+    .container_form_instructor form input {
+        width: 20rem;
+    }
+
+    .container_form_instructor form .input-large {
+        width: 20rem;
+    }
+
+    .container_form_instructor form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .contenedor_two_inputs {
+        width: fit-content;
+    }
+
+    .textArea {
+        width: 20rem;
+    }
+}
+
+@media(max-width:410px){
+    .container_form_instructor form .input-large {
+        width: 15rem;
+    }
+
+    .Desplegable__form {
+        width: 15rem;
+    }
+
+    .container_form_instructor form input {
+        width: 15rem;
+    }
+
+    .textArea {
+        width: 15rem;
+    }
+
+    .btns-form {
+        width: 15rem;
+    }
+}
+
+@media(max-width:330px){
+    .container_form_instructor form .input-large {
+        width: 11rem;
+        height: 3rem;
+    }
+
+    .container_form_instructor form input {
+        width: 11rem;
+        height: 3rem;
+    }
+
+    .Desplegable__form {
+        width: 11rem;
+    }
+
+    .Desplegable__form::after {
+        width: 0.1rem;
+        height: 3rem;
+        padding: 0 1em;
+    }
+
+    .Desplegable__form::before {
+        right: 13px;
+        top: 35px;
+        z-index: 10;
+        width: 5px;
+        height: 5px;
+    }
+
+    .container__box_form {
+        width: 16rem;
+        h2{
+            font-size: 1.2rem;
+        }
+    }
+}

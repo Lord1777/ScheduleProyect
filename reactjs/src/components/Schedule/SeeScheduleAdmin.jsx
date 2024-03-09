@@ -80,6 +80,7 @@ export const SeeScheduleAdmin = () => {
                 <div className="item-encabezado">Jueves</div>
                 <div className="item-encabezado">Viernes</div>
                 <div className="item-encabezado">Sabado</div>
+                <div className="item-encabezado">Domingo</div>
 
                 {Array.from({ length: 16 }, (_, rowIndex) => (
                     <React.Fragment key={rowIndex}>
@@ -87,8 +88,8 @@ export const SeeScheduleAdmin = () => {
                             <span>{`${6 + rowIndex}:00`}</span>
                             <span>{`${7 + rowIndex}:00`}</span>
                         </div>
-                        {Array.from({ length: 6 }, (_, colIndex) => {
-                            const boxIndex = rowIndex * 6 + colIndex;
+                        {Array.from({ length: 7 }, (_, colIndex) => {
+                            const boxIndex = rowIndex * 7 + colIndex;
 
                             // Busca la información específica para este índice en la solicitud del backend
                             const infoSchedule = dataSchedule && Array.isArray(dataSchedule) ? dataSchedule.find((data) => data.boxIndex === boxIndex) : false;

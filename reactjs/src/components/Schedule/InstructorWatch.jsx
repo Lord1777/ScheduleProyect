@@ -8,15 +8,31 @@ import { Loading } from '../Loading/Loading';
 import useFetchGetScheduleInstructor from "../../hooks/FetchGET/useFetchGetScheduleInstructor";
 import { getAñoByDate } from "../../hooks/useObjectFunction";
 import gifNoResults from '../../assets/img/no_results.gif'
+import useDropdown from "../../hooks/useDropdown";
+import { useForm } from "react-hook-form";
+import useFetchGetQuarters from "../../hooks/FetchGetResources/useFetchGetQuarters";
 
 export const InstructorWatch = () => {
 
+    const { register, setValue } = useForm();
     const { horarioInstructor, loading } = useFetchGetScheduleInstructor('/getScheduleInstructor');
     const [search, setSearch] = useState("");
+    const dropdown2 = useDropdown(setValue, "trimestres");
+
+    const { dataQuarters } = useFetchGetQuarters('/getQuarters');
 
     const filteredData = horarioInstructor.filter(horario =>
         horario.nombreCompleto.toString().startsWith(search)
     );
+
+    const getQuarterId = (dataTrimestre) => {
+        const quarter = dataQuarters.find((quarter) => `${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}` === dataTrimestre);
+        return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
+    }
+
+    const handleOptionClickTrimestre = (selectedOption) => {
+        console.log((getQuarterId(selectedOption)));
+    }
 
     if (loading) {
         return <Loading />
@@ -25,6 +41,7 @@ export const InstructorWatch = () => {
     return (
         <>
             <div className="Space"></div>{/*Espacio creado para separar el contenido*/}
+
             <div className="title-and-search">
                 <h2>Horarios Instructores</h2>
                 <div className="search-input">
@@ -41,6 +58,30 @@ export const InstructorWatch = () => {
                         <FontAwesomeIcon icon={faSearch} className="search-icon" />
                     </div>
                 </div>
+
+                <div className={`desplegable-trimestre-instructor ${dropdown2.isDropdown ? 'open' : ''}`}>
+                        <input
+                            type="text"
+                            className='textBox'
+                            name='trimestres'
+                            placeholder='Trimestres'
+                            readOnly
+                            onClick={dropdown2.handleDropdown}
+                            value={dropdown2.selectedOption}
+                            {...register("trimestres")}
+                        />
+                        <div className={`desplegable-options ${dropdown2.isDropdown ? 'open' : ''}`}>
+                            {dataQuarters && dataQuarters.length > 0 && dataQuarters.map((quarter) => (
+                                <div key={quarter.idTrimestre} onClick={() => {
+                                    dropdown2.handleOptionClick(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`);
+                                    handleOptionClickTrimestre(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`);
+                                }}>
+                                    {quarter.trimestre} | {quarter.fechaInicio} - {quarter.fechaFinal}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
             </div>{/*Titulo y buscador*/}
             <div className="contenedor">
 

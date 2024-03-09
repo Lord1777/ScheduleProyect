@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { ModalAsignar } from '../Modals/ModalAsignar';
 import { useFetchPutScheduleRecord } from '../../hooks/FetchPUT/useFetchPutScheduleRecord';
 import { useFetchGetOneQuarter } from '../../hooks/FetchGET/useFetchGetOneQuarter';
-import { NavBar } from '../NavBar/NavBar';
 import { Loading } from '../Loading/Loading';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
@@ -60,7 +59,7 @@ export const ScheduleUpdateFicha = () => {
 
     // Inicializa el registro de horas asignadas por día para cada instructor
     const [horasAsignadasPorDia, setHorasAsignadasPorDia] = useState({})
-    const diaSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    const diaSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
     const onSubmit = async (data) => {
         setFormData(data)
@@ -70,7 +69,7 @@ export const ScheduleUpdateFicha = () => {
             const initialHorasPorDia = {};
             globalStoreBoxes.forEach(box => {
                 const idInstructor = box.idInstructor;
-                const dia = diaSemana[box.boxIndex % 6];
+                const dia = diaSemana[box.boxIndex % 7];
                 if (!initialHorasPorDia[idInstructor]) {
                     initialHorasPorDia[idInstructor] = {};
                 }
@@ -83,7 +82,7 @@ export const ScheduleUpdateFicha = () => {
             const newHorasAsignadasPorDia = { ...initialHorasPorDia };
             globalStoreBoxes.forEach(box => {
                 const idInstructor = box.idInstructor;
-                const dia = diaSemana[box.boxIndex % 6];
+                const dia = diaSemana[box.boxIndex % 7];
                 if (!newHorasAsignadasPorDia[idInstructor][dia]) {
                     newHorasAsignadasPorDia[idInstructor][dia] = 0;
                 }
@@ -93,18 +92,30 @@ export const ScheduleUpdateFicha = () => {
             // Verificar si se excede el límite diario de 10 horas para algún instructor en algún día
             const idInstructorExcedido = Object.keys(newHorasAsignadasPorDia).find(idInstructor => {
                 const horasPorDia = newHorasAsignadasPorDia[idInstructor];
-                return Object.values(horasPorDia).some(horas => horas > 10);
+                return Object.values(horasPorDia).some(horas => horas > 8);
             });
 
             if (idInstructorExcedido) {
-                setMessageAlert('Se ha detectado que un instructor ha superado el límite diario de 10 horas en al menos uno de los días.');
+                setMessageAlert('Se ha detectado que un instructor ha superado el límite diario de 8 horas en al menos uno de los días.');
                 setAlertShowModal(true);
                 return
             }
 
-            if (globalStoreBoxes.length < 40 || globalStoreBoxes.size < 40) {               
-                setMessageAlertHoras("El horario de la ficha tiene menos de 40 horas, ¿Quieres continuar?");
+            if (globalStoreBoxes.length < 32 || globalStoreBoxes.size < 32) {               
+                setMessageAlertHoras("El horario de la ficha tiene menos de 32 horas, ¿Quieres continuar?");
                 setModalMenosHoras(true);   
+                return
+            }
+
+            if (globalStoreBoxes.length > 32 || globalStoreBoxes.size > 32) {
+                setMessageAlertHoras("El horario de la ficha tiene más de 32 horas, ¿Quieres continuar?");
+                setModalMenosHoras(true);
+                return
+            }
+
+            if (globalStoreBoxes.length == 32 || globalStoreBoxes.size == 32) {
+                setMessageAlertHoras("El horario de la ficha tiene 32 horas, ¿Quieres continuar?");
+                setModalMenosHoras(true);
                 return
             }
 
@@ -117,7 +128,6 @@ export const ScheduleUpdateFicha = () => {
     }
 
     const saveScheduleModal = async () => {
-        console.log('save')
         await fetchUpdateScheduleRecord({
             idTrimestre: dataQuarter.idTrimestre,
             idFicha: idFicha,
@@ -177,7 +187,7 @@ export const ScheduleUpdateFicha = () => {
         const initialHorasPorDia = {};
         globalStoreBoxes.forEach(box => {
             const idInstructor = box.idInstructor;
-            const dia = diaSemana[box.boxIndex % 6];
+            const dia = diaSemana[box.boxIndex % 7];
             if (!initialHorasPorDia[idInstructor]) {
                 initialHorasPorDia[idInstructor] = {};
             }
@@ -275,6 +285,7 @@ export const ScheduleUpdateFicha = () => {
                     <div className="horas-dias">Jueves</div>
                     <div className="horas-dias">Viernes</div>
                     <div className="horas-dias">Sábado</div>
+                    <div className="horas-dias">Domingo</div>
 
                     {Array.from({ length: 16 }, (_, rowIndex) => (
                         <React.Fragment key={rowIndex}>
@@ -282,8 +293,8 @@ export const ScheduleUpdateFicha = () => {
                                 <span>{`${6 + rowIndex}:00`}</span>
                                 <span>{`${7 + rowIndex}:00`}</span>
                             </div>
-                            {Array.from({ length: 6 }, (_, colIndex) => {
-                                const boxIndex = rowIndex * 6 + colIndex;
+                            {Array.from({ length: 7 }, (_, colIndex) => {
+                                const boxIndex = rowIndex * 7 + colIndex;
 
                                 //Evita renderizar un objeto como un hijo directo de react
                                 //Si se rederiza(utiliza) directamente boxIndex, genera un error
@@ -295,9 +306,9 @@ export const ScheduleUpdateFicha = () => {
                                     <div
                                         key={colIndex}
                                         className={
-                                            `box ${selectedBoxes.has(rowIndex * 6 + colIndex) ? 'selected' : ''}
-                                             ${duplicatesBox && duplicatesBox.some(item => item.boxIndex === rowIndex * 6 + colIndex) ? 'duplicate-box' : ''}
-                                             ${[...globalStoreBoxes].some(item => item.boxIndex === rowIndex * 6 + colIndex) ? 'assignment-box' : ''}
+                                            `box ${selectedBoxes.has(rowIndex * 7 + colIndex) ? 'selected' : ''}
+                                             ${duplicatesBox && duplicatesBox.some(item => item.boxIndex === rowIndex * 7 + colIndex) ? 'duplicate-box' : ''}
+                                             ${[...globalStoreBoxes].some(item => item.boxIndex === rowIndex * 7 + colIndex) ? 'assignment-box' : ''}
                                             `}
                                         onClick={() => {
                                             if (boxData) {

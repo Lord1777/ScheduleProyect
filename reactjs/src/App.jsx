@@ -108,7 +108,7 @@ function App() {
                         <Route path='/HorarioAdminInstructor/:idUsuario/:idTrimestre' element={<SeeScheduleAdminInstructor />} />
                         <Route path='/HorariosInstructores' element={<WatchSchedulesInstructor />} />
                         <Route path='/HorarioAmbiente/:idAmbiente/:idTrimestre' element={<SeeScheduleAmbiente />} />
-                        <Route path='/ComparacionHorarios' element={<ComparationsSchedule/>}/>
+                        <Route path='/ComparacionHorariosInstructores' element={<ComparationsSchedule/>}/>
                         <Route path='/HorariosAmbientes' element={<WatchScheduleAmbiente />} />
                         <Route path='/CrudInstructor' element={<CrudInstructor />} />
                         <Route path='/CrudFichas' element={<CrudRecords />} />

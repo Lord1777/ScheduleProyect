@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { NavBar } from '../components/NavBar/NavBar'
-import { ScheduleComparationInstructor } from '../components/Schedule/ScheduleComparationInstructor'
+import { ScheduleComparation } from '../components/Schedule/ScheduleComparation'
 import '../../css/Schedule/ComparationsSchedule.css'
 import useDropdown from '../hooks/useDropdown'
 import { useForm } from 'react-hook-form'
@@ -8,6 +8,7 @@ import useFetchGetQuarters from '../hooks/FetchGetResources/useFetchGetQuarters'
 import { useFetchGetInstructors } from '../hooks/FetchGetResources/useFetchGetInstructors'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { useFetchGetScheduleAdminInstructor } from '../hooks/FetchSchedule/useFetchGetScheduleAdminInstructor'
 
 export const ComparationsSchedule = () => {
 
@@ -22,6 +23,56 @@ export const ComparationsSchedule = () => {
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
     const [searchInstructor1, setSearchInstructor1] = useState("");
     const [searchTrimestre1, setSearchTrimestre1] = useState("");
+    const [ instructor1, setInstructor1 ] = useState();
+    const [ instructor2, setInstructor2 ] = useState();
+    const [ instructor3, setInstructor3 ] = useState();
+    const [ trimestre1, setTrimestre1 ] = useState();
+    const [ trimestre2, setTrimestre2] = useState();
+    const [ trimestre3, setTrimestre3 ] = useState();
+    
+    const handleOptionClickTrimestre1 = (trimestre) => {
+        setTrimestre1(trimestre);
+    }
+    const handleInstruuctorId1 = (id) => {
+        setInstructor1(id);
+    }
+
+    const handleOptionClickTrimestre2 = (trimestre) => {
+        setTrimestre2(trimestre);
+    }
+    const handleInstruuctorId2 = (id) => {
+        setInstructor2(id);
+    }
+
+    const handleOptionClickTrimestre3 = (trimestre) => {
+        setTrimestre3(trimestre);
+    }
+    const handleInstruuctorId3 = (id) => {
+        setInstructor3(id);
+    }
+
+    useEffect(() => {
+
+    }, [ instructor1, trimestre1, instructor2, trimestre2, instructor3, trimestre3]);
+
+    const { dataSchedule: horarioInstuctor1 } = useFetchGetScheduleAdminInstructor(
+        '/getAdminScheduleInstructor',
+        instructor1,
+        trimestre1
+    );
+
+    const { dataSchedule: horarioInstuctor2 } = useFetchGetScheduleAdminInstructor(
+        '/getAdminScheduleInstructor',
+        instructor2,
+        trimestre2
+    );
+
+    const { dataSchedule: horarioInstuctor3 } = useFetchGetScheduleAdminInstructor(
+        '/getAdminScheduleInstructor',
+        instructor3,
+        trimestre3
+    );
+
 
     return (
         <>
@@ -64,7 +115,10 @@ export const ComparationsSchedule = () => {
                                         )
                                         .map((instructor) => (
                                             <div key={instructor.idUsuario}
-                                                onClick={() => dropdown1.handleOptionClick(`${instructor.nombreCompleto}`)}
+                                                onClick={() => {
+                                                    dropdown1.handleOptionClick(`${instructor.nombreCompleto}`)
+                                                    handleInstruuctorId1(`${instructor.idUsuario}`)
+                                                }}
                                             >
                                                 {instructor.nombreCompleto}
                                             </div>
@@ -106,7 +160,8 @@ export const ComparationsSchedule = () => {
                                         )
                                         .map((quarter) => (
                                             <div key={quarter.idTrimestre} onClick={() => {
-                                                dropdown2.handleOptionClick(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`);
+                                                dropdown2.handleOptionClick(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`)
+                                                handleOptionClickTrimestre1(`${quarter.trimestre}`);
                                             }}>
                                                 {quarter.trimestre} | {quarter.fechaInicio} - {quarter.fechaFinal}
                                             </div>
@@ -117,7 +172,9 @@ export const ComparationsSchedule = () => {
                         </div>
 
                     </div>
-                    <ScheduleComparationInstructor />
+                    <ScheduleComparation
+                        funcionFecth={horarioInstuctor1}
+                    />
                 </div>
 
                 {/* 2*/}
@@ -157,7 +214,10 @@ export const ComparationsSchedule = () => {
                                         )
                                         .map((instructor) => (
                                             <div key={instructor.idUsuario}
-                                                onClick={() => dropdown3.handleOptionClick(`${instructor.nombreCompleto}`)}
+                                                onClick={() => {
+                                                    dropdown3.handleOptionClick(`${instructor.nombreCompleto}`)
+                                                    handleInstruuctorId2(`${instructor.idUsuario}`)
+                                                }}
                                             >
                                                 {instructor.nombreCompleto}
                                             </div>
@@ -200,6 +260,7 @@ export const ComparationsSchedule = () => {
                                         .map((quarter) => (
                                             <div key={quarter.idTrimestre} onClick={() => {
                                                 dropdown4.handleOptionClick(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`);
+                                                handleOptionClickTrimestre2(`${quarter.trimestre}`);
                                             }}>
                                                 {quarter.trimestre} | {quarter.fechaInicio} - {quarter.fechaFinal}
                                             </div>
@@ -210,7 +271,9 @@ export const ComparationsSchedule = () => {
                         </div>
 
                     </div>
-                    <ScheduleComparationInstructor />
+                    <ScheduleComparation 
+                    funcionFecth={horarioInstuctor2}
+                    />
                 </div>
                 {/* 3 */}
                 <div className="container-horario-desplegables">
@@ -249,7 +312,10 @@ export const ComparationsSchedule = () => {
                                         )
                                         .map((instructor) => (
                                             <div key={instructor.idUsuario}
-                                                onClick={() => dropdown5.handleOptionClick(`${instructor.nombreCompleto}`)}
+                                                onClick={() =>{
+                                                    dropdown5.handleOptionClick(`${instructor.nombreCompleto}`)
+                                                    handleInstruuctorId3(`${instructor.idUsuario}`)
+                                                }}
                                             >
                                                 {instructor.nombreCompleto}
                                             </div>
@@ -292,6 +358,7 @@ export const ComparationsSchedule = () => {
                                         .map((quarter) => (
                                             <div key={quarter.idTrimestre} onClick={() => {
                                                 dropdown6.handleOptionClick(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`);
+                                                handleOptionClickTrimestre3(`${quarter.trimestre}`);
                                             }}>
                                                 {quarter.trimestre} | {quarter.fechaInicio} - {quarter.fechaFinal}
                                             </div>
@@ -302,7 +369,8 @@ export const ComparationsSchedule = () => {
                         </div>
 
                     </div>
-                    <ScheduleComparationInstructor />
+                    <ScheduleComparation 
+                    funcionFecth={horarioInstuctor3}/>
                 </div>
 
 

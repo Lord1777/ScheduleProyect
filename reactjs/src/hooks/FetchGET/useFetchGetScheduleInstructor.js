@@ -10,45 +10,45 @@ const useFetchGetScheduleInstructor = (route) => {
   const [loading, setLoading] = useState(true);
   const Navigate = useNavigate();
 
-  const fetchScheduleInstructor = async () => {
+  const fetchScheduleInstructor = async (idTrimestre) => {
+
+    console.log(idTrimestre)
+    console.log(route)
     try {
-      const response = await fetch(`${API_URL}${route}`,
-        {
-          method: "GET",
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${userToken}`,
-          },
-          redirect: "follow",
-        });
-        if (response.status === 401) {
-          // Redirigir a la pantalla de Forbidden (403)
-          Navigate('/403-forbidden');
-          return;
-      }
-      else if (!response.ok) {
+      const response = await fetch(`${API_URL}${route}/${idTrimestre}`, {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${userToken}`,
+        },
+        redirect: "follow",
+      });
+      if (response.status === 401) {
+        // Redirigir a la pantalla de Forbidden (403)
+        Navigate('/403-forbidden');
+        return;
+      } else if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
       const data = await response.json();
       setHorariosInstructor(data);
-
     } catch (error) {
       console.error("Error getting schedule:", error);
     } finally {
       setLoading(false);
     }
-  };
-
+  }
 
   useEffect(() => {
     fetchScheduleInstructor();
   }, []);
 
-
   return {
     horarioInstructor,
     loading,
+    setLoading,
+    fetchScheduleInstructor,
   };
-};
+}
 
 export default useFetchGetScheduleInstructor;

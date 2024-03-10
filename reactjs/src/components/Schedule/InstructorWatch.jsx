@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../../css/Schedule/ScheduleInstructorWatch.css";
 import '../../../css/Cards/CardHorarios.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,11 +15,11 @@ import useFetchGetQuarters from "../../hooks/FetchGetResources/useFetchGetQuarte
 export const InstructorWatch = () => {
 
     const { register, setValue } = useForm();
-    const { horarioInstructor, loading } = useFetchGetScheduleInstructor('/getScheduleInstructor');
     const [search, setSearch] = useState("");
     const dropdown2 = useDropdown(setValue, "trimestres");
 
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
+    const { horarioInstructor, loading, setLoading, fetchScheduleInstructor } = useFetchGetScheduleInstructor('/getEnableScheduleInstructor');
 
     const filteredData = horarioInstructor.filter(horario =>
         horario.nombreCompleto.toString().startsWith(search)
@@ -30,8 +30,12 @@ export const InstructorWatch = () => {
         return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
     }
 
-    const handleOptionClickTrimestre = (selectedOption) => {
-        console.log((getQuarterId(selectedOption)));
+    const handleOptionClickTrimestre = async(selectedOption) => {
+        if(selectedOption){
+            setLoading(true);
+            await fetchScheduleInstructor(getQuarterId(selectedOption));
+            setLoading(false);
+        }
     }
 
     if (loading) {

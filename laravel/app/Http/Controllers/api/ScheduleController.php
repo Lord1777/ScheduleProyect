@@ -946,9 +946,51 @@ class ScheduleController extends Controller
         }
     }
 
-    public function EnableSchedulesInstructors()
+    public function EnableSchedulesInstructors(string $idTrimestre = null)
     {
         try {
+            if ($idTrimestre == 'null' || $idTrimestre == 'undefined') {
+
+                Log::info('entré');
+
+                $lastQuarter = Trimestre::select('idTrimestre')
+                    ->orderBy('idTrimestre', 'desc')
+                    ->first();
+
+                if (!$lastQuarter) {
+                    return response()->json([
+                        'error' => 'Quarter not found'
+                    ], Response::HTTP_NOT_FOUND);
+                }
+
+                $idTrimestre = strval($lastQuarter['idTrimestre']);
+                Log::info($idTrimestre);
+                
+
+                $asign = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
+                    ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
+                    ->join('trimestres', 'trimestres.idTrimestre', '=', 'horarios_academicos.idTrimestre')
+                    ->select(
+                        'usuarios.idUsuario',
+                        'usuarios.nombreCompleto',
+                        'trimestres.trimestre',
+                        'trimestres.idTrimestre',
+                        'trimestres.fechaInicio',
+                    )
+                    ->where('horarios_academicos.estado', 'habilitado')
+                    ->where('trimestres.idTrimestre', $idTrimestre)
+                    ->groupBy(
+                        'usuarios.idUsuario',
+                        'usuarios.nombreCompleto',
+                        'trimestres.trimestre',
+                        'trimestres.idTrimestre',
+                        'trimestres.fechaInicio',
+                    )
+                    ->get();
+
+                return response()->json($asign, Response::HTTP_OK);
+            }
+
             $asign = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
                 ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
                 ->join('trimestres', 'trimestres.idTrimestre', '=', 'horarios_academicos.idTrimestre')
@@ -960,6 +1002,7 @@ class ScheduleController extends Controller
                     'trimestres.fechaInicio',
                 )
                 ->where('horarios_academicos.estado', 'habilitado')
+                ->where('trimestres.idTrimestre', $idTrimestre)
                 ->groupBy(
                     'usuarios.idUsuario',
                     'usuarios.nombreCompleto',

@@ -48,7 +48,7 @@ import { ContinuoModal } from './components/Modals/ContinuoModal.jsx';
 import error from './assets/img/Advertencia.png'
 import { AboutDevelopers } from './pages/Developers/AboutDevelopers.jsx';
 import "../css/App.css";
-import { ComparationsSchedule } from './pages/ComparationsSchedule.jsx';
+import { ComparationsSchedule } from './pages/CompationSchedules/ComparationsSchedule.jsx';
 
 
 function App() {

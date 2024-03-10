@@ -39,7 +39,7 @@ import { ManageScheduleUpdateFicha } from '../../pages/ManageScheduleUpdateFicha
 import { SeeScheduleAdminInstructor } from '../../pages/SeeScheduleAdminInstructor';
 import { MyProfile } from '../../pages/MyProfile';
 import { ScheduleAdminAprenttice } from '../../pages/ScheduleAdminAprenttice';
-import { ComparationsSchedule } from '../../pages/ComparationsSchedule';
+import { ComparationsSchedule } from '../../pages/CompationSchedules/ComparationsSchedule';
 
 
 const roleConfig = {

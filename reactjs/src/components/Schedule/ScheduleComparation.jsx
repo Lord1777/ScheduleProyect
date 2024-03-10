@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { generateRandomColors } from '../../hooks/useObjectFunction';
+import '../../../css/Schedule/ComparationsSchedule.css'
 
 export const ScheduleComparation = ({ funcionFecth }) => {
     const [scheduleData, setScheduleData] = useState([])
@@ -25,7 +26,7 @@ export const ScheduleComparation = ({ funcionFecth }) => {
                 setColorMap(colorMapping);
                 setIsInitialized(true);
             }
-            
+
         }, [funcionFecth, scheduleData, isInitialized]);
 
     }
@@ -57,10 +58,30 @@ export const ScheduleComparation = ({ funcionFecth }) => {
 
                             return (
                                 <div
-                                    className='cuadriculaHorario'
+                                    className={`cuadriculaHorario ${infoSchedule ? 'tooltipVisible' : ''}`}
                                     key={colIndex}
                                     style={{ backgroundColor: infoSchedule ? colorMap[infoSchedule.ficha] : '#D9D9D9' }}>
+                                    {infoSchedule ? (
+                                        <>
+                                            <div className="tooltip-horario"
+                                                style={{ backgroundColor: infoSchedule ? colorMap[infoSchedule.ficha] : '#D9D9D9' }}>
+                                                <span className="tooltiptext">Ficha: {infoSchedule.ficha}</span>
+                                                <span className="tooltiptext">Ambiente:{infoSchedule.ambiente}</span>
+                                                {infoSchedule.nombreCompleto ? (
+                                                    <span className="tooltiptext">Instructor: {infoSchedule.nombreCompleto}</span>
+                                                ) : (
+                                                    <>
+                                                    </>
+                                                )}
 
+                                            </div>
+                                        </>
+                                    ) : (
+                                        (
+                                            <>
+                                            </>
+                                        )
+                                    )}
                                 </div>
                             )
 

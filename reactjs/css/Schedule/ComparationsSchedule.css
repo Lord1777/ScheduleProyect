@@ -185,6 +185,29 @@
     cursor: auto;
 }
 
+
+/*tooltip*/
+.tooltip-horario{
+    width: 8rem;
+    height: auto;
+    padding: 0.25rem;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: -2.2rem;
+    border-radius: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.3s; /* Agregar transición de opacidad */
+    font-size: 0.7rem;
+}
+
+.tooltipVisible:hover .tooltip-horario {
+    display: flex;
+    opacity: 1; /* Cambiar la opacidad de .tooltip-horario cuando se haga hover en .tooltipVisible */
+}
+
 @media (max-width:1500px) {
     .contenedor-horario {
         max-width: 25rem;

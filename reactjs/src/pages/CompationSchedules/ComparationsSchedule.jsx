@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { NavBar } from '../components/NavBar/NavBar'
-import { ScheduleComparation } from '../components/Schedule/ScheduleComparation'
-import '../../css/Schedule/ComparationsSchedule.css'
-import useDropdown from '../hooks/useDropdown'
+import { NavBar } from '../../components/NavBar/NavBar'
+import { ScheduleComparation } from '../../components/Schedule/ScheduleComparation'
+import '../../../css/Schedule/ComparationsSchedule.css'
+import useDropdown from '../../hooks/useDropdown'
 import { useForm } from 'react-hook-form'
-import useFetchGetQuarters from '../hooks/FetchGetResources/useFetchGetQuarters'
-import { useFetchGetInstructors } from '../hooks/FetchGetResources/useFetchGetInstructors'
+import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters'
+import { useFetchGetInstructors } from '../../hooks/FetchGetResources/useFetchGetInstructors'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import { useFetchGetScheduleAdminInstructor } from '../hooks/FetchSchedule/useFetchGetScheduleAdminInstructor'
+import { useFetchGetScheduleAdminInstructor } from '../../hooks/FetchSchedule/useFetchGetScheduleAdminInstructor'
+import { ContinuoModal } from '../../components/Modals/ContinuoModal'
+import error from '../../assets/img/Advertencia.png'
+import { Loading } from '../../components/Loading/Loading'
 
 export const ComparationsSchedule = () => {
 
@@ -55,24 +58,28 @@ export const ComparationsSchedule = () => {
 
     }, [ instructor1, trimestre1, instructor2, trimestre2, instructor3, trimestre3]);
 
-    const { dataSchedule: horarioInstuctor1 } = useFetchGetScheduleAdminInstructor(
+    const { dataSchedule: horarioInstuctor1, alertMessage: message1, openErrorModal: openErrorModal1, setOpenErrorModal: setOpenErrorModal1, loading: loading1 } = useFetchGetScheduleAdminInstructor(
         '/getAdminScheduleInstructor',
         instructor1,
         trimestre1
     );
 
-    const { dataSchedule: horarioInstuctor2 } = useFetchGetScheduleAdminInstructor(
+    const { dataSchedule: horarioInstuctor2, alertMessage: message2, openErrorModal: openErrorModal2, setOpenErrorModal: setOpenErrorModal2, loading: loading2 } = useFetchGetScheduleAdminInstructor(
         '/getAdminScheduleInstructor',
         instructor2,
         trimestre2
     );
 
-    const { dataSchedule: horarioInstuctor3 } = useFetchGetScheduleAdminInstructor(
+    const { dataSchedule: horarioInstuctor3, alertMessage: message3, openErrorModal: openErrorModal3, setOpenErrorModal: setOpenErrorModal3, loading: loading3 } = useFetchGetScheduleAdminInstructor(
         '/getAdminScheduleInstructor',
         instructor3,
         trimestre3
     );
 
+    if(loading1 || loading2 || loading3){
+        return <Loading/>
+    }
+ 
 
     return (
         <>
@@ -375,6 +382,27 @@ export const ComparationsSchedule = () => {
 
 
             </div>
+            <ContinuoModal
+            tittle="No encontrado"
+            imagen={error}
+            message={message1}
+            open={openErrorModal1}
+            close={() => setOpenErrorModal1(false)}
+            />
+            <ContinuoModal
+            tittle="No encontrado"
+            imagen={error}
+            message={message2}
+            open={openErrorModal2}
+            close={() => setOpenErrorModal2(false)}
+            />
+            <ContinuoModal
+            tittle="No encontrado"
+            imagen={error}
+            message={message3}
+            open={openErrorModal3}
+            close={() => setOpenErrorModal3(false)}
+            />
         </>
     )
 }

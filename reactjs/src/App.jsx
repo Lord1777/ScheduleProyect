@@ -97,6 +97,7 @@ function App() {
                     <Route path='/ConsultaAprendiz' element={<ConsultAprenttice />} />
                     <Route path='/HorarioAprendiz/:idFicha' element={<ScheduleAprenttice />} />
                     <Route path='/Acerca-de' element={<AboutDevelopers />} />
+                    <Route path='/AddCoordinador' element={<AddCoordinator />} />
 
                     {/* Vistas del coordinador */}
                     <Route element={<ProtectedRoute role={'coordinador'} userRole={storedRole} />}  >
@@ -118,7 +119,7 @@ function App() {
                         <Route path='/CrudCoordinadores' element={<CrudCoordinators />} />
                         <Route path='/CrudAmbientes' element={<CrudEnvironments />} />
                         <Route path='/CrudProgramas' element={<CrudPrograms />} />
-                        <Route path='/AddCoordinador' element={<AddCoordinator />} />
+                        
                         <Route path='/AddInstructor' element={<AddInstructors />} />
                         <Route path='/AddAmbiente' element={<AddEnvironments />} />
                         <Route path='/AddPrograma' element={<AddProgram />} />

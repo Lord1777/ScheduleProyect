@@ -31,7 +31,7 @@ export const ScheduleAdd = () => {
     const [modalMenosHoras, setModalMenosHoras] = useState(false);
     const [messageAlertHoras, setMessageAlertHoras] = useState('');
     const [formData, setFormData] = useState(null);
-
+    
     const { selectedBoxes, handleBoxClick, resetSelectedBoxes } = useSelectedBoxes();
 
     const [horasAsignadas, setHorasAsignadas] = useState(0);
@@ -43,8 +43,10 @@ export const ScheduleAdd = () => {
     const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
 
     // Inicializa el registro de horas asignadas por día para cada instructor
-    const [horasAsignadasPorDia, setHorasAsignadasPorDia] = useState({})
+    const [horasAsignadasPorDia, setHorasAsignadasPorDia] = useState({});
     const diaSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+    const [newHorasAsignadasPorDia, setNewHorasAsignadasPorDia] = useState({});
+    
 
     //Funcion que retorna el id del trimestre
     const getQuarterId = (dataTrimestre) => {
@@ -100,8 +102,6 @@ export const ScheduleAdd = () => {
                 }
                 initialHorasPorDia[idInstructor][dia] = 0;
             });
-
-            setHorasAsignadasPorDia(initialHorasPorDia);
 
             // Actualizar el registro de horas asignadas por día
             const newHorasAsignadasPorDia = { ...initialHorasPorDia };
@@ -164,7 +164,6 @@ export const ScheduleAdd = () => {
         setLoading(false);
     };
 
-
     useEffect(() => {
         // Inicializa las horas asignadas a 0 para cada día de la semana para cada instructor
         const initialHorasPorDia = {};
@@ -177,19 +176,34 @@ export const ScheduleAdd = () => {
             }
             initialHorasPorDia[idInstructor][dia] = 0;
         });
-        setHorasAsignadasPorDia(initialHorasPorDia);
 
+        // Actualiza el registro de horas asignadas por día
+        const newHorasAsignadasPorDia = { ...initialHorasPorDia };
+        globalStoreBoxes.forEach(box => {
+            const idInstructor = box.idInstructor;
+            const dia = diaSemana[box.boxIndex % 7];
+            // if (!newHorasAsignadasPorDia[idInstructor][dia]) {
+            //     newHorasAsignadasPorDia[idInstructor][dia] = 0;
+            // }
+            newHorasAsignadasPorDia[idInstructor][dia] += 1;
+        });
 
-        if (duplicatesBox.length > 0 || duplicatesBox.size > 0) {
+        console.log('horasAsignadasPorDia:', newHorasAsignadasPorDia);
 
-            const timer = setTimeout(() => {
-                setDuplicatesBox([]);
-            }, 8000);
+        // Verifica si se excede el límite diario de 10 horas
+        const idInstructorExcedido = Object.keys(newHorasAsignadasPorDia).find(idInstructor => {
+            const horasPorDia = newHorasAsignadasPorDia[idInstructor];
+            return Object.values(horasPorDia).some(horas => horas > 8);
+        });
 
-            // Limpieza del temporizador cuando el componente se desmonta o cuando duplicatesBox cambia nuevamente
-            return () => clearTimeout(timer);
+        if (idInstructorExcedido) {
+            setMessageAlert('Se ha detectado que un instructor ha superado el límite diario de 8 horas en al menos uno de los días.');
+            setAlertShowModal(true);
         }
-    }, [duplicatesBox, globalStoreBoxes]);
+        setNewHorasAsignadasPorDia(newHorasAsignadasPorDia);
+    }, [globalStoreBoxes]);
+
+
 
     if (loading) {
         return <Loading />
@@ -237,13 +251,13 @@ export const ScheduleAdd = () => {
             <div className="containergrid-buttons">
                 <div className="grid_schedule">
                     <div className="horas-dias">Horas</div>
-                    <div className="horas-dias">Lunes</div>
-                    <div className="horas-dias">Martes</div>
-                    <div className="horas-dias">Miércoles</div>
-                    <div className="horas-dias">Jueves</div>
-                    <div className="horas-dias">Viernes</div>
-                    <div className="horas-dias">Sábado</div>
-                    <div className="horas-dias">Domingo</div>
+                    <div className="horas-dias">Lunes: {newHorasAsignadasPorDia.Lunes || 0}</div>
+                    <div className="horas-dias">Martes: {newHorasAsignadasPorDia.Martes || 0}</div>
+                    <div className="horas-dias">Miércoles: {newHorasAsignadasPorDia.Miércoles || 0}</div>
+                    <div className="horas-dias">Jueves: {newHorasAsignadasPorDia.Jueves || 0}</div>
+                    <div className="horas-dias">Viernes: {newHorasAsignadasPorDia.Viernes || 0}</div>
+                    <div className="horas-dias">Sábado: {newHorasAsignadasPorDia.Sábado || 0}</div>
+                    <div className="horas-dias">Domingo: {newHorasAsignadasPorDia.Domingo || 0}</div>
 
                     {Array.from({ length: 16 }, (_, rowIndex) => (
                         <React.Fragment key={rowIndex}>

@@ -287,14 +287,14 @@
 
 @media (max-width: 1295px) {
     .information_bar {
-        width: 75rem;
+        width: 70rem;
     }
 }
 
-@media (max-width: 1205px) {
-    /* .information_bar {
-        max-width: 60rem;
-    } */
+@media (max-width: 1115px) {
+    .information_bar {
+        width: 65rem;
+    }
 }
 
 @media (max-width:1024px) {
@@ -357,6 +357,15 @@
         gap: 3px;
     }
 }
+@media (max-width:975px) {
+    .information_bar{
+        width: 55rem;
+
+        .content-info-ficha{
+            font-size: 0.9rem;
+        }
+    }
+}
 
 @media (max-width:912px) {
     .information_bar {
@@ -389,7 +398,25 @@
     }
 }
 
-@media (max-width: 680px){
+/* @media (max-width:700px) {
+
+} */
+
+@media (max-width: 700px){
+    .information_bar {
+        width: 38rem;
+    }
+
+    .container-instructor {
+        display: grid;
+        grid-template-columns: 1fr;
+        margin-left: 0rem;
+    }
+
+    .desplegable-trimestre{
+        left: 5rem;
+    }
+
     .deplegable-horas {
         display: flex;
         flex-direction: column;
@@ -471,6 +498,12 @@
     }
 }
 
+@media (max-width:630px){
+    .information_bar {
+        width: 34rem;
+    }
+}
+
 @media (max-width:570px){
     .trimestre-jornada-horas-horario {
         display: flex;
@@ -479,7 +512,7 @@
     }
 
     .trimestre-jornada-horas-horario div p {
-        width: 20rem;
+        width: 17rem;
     }
 
     .trimestre-jornada-horas-horario {
@@ -508,6 +541,16 @@
     .colorRecords{
         grid-template-columns: 120px 120px;
         gap: 2px;
+    }
+}
+
+@media (max-width:490px) {
+    .information_bar {
+        width: 27rem;
+    }
+
+    .desplegable {
+        margin-left: 3rem;
     }
 }
 
@@ -542,6 +585,10 @@
     .desplegable-trimestre .open {
         width: 20rem;
         left: -1rem;
+    }
+
+    .desplegable {
+        margin-left: 0rem;
     }
 }
 
@@ -696,6 +743,20 @@
 
     .desplegable-trimestre .open {
         width: 15rem;
+    }
+}
+
+@media(max-width:330px){
+    .desplegable {
+        margin-left: 2rem;
+    }
+
+    .information_bar {
+        width: 18rem;
+    }
+
+    .information_bar {
+        padding: 1.5rem 1rem;
     }
 }
 

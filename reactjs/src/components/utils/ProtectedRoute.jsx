@@ -41,6 +41,7 @@ import { MyProfile } from '../../pages/MyProfile';
 import { ScheduleAdminAprenttice } from '../../pages/ScheduleAdminAprenttice';
 import { ComparationsSchedule } from '../../pages/CompationSchedules/ComparationsSchedule';
 import { ComparationScheduleAmbiente } from '../../pages/CompationSchedules/ComparationScheduleAmbiente';
+import { ComparationScheduleFicha } from '../../pages/CompationSchedules/ComparationScheduleFicha';
 
 
 const roleConfig = {
@@ -58,6 +59,7 @@ const roleConfig = {
             'controlPanel': ControlPanel,
             'ComparacionHorarios': ComparationsSchedule,
             'ComparacionHorariosAmbientes' : ComparationScheduleAmbiente,
+            'ComparacionHorariosFichas' : ComparationScheduleFicha,
             'PanelHorarios': HorariosPanel,
             'Card': CardHorarios,
             'HorariosFichas': WatchSchedules,

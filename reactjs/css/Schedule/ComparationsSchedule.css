@@ -202,6 +202,7 @@
     transition: display 0.3s; /* Agregar transición de opacidad */
     font-size: 0.7rem;
     text-align: center;
+    border: 1px black solid;
 }
 
 .tooltipVisible:hover .tooltip-horario {

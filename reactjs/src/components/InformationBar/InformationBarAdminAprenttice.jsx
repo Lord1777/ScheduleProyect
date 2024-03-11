@@ -43,7 +43,7 @@ export const InformationBarAdminAprenttice = () => {
 
     return (
         <>
-            <div className="informationBarAprenttice">
+            {/* <div className="informationBarAprenttice">
                 <div className="programa-nFicha">
                     <div>
                         <p><b>Programa de Formación:</b> {dataInfoRecord.nombre}</p>
@@ -70,7 +70,7 @@ export const InformationBarAdminAprenttice = () => {
                                         </Link>
                                     </>
                                 )
-                        } */}
+                        } 
                     </div>
                 </div>
                 <div className="trimestre-jornada-horas">
@@ -117,7 +117,9 @@ export const InformationBarAdminAprenttice = () => {
                         ))
                     }
                 </div>
-            </div>
+            </div> */}
+
+            
             <ContinuoModal
                 tittle="¡Exito!"
                 imagen={exito}

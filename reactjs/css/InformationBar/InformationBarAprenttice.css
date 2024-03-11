@@ -31,13 +31,11 @@
 }
 
 .trimestre-jornada-horas div p {
-    /* Ocultar el contenido que desborda */
     text-overflow: ellipsis;
-    /* Mostrar puntos suspensivos (...) para el texto que desborda */
 }
 
 .buttons-container {
-    width: 100%;
+    width: 20rem;
     display: flex;
     justify-content: center;
     margin-left: 58.9rem;
@@ -88,7 +86,7 @@
     }
 }
 
-@media (max-width:1040px) {
+@media (max-width:1160px) {
     .informationBarAprenttice {
         width: 61rem;
     }

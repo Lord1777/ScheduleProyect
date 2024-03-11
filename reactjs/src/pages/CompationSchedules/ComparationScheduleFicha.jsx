@@ -1,97 +1,99 @@
 import React, { useState, useEffect } from 'react'
 import '../../../css/Schedule/ComparationsSchedule.css'
+import error from '../../assets/img/Advertencia.png'
 import { NavBar } from '../../components/NavBar/NavBar'
 import { useForm } from 'react-hook-form';
 import useDropdown from '../../hooks/useDropdown';
 import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
-import { useFetchGetScheduleEnvironment } from '../../hooks/FetchSchedule/useFetchGetScheduleEnvironment';
-import { useFetchGetEnvironments } from '../../hooks/FetchGetResources/useFetchGetEnvironments';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useFetchGetRecords } from '../../hooks/FetchGetResources/useFetchGetRecords';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ScheduleComparation } from '../../components/Schedule/ScheduleComparation';
+import useFetchGetComparationHorarioFicha from '../../hooks/FetchSchedule/useFetchGetComparationHorarioFicha';
 import { Loading } from '../../components/Loading/Loading';
-import error from '../../assets/img/Advertencia.png'
 import { ContinuoModal } from '../../components/Modals/ContinuoModal';
 
-export const ComparationScheduleAmbiente = () => {
+
+export const ComparationScheduleFicha = () => {
 
     const { register, setValue } = useForm();
-    const dropdown1 = useDropdown(setValue, "Ambiente1");
+    const dropdown1 = useDropdown(setValue, "Ficha1");
     const dropdown2 = useDropdown(setValue, "trimestres1");
-    const dropdown3 = useDropdown(setValue, "Ambiente2");
+    const dropdown3 = useDropdown(setValue, "Ficha2");
     const dropdown4 = useDropdown(setValue, "trimestres2");
-    const dropdown5 = useDropdown(setValue, "Ambiente3");
+    const dropdown5 = useDropdown(setValue, "Ficha3");
     const dropdown6 = useDropdown(setValue, "trimestres3");
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
-    const { dataEnvironments } = useFetchGetEnvironments('/getEnvironments');
-    const [searchAmbiente1, setSearchAmbiente1] = useState("");
-    const [searchAmbiente2, setSearchAmbiente2] = useState("");
-    const [searchAmbiente3, setSearchAmbiente3] = useState("");
+    const { dataRecords } = useFetchGetRecords('/getRecords');
+    const [searchFicha1, setSearchFicha1] = useState("");
+    const [searchFicha2, setSearchFicha2] = useState("");
+    const [searchFicha3, setSearchFicha3] = useState("");
     const [searchTrimestre1, setSearchTrimestre1] = useState("");
     const [searchTrimestre2, setSearchTrimestre2] = useState("");
     const [searchTrimestre3, setSearchTrimestre3] = useState("");
-    const [ambiente1, setAmbiente1] = useState();
-    const [ambiente2, setAmbiente2] = useState();
-    const [ambiente3, setAmbiente3] = useState();
+    const [ficha1, setFicha1] = useState();
+    const [ficha2, setFicha2] = useState();
+    const [ficha3, setFicha3] = useState();
     const [trimestre1, setTrimestre1] = useState();
     const [trimestre2, setTrimestre2] = useState();
     const [trimestre3, setTrimestre3] = useState();
-    // console.log(dataEnvironments)
 
     const handleOptionClickTrimestre1 = (trimestre) => {
         setTrimestre1(trimestre);
+        console.log(` trimestre1: ${trimestre}`)
     }
-    const handleAmbienteId1 = (id) => {
-        setAmbiente1(id)
-        //console.log(` Ambiente1: ${id}`)
+    const handleFichaId1 = (id) => {
+        setFicha1(id)
+        console.log(` Ficha1: ${id}`)
     }
 
     const handleOptionClickTrimestre2 = (trimestre) => {
         setTrimestre2(trimestre);
     }
-    const handleAmbienteId2 = (id) => {
-        setAmbiente2(id)
-        //console.log(` Ambiente2: ${id}`)
+    const handleFichaId2 = (id) => {
+        setFicha2(id)
+        console.log(` Ficha2: ${id}`)
     }
 
     const handleOptionClickTrimestre3 = (trimestre) => {
         setTrimestre3(trimestre);
     }
-    const handleAmbienteId3 = (id) => {
-        setAmbiente3(id)
-        //console.log(`Ambiente: ${id}`)
+    const handleFichaId3 = (id) => {
+        setFicha3(id)
+        console.log(`Ficha3: ${id}`)
     }
 
     useEffect(() => {
 
-    }, [ambiente1, trimestre1, ambiente2, trimestre2, ambiente3, trimestre3]);
+    }, [ficha1, trimestre1, ficha2, trimestre2, ficha3, trimestre3]);
 
     const {
-        dataSchedule: horarioAmbiente1,
+        dataSchedule: horarioFicha1,
         alertMessage: message1,
         openErrorModal: openErrorModal1,
         setOpenErrorModal: setOpenErrorModal1,
         loading: loading1
-    } = useFetchGetScheduleEnvironment('/getScheduleEnvironment', ambiente1, trimestre1);
+    } = useFetchGetComparationHorarioFicha('/getHorarioComparationFicha', ficha1, trimestre1);
+    console.log(horarioFicha1)
 
     const {
-        dataSchedule: horarioAmbiente2,
+        dataSchedule: horarioFicha2,
         alertMessage: message2,
         openErrorModal: openErrorModal2,
         setOpenErrorModal: setOpenErrorModal2,
         loading: loading2
-    } = useFetchGetScheduleEnvironment('/getScheduleEnvironment', ambiente2, trimestre2);
+    } = useFetchGetComparationHorarioFicha('/getHorarioComparationFicha', ficha2, trimestre2);
 
     const {
-        dataSchedule: horarioAmbiente3,
+        dataSchedule: horarioFicha3,
         alertMessage: message3,
         openErrorModal: openErrorModal3,
         setOpenErrorModal: setOpenErrorModal3,
         loading: loading3
-    } = useFetchGetScheduleEnvironment('/getScheduleEnvironment', ambiente3, trimestre3);
+    } = useFetchGetComparationHorarioFicha('/getHorarioComparationFicha', ficha3, trimestre3);
 
-    if (loading1 || loading2 || loading3) {
-        return <Loading />
+    if(loading1 || loading2 || loading3){
+        return <Loading/>
     }
 
     return (
@@ -106,13 +108,13 @@ export const ComparationScheduleAmbiente = () => {
                             <input
                                 type="text"
                                 className='textBox'
-                                name='Ambiente'
-                                placeholder='Ambiente'
+                                name='Ficha'
+                                placeholder='Ficha'
                                 readOnly
                                 onClick={dropdown1.handleDropdown}
                                 value={dropdown1.selectedOption}
                                 autoComplete='off'
-                                {...register("Ambiente1")}
+                                {...register("Ficha1")}
                             />
                             <div className={`option-drop-comparation ${dropdown1.isDropdown ? 'open' : ''}`} id='instructores'>
                                 <div className="search-bar-comparation">
@@ -120,8 +122,8 @@ export const ComparationScheduleAmbiente = () => {
                                         type="text"
                                         className='buscador-desplegables'
                                         id='buscador'
-                                        value={searchAmbiente1}
-                                        onChange={(e) => setSearchAmbiente1(e.target.value)}
+                                        value={searchFicha1}
+                                        onChange={(e) => setSearchFicha1(e.target.value)}
                                     />
                                     <div className="icon-search-comparation">
                                         <FontAwesomeIcon icon={faSearch} className="search-icon" />
@@ -129,18 +131,19 @@ export const ComparationScheduleAmbiente = () => {
                                 </div>
 
                                 <div className="contenedor-options-comparacion">
-                                    {dataEnvironments && dataEnvironments.length > 0 && dataEnvironments
-                                        .filter((ambiente) =>
-                                            String(ambiente.ambiente).toLowerCase().startsWith(searchAmbiente1.toLowerCase())
+                                    {dataRecords && dataRecords.length > 0 && dataRecords
+                                        .filter((ficha) =>
+                                            `${ficha.nombre}`.toLowerCase().startsWith(searchFicha1.toLowerCase()) ||
+                                            `${ficha.ficha}`.toLowerCase().startsWith(searchFicha1.toLowerCase())
                                         )
-                                        .map((ambiente) => (
-                                            <div key={ambiente.idAmbiente}
+                                        .map((ficha) => (
+                                            <div key={ficha.idFicha}
                                                 onClick={() => {
-                                                    dropdown1.handleOptionClick(`${ambiente.ambiente}`)
-                                                    handleAmbienteId1(`${ambiente.idAmbiente}`)
+                                                    dropdown1.handleOptionClick(`${ficha.ficha} - ${ficha.nombre}`)
+                                                    handleFichaId1(`${ficha.idFicha}`)
                                                 }}
                                             >
-                                                {ambiente.ambiente}
+                                                {(`${ficha.ficha} - ${ficha.nombre}`)}
                                             </div>
                                         ))}
                                 </div>
@@ -193,7 +196,7 @@ export const ComparationScheduleAmbiente = () => {
 
                     </div>
                     <ScheduleComparation
-                        funcionFecth={horarioAmbiente1}
+                        funcionFecth={horarioFicha1}
                     />
                 </div>
 
@@ -205,13 +208,13 @@ export const ComparationScheduleAmbiente = () => {
                             <input
                                 type="text"
                                 className='textBox'
-                                name='Ambiente'
-                                placeholder='Ambiente'
+                                name='Ficha'
+                                placeholder='Ficha'
                                 readOnly
                                 onClick={dropdown3.handleDropdown}
                                 value={dropdown3.selectedOption}
                                 autoComplete='off'
-                                {...register("Ambiente2")}
+                                {...register("Ficha2")}
                             />
                             <div className={`option-drop-comparation ${dropdown3.isDropdown ? 'open' : ''}`} id='instructores'>
                                 <div className="search-bar-comparation">
@@ -219,8 +222,8 @@ export const ComparationScheduleAmbiente = () => {
                                         type="text"
                                         className='buscador-desplegables'
                                         id='buscador'
-                                        value={searchAmbiente2}
-                                        onChange={(e) => setSearchAmbiente2(e.target.value)}
+                                        value={searchFicha2}
+                                        onChange={(e) => setSearchFicha2(e.target.value)}
                                     />
                                     <div className="icon-search-comparation">
                                         <FontAwesomeIcon icon={faSearch} className="search-icon" />
@@ -228,18 +231,19 @@ export const ComparationScheduleAmbiente = () => {
                                 </div>
 
                                 <div className="contenedor-options-comparacion">
-                                    {dataEnvironments && dataEnvironments.length > 0 && dataEnvironments
-                                        .filter((ambiente) =>
-                                            String(ambiente.ambiente).toLowerCase().startsWith(searchAmbiente2.toLowerCase())
+                                    {dataRecords && dataRecords.length > 0 && dataRecords
+                                        .filter((ficha) =>
+                                            `${ficha.nombre}`.toLowerCase().startsWith(searchFicha2.toLowerCase()) ||
+                                            `${ficha.ficha}`.toLowerCase().startsWith(searchFicha2.toLowerCase())
                                         )
-                                        .map((ambiente) => (
-                                            <div key={ambiente.idAmbiente}
+                                        .map((ficha) => (
+                                            <div key={ficha.idFicha}
                                                 onClick={() => {
-                                                    dropdown3.handleOptionClick(`${ambiente.ambiente}`)
-                                                    handleAmbienteId2(`${ambiente.idAmbiente}`)
+                                                    dropdown3.handleOptionClick(`${ficha.ficha} - ${ficha.nombre}`)
+                                                    handleFichaId2(`${ficha.idFicha}`)
                                                 }}
                                             >
-                                                {ambiente.ambiente}
+                                                {(`${ficha.ficha} - ${ficha.nombre}`)}
                                             </div>
                                         ))}
                                 </div>
@@ -292,7 +296,7 @@ export const ComparationScheduleAmbiente = () => {
 
                     </div>
                     <ScheduleComparation
-                        funcionFecth={horarioAmbiente2}
+                        funcionFecth={horarioFicha2}
                     />
                 </div>
                 {/* 3 */}
@@ -303,13 +307,13 @@ export const ComparationScheduleAmbiente = () => {
                             <input
                                 type="text"
                                 className='textBox'
-                                name='Ambiente'
-                                placeholder='Ambiente'
+                                name='Ficha'
+                                placeholder='Ficha'
                                 readOnly
                                 onClick={dropdown5.handleDropdown}
                                 value={dropdown5.selectedOption}
                                 autoComplete='off'
-                                {...register("Ambiente3")}
+                                {...register("Ficha3")}
                             />
                             <div className={`option-drop-comparation ${dropdown5.isDropdown ? 'open' : ''}`} id='instructores'>
                                 <div className="search-bar-comparation">
@@ -317,8 +321,8 @@ export const ComparationScheduleAmbiente = () => {
                                         type="text"
                                         className='buscador-desplegables'
                                         id='buscador'
-                                        value={searchAmbiente3}
-                                        onChange={(e) => setSearchAmbiente3(e.target.value)}
+                                        value={searchFicha3}
+                                        onChange={(e) => setSearchFicha3(e.target.value)}
                                     />
                                     <div className="icon-search-comparation">
                                         <FontAwesomeIcon icon={faSearch} className="search-icon" />
@@ -326,18 +330,19 @@ export const ComparationScheduleAmbiente = () => {
                                 </div>
 
                                 <div className="contenedor-options-comparacion">
-                                    {dataEnvironments && dataEnvironments.length > 0 && dataEnvironments
-                                        .filter((ambiente) =>
-                                            String(ambiente.ambiente).toLowerCase().startsWith(searchAmbiente3.toLowerCase())
+                                    {dataRecords && dataRecords.length > 0 && dataRecords
+                                        .filter((ficha) =>
+                                            `${ficha.nombre}`.toLowerCase().startsWith(searchFicha3.toLowerCase()) ||
+                                            `${ficha.ficha}`.toLowerCase().startsWith(searchFicha3.toLowerCase())
                                         )
-                                        .map((ambiente) => (
-                                            <div key={ambiente.idAmbiente}
+                                        .map((ficha) => (
+                                            <div key={ficha.idFicha}
                                                 onClick={() => {
-                                                    dropdown5.handleOptionClick(`${ambiente.ambiente}`)
-                                                    handleAmbienteId3(`${ambiente.idAmbiente}`)
+                                                    dropdown5.handleOptionClick(`${ficha.ficha} - ${ficha.nombre}`)
+                                                    handleFichaId3(`${ficha.idFicha}`)
                                                 }}
                                             >
-                                                {ambiente.ambiente}
+                                                {(`${ficha.ficha} - ${ficha.nombre}`)}
                                             </div>
                                         ))}
                                 </div>
@@ -390,7 +395,7 @@ export const ComparationScheduleAmbiente = () => {
 
                     </div>
                     <ScheduleComparation
-                        funcionFecth={horarioAmbiente3}
+                        funcionFecth={horarioFicha3}
                     />
                 </div>
 

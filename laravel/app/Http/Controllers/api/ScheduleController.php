@@ -91,6 +91,39 @@ class ScheduleController extends Controller
         }
     }
 
+    public function scheduleFichaGetIdTrimestre(string $idFicha, string $idTrimestre){
+        try {
+            $schedule = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
+                ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
+                ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
+                ->select(
+                    'asignaciones.boxIndex',
+                    'ambientes.ambiente',
+                    'ambientes.idAmbiente',
+                    'usuarios.nombreCompleto',
+                    'usuarios.idUsuario',
+                )
+                ->join('trimestres', 'horarios_academicos.idTrimestre', '=', 'trimestres.idTrimestre')
+                ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+                ->where('fichas.idFicha', $idFicha)
+                ->where('trimestres.idTrimestre', $idTrimestre)
+                ->get();
+    
+            if ($schedule->isEmpty()) {
+                return response()->json([
+                    'error' => 'Schedule not found'
+                ], Response::HTTP_NOT_FOUND); //404
+            }
+    
+            return response()->json($schedule, Response::HTTP_OK); //200
+    
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => "Get Schedule Record Error " . $e->getMessage(),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
+        }
+    }
+
     public function scheduleApprentice(string $idFicha)
     {
         try {

@@ -65,8 +65,18 @@ export const ScheduleComparation = ({ funcionFecth }) => {
                                         <>
                                             <div className="tooltip-horario"
                                                 style={{ backgroundColor: infoSchedule ? colorMap[infoSchedule.ficha] : '#D9D9D9' }}>
-                                                <span className="tooltiptext">Ficha: {infoSchedule.ficha}</span>
-                                                <span className="tooltiptext">Ambiente:{infoSchedule.ambiente}</span>
+                                                {infoSchedule.ficha ? (
+                                                    <span className="tooltiptext">Ficha: {infoSchedule.ficha}</span>
+                                                ) : (
+                                                    <>
+                                                    </>
+                                                )}
+                                                {infoSchedule.ambiente ? (
+                                                    <span className="tooltiptext">Ambiente:{infoSchedule.ambiente}</span>
+                                                ) : (
+                                                    <>
+                                                    </>
+                                                )}
                                                 {infoSchedule.nombreCompleto ? (
                                                     <span className="tooltiptext">Instructor: {infoSchedule.nombreCompleto}</span>
                                                 ) : (

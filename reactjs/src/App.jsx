@@ -50,6 +50,7 @@ import { AboutDevelopers } from './pages/Developers/AboutDevelopers.jsx';
 import "../css/App.css";
 import { ComparationsSchedule } from './pages/CompationSchedules/ComparationsSchedule.jsx';
 import { ComparationScheduleAmbiente } from './pages/CompationSchedules/ComparationScheduleAmbiente.jsx';
+import { ComparationScheduleFicha } from './pages/CompationSchedules/ComparationScheduleFicha.jsx';
 
 
 function App() {
@@ -112,6 +113,7 @@ function App() {
                         <Route path='/HorarioAmbiente/:idAmbiente/:idTrimestre' element={<SeeScheduleAmbiente />} />
                         <Route path='/ComparacionHorariosInstructores' element={<ComparationsSchedule/>}/>
                         <Route path='/ComparacionHorariosAmbientes' element={<ComparationScheduleAmbiente/>}/>
+                        <Route path='/ComparacionHorariosFichas' element={<ComparationScheduleFicha/>}/>
                         <Route path='/HorariosAmbientes' element={<WatchScheduleAmbiente />} />
                         <Route path='/CrudInstructor' element={<CrudInstructor />} />
                         <Route path='/CrudFichas' element={<CrudRecords />} />

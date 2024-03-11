@@ -8,15 +8,36 @@ import { Loading } from '../Loading/Loading';
 import useFetchGetScheduleAmbiente from "../../hooks/FetchGET/useFetchGetScheduleAmbiente";
 import { getAñoByDate } from "../../hooks/useObjectFunction";
 import gifNoResults from '../../assets/img/no_results.gif'
+import useDropdown from "../../hooks/useDropdown";
+import { useForm } from "react-hook-form";
+import useFetchGetQuarters from "../../hooks/FetchGetResources/useFetchGetQuarters";
 
 export const ScheduleWatchAmbiente = () => {
 
-    const { loading, dataHorarios } = useFetchGetScheduleAmbiente();
+    const { loading, setLoading, dataHorarios, fetchSchedule } = useFetchGetScheduleAmbiente('/getSchedulesEnvironments');
     const [search, setSearch] = useState("");
+
+    const { register, setValue } = useForm();
+    const dropdown2 = useDropdown(setValue, "trimestres");
+
+    const { dataQuarters } = useFetchGetQuarters('/getQuarters');
 
     const filteredData = dataHorarios.filter(horario =>
         horario.ambiente.toString().startsWith(search)
     );
+
+    const getQuarterId = (dataTrimestre) => {
+        const quarter = dataQuarters.find((quarter) => `${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}` === dataTrimestre);
+        return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
+    }
+
+    const handleOptionClickTrimestre = async(selectedOption) => {
+        if(selectedOption){
+            setLoading(true);
+            await fetchSchedule(getQuarterId(selectedOption));
+            setLoading(false);
+        }
+    }
 
     if (loading) {
         return <Loading />
@@ -39,6 +60,29 @@ export const ScheduleWatchAmbiente = () => {
                     />
                     <div className="content-icon-bar">
                         <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                    </div>
+                </div>
+
+                <div className={`desplegable-trimestre-instructor ${dropdown2.isDropdown ? 'open' : ''}`}>
+                    <input
+                        type="text"
+                        className='textBox'
+                        name='trimestres'
+                        placeholder='Trimestres'
+                        readOnly
+                        onClick={dropdown2.handleDropdown}
+                        value={dropdown2.selectedOption}
+                        {...register("trimestres")}
+                    />
+                    <div className={`desplegable-options ${dropdown2.isDropdown ? 'open' : ''}`}>
+                        {dataQuarters && dataQuarters.length > 0 && dataQuarters.map((quarter) => (
+                            <div key={quarter.idTrimestre} onClick={() => {
+                                dropdown2.handleOptionClick(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`);
+                                handleOptionClickTrimestre(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`);
+                            }}>
+                                {quarter.trimestre} | {quarter.fechaInicio} - {quarter.fechaFinal}
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>{/*Titulo y buscador*/}

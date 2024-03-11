@@ -8,6 +8,7 @@ const useFetchGetScheduleRecord = (route, idFicha) => {
     const [loading, setLoading] = useState(true);
     const [modalOpen, setModalOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
+    const [ ruta, setRuta ] = useState('');
     const Navigate = useNavigate();
 
     useEffect(() => {
@@ -30,9 +31,10 @@ const useFetchGetScheduleRecord = (route, idFicha) => {
                     const result = await response.json();
                     setDataSchedule(result);
 
-                } else if (response.status === 404 || result.length === 0) {
-                    const result = await response.json();
-                    setAlertMessage(result.error)
+                } else if (response.status === 404) {
+                    //const result = await response.json();
+                    setAlertMessage('No existe horario academico para esta ficha')
+                    setRuta('/ConsultaAprendiz')
                     setModalOpen(true);
                 }
             } catch (error) {
@@ -51,7 +53,8 @@ const useFetchGetScheduleRecord = (route, idFicha) => {
         loading,
         modalOpen,
         setModalOpen,
-        alertMessage
+        alertMessage,
+        ruta
     }
 }
 

@@ -16,7 +16,8 @@ export const SeeSchedule = () => {
         loading,
         modalOpen,
         setModalOpen,
-        alertMessage } = useFetchGetScheduleRecord('/getScheduleApprentice', idFicha);
+        alertMessage,
+        ruta } = useFetchGetScheduleRecord('/getScheduleApprentice', idFicha);
 
     function initialsName(nombreCompleto) {
         const words = nombreCompleto.split(' ');
@@ -102,6 +103,7 @@ export const SeeSchedule = () => {
                 imagen={error}
                 message={alertMessage}
                 open={modalOpen}
+                route={ruta}
                 close={() => setModalOpen(false)}
             />
         </>

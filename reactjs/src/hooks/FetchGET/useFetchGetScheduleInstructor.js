@@ -11,9 +11,6 @@ const useFetchGetScheduleInstructor = (route) => {
   const Navigate = useNavigate();
 
   const fetchScheduleInstructor = async (idTrimestre) => {
-
-    console.log(idTrimestre)
-    console.log(route)
     try {
       const response = await fetch(`${API_URL}${route}/${idTrimestre}`, {
         method: "GET",

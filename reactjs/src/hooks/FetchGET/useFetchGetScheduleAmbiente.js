@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { API_URL } from '../../const/api';
 import { useNavigate } from 'react-router-dom';
 
-const useFetchGetScheduleAmbiente = () => {
+const useFetchGetScheduleAmbiente = (route) => {
 
     const userToken = localStorage.getItem('access_token');
 
@@ -10,9 +10,9 @@ const useFetchGetScheduleAmbiente = () => {
     const [loading, setLoading] = useState(true);
     const Navigate = useNavigate();
 
-    const fetchSchedule = async () => {
+    const fetchSchedule = async (idTrimestre) => {
         try {
-            const response = await fetch(`${API_URL}/getSchedulesEnvironments`, {
+            const response = await fetch(`${API_URL}${route}/${idTrimestre}`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -45,7 +45,9 @@ const useFetchGetScheduleAmbiente = () => {
 
     return {
         loading,
-        dataHorarios
+        setLoading,
+        dataHorarios,
+        fetchSchedule,
     }
 }
 

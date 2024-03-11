@@ -17,7 +17,8 @@ export const ScheduleInstructor = () => {
         loading,
         modalOpen,
         setModalOpen,
-        alertMessage } = useFetchGetScheduleInstructor('/getScheduleInstructor', idUsuario, idTrimestre, idFicha);
+        alertMessage,
+        ruta } = useFetchGetScheduleInstructor('/getScheduleInstructor', idUsuario, idTrimestre, idFicha);
 
 
     useEffect(() => {
@@ -86,6 +87,7 @@ export const ScheduleInstructor = () => {
                 imagen={error}
                 message={alertMessage}
                 open={modalOpen}
+                route={ruta}
                 close={() => setModalOpen(false)}
             />
         </>

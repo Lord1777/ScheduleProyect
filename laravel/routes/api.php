@@ -109,10 +109,10 @@ Route::middleware(['cors', 'auth:sanctum'])->group(function () {
     Route::get('/getAdminScheduleInstructor/{idUsuario}/{idTrimestre}', [ScheduleController::class, 'scheduleAdminInstructor']);
     Route::get('/getScheduleEnvironment/{idAmbiente}/{idTrimestre}', [ScheduleController::class, 'scheduleEnvironment']);
     Route::get('/getScheduleAdminApprentice/{idFicha}/{idHorario}', [ScheduleController::class, 'scheduleRecord']);
-    Route::get('/getScheduleRecord', [ScheduleController::class, 'scheduleEnableRecords']);
-    Route::get('/getDisableScheduleRecord', [ScheduleController::class, 'scheduleDisableRecords']);
+    Route::get('/getScheduleRecord/{idTrimestre?}', [ScheduleController::class, 'scheduleEnableRecords']);
+    Route::get('/getDisableScheduleRecord/{idTrimestre?}', [ScheduleController::class, 'scheduleDisableRecords']);
     Route::get('/getEnableScheduleInstructor/{idTrimestre?}', [ScheduleController::class, 'EnableSchedulesInstructors']);
-    Route::get('/getSchedulesEnvironments', [ScheduleController::class, 'scheduleEnableEnvironments']);
+    Route::get('/getSchedulesEnvironments/{idTrimestre?}', [ScheduleController::class, 'scheduleEnableEnvironments']);
     Route::put('/updateScheduleRecord/{idHorario}', [ScheduleController::class, 'update']);
     Route::match(['get', 'put'], '/enableSchedule/{idHorario}', [ScheduleController::class, 'enable']);
     Route::match(['get', 'put'], '/disableSchedule/{idHorario}', [ScheduleController::class, 'disable']);

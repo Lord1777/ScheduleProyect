@@ -7,6 +7,7 @@ import { useFetchGetInstructors } from '../../hooks/FetchGetResources/useFetchGe
 import { useFetchGetEnvironments } from '../../hooks/FetchGetResources/useFetchGetEnvironments'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { initialsName } from '../../hooks/useObjectFunction'
 
 export const ModalAsignar = ({
     openModal,
@@ -129,9 +130,9 @@ export const ModalAsignar = ({
                                         )
                                         .map((instructor) => (
                                             <div key={instructor.idUsuario}
-                                                onClick={() => dropdown1.handleOptionClick(`${instructor.nombreCompleto}`)}
+                                                onClick={() => dropdown1.handleOptionClick(`${instructor.nombreCompleto} - ${initialsName(instructor.nombreCompleto)}`)}
                                             >
-                                                {instructor.nombreCompleto}
+                                                {instructor.nombreCompleto} - {initialsName(instructor.nombreCompleto)}
                                             </div>
                                         ))}
                                 </div>

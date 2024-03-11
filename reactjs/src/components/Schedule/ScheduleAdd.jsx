@@ -14,6 +14,7 @@ import useDropdown from '../../hooks/useDropdown';
 import useFetchGetInfoUnitFicha from '../../hooks/FetchGET/useFetchGetInfoUnitFicha';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
+import warning from '../../assets/img/warning.png'
 import '../../../css/Schedule/ScheduleAdd.css';
 import { useFetchGetQuarterScheduleAdd } from '../../hooks/FetchGET/useFetchGetQuarterScheduleAdd';
 import { Modal } from '../Modals/Modal';
@@ -348,10 +349,10 @@ export const ScheduleAdd = () => {
                 open={alertShowModal}
                 close={() => setAlertShowModal(false)}
             />
-            {/* Modal en caso de que tena menos de 40  */}
+            {/* Modal en caso de que tenga menos de 40  */}
             <Modal
                 tittle="Advertencia"
-                imagen={error}
+                imagen={warning}
                 message={messageAlertHoras}
                 open={modalMenosHoras}
                 close={() => setModalMenosHoras(false)}

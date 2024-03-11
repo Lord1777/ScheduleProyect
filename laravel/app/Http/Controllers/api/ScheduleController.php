@@ -113,9 +113,14 @@ class ScheduleController extends Controller
                 )
                 ->where('horarios_academicos.idFicha', $idFicha)
                 ->where('horarios_academicos.idTrimestre', $idTrimestre['idTrimestre'])
+                ->where('horarios_academicos.estado', 'habilitado')
                 ->get();
 
-            if (!$schedule) {
+            Log::info($schedule);
+            Log::info('Tipo de datos de $schedule: ' . gettype($schedule));
+            Log::info('Contenido de $schedule: ' . json_encode($schedule));
+
+            if (!$schedule || $schedule->isEmpty()) {
                 return response()->json([
                     'error' => 'Schedule not found'
                 ], Response::HTTP_NOT_FOUND); //404
@@ -178,6 +183,7 @@ class ScheduleController extends Controller
                     )
                     ->where('horarios_academicos.idFicha', $idFicha)
                     ->where('horarios_academicos.idTrimestre', $idTrimestre)
+                    ->where('horarios_academicos.estado', 'habilitado')
                     ->get();
 
                 if ($schedule->isEmpty()) {
@@ -212,6 +218,7 @@ class ScheduleController extends Controller
                         )
                         ->where('horarios_academicos.idFicha', $idFicha)
                         ->where('horarios_academicos.idTrimestre', $trimestre['idTrimestre'])
+                        ->where('horarios_academicos.estado', 'habilitado')
                         ->get();
 
                     if ($schedule->isEmpty()) {
@@ -235,6 +242,7 @@ class ScheduleController extends Controller
                     )
                     ->where('usuarios.idUsuario', $idUsuario)
                     ->where('trimestres.idTrimestre', $idTrimestre)
+                    ->where('horarios_academicos.estado', 'habilitado')
                     ->get();
                 // Log::info('Tipo de $schedule: ' . gettype($schedule));
                 // Log::info('Contenido de $schedule: ' . json_encode($schedule));
@@ -266,6 +274,7 @@ class ScheduleController extends Controller
                 )
                 ->where('usuarios.idUsuario', $idUsuario)
                 ->where('horarios_academicos.idTrimestre', $ultimoTrimestre)
+                ->where('horarios_academicos.estado', 'habilitado')
                 ->get();
 
             if ($schedule->isEmpty()) {
@@ -413,7 +422,7 @@ class ScheduleController extends Controller
 
             // Crear un nuevo horario académico
             $horarioAcademico = HorarioAcademico::create([
-                'estado' => 'habilitado',
+                'estado' => 'inhabilitado',
                 'idFicha' => intval($idFicha),
                 'idTrimestre' => intval($idTrimestre),
             ]);
@@ -512,15 +521,15 @@ class ScheduleController extends Controller
                         ], Response::HTTP_BAD_REQUEST); //400
                     } /* else {
 
-         Log::info($fichaAsignadaInstructor);
+       Log::info($fichaAsignadaInstructor);
 
-         return response()->json([
-             'status' => 0,
-             'message' => "No se encontraron asignaciones para el instructor '{$nombreInstructor}' en la(s) caja(s) especificadas.",
-             'error' => 'No assignments found for the instructor in the specified boxIndex',
-         ], Response::HTTP_NOT_FOUND); //404
-     }
-     */
+       return response()->json([
+           'status' => 0,
+           'message' => "No se encontraron asignaciones para el instructor '{$nombreInstructor}' en la(s) caja(s) especificadas.",
+           'error' => 'No assignments found for the instructor in the specified boxIndex',
+       ], Response::HTTP_NOT_FOUND); //404
+   }
+   */
                 }
                 if ($ambienteAsignado->isNotEmpty()) {
 
@@ -535,13 +544,13 @@ class ScheduleController extends Controller
                             'duplicates' => $ambienteAsignado,
                         ], Response::HTTP_BAD_REQUEST); //400
                     } /*else {
-         return response()->json([
-             'status' => 0,
-             'message' => "No se encontraron asignaciones para el ambiente '{$numeroAmbiente}' en la(s) caja(s) especificadas.",
-             'error' => 'No assignments found for the instructor in the specified boxIndex',
-         ], Response::HTTP_NOT_FOUND); //404
-     }
-     */
+       return response()->json([
+           'status' => 0,
+           'message' => "No se encontraron asignaciones para el ambiente '{$numeroAmbiente}' en la(s) caja(s) especificadas.",
+           'error' => 'No assignments found for the instructor in the specified boxIndex',
+       ], Response::HTTP_NOT_FOUND); //404
+   }
+   */
                 }
 
                 if ($limiteHorasInstructor !== null && $limiteHorasAmbiente !== null && $limiteHorasFicha !== null) {
@@ -878,9 +887,49 @@ class ScheduleController extends Controller
         }
     }
 
-    public function scheduleEnableRecords()
+    public function scheduleEnableRecords(string $idTrimestre = null)
     {
         try {
+            if ($idTrimestre == 'null' || $idTrimestre == 'undefined') {
+
+                $lastQuarter = Trimestre::select('idTrimestre')
+                    ->orderBy('idTrimestre', 'desc')
+                    ->first();
+
+                if (!$lastQuarter) {
+                    return response()->json([
+                        'error' => 'Quarter not found'
+                    ], Response::HTTP_NOT_FOUND);
+                }
+
+                $idTrimestre = strval($lastQuarter['idTrimestre']);
+
+                $records = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
+                    ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+                    ->join('trimestres', 'trimestres.idTrimestre', '=', 'horarios_academicos.idTrimestre')
+                    ->select(
+                        'fichas.ficha',
+                        'horarios_academicos.idHorario',
+                        'fichas.idFicha',
+                        'trimestres.trimestre',
+                        'trimestres.idTrimestre',
+                        'trimestres.fechaInicio',
+                    )
+                    ->where('horarios_academicos.estado', 'habilitado')
+                    ->where('trimestres.idTrimestre', $idTrimestre)
+                    ->distinct()
+                    ->get();
+
+
+                if ($records->isEmpty()) {
+                    return response()->json([
+                        'status' => 0,
+                        'error' => 'Schedule Not Found'
+                    ], Response::HTTP_NOT_FOUND); //404
+                }
+                return response()->json($records, Response::HTTP_OK);
+            }
+
             $records = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
                 ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
                 ->join('trimestres', 'trimestres.idTrimestre', '=', 'horarios_academicos.idTrimestre')
@@ -893,6 +942,7 @@ class ScheduleController extends Controller
                     'trimestres.fechaInicio',
                 )
                 ->where('horarios_academicos.estado', 'habilitado')
+                ->where('trimestres.idTrimestre', $idTrimestre)
                 ->distinct()
                 ->get();
 
@@ -913,9 +963,48 @@ class ScheduleController extends Controller
     }
 
 
-    public function scheduleDisableRecords()
+    public function scheduleDisableRecords(string $idTrimestre = null)
     {
         try {
+            if ($idTrimestre == 'null' || $idTrimestre == 'undefined') {
+
+                $lastQuarter = Trimestre::select('idTrimestre')
+                    ->orderBy('idTrimestre', 'desc')
+                    ->first();
+
+                if (!$lastQuarter) {
+                    return response()->json([
+                        'error' => 'Quarter not found'
+                    ], Response::HTTP_NOT_FOUND);
+                }
+
+                $idTrimestre = strval($lastQuarter['idTrimestre']);
+
+                $records = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
+                    ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
+                    ->join('trimestres', 'trimestres.idTrimestre', '=', 'horarios_academicos.idTrimestre')
+                    ->select(
+                        'fichas.ficha',
+                        'horarios_academicos.idHorario',
+                        'fichas.idFicha',
+                        'trimestres.trimestre',
+                        'trimestres.idTrimestre',
+                        'trimestres.fechaInicio',
+                    )
+                    ->where('horarios_academicos.estado', 'inhabilitado')
+                    ->where('trimestres.idTrimestre', $idTrimestre)
+                    ->distinct()
+                    ->get();
+
+                if ($records->isEmpty()) {
+                    return response()->json([
+                        'status' => 0,
+                        'error' => 'Schedule Not Found'
+                    ], Response::HTTP_NOT_FOUND); //404
+                }
+
+                return response()->json($records, Response::HTTP_OK);
+            }
             $records = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
                 ->join('fichas', 'horarios_academicos.idFicha', '=', 'fichas.idFicha')
                 ->join('trimestres', 'trimestres.idTrimestre', '=', 'horarios_academicos.idTrimestre')
@@ -928,6 +1017,7 @@ class ScheduleController extends Controller
                     'trimestres.fechaInicio',
                 )
                 ->where('horarios_academicos.estado', 'inhabilitado')
+                ->where('trimestres.idTrimestre', $idTrimestre)
                 ->distinct()
                 ->get();
 
@@ -951,8 +1041,6 @@ class ScheduleController extends Controller
         try {
             if ($idTrimestre == 'null' || $idTrimestre == 'undefined') {
 
-                Log::info('entré');
-
                 $lastQuarter = Trimestre::select('idTrimestre')
                     ->orderBy('idTrimestre', 'desc')
                     ->first();
@@ -962,10 +1050,7 @@ class ScheduleController extends Controller
                         'error' => 'Quarter not found'
                     ], Response::HTTP_NOT_FOUND);
                 }
-
                 $idTrimestre = strval($lastQuarter['idTrimestre']);
-                Log::info($idTrimestre);
-                
 
                 $asign = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
                     ->join('usuarios', 'asignaciones.idUsuario', '=', 'usuarios.idUsuario')
@@ -977,7 +1062,7 @@ class ScheduleController extends Controller
                         'trimestres.idTrimestre',
                         'trimestres.fechaInicio',
                     )
-                    ->where('horarios_academicos.estado', 'habilitado')
+                    // ->where('horarios_academicos.estado', 'habilitado')
                     ->where('trimestres.idTrimestre', $idTrimestre)
                     ->groupBy(
                         'usuarios.idUsuario',
@@ -1001,7 +1086,7 @@ class ScheduleController extends Controller
                     'trimestres.idTrimestre',
                     'trimestres.fechaInicio',
                 )
-                ->where('horarios_academicos.estado', 'habilitado')
+                // ->where('horarios_academicos.estado', 'habilitado')
                 ->where('trimestres.idTrimestre', $idTrimestre)
                 ->groupBy(
                     'usuarios.idUsuario',
@@ -1020,9 +1105,46 @@ class ScheduleController extends Controller
         }
     }
 
-    public function scheduleEnableEnvironments()
+    public function scheduleEnableEnvironments(string $idTrimestre = null)
     {
         try {
+
+            if ($idTrimestre == 'null' || $idTrimestre == 'undefined') {
+
+                $lastQuarter = Trimestre::select('idTrimestre')
+                    ->orderBy('idTrimestre', 'desc')
+                    ->first();
+
+                if (!$lastQuarter) {
+                    return response()->json([
+                        'error' => 'Quarter not found'
+                    ], Response::HTTP_NOT_FOUND);
+                }
+
+                $idTrimestre = strval($lastQuarter['idTrimestre']);
+
+                $ambientes = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
+                    ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
+                    ->join('trimestres', 'trimestres.idTrimestre', '=', 'horarios_academicos.idTrimestre')
+                    ->select(
+                        'ambientes.idAmbiente',
+                        DB::raw('MAX(ambientes.ambiente) as ambiente'),
+                        'trimestres.trimestre',
+                        'trimestres.idTrimestre',
+                        'trimestres.fechaInicio'
+                    )
+                    // ->where('horarios_academicos.estado', 'habilitado')
+                    ->where('trimestres.idTrimestre', $idTrimestre)
+                    ->groupBy(
+                        'ambientes.idAmbiente',
+                        'trimestres.trimestre',
+                        'trimestres.idTrimestre',
+                        'trimestres.fechaInicio',
+                    )
+                    ->get();
+                return response()->json($ambientes, Response::HTTP_OK);
+            }
+
             $ambientes = HorarioAcademico::join('asignaciones', 'horarios_academicos.idHorario', '=', 'asignaciones.idHorarioAcademico')
                 ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
                 ->join('trimestres', 'trimestres.idTrimestre', '=', 'horarios_academicos.idTrimestre')
@@ -1033,7 +1155,8 @@ class ScheduleController extends Controller
                     'trimestres.idTrimestre',
                     'trimestres.fechaInicio'
                 )
-                ->where('horarios_academicos.estado', 'habilitado')
+                // ->where('horarios_academicos.estado', 'habilitado')
+                ->where('trimestres.idTrimestre', $idTrimestre)
                 ->groupBy(
                     'ambientes.idAmbiente',
                     'trimestres.trimestre',

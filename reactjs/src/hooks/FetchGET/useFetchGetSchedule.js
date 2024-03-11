@@ -11,11 +11,10 @@ const useFetchGetSchedule = (route) => {
   const [loading, setLoading] = useState(true);
   const Navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (idTrimestre) => {
       try {
         setLoading(true);
-        const response = await fetch(`${API_URL}${route}`, {
+        const response = await fetch(`${API_URL}${route}/${idTrimestre}`, {
           method: "GET",
           headers: {
             'Content-Type': 'application/json',
@@ -41,13 +40,15 @@ const useFetchGetSchedule = (route) => {
     // // Asignar la función fetchData al ref
     // fetchDataRef.current = fetchData;
 
-    fetchData();
-  }, [route]);
+    useEffect(() => {
+      fetchData();
+    }, [route])
 
   return {
     horarios,
     loading,
     setLoading,
+    fetchData,
     // fetchData: () => fetchDataRef.current(), // Llamada a la función fetchData almacenada en el ref
   }
 };

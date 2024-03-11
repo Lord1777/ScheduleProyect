@@ -1,4 +1,4 @@
-//Funcion para sacar las iniciales del instructor (nombre)
+//Función para sacar las iniciales del instructor (nombre)
 export const initialsName = (nombreCompleto) => {
     if (typeof nombreCompleto === 'string') {
         const words = nombreCompleto.split(' ');

@@ -97,7 +97,7 @@ export const SeeScheduleAdmin = () => {
                             return (
                                 <div
                                     key={colIndex}
-                                    className={`${infoSchedule ? 'selected' : 'cuadricula'}`}
+                                    className={`cuadricula ${infoSchedule ? 'selected' : ''}`}
                                     style={{ backgroundColor: infoSchedule ? colorMap[infoSchedule.nombreCompleto] : '#D9D9D9' }}
                                     onClick={() => handleCellClick(infoSchedule)}
                                 >

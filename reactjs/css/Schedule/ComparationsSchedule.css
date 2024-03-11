@@ -188,9 +188,9 @@
 
 /*tooltip*/
 .tooltip-horario{
-    width: 8rem;
-    height: auto;
-    padding: 0.25rem;
+    min-width: 8rem;
+    max-height: 7rem;
+    padding: 0.3rem;
     display: none;
     flex-direction: column;
     justify-content: center;
@@ -199,8 +199,9 @@
     top: -2.2rem;
     border-radius: 0.5rem;
     opacity: 0;
-    transition: opacity 0.3s; /* Agregar transición de opacidad */
+    transition: display 0.3s; /* Agregar transición de opacidad */
     font-size: 0.7rem;
+    text-align: center;
 }
 
 .tooltipVisible:hover .tooltip-horario {

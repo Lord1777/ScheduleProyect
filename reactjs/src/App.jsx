@@ -49,6 +49,7 @@ import error from './assets/img/Advertencia.png'
 import { AboutDevelopers } from './pages/Developers/AboutDevelopers.jsx';
 import "../css/App.css";
 import { ComparationsSchedule } from './pages/CompationSchedules/ComparationsSchedule.jsx';
+import { ComparationScheduleAmbiente } from './pages/CompationSchedules/ComparationScheduleAmbiente.jsx';
 
 
 function App() {
@@ -109,6 +110,7 @@ function App() {
                         <Route path='/HorariosInstructores' element={<WatchSchedulesInstructor />} />
                         <Route path='/HorarioAmbiente/:idAmbiente/:idTrimestre' element={<SeeScheduleAmbiente />} />
                         <Route path='/ComparacionHorariosInstructores' element={<ComparationsSchedule/>}/>
+                        <Route path='/ComparacionHorariosAmbientes' element={<ComparationScheduleAmbiente/>}/>
                         <Route path='/HorariosAmbientes' element={<WatchScheduleAmbiente />} />
                         <Route path='/CrudInstructor' element={<CrudInstructor />} />
                         <Route path='/CrudFichas' element={<CrudRecords />} />

@@ -1,95 +1,97 @@
 import React, { useState, useEffect } from 'react'
 import { NavBar } from '../../components/NavBar/NavBar'
-import { ScheduleComparation } from '../../components/Schedule/ScheduleComparation'
-import '../../../css/Schedule/ComparationsSchedule.css'
-import useDropdown from '../../hooks/useDropdown'
-import { useForm } from 'react-hook-form'
-import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters'
-import { useFetchGetInstructors } from '../../hooks/FetchGetResources/useFetchGetInstructors'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import { useFetchGetScheduleAdminInstructor } from '../../hooks/FetchSchedule/useFetchGetScheduleAdminInstructor'
-import { ContinuoModal } from '../../components/Modals/ContinuoModal'
+import { useForm } from 'react-hook-form';
+import useDropdown from '../../hooks/useDropdown';
+import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
+import { useFetchGetScheduleEnvironment } from '../../hooks/FetchSchedule/useFetchGetScheduleEnvironment';
+import { useFetchGetEnvironments } from '../../hooks/FetchGetResources/useFetchGetEnvironments';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { ScheduleComparation } from '../../components/Schedule/ScheduleComparation';
+import { Loading } from '../../components/Loading/Loading';
 import error from '../../assets/img/Advertencia.png'
-import { Loading } from '../../components/Loading/Loading'
+import { ContinuoModal } from '../../components/Modals/ContinuoModal';
 
-export const ComparationsSchedule = () => {
+export const ComparationScheduleAmbiente = () => {
 
     const { register, setValue } = useForm();
-    const dropdown1 = useDropdown(setValue, "instructor1");
+    const dropdown1 = useDropdown(setValue, "Ambiente1");
     const dropdown2 = useDropdown(setValue, "trimestres1");
-    const dropdown3 = useDropdown(setValue, "instructor2");
+    const dropdown3 = useDropdown(setValue, "Ambiente2");
     const dropdown4 = useDropdown(setValue, "trimestres2");
-    const dropdown5 = useDropdown(setValue, "instructor3");
+    const dropdown5 = useDropdown(setValue, "Ambiente3");
     const dropdown6 = useDropdown(setValue, "trimestres3");
-    const { dataInstructors } = useFetchGetInstructors('/getInstructors');
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
-    const [ searchInstructor1, setSearchInstructor1 ] = useState("");
-    const [ searchInstructor2, setSearchInstructor2 ] = useState("");
-    const [ searchInstructor3, setSearchInstructor3 ] = useState("");
-    const [ searchTrimestre1, setSearchTrimestre1 ] = useState("");
-    const [ searchTrimestre2, setSearchTrimestre2 ] = useState("");
-    const [ searchTrimestre3, setSearchTrimestre3 ] = useState("");
-    const [ instructor1, setInstructor1 ] = useState();
-    const [ instructor2, setInstructor2 ] = useState();
-    const [ instructor3, setInstructor3 ] = useState();
-    const [ trimestre1, setTrimestre1 ] = useState();
-    const [ trimestre2, setTrimestre2] = useState();
-    const [ trimestre3, setTrimestre3 ] = useState();
-    
+    const { dataEnvironments } = useFetchGetEnvironments('/getEnvironments');
+    const [searchAmbiente1, setSearchAmbiente1] = useState("");
+    const [searchAmbiente2, setSearchAmbiente2] = useState("");
+    const [searchAmbiente3, setSearchAmbiente3] = useState("");
+    const [searchTrimestre1, setSearchTrimestre1] = useState("");
+    const [searchTrimestre2, setSearchTrimestre2] = useState("");
+    const [searchTrimestre3, setSearchTrimestre3] = useState("");
+    const [ambiente1, setAmbiente1] = useState();
+    const [ambiente2, setAmbiente2] = useState();
+    const [ambiente3, setAmbiente3] = useState();
+    const [trimestre1, setTrimestre1] = useState();
+    const [trimestre2, setTrimestre2] = useState();
+    const [trimestre3, setTrimestre3] = useState();
+    // console.log(dataEnvironments)
+
     const handleOptionClickTrimestre1 = (trimestre) => {
         setTrimestre1(trimestre);
     }
-    const handleInstruuctorId1 = (id) => {
-        setInstructor1(id);
+    const handleAmbienteId1 = (id) => {
+        setAmbiente1(id)
+        console.log(` Ambiente1: ${id}`)
     }
 
     const handleOptionClickTrimestre2 = (trimestre) => {
         setTrimestre2(trimestre);
     }
-    const handleInstruuctorId2 = (id) => {
-        setInstructor2(id);
+    const handleAmbienteId2 = (id) => {
+        setAmbiente2(id)
+        console.log(` Ambiente2: ${id}`)
     }
 
     const handleOptionClickTrimestre3 = (trimestre) => {
         setTrimestre3(trimestre);
     }
-    const handleInstruuctorId3 = (id) => {
-        setInstructor3(id);
+    const handleAmbienteId3 = (id) => {
+        setAmbiente3(id)
+        console.log(`Ambiente: ${id}`)
     }
 
     useEffect(() => {
 
-    }, [ instructor1, trimestre1, instructor2, trimestre2, instructor3, trimestre3]);
+    }, [ambiente1, trimestre1, ambiente2, trimestre2, ambiente3, trimestre3]);
 
-    const { 
-        dataSchedule: horarioInstuctor1, 
-        alertMessage: message1, 
-        openErrorModal: openErrorModal1, 
-        setOpenErrorModal: setOpenErrorModal1, 
-        loading: loading1 
-    } = useFetchGetScheduleAdminInstructor('/getAdminScheduleInstructor', instructor1, trimestre1);
+    const {
+        dataSchedule: horarioAmbiente1,
+        alertMessage: message1,
+        openErrorModal: openErrorModal1,
+        setOpenErrorModal: setOpenErrorModal1,
+        loading: loading1
+    } = useFetchGetScheduleEnvironment('/getScheduleEnvironment', ambiente1, trimestre1);
 
-    const { 
-        dataSchedule: horarioInstuctor2, 
-        alertMessage: message2, 
-        openErrorModal: openErrorModal2, 
-        setOpenErrorModal: setOpenErrorModal2, 
-        loading: loading2 
-    } = useFetchGetScheduleAdminInstructor('/getAdminScheduleInstructor', instructor2, trimestre2);
+    const {
+        dataSchedule: horarioAmbiente2,
+        alertMessage: message2,
+        openErrorModal: openErrorModal2,
+        setOpenErrorModal: setOpenErrorModal2,
+        loading: loading2
+    } = useFetchGetScheduleEnvironment('/getScheduleEnvironment', ambiente2, trimestre2);
 
-    const { 
-        dataSchedule: horarioInstuctor3, 
-        alertMessage: message3, 
-        openErrorModal: openErrorModal3, 
-        setOpenErrorModal: setOpenErrorModal3, 
-        loading: loading3 
-    } = useFetchGetScheduleAdminInstructor('/getAdminScheduleInstructor', instructor3, trimestre3);
+    const {
+        dataSchedule: horarioAmbiente3,
+        alertMessage: message3,
+        openErrorModal: openErrorModal3,
+        setOpenErrorModal: setOpenErrorModal3,
+        loading: loading3
+    } = useFetchGetScheduleEnvironment('/getScheduleEnvironment', ambiente3, trimestre3);
 
-    if(loading1 || loading2 || loading3){
-        return <Loading/>
+    if (loading1 || loading2 || loading3) {
+        return <Loading />
     }
- 
 
     return (
         <>
@@ -103,13 +105,13 @@ export const ComparationsSchedule = () => {
                             <input
                                 type="text"
                                 className='textBox'
-                                name='Instructores'
-                                placeholder='Instructor'
+                                name='Ambiente'
+                                placeholder='Ambiente'
                                 readOnly
                                 onClick={dropdown1.handleDropdown}
                                 value={dropdown1.selectedOption}
                                 autoComplete='off'
-                                {...register("instructor1")}
+                                {...register("Ambiente1")}
                             />
                             <div className={`option-drop-comparation ${dropdown1.isDropdown ? 'open' : ''}`} id='instructores'>
                                 <div className="search-bar-comparation">
@@ -117,8 +119,8 @@ export const ComparationsSchedule = () => {
                                         type="text"
                                         className='buscador-desplegables'
                                         id='buscador'
-                                        value={searchInstructor1}
-                                        onChange={(e) => setSearchInstructor1(e.target.value)}
+                                        value={searchAmbiente1}
+                                        onChange={(e) => setSearchAmbiente1(e.target.value)}
                                     />
                                     <div className="icon-search-comparation">
                                         <FontAwesomeIcon icon={faSearch} className="search-icon" />
@@ -126,18 +128,18 @@ export const ComparationsSchedule = () => {
                                 </div>
 
                                 <div className="contenedor-options-comparacion">
-                                    {dataInstructors && dataInstructors.length > 0 && dataInstructors
-                                        .filter((instructor) =>
-                                            instructor.nombreCompleto.toLowerCase().startsWith(searchInstructor1.toLowerCase())
+                                    {dataEnvironments && dataEnvironments.length > 0 && dataEnvironments
+                                        .filter((ambiente) =>
+                                            String(ambiente.ambiente).toLowerCase().startsWith(searchAmbiente1.toLowerCase())
                                         )
-                                        .map((instructor) => (
-                                            <div key={instructor.idUsuario}
+                                        .map((ambiente) => (
+                                            <div key={ambiente.idAmbiente}
                                                 onClick={() => {
-                                                    dropdown1.handleOptionClick(`${instructor.nombreCompleto}`)
-                                                    handleInstruuctorId1(`${instructor.idUsuario}`)
+                                                    dropdown1.handleOptionClick(`${ambiente.ambiente}`)
+                                                    handleAmbienteId1(`${ambiente.idAmbiente}`)
                                                 }}
                                             >
-                                                {instructor.nombreCompleto}
+                                                {ambiente.ambiente}
                                             </div>
                                         ))}
                                 </div>
@@ -190,7 +192,7 @@ export const ComparationsSchedule = () => {
 
                     </div>
                     <ScheduleComparation
-                        funcionFecth={horarioInstuctor1}
+                        funcionFecth={horarioAmbiente1}
                     />
                 </div>
 
@@ -202,13 +204,13 @@ export const ComparationsSchedule = () => {
                             <input
                                 type="text"
                                 className='textBox'
-                                name='Instructores'
-                                placeholder='Instructor'
+                                name='Ambiente'
+                                placeholder='Ambiente'
                                 readOnly
                                 onClick={dropdown3.handleDropdown}
                                 value={dropdown3.selectedOption}
                                 autoComplete='off'
-                                {...register("instructor2")}
+                                {...register("Ambiente2")}
                             />
                             <div className={`option-drop-comparation ${dropdown3.isDropdown ? 'open' : ''}`} id='instructores'>
                                 <div className="search-bar-comparation">
@@ -216,8 +218,8 @@ export const ComparationsSchedule = () => {
                                         type="text"
                                         className='buscador-desplegables'
                                         id='buscador'
-                                        value={searchInstructor2}
-                                        onChange={(e) => setSearchInstructor2(e.target.value)}
+                                        value={searchAmbiente2}
+                                        onChange={(e) => setSearchAmbiente2(e.target.value)}
                                     />
                                     <div className="icon-search-comparation">
                                         <FontAwesomeIcon icon={faSearch} className="search-icon" />
@@ -225,18 +227,18 @@ export const ComparationsSchedule = () => {
                                 </div>
 
                                 <div className="contenedor-options-comparacion">
-                                    {dataInstructors && dataInstructors.length > 0 && dataInstructors
-                                        .filter((instructor) =>
-                                            instructor.nombreCompleto.toLowerCase().startsWith(searchInstructor2.toLowerCase())
+                                    {dataEnvironments && dataEnvironments.length > 0 && dataEnvironments
+                                        .filter((ambiente) =>
+                                            String(ambiente.ambiente).toLowerCase().startsWith(searchAmbiente2.toLowerCase())
                                         )
-                                        .map((instructor) => (
-                                            <div key={instructor.idUsuario}
+                                        .map((ambiente) => (
+                                            <div key={ambiente.idAmbiente}
                                                 onClick={() => {
-                                                    dropdown3.handleOptionClick(`${instructor.nombreCompleto}`)
-                                                    handleInstruuctorId2(`${instructor.idUsuario}`)
+                                                    dropdown3.handleOptionClick(`${ambiente.ambiente}`)
+                                                    handleAmbienteId2(`${ambiente.idAmbiente}`)
                                                 }}
                                             >
-                                                {instructor.nombreCompleto}
+                                                {ambiente.ambiente}
                                             </div>
                                         ))}
                                 </div>
@@ -288,8 +290,8 @@ export const ComparationsSchedule = () => {
                         </div>
 
                     </div>
-                    <ScheduleComparation 
-                    funcionFecth={horarioInstuctor2}
+                    <ScheduleComparation
+                        funcionFecth={horarioAmbiente2}
                     />
                 </div>
                 {/* 3 */}
@@ -300,13 +302,13 @@ export const ComparationsSchedule = () => {
                             <input
                                 type="text"
                                 className='textBox'
-                                name='Instructores'
-                                placeholder='Instructor'
+                                name='Ambiente'
+                                placeholder='Ambiente'
                                 readOnly
                                 onClick={dropdown5.handleDropdown}
                                 value={dropdown5.selectedOption}
                                 autoComplete='off'
-                                {...register("instructor3")}
+                                {...register("Ambiente3")}
                             />
                             <div className={`option-drop-comparation ${dropdown5.isDropdown ? 'open' : ''}`} id='instructores'>
                                 <div className="search-bar-comparation">
@@ -314,8 +316,8 @@ export const ComparationsSchedule = () => {
                                         type="text"
                                         className='buscador-desplegables'
                                         id='buscador'
-                                        value={searchInstructor3}
-                                        onChange={(e) => setSearchInstructor3(e.target.value)}
+                                        value={searchAmbiente3}
+                                        onChange={(e) => setSearchAmbiente3(e.target.value)}
                                     />
                                     <div className="icon-search-comparation">
                                         <FontAwesomeIcon icon={faSearch} className="search-icon" />
@@ -323,18 +325,18 @@ export const ComparationsSchedule = () => {
                                 </div>
 
                                 <div className="contenedor-options-comparacion">
-                                    {dataInstructors && dataInstructors.length > 0 && dataInstructors
-                                        .filter((instructor) =>
-                                            instructor.nombreCompleto.toLowerCase().startsWith(searchInstructor3.toLowerCase())
+                                    {dataEnvironments && dataEnvironments.length > 0 && dataEnvironments
+                                        .filter((ambiente) =>
+                                            String(ambiente.ambiente).toLowerCase().startsWith(searchAmbiente3.toLowerCase())
                                         )
-                                        .map((instructor) => (
-                                            <div key={instructor.idUsuario}
-                                                onClick={() =>{
-                                                    dropdown5.handleOptionClick(`${instructor.nombreCompleto}`)
-                                                    handleInstruuctorId3(`${instructor.idUsuario}`)
+                                        .map((ambiente) => (
+                                            <div key={ambiente.idAmbiente}
+                                                onClick={() => {
+                                                    dropdown5.handleOptionClick(`${ambiente.ambiente}`)
+                                                    handleAmbienteId3(`${ambiente.idAmbiente}`)
                                                 }}
                                             >
-                                                {instructor.nombreCompleto}
+                                                {ambiente.ambiente}
                                             </div>
                                         ))}
                                 </div>
@@ -386,32 +388,33 @@ export const ComparationsSchedule = () => {
                         </div>
 
                     </div>
-                    <ScheduleComparation 
-                    funcionFecth={horarioInstuctor3}/>
+                    <ScheduleComparation
+                        funcionFecth={horarioAmbiente3}
+                    />
                 </div>
 
 
             </div>
             <ContinuoModal
-            tittle="No encontrado"
-            imagen={error}
-            message={message1}
-            open={openErrorModal1}
-            close={() => setOpenErrorModal1(false)}
+                tittle="No encontrado"
+                imagen={error}
+                message={message1}
+                open={openErrorModal1}
+                close={() => setOpenErrorModal1(false)}
             />
             <ContinuoModal
-            tittle="No encontrado"
-            imagen={error}
-            message={message2}
-            open={openErrorModal2}
-            close={() => setOpenErrorModal2(false)}
+                tittle="No encontrado"
+                imagen={error}
+                message={message2}
+                open={openErrorModal2}
+                close={() => setOpenErrorModal2(false)}
             />
             <ContinuoModal
-            tittle="No encontrado"
-            imagen={error}
-            message={message3}
-            open={openErrorModal3}
-            close={() => setOpenErrorModal3(false)}
+                tittle="No encontrado"
+                imagen={error}
+                message={message3}
+                open={openErrorModal3}
+                close={() => setOpenErrorModal3(false)}
             />
         </>
     )

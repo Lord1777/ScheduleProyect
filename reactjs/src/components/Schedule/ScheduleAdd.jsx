@@ -43,10 +43,10 @@ export const ScheduleAdd = () => {
     // Almacena todos los índices, id-instructor, id-ambiente asignados,
     const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
 
-    // Inicializa el registro de horas asignadas por día para cada instructor
-    const [horasAsignadasPorDia, setHorasAsignadasPorDia] = useState({});
-    const diaSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+    // Inicializa el registro de horas asignadas por día
     const [newHorasAsignadasPorDia, setNewHorasAsignadasPorDia] = useState({});
+    const diaSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+   
     
 
     //Funcion que retorna el id del trimestre
@@ -56,28 +56,29 @@ export const ScheduleAdd = () => {
     };
 
     const handleAssignedBoxClick = (boxIndex) => {
-
         const boxData = asignaciones[boxIndex];
-
+    
         if (boxData) {
-            setGlobalStoreBoxes((prevStoreBoxes) => {
-                const newStoreBoxes = prevStoreBoxes.filter((box) => box.boxIndex !== boxIndex);
-                return newStoreBoxes;
-            });
-
-            setAsignaciones((prevAsignaciones) => {
-                const newAsignaciones = { ...prevAsignaciones };
-                delete newAsignaciones[boxIndex];
-                return newAsignaciones;
-            });
-
             // Resta las horas asignadas solo si la casilla estaba asignada y las horas asignadas son mayores a 0
             setHorasAsignadas((prevHoras) => {
                 const newHoras = Math.max(prevHoras - 1, 0);
                 return newHoras;
             });
+    
+            // Elimina la asignación de la casilla
+            setGlobalStoreBoxes((prevStoreBoxes) => {
+                const newStoreBoxes = prevStoreBoxes.filter((box) => box.boxIndex !== boxIndex);
+                return newStoreBoxes;
+            });
+    
+            setAsignaciones((prevAsignaciones) => {
+                const newAsignaciones = { ...prevAsignaciones };
+                delete newAsignaciones[boxIndex];
+                return newAsignaciones;
+            });
         }
     };
+    
 
 
     useEffect(() => {
@@ -164,47 +165,40 @@ export const ScheduleAdd = () => {
         });
         setLoading(false);
     };
-
+    
     useEffect(() => {
         // Inicializa las horas asignadas a 0 para cada día de la semana para cada instructor
         const initialHorasPorDia = {};
-
+    
         globalStoreBoxes.forEach(box => {
-            const idInstructor = box.idInstructor;
             const dia = diaSemana[box.boxIndex % 7];
-            if (!initialHorasPorDia[idInstructor]) {
-                initialHorasPorDia[idInstructor] = {};
-            }
-            initialHorasPorDia[idInstructor][dia] = 0;
+            initialHorasPorDia[dia] = 0;
         });
-
+    
         // Actualiza el registro de horas asignadas por día
         const newHorasAsignadasPorDia = { ...initialHorasPorDia };
         globalStoreBoxes.forEach(box => {
-            const idInstructor = box.idInstructor;
             const dia = diaSemana[box.boxIndex % 7];
-            // if (!newHorasAsignadasPorDia[idInstructor][dia]) {
-            //     newHorasAsignadasPorDia[idInstructor][dia] = 0;
-            // }
-            newHorasAsignadasPorDia[idInstructor][dia] += 1;
+            if (!newHorasAsignadasPorDia[dia]) {
+                newHorasAsignadasPorDia[dia] = 0;
+            }
+            newHorasAsignadasPorDia[dia] += 1;
         });
 
         console.log('horasAsignadasPorDia:', newHorasAsignadasPorDia);
-
+    
         // Verifica si se excede el límite diario de 10 horas
         const idInstructorExcedido = Object.keys(newHorasAsignadasPorDia).find(idInstructor => {
             const horasPorDia = newHorasAsignadasPorDia[idInstructor];
             return Object.values(horasPorDia).some(horas => horas > 8);
         });
-
+    
         if (idInstructorExcedido) {
             setMessageAlert('Se ha detectado que un instructor ha superado el límite diario de 8 horas en al menos uno de los días.');
             setAlertShowModal(true);
         }
         setNewHorasAsignadasPorDia(newHorasAsignadasPorDia);
     }, [globalStoreBoxes]);
-
-
 
     if (loading) {
         return <Loading />

@@ -149,6 +149,12 @@
     .buttons-container {
         margin-left: 11.5rem;
     }
+
+    .colorRecords {
+        grid-template-columns: 120px 120px 120px 120px;
+        gap: 3px;
+        justify-items: end;
+    }
 }
 
 @media (max-width:912px) {
@@ -159,7 +165,7 @@
     .trimestre-jornada-horas {
         display: grid;
         grid-template-columns: 1fr;
-        height: 2rem;
+        height: auto;
     }
 
     .buttons-container {
@@ -180,7 +186,7 @@
     .trimestre-jornada-horas {
         display: grid;
         grid-template-columns: 1fr;
-        height: 2rem;
+        height: auto;
         margin-top: -0.8rem;
     }
 
@@ -198,7 +204,6 @@
     .trimestre-jornada-horas {
         display: grid;
         grid-template-columns: 1fr;
-        height: 2rem;
         margin-top: -0.8rem;
     }
 
@@ -235,8 +240,16 @@
         margin-left: 7rem;
 
         button {
-            width: 6rem;
+            width: 4rem;
+            height: 2rem;
+            font-size: 10px;
         }
+    }
+
+    .colorRecords {
+        grid-template-columns: 100px 100px 100px 100px;
+        gap: 3px;
+        justify-items: end;
     }
 }
 
@@ -249,8 +262,7 @@
     }
 
     .trimestre-jornada-horas div p {
-        margin-bottom: 1rem;
-        width: 20rem;
+        width: auto;
     }
 
     .trimestre-jornada-horas {
@@ -262,11 +274,6 @@
         width: 32rem;
         height: auto;
         margin-left: 5rem;
-    }
-
-    .buttons-container {
-        margin-left: 8rem;
-        margin-top: -4.2rem;
     }
 }
 
@@ -282,13 +289,8 @@
         grid-template-columns: 1fr;
     }
 
-    .buttons-container {
-        margin-left: 0.5rem;
-        margin-top: 0.1rem;
-
-        button {
-            width: 6.5rem;
-        }
+    .colorRecords {
+        grid-template-columns: 120px 120px 120px;
     }
 }
 
@@ -298,7 +300,7 @@
     }
 
     .buttons-container {
-        margin-left: -0.5rem;
+        margin-left: 5.5rem;
     }
 }
 
@@ -311,11 +313,14 @@
     }
 
     .buttons-container {
-        margin-left: -1.5rem;
+        margin-top: 1px;
+        margin-left: 0;
+        display: flex;
+        justify-content: start;
+    }
 
-        button {
-            width: 6rem;
-        }
+    .colorRecords {
+        grid-template-columns: 150px 120px;
     }
 }
 
@@ -329,12 +334,6 @@
         display: grid;
         grid-template-columns: 1fr;
     }
-
-    .buttons-container {
-        margin-left: -2rem;
-        margin-top: -0.5rem;
-
-    }
 }
 
 @media (max-width:414px) {
@@ -346,18 +345,6 @@
     .trimestre-jornada-horas {
         display: grid;
         grid-template-columns: 1fr;
-    }
-
-    .buttons-container {
-        margin-left: -2rem;
-        margin-top: -0.5rem;
-
-    }
-}
-
-@media (max-width:412px) {
-    .buttons-container {
-        margin-left: -1.5rem;
     }
 }
 
@@ -371,12 +358,6 @@
         display: grid;
         grid-template-columns: 1fr;
     }
-
-    .buttons-container {
-        margin-left: -2rem;
-        margin-top: -0.5rem;
-
-    }
 }
 
 @media (max-width:360px) {
@@ -387,13 +368,18 @@
 }
 
 @media (max-width: 325px) {
+
+    .trimestre-jornada-horas div {
+        margin-right: 0;
+    }
+
     .informationBarAprenttice {
         max-width: 15rem;
         height: auto;
     }
 
-    .buttons-container{
-        margin-left: -4.1rem;
+    .colorRecords {
+        grid-template-columns: 85px 100px;
     }
 }
 
@@ -405,15 +391,5 @@
     .trimestre-jornada-horas {
         display: grid;
         grid-template-columns: 1fr;
-    }
-
-    .buttons-container {
-        margin-left: -4.3rem;
-        margin-top: -0.5rem;
-
-        button {
-            width: 5.5rem;
-            height: 2.3rem;
-        }
     }
 }

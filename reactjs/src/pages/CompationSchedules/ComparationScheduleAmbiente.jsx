@@ -12,6 +12,7 @@ import { ScheduleComparation } from '../../components/Schedule/ScheduleComparati
 import { Loading } from '../../components/Loading/Loading';
 import error from '../../assets/img/Advertencia.png'
 import { ContinuoModal } from '../../components/Modals/ContinuoModal';
+import { useNavigate } from 'react-router-dom';
 
 export const ComparationScheduleAmbiente = () => {
 
@@ -36,6 +37,11 @@ export const ComparationScheduleAmbiente = () => {
     const [trimestre1, setTrimestre1] = useState();
     const [trimestre2, setTrimestre2] = useState();
     const [trimestre3, setTrimestre3] = useState();
+    const Navigate = useNavigate()
+
+    const showNavigation = () => {
+        Navigate('/PanelHorarios')
+    }
     // console.log(dataEnvironments)
 
     const handleOptionClickTrimestre1 = (trimestre) => {
@@ -97,6 +103,14 @@ export const ComparationScheduleAmbiente = () => {
     return (
         <>
             <NavBar />
+            <div className='btn-titleC'>
+                <div className='btn-backC' onClick={showNavigation}>
+                    <span class="material-symbols-outlined">
+                        arrow_back
+                    </span>
+                </div>
+                <h2>Comparar Horarios Ambientes</h2>
+            </div>
             {/* 1*/}
             <div className="container_comparation_schedules">
                 <div className="container-horario-desplegables">

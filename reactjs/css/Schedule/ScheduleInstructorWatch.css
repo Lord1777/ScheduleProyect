@@ -173,6 +173,27 @@
     }
 }
 
+@media (max-width:710px) {
+    .btn-drop-search {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column-reverse;
+    }
+
+    .title-and-search .search-input {
+        margin-right: 0rem;
+    }
+
+    .search-input {
+        margin-left: 0rem;
+    }
+
+    .search-input input[type="search"] {
+        width: 14rem;
+    }
+}
+
 @media (max-width:540px) {
 
     .title-and-search h2 {
@@ -185,10 +206,10 @@
         margin-left: -1.6rem;
     }
 
-    .title-and-search .search-input {
+    /* .title-and-search .search-input {
         margin-left: 6rem;
         margin-top: 1rem;
-    }
+    } */
 
     .main-container {
         grid-template-columns: 1fr 1fr;
@@ -209,6 +230,11 @@
     .instructor-name h4 {
         font-size: 0.95rem;
     }
+
+    .title-and-search .search-input {
+        margin-left: 0rem;
+        margin-top: 1rem;
+    }
 }
 
 @media (max-width: 430px) {
@@ -222,23 +248,23 @@
         white-space: nowrap;
     }
 
-    .title-and-search .search-input {
+    /* .title-and-search .search-input {
         margin-left: 6rem;
-    }
+    } */
 
     .main-container {
         grid-template-columns: 1fr 1fr;
         margin-left: -1rem;
     }
 
-    .schedule-instructor {
-        width: 11rem;
-        height: 5rem;
-    }
-
     .instructor-name {
         margin-top: -0.1rem;
         margin-left: 0.3rem;
+    }
+
+    .title-and-search .search-input {
+        margin-left: 0rem;
+        margin-top: 1rem;
     }
 }
 
@@ -247,17 +273,17 @@
     .title-and-search {
         display: flex;
         flex-direction: column;
-        margin-left: -5rem;
+        margin-left: 0rem;
     }
 
-    .title-and-search .search-input {
+    /* .title-and-search .search-input {
         margin-left: 8rem;
         margin-top: 1rem;
-    }
+    } */
 
     .title-and-search h2 {
         margin-left: 4rem;
-        font-size: 1.7rem;
+        font-size: 1.2rem;
         white-space: nowrap;
         margin-top: 0.5rem;
     }
@@ -275,19 +301,11 @@
     }
 
     .instructor-name h4 {
-            font-size: 1.1rem;
+        font-size: 1.1rem;
     }
 }
 
 @media (max-width:412px) {
-
-    .title-and-search h2 {
-        margin-left: 5rem;
-    }
-
-    .title-and-search {
-        margin-left: -5rem;
-    }
 
     .main-container {
         margin-left: 5rem;
@@ -322,17 +340,13 @@
 
 @media (max-width:375px) {
 
-    .title-and-search h2 {
-        margin-left: 23rem;
-        font-size: 1.3rem;
-        width: 13rem;
-    }
 
-    .title-and-search .search-input {
+
+    /* .title-and-search .search-input {
         margin-top: 1rem;
         margin-left: 27rem;
         width: 19rem;
-    }
+    } */
 
     .main-container {
         grid-template-columns: 1fr;
@@ -343,7 +357,6 @@
     .title-and-search {
         display: flex;
         flex-direction: column;
-        margin-right: 19rem;
     }
 
     .schedule-instructor {
@@ -359,7 +372,7 @@
 
 @media (max-width:360px) {
     .title-and-search {
-        margin-right: 18rem;
+        margin-right: 1rem;
     }
 
     .schedule-instructor {
@@ -379,10 +392,10 @@
 
 @media (max-width:280px) {
 
-    .title-and-search .search-input {
+    /* .title-and-search .search-input {
         width: 15rem;
         margin-left: 26rem;
-    }
+    } */
 
     .main-container {
         margin-left: 2.3rem;

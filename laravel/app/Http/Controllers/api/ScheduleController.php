@@ -91,7 +91,8 @@ class ScheduleController extends Controller
         }
     }
 
-    public function scheduleFichaGetIdTrimestre(string $idFicha, string $idTrimestre){
+    public function scheduleFichaGetIdTrimestre(string $idFicha, string $idTrimestre)
+    {
         try {
             $schedule = Asignacion::join('horarios_academicos', 'asignaciones.idHorarioAcademico', '=', 'horarios_academicos.idHorario')
                 ->join('ambientes', 'asignaciones.idAmbiente', '=', 'ambientes.idAmbiente')
@@ -108,15 +109,15 @@ class ScheduleController extends Controller
                 ->where('fichas.idFicha', $idFicha)
                 ->where('trimestres.idTrimestre', $idTrimestre)
                 ->get();
-    
+
             if ($schedule->isEmpty()) {
                 return response()->json([
                     'error' => 'Schedule not found'
                 ], Response::HTTP_NOT_FOUND); //404
             }
-    
+
             return response()->json($schedule, Response::HTTP_OK); //200
-    
+
         } catch (\Exception $e) {
             return response()->json([
                 'error' => "Get Schedule Record Error " . $e->getMessage(),
@@ -554,15 +555,15 @@ class ScheduleController extends Controller
                         ], Response::HTTP_BAD_REQUEST); //400
                     } /* else {
 
-       Log::info($fichaAsignadaInstructor);
+     Log::info($fichaAsignadaInstructor);
 
-       return response()->json([
-           'status' => 0,
-           'message' => "No se encontraron asignaciones para el instructor '{$nombreInstructor}' en la(s) caja(s) especificadas.",
-           'error' => 'No assignments found for the instructor in the specified boxIndex',
-       ], Response::HTTP_NOT_FOUND); //404
-   }
-   */
+     return response()->json([
+         'status' => 0,
+         'message' => "No se encontraron asignaciones para el instructor '{$nombreInstructor}' en la(s) caja(s) especificadas.",
+         'error' => 'No assignments found for the instructor in the specified boxIndex',
+     ], Response::HTTP_NOT_FOUND); //404
+ }
+ */
                 }
                 if ($ambienteAsignado->isNotEmpty()) {
 
@@ -577,13 +578,13 @@ class ScheduleController extends Controller
                             'duplicates' => $ambienteAsignado,
                         ], Response::HTTP_BAD_REQUEST); //400
                     } /*else {
-       return response()->json([
-           'status' => 0,
-           'message' => "No se encontraron asignaciones para el ambiente '{$numeroAmbiente}' en la(s) caja(s) especificadas.",
-           'error' => 'No assignments found for the instructor in the specified boxIndex',
-       ], Response::HTTP_NOT_FOUND); //404
-   }
-   */
+     return response()->json([
+         'status' => 0,
+         'message' => "No se encontraron asignaciones para el ambiente '{$numeroAmbiente}' en la(s) caja(s) especificadas.",
+         'error' => 'No assignments found for the instructor in the specified boxIndex',
+     ], Response::HTTP_NOT_FOUND); //404
+ }
+ */
                 }
 
                 if ($limiteHorasInstructor !== null && $limiteHorasAmbiente !== null && $limiteHorasFicha !== null) {
@@ -714,8 +715,10 @@ class ScheduleController extends Controller
             // Buscar el horario académico existente
             $horarioAcademico = HorarioAcademico::findOrFail($idHorario);
 
+            $estadoActual = $horarioAcademico->estado;
+
             $horarioAcademico->update([
-                'estado' => 'habilitado',
+                'estado' => strval($estadoActual),
                 'idFicha' => intval($idFicha),
                 'idTrimestre' => intval($idTrimestre),
             ]);
@@ -1257,4 +1260,33 @@ class ScheduleController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
+
+    public function createAndUpdateBy(string $idHorario)
+    {
+        $schedule = HorarioAcademico::find($idHorario);
+
+        $userCreate = $schedule->createdBy; // Accede al usuario que creó el horario
+        $userUpdate = $schedule->updatedBy; // Accede al usuario que actualizó el horario
+
+        $response = [];
+
+        if ($userCreate) {
+            $response['status'] = 1;
+            $response['userCreate'] = $userCreate->nombreCompleto;
+        } else {
+            $response['status'] = 0;
+            $response['error'] = 'No se encontró información sobre quién creó el recurso.';
+        }
+
+        if ($userUpdate) {
+            $response['status'] = 1;
+            $response['userUpdate'] = $userUpdate->nombreCompleto;
+        } else {
+            $response['status'] = 0;
+            $response['error'] = 'No se encontró información sobre quién actualizó el recurso.';
+        }
+
+        return response()->json($response);
+    }
+
 }

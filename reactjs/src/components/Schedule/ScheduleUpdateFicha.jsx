@@ -9,9 +9,8 @@ import { initialsName } from '../../hooks/useObjectFunction';
 import { ContinuoModal } from '../Modals/ContinuoModal'
 import useSelectedBoxes from '../../hooks/useSelectedBoxes';
 import useModalAsignar from '../../hooks/useModalAsignar';
-import useDropdownGet from '../../hooks/useDropdownGet';
 import useValidationForm from '../../hooks/useValidationForm';
-import useDropdown from '../../hooks/useDropdown';
+import warning from '../../assets/img/warning.png';
 import '../../../css/Schedule/ScheduleAdd.css';
 import exito from '../../assets/img/Exito.png'
 import error from '../../assets/img/Advertencia.png'
@@ -19,6 +18,7 @@ import useFetchGetScheduleRecord from '../../hooks/FetchSchedule/useFetchGetSche
 import FilterScheduleFichaContext from '../../context/FilterScheduleFichaContext';
 import useFetchGetInfoBarRecord from '../../hooks/FetchSchedule/useFetchGetInfoBarRecord';
 import { Modal } from '../Modals/Modal';
+import { useFetchGetCreateAndUpdateSchedule } from '../../hooks/FetchGET/useFetchGetCreateAndUpdateSchedule';
 
 
 export const ScheduleUpdateFicha = () => {
@@ -32,7 +32,6 @@ export const ScheduleUpdateFicha = () => {
     const [messageAlert, setMessageAlert] = useState('');
     const { TRIMESTRE } = useValidationForm();
     const { register, setValue, handleSubmit } = useForm();
-    const { isDropdown, selectedOption, handleDropdown, handleOptionClick } = useDropdown(setValue, "trimestre");
     const [modalMenosHoras, setModalMenosHoras] = useState(false);
     const [messageAlertHoras, setMessageAlertHoras] = useState('');
     const [formData, setFormData] = useState(null);
@@ -44,7 +43,8 @@ export const ScheduleUpdateFicha = () => {
     const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
     const [point, setPoint] = useState(false);
 
-    const { dataSchedule, loading } = useFetchGetScheduleRecord('/getScheduleApprentice', idFicha);
+    const { dataSchedule, loading } = useFetchGetScheduleRecord('/getScheduleAdminApprentice', idFicha, idHorario);
+    const { dataCoordinator } = useFetchGetCreateAndUpdateSchedule('/createAndUpdateBy', idHorario);
 
     const {
         fetchUpdateScheduleRecord,
@@ -270,6 +270,11 @@ export const ScheduleUpdateFicha = () => {
                     />
                 </div>
 
+                <div className='manage-shedule-coordinator'>
+                    <p><b>Creado por: </b> {dataCoordinator.userCreate}</p>
+                    <p><b>Última vez actualizado por: </b>{dataCoordinator.userUpdate}</p>
+                </div>
+
                 {/* <div className="trimestre-jornada-horas">
                     <div>
                     </div>
@@ -383,7 +388,7 @@ export const ScheduleUpdateFicha = () => {
             />
             <Modal
                 tittle="Advertencia"
-                imagen={error}
+                imagen={warning}
                 message={messageAlertHoras}
                 open={modalMenosHoras}
                 close={() => setModalMenosHoras(false)}

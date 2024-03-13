@@ -38,6 +38,19 @@
     margin-right: 3rem;
 }
 
+.btn-drop-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* desplegable */
+
+#horariosAcademicos {
+    margin: 0rem;
+    margin-top: 1rem;
+}
+
 /*Contenedores de los horarios de las fichas*/
 .schedule {
     display: flex;
@@ -82,18 +95,18 @@
     margin-top: 0.7rem;
 }
 
-.no-results{
+.no-results {
     display: flex;
     flex-direction: column;
-    img{
+
+    img {
         width: 15rem;
     }
 }
 
 .contain-buttons {
-    width: 4rem;
     margin-top: 1rem;
-    margin-right: 11rem;
+    margin-right: 2rem;
 
     button {
         width: 8rem;
@@ -112,49 +125,70 @@
 
 /*Responsive*/
 
-@media (max-width:1280px){
+@media (max-width:1280px) {
 
-    .schedule{
+    .schedule {
         width: 11rem;
         height: 13vh;
     }
 
-    .calendar-icon{
+    .calendar-icon {
         width: 3.3rem;
         height: 10rem;
         margin-top: 0.1rem;
         margin-left: 1rem;
     }
 
-    .ficha-and-number{
+    .ficha-and-number {
         margin-top: -0.2rem;
         margin-left: 4.5rem;
     }
-    .main-container{
+
+    .main-container {
         margin-left: 5rem;
     }
 }
 
-@media (max-width:1024px){
+@media (max-width:1180px) {
+    .search-input input[type="search"] {
+        width: 20rem;
+    }
+}
 
-    .main-container{
+@media (max-width:1090px) {
+    .title-and-search h2 {
+        margin-left: 2rem;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width:1024px) {
+    .title-and-search {
+        display: flex;
+        align-items: center;
+        margin-top: 0.5rem;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .main-container {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         margin-left: 0.5rem;
     }
 
-    .schedule{
+    .schedule {
         height: 7rem;
         width: 10rem;
     }
 
-    .calendar-icon{
+    .calendar-icon {
         height: 3.5rem;
         width: 3.5rem;
         margin-top: 0.2rem;
         margin-left: 1.8rem;
     }
 
-    .ficha-and-number{
+    .ficha-and-number {
         margin-left: 4.3rem;
         margin-top: -0.1rem;
     }
@@ -162,105 +196,133 @@
 
 }
 
-@media (max-width:912px){
+@media (max-width:912px) {
 
-    .main-container{
+    .main-container {
         grid-template-columns: 1fr 1fr 1fr 1fr;
         margin-left: 3rem;
     }
 
-    .schedule{
+    .schedule {
         height: 5rem;
     }
 }
 
-@media (max-width:820px){
-    .main-container{
-        grid-template-columns: 1fr 1fr 1fr;
-        margin-left: 5rem;
-        gap:1rem;
+@media (max-width:820px) {
+    .title-and-search .search-input {
+        margin-right: 0rem;
     }
 
-    .schedule{
+    .main-container {
+        grid-template-columns: 1fr 1fr 1fr;
+        margin-left: 5rem;
+        gap: 1rem;
+    }
+
+    .schedule {
         height: 5rem;
         width: 11rem;
     }
 
-    .ficha-and-number{
+    .ficha-and-number {
         font-size: 1.1rem;
         margin-left: 4.5rem;
         margin-top: -0.4rem;
     }
 
-    .calendar-icon{
+    .calendar-icon {
         margin-left: 0.6rem;
     }
 }
 
-@media (max-width:768px){
+@media (max-width:768px) {
+    
+    .search-input input[type="search"] {
+        width: 15rem;
+    }
 
-    .main-container{
+    .main-container {
         grid-template-columns: 1fr 1fr 1fr;
         margin-left: 3.5rem;
     }
 
-    .schedule{
+    .schedule {
         width: 11rem;
         height: 5rem;
     }
 
-    .calendar-icon{
+    .calendar-icon {
         width: 3rem;
         height: 5rem;
         margin-left: 0.8rem;
     }
 
-    .ficha-and-number{
+    .ficha-and-number {
         margin-top: -0.4rem;
         margin-left: 4.3rem;
     }
 }
 
-@media (max-width:540px){
+@media (max-width:710px) {
+    .btn-drop-search {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column-reverse;
+    }
 
-    .title-and-search h2{
+    .title-and-search .search-input {
+        margin-right: 0rem;
+    }
+
+    .search-input {
+        margin-left: 0rem;
+    }
+
+    .search-input input[type="search"] {
+        width: 14rem;
+    }
+}
+
+@media (max-width:540px) {
+
+    .title-and-search h2 {
         white-space: nowrap;
     }
 
-    .title-and-search{
+    .title-and-search {
         display: flex;
         flex-direction: column;
-        margin-left: -1.6rem;
     }
 
-    .title-and-search .search-input{
-        margin-left: 6rem;
-        margin-top: 1rem;
-    }
-
-    .main-container{
+    .main-container {
         margin-left: 3.5rem;
     }
 
-    .schedule{
+    .schedule {
         width: 10.5rem;
         height: 3rem;
     }
 
-    .ficha-and-number{
+    .ficha-and-number {
         margin-left: 4rem;
         font-size: 1rem;
         margin-top: -0.1rem;
     }
 
-    .calendar-icon{
+    .calendar-icon {
         width: 3.5rem;
         height: 3.5rem;
         margin-top: 0.1rem;
     }
+
+    .title-and-search .search-input {
+        margin-left: 3rem;
+        margin-top: 1rem;
+    }
 }
 
-@media (max-width: 440px){
+@media (max-width: 440px) {
     .no-results {
         width: 25rem;
         display: flex;
@@ -269,38 +331,38 @@
     }
 }
 
-@media (max-width: 430px){
+@media (max-width: 430px) {
 
-    .title-and-search{
+    .title-and-search {
         margin-left: -1.5rem;
     }
 
-    .title-and-search h2{
+    .title-and-search h2 {
         font-weight: 700;
         white-space: nowrap;
     }
 
-    .title-and-search .search-input{
+    .title-and-search .search-input {
         margin-left: 6rem;
     }
 
-    .main-container{
+    .main-container {
         grid-template-columns: 1fr 1fr;
         margin-left: -0.3rem;
     }
 
-    .schedule{
+    .schedule {
         width: 11rem;
         height: 5rem;
     }
 
-    .calendar-icon{
+    .calendar-icon {
         width: 4rem;
         height: 3.7rem;
         margin-top: 0.1rem;
     }
 
-    .ficha-and-number{
+    .ficha-and-number {
         margin-top: -0.1rem;
         margin-left: 4rem;
     }
@@ -311,7 +373,7 @@
     .title-and-search {
         display: flex;
         flex-direction: column;
-        margin-left: -5rem; 
+        margin-left: -5rem;
     }
 
     .title-and-search .search-input {
@@ -326,47 +388,47 @@
         margin-top: 0.5rem;
     }
 
-    .main-container{
+    .main-container {
         width: 5rem;
         grid-template-columns: 1fr;
-        margin-left:5.5rem;
+        margin-left: 5.5rem;
         column-gap: 0.1rem;
     }
 
-    .schedule{
+    .schedule {
         width: 12rem;
         height: 5rem;
     }
 
-    .calendar-icon{
+    .calendar-icon {
         width: 10rem;
         height: 4rem;
     }
 }
 
-@media (max-width:412px){
+@media (max-width:412px) {
 
-    .title-and-search h2{
+    .title-and-search h2 {
         margin-left: 5rem;
     }
 
-    .title-and-search{
+    .title-and-search {
         margin-left: -5rem;
     }
 
-    .main-container{
+    .main-container {
         margin-left: 4.5rem;
         gap: 2rem;
     }
 
-    .calendar-icon{
+    .calendar-icon {
         width: 4rem;
         height: 6rem;
         margin-left: -0.5rem;
         margin-top: 0.3rem;
     }
 
-    .ficha-and-number{
+    .ficha-and-number {
         margin-left: 5.5rem;
     }
 
@@ -374,35 +436,35 @@
 
 @media (max-width:390px) {
 
-    .schedule{
+    .schedule {
         width: 12rem;
         height: 5rem;
     }
 
-    .calendar-icon{
+    .calendar-icon {
         height: 4rem;
         width: 5rem;
         margin-top: -0.1rem;
         margin-left: 1rem;
     }
 
-    .ficha-and-number{
+    .ficha-and-number {
         margin-left: 4.5rem;
     }
 }
 
 @media (max-width:375px) {
 
-    .title-and-search h2 {
+    /* .title-and-search h2 {
         margin-left: 23rem;
         font-size: 1.3rem;
         width: 13rem;
-    }
+    } */
 
     .title-and-search .search-input {
         margin-top: 1rem;
         margin-left: 27rem;
-        width: 19rem;
+        width: 14rem;
     }
 
     .main-container {
@@ -414,73 +476,70 @@
     .title-and-search {
         display: flex;
         flex-direction: column;
-        margin-right: 19rem;
+        margin-right: 1rem;
     }
 
-    .schedule{
+    .schedule {
         height: 6rem;
         width: 12rem;
     }
 
-    .ficha-and-number{
+    .ficha-and-number {
         margin-top: -0.2rem;
         margin-right: 0.1rem;
     }
 
-    .calendar-icon{
+    .calendar-icon {
         height: 4rem;
         width: 5rem;
         margin-top: -0.2rem;
     }
 }
 
-@media (max-width:360px){
-    .title-and-search{
-        margin-right: 18rem;
-    }
+@media (max-width:360px) {
 
-    .calendar-icon{
+    .calendar-icon {
         width: 3.5rem;
         height: 7rem;
         margin-left: 0.5rem;
     }
 
-    .schedule{
+    .schedule {
         width: 12rem;
     }
 
-    .ficha-and-number{
+    .ficha-and-number {
         margin-left: 4.5rem;
         margin-top: -0.3rem;
     }
 
-    .main-container{
+    .main-container {
         margin-left: 3.7rem;
     }
 }
 
-@media (max-width:280px){
+@media (max-width:280px) {
 
-    .title-and-search .search-input{
+    .title-and-search .search-input {
         width: 15rem;
         margin-left: 26rem;
     }
 
-    .main-container{
+    .main-container {
         margin-left: 1.2rem;
     }
 
-    .schedule{
+    .schedule {
         width: 12rem;
     }
 
-    .calendar-icon{
+    .calendar-icon {
         height: 10rem;
         width: 3.5rem;
         margin-left: 1rem;
     }
 
-    .ficha-and-number{
+    .ficha-and-number {
         margin-top: -0.1rem;
     }
 }

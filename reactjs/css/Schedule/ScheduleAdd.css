@@ -4,6 +4,10 @@
     border-radius: 1rem;
 }
 
+.input-laber-bar{
+    margin-left: 1rem;
+}
+
 .horas-dias {
     display: flex;
     justify-content: center;
@@ -101,6 +105,13 @@
     p{
         margin: 1rem;
     }
+}
+
+.manage-shedule-coordinator{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 1rem;
 }
 
 /*Responsive*/

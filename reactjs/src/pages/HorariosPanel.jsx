@@ -37,6 +37,29 @@ export const HorariosPanel = () => {
                         />
                     </Link>
 
+                {/* comparar horarios por fichas, instructores, ambientes */}
+
+                    <Link to={'/ComparacionHorariosFichas'} >
+                        <CardPControlPanel
+                            img={S}
+                            text="CH - Fichas"
+                        />
+                    </Link>
+
+                    <Link to={'/ComparacionHorariosInstructores'} >
+                        <CardPControlPanel
+                            img={IN}
+                            text="CH - Instructores"
+                        />
+                    </Link>
+
+                    <Link to={'/ComparacionHorariosAmbientes'} >
+                        <CardPControlPanel
+                            img={AM}
+                            text="CH - Ambientes"
+                        />
+                    </Link>
+
                 </div>
 
             </div>

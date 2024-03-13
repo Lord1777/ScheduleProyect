@@ -12,6 +12,7 @@ import { ScheduleComparation } from '../../components/Schedule/ScheduleComparati
 import useFetchGetComparationHorarioFicha from '../../hooks/FetchSchedule/useFetchGetComparationHorarioFicha';
 import { Loading } from '../../components/Loading/Loading';
 import { ContinuoModal } from '../../components/Modals/ContinuoModal';
+import { useNavigate } from 'react-router-dom';
 
 
 export const ComparationScheduleFicha = () => {
@@ -37,14 +38,19 @@ export const ComparationScheduleFicha = () => {
     const [trimestre1, setTrimestre1] = useState();
     const [trimestre2, setTrimestre2] = useState();
     const [trimestre3, setTrimestre3] = useState();
+    const Navigate = useNavigate()
+
+    const showNavigation = () => {
+        Navigate('/PanelHorarios')
+    }
 
     const handleOptionClickTrimestre1 = (trimestre) => {
         setTrimestre1(trimestre);
-        console.log(` trimestre1: ${trimestre}`)
+        //console.log(` trimestre1: ${trimestre}`)
     }
     const handleFichaId1 = (id) => {
         setFicha1(id)
-        console.log(` Ficha1: ${id}`)
+        //console.log(` Ficha1: ${id}`)
     }
 
     const handleOptionClickTrimestre2 = (trimestre) => {
@@ -52,7 +58,7 @@ export const ComparationScheduleFicha = () => {
     }
     const handleFichaId2 = (id) => {
         setFicha2(id)
-        console.log(` Ficha2: ${id}`)
+        //console.log(` Ficha2: ${id}`)
     }
 
     const handleOptionClickTrimestre3 = (trimestre) => {
@@ -60,7 +66,7 @@ export const ComparationScheduleFicha = () => {
     }
     const handleFichaId3 = (id) => {
         setFicha3(id)
-        console.log(`Ficha3: ${id}`)
+        //console.log(`Ficha3: ${id}`)
     }
 
     useEffect(() => {
@@ -74,7 +80,7 @@ export const ComparationScheduleFicha = () => {
         setOpenErrorModal: setOpenErrorModal1,
         loading: loading1
     } = useFetchGetComparationHorarioFicha('/getHorarioComparationFicha', ficha1, trimestre1);
-    console.log(horarioFicha1)
+    //console.log(horarioFicha1)
 
     const {
         dataSchedule: horarioFicha2,
@@ -92,13 +98,23 @@ export const ComparationScheduleFicha = () => {
         loading: loading3
     } = useFetchGetComparationHorarioFicha('/getHorarioComparationFicha', ficha3, trimestre3);
 
-    if(loading1 || loading2 || loading3){
-        return <Loading/>
+    if (loading1 || loading2 || loading3) {
+        return <Loading />
     }
+
+    
 
     return (
         <>
             <NavBar />
+            <div className='btn-titleC'>
+                <div className='btn-backC' onClick={showNavigation}>
+                    <span class="material-symbols-outlined">
+                        arrow_back
+                    </span>
+                </div>
+                <h2>Comparar Horarios Fichas</h2>
+            </div>
             {/* 1*/}
             <div className="container_comparation_schedules">
                 <div className="container-horario-desplegables">

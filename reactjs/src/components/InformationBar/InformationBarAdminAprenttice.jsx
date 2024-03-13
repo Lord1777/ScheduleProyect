@@ -3,7 +3,6 @@ import { useFetchPutManageSchedule } from '../../hooks/FetchPUT/useFetchPutManag
 import { Link, useParams } from 'react-router-dom';
 import { ContinuoModal } from '../Modals/ContinuoModal';
 import { Loading } from '../Loading/Loading';
-import useFetchGetInfoBarRecord from '../../hooks/FetchSchedule/useFetchGetInfoBarRecord'
 import FilterScheduleFichaContext from '../../context/FilterScheduleFichaContext';
 import exito from '../../assets/img/Exito.png'
 import '../../../css/InformationBar/InformationBarAprenttice.css'

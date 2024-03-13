@@ -25,20 +25,17 @@ export const useFetchGetInfoBarAdminRecord = (route, idFicha, idHorario) => {
                     Navigate('/403-forbidden');
                     return;
                 }
-                else if(response.status === 404){
-                    //alert('No existe horario academico para esta ficha')
-                    setAlertMessage('No existe horario academico para esta ficha')
-                    setRuta('/ConsultaAprendiz')
-                    setModalOpen(true);
-                }
+                // else if(response.status === 404){
+                //     //alert('No existe horario academico para esta ficha')
+                //     setAlertMessage('No existe horario academico para esta ficha')
+                //     setRuta('/ConsultaAprendiz')
+                //     setModalOpen(true);
+                // }
                 if (response.ok) {
                     const result = await response.json();
                     setDataInfoRecord(result);
-                    openSuccessModal();
+                    // openSuccessModal();
                 }
-                
-
-                
 
             } catch (err) {
                 console.log('Error al obtener datos:', err);

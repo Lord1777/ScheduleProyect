@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('horarios_academicos', function (Blueprint $table) {
             $table->id('idHorario')->unique();
             $table->string('estado', 30);
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('idFicha');
             $table->unsignedBigInteger('idTrimestre');
 

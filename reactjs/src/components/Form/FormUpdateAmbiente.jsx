@@ -118,7 +118,7 @@ export const FormUpdateAmbiente = () => {
 
     return (
         <>
-            <main className="container_form_add_ambiente">
+            <main className="container_form_update_ambiente">
                 <div className="box_form_ambiente">
                     <h2 className="title_underline">Detalles Ambiente</h2>
                     <div className="container_form_add">

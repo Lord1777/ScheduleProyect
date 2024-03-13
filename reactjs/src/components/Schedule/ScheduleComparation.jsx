@@ -4,6 +4,9 @@ import '../../../css/Schedule/ComparationsSchedule.css'
 
 export const ScheduleComparation = ({ funcionFecth }) => {
     const [scheduleData, setScheduleData] = useState([])
+    const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
+    const [newHorasAsignadasPorDia, setNewHorasAsignadasPorDia] = useState([]);
+    const diaSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
     const [colorMap, setColorMap] = useState({});
     //bandera
     const [isInitialized, setIsInitialized] = useState(false);
@@ -31,19 +34,63 @@ export const ScheduleComparation = ({ funcionFecth }) => {
 
     }
 
+    
+
+    useEffect(() => {
+        // Inicializa las horas asignadas a 0 para cada día de la semana para cada instructor
+        const initialHorasPorDia = {};
+
+        globalStoreBoxes.forEach(box => {
+            const dia = diaSemana[box.boxIndex % 7];
+            initialHorasPorDia[dia] = 0;
+        });
+
+        // dataSchedule.forEach(infoSchedule => {
+        //     const dia = diaSemana[infoSchedule.boxIndex % 7];
+        //     initialHorasPorDia[dia] = (initialHorasPorDia[dia] || 0) + 1;
+        // });
+
+        setNewHorasAsignadasPorDia(initialHorasPorDia);
+
+
+        // Actualiza el registro de horas asignadas por día
+        const newHorasAsignadasPorDia = { ...initialHorasPorDia };
+        globalStoreBoxes.forEach(box => {
+            const dia = diaSemana[box.boxIndex % 7];
+            if (!newHorasAsignadasPorDia[dia]) {
+                newHorasAsignadasPorDia[dia] = 0;
+                console.log("condicional")
+            }
+            setNewHorasAsignadasPorDia[dia] += 1;
+        });
+
+        //console.log(newHorasAsignadasPorDia)
+
+        // Verifica si se excede el límite diario de 10 horas
+        const idInstructorExcedido = Object.keys(newHorasAsignadasPorDia).find(idInstructor => {
+            const horasPorDia = newHorasAsignadasPorDia[idInstructor];
+            return Object.values(horasPorDia).some(horas => horas > 8);
+        });
+
+        if (idInstructorExcedido) {
+            setMessageAlert('Se ha detectado que un instructor ha superado el límite diario de 8 horas en al menos uno de los días.');
+            setAlertShowModal(true);
+        }
+        setNewHorasAsignadasPorDia(newHorasAsignadasPorDia);
+    }, [globalStoreBoxes, newHorasAsignadasPorDia]);
 
     return (
         <>
             <div className="contenedor-horario">
 
                 <div className="item-horario">Hor</div>
-                <div className="item-horario">Lun</div>
-                <div className="item-horario">Mar</div>
-                <div className="item-horario">Mie</div>
-                <div className="item-horario">Jue</div>
-                <div className="item-horario">Vie</div>
-                <div className="item-horario">Sab</div>
-                <div className="item-horario">Dom</div>
+                <div className="item-horario">Lun: {newHorasAsignadasPorDia.Lunes || 0}</div>
+                <div className="item-horario">Mar: {newHorasAsignadasPorDia.Martes || 0}</div>
+                <div className="item-horario">Mie: {newHorasAsignadasPorDia.Miércoles || 0}</div>
+                <div className="item-horario">Jue: {newHorasAsignadasPorDia.Jueves || 0}</div>
+                <div className="item-horario">Vie: {newHorasAsignadasPorDia.Viernes || 0}</div>
+                <div className="item-horario">Sab: {newHorasAsignadasPorDia.Sábado || 0}</div>
+                <div className="item-horario">Dom: {newHorasAsignadasPorDia.Domingo || 0}</div>
 
                 {Array.from({ length: 16 }, (_, rowIndex) => (
                     <React.Fragment key={rowIndex}>

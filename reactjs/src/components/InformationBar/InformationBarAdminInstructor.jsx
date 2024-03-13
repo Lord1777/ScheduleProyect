@@ -1,10 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { useFetchGetRecords } from '../../hooks/FetchGetResources/useFetchGetRecords';
 import FilterScheduleInstructorContext from '../../context/FilterScheduleInstructorContext';
 import useFetchGetInstructor from '../../hooks/FetchGET/useFetchGetInstructor';
-import useDropdown from '../../hooks/useDropdown';
 // import useFetchGetQuarters from '../../hooks/FetchGetResources/useFetchGetQuarters';
 import '../../../css/InformationBar/InformationBar.css';
 import { useFetchGetOneQuarter } from '../../hooks/FetchGET/useFetchGetOneQuarter';
@@ -13,13 +10,7 @@ export const InformationBarAdminInstructor = () => {
 
     const { idUsuario, idTrimestre } = useParams();
 
-    // const trimestreDropdown = useTrimestreDropdown();
-    const { register, setValue } = useForm()
-    const dropdown1 = useDropdown(setValue, "fichaProgram");
-    const dropdown2 = useDropdown(setValue, "trimestres");
-
     const { setIdTrimestreValue, totalSeleccionado, setHorasAsignadasValue, recordsColors } = useContext(FilterScheduleInstructorContext);
-    const [searchProgram, setSearchPogram] = useState('');
     const { dataInstructor } = useFetchGetInstructor(`/getInstructor/${idUsuario}`)
     // const { dataQuarters } = useFetchGetQuarters('/getQuarters');
     // const { dataRecords } = useFetchGetRecords('/getRecords');

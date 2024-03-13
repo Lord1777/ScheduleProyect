@@ -706,6 +706,17 @@
     .icon-search-bar-instructor {
         margin-left: -7.5rem;
     }
+
+    .hoursSchedule {
+
+        h3 {
+            font-size: 15px;
+        }
+    }
+
+    .container-instructor div h3{
+        font-size: 15px;
+    }
 }
 
 @media (max-width:540px) {

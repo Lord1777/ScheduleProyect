@@ -14,10 +14,10 @@ class EnvironmentsController extends Controller
 {
     public function getEnvironments()
     {
-        try{
+        try {
             $environment = Ambiente::where('estado', 'habilitado')->get();
             return response()->json($environment, Response::HTTP_OK); //200
-        }catch(\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['error' => "Request environment error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
     }
@@ -41,7 +41,7 @@ class EnvironmentsController extends Controller
                 })
                 ->orderBy('idAmbiente', 'desc')
                 ->paginate(30);
-    
+
             return response()->json($environment, Response::HTTP_OK); //200
         } catch (\Exception $e) {
             return response()->json(['error' => "Request environment error: $e"], Response::HTTP_INTERNAL_SERVER_ERROR); //500
@@ -91,7 +91,7 @@ class EnvironmentsController extends Controller
                 'ambiente' => intval($request->ambiente),
                 'capacidad' => intval($request->capacidad),
                 'cantidadMesas' => intval($request->cantidadMesas),
-                'aireAcondicionado' =>  boolval($request->aireAcondicionado),
+                'aireAcondicionado' => boolval($request->aireAcondicionado),
                 'videoBeam' => boolval($request->videoBeam),
                 'tablero' => boolval($request->tablero),
                 'cantidadComputadores' => intval($request->cantidadComputadores),
@@ -118,8 +118,8 @@ class EnvironmentsController extends Controller
     {
         try {
             $ambiente = Ambiente::join('sedes', 'ambientes.idSede', '=', 'sedes.idSede')
-                            ->select('ambientes.*','sedes.sede')
-                            ->findOrFail($idAmbiente);
+                ->select('ambientes.*', 'sedes.sede')
+                ->findOrFail($idAmbiente);
 
             return response()->json($ambiente, Response::HTTP_OK);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -134,12 +134,12 @@ class EnvironmentsController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
-    
+
 
     public function update(Request $request, string $idAmbiente)
     {
         $validator = Validator::make($request->all(), [
-            'ambiente' => 'required|unique:ambientes',
+            'ambiente' => 'required|unique:ambientes,ambiente,' . $idAmbiente . ',idAmbiente',
             'aireAcondicionado' => 'required|boolean',
             'videoBeam' => 'required|boolean',
             'tablero' => 'required|boolean',
@@ -161,7 +161,7 @@ class EnvironmentsController extends Controller
                 'ambiente' => intval($request->ambiente),
                 'capacidad' => intval($request->capacidad),
                 'cantidadMesas' => intval($request->cantidadMesas),
-                'aireAcondicionado' =>  boolval($request->aireAcondicionado),
+                'aireAcondicionado' => boolval($request->aireAcondicionado),
                 'videoBeam' => boolval($request->videoBeam),
                 'tablero' => boolval($request->tablero),
                 'cantidadComputadores' => intval($request->cantidadComputadores),
@@ -203,7 +203,8 @@ class EnvironmentsController extends Controller
 
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
-                'status', 0,
+                'status',
+                0,
                 'error' => 'Environment Not Found'
             ], Response::HTTP_NOT_FOUND); //404
 

@@ -1,14 +1,12 @@
 import React from 'react'
 import '../../../css/InformationBar/InformationBar.css'
 import useDropdownGet from '../../hooks/useDropdownGet';
-import useTrimestreDropdown from '../../hooks/useTrimestreDropdown';
 
 
 export const InformationBarFichas = () => {
 
     const dropdown1 = useDropdownGet();
     const dropdown2 = useDropdownGet();
-    const trimestreDropdown = useTrimestreDropdown();
 
     return (
         <>

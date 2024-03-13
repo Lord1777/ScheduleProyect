@@ -12,7 +12,7 @@ import { useFetchGetInfoBarAdminRecord } from '../../hooks/FetchSchedule/useFetc
 
 export const InformationBarAdminAprenttice = () => {
 
-    const [ loading, setLoading ] = useState(false);
+    const [loading, setLoading] = useState(false);
     const { idFicha, idHorario, manage } = useParams();
     const { totalSeleccionado, setHorasAsignadasValue, instructorColors } = useContext(FilterScheduleFichaContext);
 
@@ -37,40 +37,40 @@ export const InformationBarAdminAprenttice = () => {
         setLoading(false)
     }
 
-    if(loading){
-        return <Loading/>
+    if (loading) {
+        return <Loading />
     }
 
     return (
         <>
-            {/* <div className="informationBarAprenttice">
+            <div className="informationBarAprenttice">
                 <div className="programa-nFicha">
                     <div>
                         <p><b>Programa de Formación:</b> {dataInfoRecord.nombre}</p>
                     </div>
                     <div>
                         <p><b>Ficha:</b> {dataInfoRecord.ficha}</p>
-                        {/* {
-                            manage != undefined ?
-                                (
-                                    <>
-                                        <Link to={`/ScheduleUpdateFicha/${idFicha}/${idHorario}/${dataInfoRecord.idTrimestre}`} >
-                                            <button>Editar</button>
-                                        </Link>
-                                        <button onClick={() => manage === 'true' ? enableSchedule(idHorario) : disableSchedule(idHorario)}>
-                                            {manage === 'true' ? 'Habilitar' : 'Inhabilitar'}
-                                        </button>
-                                    </>
-                                )
-                                :
-                                (
-                                    <>
-                                        <Link to={`/ScheduleUpdateFicha/${idFicha}/${idHorario}/${dataInfoRecord.idTrimestre}`} >
-                                            <button>Editar</button>
-                                        </Link>
-                                    </>
-                                )
-                        } 
+                        {
+                            // manage != undefined ?
+                            //     (
+                            //         <>
+                            //             <Link to={`/ScheduleUpdateFicha/${idFicha}/${idHorario}/${dataInfoRecord.idTrimestre}`} >
+                            //                 <button>Editar</button>
+                            //             </Link>
+                            //             <button onClick={() => manage === 'true' ? enableSchedule(idHorario) : disableSchedule(idHorario)}>
+                            //                 {manage === 'true' ? 'Habilitar' : 'Inhabilitar'}
+                            //             </button>
+                            //         </>
+                            //     )
+                            //     :
+                            //     (
+                            //         <>
+                            //             <Link to={`/ScheduleUpdateFicha/${idFicha}/${idHorario}/${dataInfoRecord.idTrimestre}`} >
+                            //                 <button>Editar</button>
+                            //             </Link>
+                            //         </>
+                            //     )
+                        }
                     </div>
                 </div>
                 <div className="trimestre-jornada-horas">
@@ -90,36 +90,36 @@ export const InformationBarAdminAprenttice = () => {
                         rol === 'coordinador' ?
                             (
                                 <>
-                                <div className='buttons-container'>
-                                   <Link to={`/ScheduleUpdateFicha/${idFicha}/${idHorario}/${dataInfoRecord.idTrimestre}`} >
-                                        <button>Editar</button>
-                                    </Link>
-                                    <button onClick={() => manage === 'true' ? enableSchedule(idHorario) : disableSchedule(idHorario)}>
-                                        {manage === 'true' ? 'Habilitar' : 'Inhabilitar'}
-                                    </button> 
-                                </div>
+                                    <div className='buttons-container'>
+                                        <Link to={`/ScheduleUpdateFicha/${idFicha}/${idHorario}/${dataInfoRecord.idTrimestre}`} >
+                                            <button>Editar</button>
+                                        </Link>
+                                        <button onClick={() => manage === 'true' ? enableSchedule(idHorario) : disableSchedule(idHorario)}>
+                                            {manage === 'true' ? 'Habilitar' : 'Inhabilitar'}
+                                        </button>
+                                    </div>
                                 </>
                             )
                             :
                             ''
                     }
+                    <div className='colorRecords'>
+                        {
+                            instructorColors && Object.entries(instructorColors).map(([clave, valor]) => (
+                                <>
+                                    <div key={clave} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+                                        <p style={{ marginRight: '10px' }}>{initialsName(clave)}:</p>
+                                        <div style={{ width: '20px', height: '15px', backgroundColor: valor, border: '1px black solid', borderRadius: '2px' }}></div>
+                                    </div>
+                                </>
+                            ))
+                        }
+                    </div>
                 </div>
 
-                <div className='colorRecords'>
-                    {
-                        instructorColors && Object.entries(instructorColors).map(([clave, valor]) => (
-                            <>
-                                <div key={clave} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-                                    <p style={{ marginRight: '10px' }}>{initialsName(clave)}:</p>
-                                    <div style={{ width: '20px', height: '15px', backgroundColor: valor, border: '1px black solid', borderRadius: '2px' }}></div>
-                                </div>
-                            </>
-                        ))
-                    }
-                </div>
-            </div> */}
+            </div>
 
-            
+
             <ContinuoModal
                 tittle="¡Exito!"
                 imagen={exito}

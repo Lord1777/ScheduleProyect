@@ -32,7 +32,7 @@ export const ScheduleAdd = () => {
     const [modalMenosHoras, setModalMenosHoras] = useState(false);
     const [messageAlertHoras, setMessageAlertHoras] = useState('');
     const [formData, setFormData] = useState(null);
-    
+
     const { selectedBoxes, handleBoxClick, resetSelectedBoxes } = useSelectedBoxes();
 
     const [horasAsignadas, setHorasAsignadas] = useState(0);
@@ -46,8 +46,8 @@ export const ScheduleAdd = () => {
     // Inicializa el registro de horas asignadas por día
     const [newHorasAsignadasPorDia, setNewHorasAsignadasPorDia] = useState({});
     const diaSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
-   
-    
+
+
 
     //Funcion que retorna el id del trimestre
     const getQuarterId = (dataTrimestre) => {
@@ -57,20 +57,20 @@ export const ScheduleAdd = () => {
 
     const handleAssignedBoxClick = (boxIndex) => {
         const boxData = asignaciones[boxIndex];
-    
+
         if (boxData) {
             // Resta las horas asignadas solo si la casilla estaba asignada y las horas asignadas son mayores a 0
             setHorasAsignadas((prevHoras) => {
                 const newHoras = Math.max(prevHoras - 1, 0);
                 return newHoras;
             });
-    
+
             // Elimina la asignación de la casilla
             setGlobalStoreBoxes((prevStoreBoxes) => {
                 const newStoreBoxes = prevStoreBoxes.filter((box) => box.boxIndex !== boxIndex);
                 return newStoreBoxes;
             });
-    
+
             setAsignaciones((prevAsignaciones) => {
                 const newAsignaciones = { ...prevAsignaciones };
                 delete newAsignaciones[boxIndex];
@@ -78,7 +78,7 @@ export const ScheduleAdd = () => {
             });
         }
     };
-    
+
 
 
     useEffect(() => {
@@ -156,7 +156,12 @@ export const ScheduleAdd = () => {
         }
     }
 
-    const saveScheduleModal = async(data) => {
+    const saveScheduleModal = async (data) => {
+        console.log(
+            getQuarterId(data.trimestre),
+            id,
+            globalStoreBoxes
+            )
         setLoading(true);
         await fetchSubmitSchedule({
             idTrimestre: getQuarterId(data.trimestre),
@@ -165,16 +170,16 @@ export const ScheduleAdd = () => {
         });
         setLoading(false);
     };
-    
+
     useEffect(() => {
         // Inicializa las horas asignadas a 0 para cada día de la semana para cada instructor
         const initialHorasPorDia = {};
-    
+
         globalStoreBoxes.forEach(box => {
             const dia = diaSemana[box.boxIndex % 7];
             initialHorasPorDia[dia] = 0;
         });
-    
+
         // Actualiza el registro de horas asignadas por día
         const newHorasAsignadasPorDia = { ...initialHorasPorDia };
         globalStoreBoxes.forEach(box => {
@@ -186,13 +191,13 @@ export const ScheduleAdd = () => {
         });
 
         console.log('horasAsignadasPorDia:', newHorasAsignadasPorDia);
-    
+
         // Verifica si se excede el límite diario de 10 horas
         const idInstructorExcedido = Object.keys(newHorasAsignadasPorDia).find(idInstructor => {
             const horasPorDia = newHorasAsignadasPorDia[idInstructor];
             return Object.values(horasPorDia).some(horas => horas > 8);
         });
-    
+
         if (idInstructorExcedido) {
             setMessageAlert('Se ha detectado que un instructor ha superado el límite diario de 8 horas en al menos uno de los días.');
             setAlertShowModal(true);

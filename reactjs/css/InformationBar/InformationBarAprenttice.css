@@ -23,7 +23,7 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     margin: 1.5rem 0rem;
-    height: 2rem;
+    height: auto;
 }
 
 .trimestre-jornada-horas div {
@@ -57,6 +57,9 @@
     }
 }
 
+.colorRecords{
+    margin-top: 1em;
+}
 /*Responsive*/
 
 @media (max-width: 1295px) {
@@ -118,7 +121,7 @@
 @media (max-width:985px) {
     .informationBarAprenttice {
         width: 58rem;
-        height: 13rem;
+        height: auto;
     }
 
     .buttons-container {
@@ -134,7 +137,7 @@
         display: grid;
         grid-template-columns: 1fr;
         gap: 1rem;
-        margin-top: -1.5rem;
+        margin-top: 0.5rem;
     }
 }
 
@@ -150,14 +153,13 @@
 
 @media (max-width:912px) {
     .informationBarAprenttice {
-        height: 14rem;
+        height: auto;
     }
 
     .trimestre-jornada-horas {
         display: grid;
         grid-template-columns: 1fr;
         height: 2rem;
-        margin-top: -0.8rem;
     }
 
     .buttons-container {
@@ -172,7 +174,7 @@
 
 @media (max-width:820px) {
     .informationBarAprenttice {
-        height: 14rem;
+        height: auto;
     }
 
     .trimestre-jornada-horas {
@@ -190,7 +192,7 @@
 
 @media (max-width:768px) {
     .informationBarAprenttice {
-        height: 14rem;
+        height: auto;
     }
 
     .trimestre-jornada-horas {
@@ -226,7 +228,7 @@
     .informationBarAprenttice {
         width: 30rem;
         margin-right: 5rem;
-        height: 17rem;
+        height: auto;
     }
 
     .buttons-container {
@@ -258,7 +260,7 @@
 
     .informationBarAprenttice {
         width: 32rem;
-        height: 20rem;
+        height: auto;
         margin-left: 5rem;
     }
 
@@ -270,7 +272,7 @@
 
 @media (max-width:540px) {
     .informationBarAprenttice {
-        height: 24rem;
+        height: auto;
         width: 27rem;
         margin-left: 2rem;
     }
@@ -304,7 +306,7 @@
     .informationBarAprenttice {
         font-size: 0.8rem;
         max-width: 20rem;
-        height: 22rem;
+        height: auto;
         padding: 1rem;
     }
 
@@ -319,7 +321,7 @@
 
 @media (max-width:430px) {
     .informationBarAprenttice {
-        height: 21rem;
+        height: auto;
         margin-left: 5rem;
     }
 
@@ -337,7 +339,7 @@
 
 @media (max-width:414px) {
     .informationBarAprenttice {
-        height: 21rem;
+        height: auto;
         margin-left: 5rem;
     }
 
@@ -361,7 +363,7 @@
 
 @media (max-width: 375px) {
     .informationBarAprenttice {
-        height: 21rem;
+        height: auto;
         margin-left: 5rem;
     }
 
@@ -387,7 +389,7 @@
 @media (max-width: 325px) {
     .informationBarAprenttice {
         max-width: 15rem;
-        height: 21rem;
+        height: auto;
     }
 
     .buttons-container{
@@ -397,7 +399,7 @@
 
 @media (max-width:280px) {
     .informationBarAprenttice {
-        height: 20.5rem;
+        height: auto;
     }
 
     .trimestre-jornada-horas {

@@ -34,7 +34,7 @@ export const ModalAsignar = ({
 
     //Funciones para obtener el id del instructor y del ambiente en base al parametro recibido
     const getInstructorId = (nombreInstructor) => {
-        const instructor = dataInstructors.find((instructor) => instructor.nombreCompleto === nombreInstructor);
+        const instructor = dataInstructors.find((instructor) => `${instructor.nombreCompleto}` === `${nombreInstructor}`);
         return instructor ? instructor.idUsuario : null; // Ajustar si el ID no está presente
     };
     const getAmbienteId = (numeroAmbiente) => {
@@ -130,7 +130,7 @@ export const ModalAsignar = ({
                                         )
                                         .map((instructor) => (
                                             <div key={instructor.idUsuario}
-                                                onClick={() => dropdown1.handleOptionClick(`${instructor.nombreCompleto} - ${initialsName(instructor.nombreCompleto)}`)}
+                                                onClick={() => dropdown1.handleOptionClick(`${instructor.nombreCompleto}`)}
                                             >
                                                 {instructor.nombreCompleto} - {initialsName(instructor.nombreCompleto)}
                                             </div>

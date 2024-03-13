@@ -79,15 +79,11 @@ export const ScheduleAdd = () => {
         }
     };
 
-
-
     useEffect(() => {
         // Calcular las horas asignadas al cargar el componente
         const horasIniciales = Object.values(asignaciones).length;
         setHorasAsignadas(horasIniciales);
     }, [asignaciones]);
-
-
 
     const onSubmit = async (data) => {
         setFormData(data)
@@ -190,7 +186,7 @@ export const ScheduleAdd = () => {
             newHorasAsignadasPorDia[dia] += 1;
         });
 
-        console.log('horasAsignadasPorDia:', newHorasAsignadasPorDia);
+        console.log(newHorasAsignadasPorDia)
 
         // Verifica si se excede el límite diario de 10 horas
         const idInstructorExcedido = Object.keys(newHorasAsignadasPorDia).find(idInstructor => {

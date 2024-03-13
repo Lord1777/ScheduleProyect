@@ -9,6 +9,15 @@ export const FilterScheduleInstructorContextProvider = ({ children }) => {
   const [horasAsignadas, setHorasAsignadas] = useState(0);
   const [totalSeleccionado, setTotalSeleccionado] = useState(0);
   const [recordsColors, setRecordsColors] = useState([]);
+  const [horasAsignadasPorDia, setHorasAsignadasPorDia] = useState({
+    Lunes: 0,
+    Martes: 0,
+    Miércoles: 0,
+    Jueves: 0,
+    Viernes: 0,
+    Sábado: 0,
+    Domingo: 0,
+  });
 
   const setIdTrimestreValue = (trimestre) => {
     setIdTrimestre(trimestre);
@@ -30,17 +39,23 @@ export const FilterScheduleInstructorContextProvider = ({ children }) => {
     setRecordsColors(colores);
   }
 
+  const setHorasAsignadasPorDiaValue = (newHorasAsignadasPorDia) => {
+    setHorasAsignadasPorDia(newHorasAsignadasPorDia);
+  }
+
   const contextValue = {
     idTrimestre,
     idFicha, 
     horasAsignadas,
     totalSeleccionado,
     recordsColors,
+    horasAsignadasPorDia,
     setIdTrimestreValue,
     setIdFichaValue,
     setHorasAsignadasValue, 
     setTotalSeleccionadoValue,
-    setRecordsColorsValue,
+    setRecordsColorsValue, 
+    setHorasAsignadasPorDiaValue,
   };
 
   return (

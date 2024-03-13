@@ -33,13 +33,6 @@ const useFetchGetScheduleAdminRecord = (route, idFicha, idHorario/*setHorasAsign
                     const result = await response.json();
 
                     setDataSchedule(result);
-/*
-                    // Calcular las horas asignadas
-                    const totalHoras = result.reduce((total, scheduleItem) => total + (scheduleItem.horasAsignadas || 0), 0);
-
-                    // Llamar a setHorasAsignadasValue con el valor calculado
-                    setHorasAsignadasValue(totalHoras);
-*/
                 } else if (response.status === 404 || result.length === 0) {
                     const result = await response.json();
                     setAlertMessage(result.error)

@@ -21,13 +21,8 @@ import { ScheduleAprenttice } from './pages/Aprenttice/ScheduleAprenttice.jsx';
 import { SeeScheduleInstructors } from './pages/SeeScheduleInstructors.jsx';
 import { SeeScheduleAmbiente } from './pages/SeeScheduleAmbiente.jsx';
 import { AddSchedule } from './pages/Add/AddSchedule.jsx';
-import { DetailsInstructor } from './pages/Details/DetailsInstructor.jsx';
 import { UpdateEnvironments } from './pages/Update/UpdateEnvironments.jsx';
 import { AddProgram } from './pages/Add/AddProgram.jsx';
-import { DetailsAmbiente } from './pages/Details/DetailsAmbiente.jsx';
-import { DetailsFicha } from './pages/Details/DetailsFicha.jsx';
-import { DetailsCoordinador } from './pages/Details/DetailsCoordinador.jsx';
-import { DetailsTrimestre } from './pages/Details/DetailsTrimestre.jsx';
 import { UpdateRecors } from './pages/Update/UpdateRecors';
 import { UpdateInstructor } from './pages/Update/UpdateInstructor.jsx';
 import { UpdateCoordinator } from './pages/Update/UpdateCoordinator.jsx';
@@ -128,11 +123,6 @@ function App() {
                         <Route path='/AddFicha' element={<AddRecords />} />
                         <Route path='/AddTrimestre' element={<AddQuarter />} />
                         <Route path='/AddHorario/:id' element={<AddSchedule />} />
-                        <Route path='/DetallesAmbiente' element={<DetailsAmbiente />} />
-                        <Route path='/DetallesTrimestre' element={<DetailsTrimestre />} />
-                        <Route path='/DetallesInstructor' element={<DetailsInstructor />} />
-                        <Route path='/DetallesFicha' element={<DetailsFicha />} />
-                        <Route path='/DetallesCoordinador' element={<DetailsCoordinador />} />
                         <Route path='/UpdateFicha/:id' element={<UpdateRecors />} />
                         <Route path='/UpdateInstructor/:id' element={<UpdateInstructor />} />
                         <Route path='/UpdateCoordinador/:id' element={<UpdateCoordinator />} />

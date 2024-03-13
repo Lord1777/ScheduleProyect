@@ -120,7 +120,7 @@
 
 .desplegable1 .desplegable-options1{
     display: none;
-    max-height: 15rem;
+    max-height: 20rem;
     min-height: 5rem;
     overflow-y: auto;
 }

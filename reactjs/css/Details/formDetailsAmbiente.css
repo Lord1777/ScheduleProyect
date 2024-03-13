@@ -7,7 +7,7 @@
 
 .container_form_add_ambiente{
     width: 100%;
-    height: 100%;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,9 +27,9 @@
 /*Responsive*/
 
 @media (max-width:1280px){
-    .container_form_add_ambiente{
+    /* .container_form_add_ambiente{
         height: 50rem;
-    }
+    } */
 
     .box_form_ambiente{
         width: 53rem;
@@ -41,9 +41,9 @@
 }
 
 @media (max-width:1024px){
-    .container_form_add_ambiente{
+    /* .container_form_add_ambiente{
         height: 100%;
-    }
+    } */
 
     .box_form_ambiente{
         width: 80%;
@@ -69,9 +69,9 @@
 }
 
 @media (max-width:820px){
-    .container_form_add_ambiente{
+    /* .container_form_add_ambiente{
         height: 100%;
-    }
+    } */
 
     .container-btns{
         margin-top: -1rem;
@@ -79,9 +79,9 @@
 }
 
 @media (max-width:768px){
-    .container_form_add_ambiente{
+    /* .container_form_add_ambiente{
         height: 100%;
-    }
+    } */
 }
 
 @media(max-width:670px){
@@ -111,7 +111,7 @@
 @media (max-width:540px){
 
     .container_form_add_ambiente{
-        height: 81rem;
+        height: 100vh;
     }
 
     .box_form_ambiente{

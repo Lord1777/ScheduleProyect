@@ -12,6 +12,7 @@ import { useFetchGetScheduleAdminInstructor } from '../../hooks/FetchSchedule/us
 import { ContinuoModal } from '../../components/Modals/ContinuoModal'
 import error from '../../assets/img/Advertencia.png'
 import { Loading } from '../../components/Loading/Loading'
+import { useNavigate } from 'react-router-dom'
 
 export const ComparationsSchedule = () => {
 
@@ -36,6 +37,11 @@ export const ComparationsSchedule = () => {
     const [ trimestre1, setTrimestre1 ] = useState();
     const [ trimestre2, setTrimestre2] = useState();
     const [ trimestre3, setTrimestre3 ] = useState();
+    const Navigate = useNavigate()
+
+    const showNavigation = () => {
+        Navigate('/PanelHorarios')
+    }
     
     const handleOptionClickTrimestre1 = (trimestre) => {
         setTrimestre1(trimestre);
@@ -94,6 +100,14 @@ export const ComparationsSchedule = () => {
     return (
         <>
             <NavBar />
+            <div className='btn-titleC'>
+                <div className='btn-backC' onClick={showNavigation}>
+                    <span class="material-symbols-outlined">
+                        arrow_back
+                    </span>
+                </div>
+                <h2>Comparar Horarios Instructores</h2>
+            </div>
             {/* 1*/}
             <div className="container_comparation_schedules">
                 <div className="container-horario-desplegables">
@@ -184,7 +198,6 @@ export const ComparationsSchedule = () => {
                                             </div>
                                         ))}
                                 </div>
-
                             </div>
                         </div>
 

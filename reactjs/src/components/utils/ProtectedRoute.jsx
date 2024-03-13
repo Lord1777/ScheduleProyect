@@ -23,11 +23,6 @@ import { FormAddAmbiente } from '../Form/FormAddAmbiente';
 import { AddProgram } from '../../pages/Add/AddProgram';
 import { AddQuarter } from '../../pages/Add/AddQuarter';
 import { AddSchedule } from '../../pages/Add/AddSchedule';
-import { DetailsAmbiente } from '../../pages/Details/DetailsAmbiente';
-import { DetailsTrimestre } from '../../pages/Details/DetailsTrimestre';
-import { DetailsInstructor } from '../../pages/Details/DetailsInstructor';
-import { DetailsFicha } from '../../pages/Details/DetailsFicha';
-import DetailsCoordinador from '../../pages/Details/DetailsCoordinador';
 import { UpdateRecors } from '../../pages/Update/UpdateRecors';
 import { UpdateInstructor } from '../../pages/Update/UpdateInstructor';
 import { UpdateCoordinator } from '../../pages/Update/UpdateCoordinator';
@@ -82,11 +77,6 @@ const roleConfig = {
             'AddTrimestre': AddQuarter,
             'AddCoordinador': AddCoordinator,
             'AddHorario': AddSchedule,
-            'DetallesAmbiente': DetailsAmbiente,
-            'DetallesTrimestre': DetailsTrimestre,
-            'DetallesInstructor': DetailsInstructor,
-            'DetallesFicha': DetailsFicha,
-            'DetallesCoordinador': DetailsCoordinador,
             'UpdateFicha': UpdateRecors,
             'UpdateInstructor': UpdateInstructor,
             'UpdateCoordinador': UpdateCoordinator,

@@ -89,6 +89,12 @@ export const ModalAsignar = ({
     const [searchInstructor, setSearchInstructor] = useState("");
     const [searchAmbiente, setSearchAmbiente] = useState("");
 
+    const matchFilter = (searchText, instructor) => {
+        const fullName = instructor.nombreCompleto.toLowerCase();
+        const initials = initialsName(instructor.nombreCompleto).toLowerCase();
+      
+        return fullName.startsWith(searchText.toLowerCase()) || initials.startsWith(searchText.toLowerCase());
+      };
 
     return (
         <>
@@ -125,9 +131,7 @@ export const ModalAsignar = ({
 
                                 <div className="contenedor-options">
                                     {dataInstructors && dataInstructors.length > 0 && dataInstructors
-                                        .filter((instructor) =>
-                                            instructor.nombreCompleto.toLowerCase().startsWith(searchInstructor.toLowerCase())
-                                        )
+                                        .filter((instructor) => matchFilter(searchInstructor, instructor))
                                         .map((instructor) => (
                                             <div key={instructor.idUsuario}
                                                 onClick={() => dropdown1.handleOptionClick(`${instructor.nombreCompleto}`)}

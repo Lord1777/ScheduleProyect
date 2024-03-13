@@ -16,6 +16,7 @@ export const InstructorWatch = () => {
 
     const { register, setValue } = useForm();
     const [search, setSearch] = useState("");
+    const [searchTrimestre1, setSearchTrimestre1] = useState("");
     const dropdown2 = useDropdown(setValue, "trimestres");
 
     const { dataQuarters } = useFetchGetQuarters('/getQuarters');
@@ -30,8 +31,8 @@ export const InstructorWatch = () => {
         return quarter ? quarter.idTrimestre : null; // Ajustar si el ID no está presente
     }
 
-    const handleOptionClickTrimestre = async(selectedOption) => {
-        if(selectedOption){
+    const handleOptionClickTrimestre = async (selectedOption) => {
+        if (selectedOption) {
             setLoading(true);
             await fetchScheduleInstructor(getQuarterId(selectedOption));
             setLoading(false);
@@ -48,41 +49,64 @@ export const InstructorWatch = () => {
 
             <div className="title-and-search">
                 <h2>Horarios Instructores</h2>
-                <div className="search-input">
-                    <input
-                        type="search"
-                        name="search"
-                        id="search"
-                        placeholder="Buscar"
-                        autoComplete="off"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                    />
-                    <div className="content-icon-bar">
-                        <FontAwesomeIcon icon={faSearch} className="search-icon" />
-                    </div>
-                </div>
+                <div className="btn-drop-search">
 
-                <div className={`desplegable-trimestre-instructor ${dropdown2.isDropdown ? 'open' : ''}`}>
-                    <input
-                        type="text"
-                        className='textBox'
-                        name='trimestres'
-                        placeholder='Trimestres'
-                        readOnly
-                        onClick={dropdown2.handleDropdown}
-                        value={dropdown2.selectedOption}
-                        {...register("trimestres")}
-                    />
-                    <div className={`desplegable-options ${dropdown2.isDropdown ? 'open' : ''}`}>
-                        {dataQuarters && dataQuarters.length > 0 && dataQuarters.map((quarter) => (
-                            <div key={quarter.idTrimestre} onClick={() => {
-                                dropdown2.handleOptionClick(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`);
-                                handleOptionClickTrimestre(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`);
-                            }}>
-                                {quarter.trimestre} | {quarter.fechaInicio} - {quarter.fechaFinal}
+                    <div className={`desplegable-comparacion  ${dropdown2.isDropdown ? 'open' : ''}`} id="horariosAcademicos">
+                        <input
+                            type="text"
+                            className='textBox'
+                            name='trimestres'
+                            placeholder='Trimestres'
+                            readOnly
+                            onClick={dropdown2.handleDropdown}
+                            value={dropdown2.selectedOption}
+                            {...register("trimestres")}
+                        />
+                        <div className={`option-drop-comparation ${dropdown2.isDropdown ? 'open' : ''}`}>
+                            <div className="search-bar-comparation">
+                                <input
+                                    type="text"
+                                    className='buscador-desplegables'
+                                    id='buscador'
+                                    value={searchTrimestre1}
+                                    onChange={(e) => setSearchTrimestre1(e.target.value)}
+                                />
+                                <div className="icon-search-comparation">
+                                    <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                                </div>
                             </div>
-                        ))}
+
+                            <div className="contenedor-options-comparacion">
+                                {dataQuarters && dataQuarters.length > 0 && dataQuarters
+                                    .filter((quarter) =>
+                                        `${quarter.trimestre}`.toLowerCase().startsWith(searchTrimestre1.toLowerCase()) ||
+                                        `${quarter.fechaInicio}`.toLowerCase().startsWith(searchTrimestre1.toLowerCase())
+                                    )
+                                    .map((quarter) => (
+                                        <div key={quarter.idTrimestre} onClick={() => {
+                                            dropdown2.handleOptionClick(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`)
+                                            handleOptionClickTrimestre(`${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}`);
+                                        }}>
+                                            {quarter.trimestre} | {quarter.fechaInicio} - {quarter.fechaFinal}
+                                        </div>
+                                    ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="search-input">
+                        <input
+                            type="search"
+                            name="search"
+                            id="search"
+                            placeholder="Buscar"
+                            autoComplete="off"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                        />
+                        <div className="content-icon-bar">
+                            <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                        </div>
                     </div>
                 </div>
 

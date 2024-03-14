@@ -226,6 +226,29 @@ export const ScheduleUpdateFicha = () => {
         setHorasAsignadas(horasIniciales);
     }, [asignaciones]);
 
+    const handleAssignedBoxClick = (boxIndex) => {
+        const boxData = asignaciones[boxIndex];
+
+        if (boxData) {
+            // Resta las horas asignadas solo si la casilla estaba asignada y las horas asignadas son mayores a 0
+            setHorasAsignadas((prevHoras) => {
+                const newHoras = Math.max(prevHoras - 1, 0);
+                return newHoras;
+            });
+
+            // Elimina la asignación de la casilla
+            setGlobalStoreBoxes((prevStoreBoxes) => {
+                const newStoreBoxes = prevStoreBoxes.filter((box) => box.boxIndex !== boxIndex);
+                return newStoreBoxes;
+            });
+
+            setAsignaciones((prevAsignaciones) => {
+                const newAsignaciones = { ...prevAsignaciones };
+                delete newAsignaciones[boxIndex];
+                return newAsignaciones;
+            });
+        }
+    };
 
     if (loading) {
         return <Loading />

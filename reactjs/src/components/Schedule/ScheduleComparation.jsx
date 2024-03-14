@@ -5,12 +5,13 @@ import '../../../css/Schedule/ComparationsSchedule.css'
 export const ScheduleComparation = ({ funcionFecth }) => {
     const [scheduleData, setScheduleData] = useState([])
     const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
-    const [newHorasAsignadasPorDia, setNewHorasAsignadasPorDia] = useState([]);
+    const [newHorasAsignadasPorDia, setNewHorasAsignadasPorDia] = useState({});
     const diaSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
     const [colorMap, setColorMap] = useState({});
     //bandera
     const [isInitialized, setIsInitialized] = useState(false);
     if (funcionFecth) {
+        //console.log(funcionFecth)
 
         useEffect(() => {
             if (funcionFecth && Array.isArray(funcionFecth)) {
@@ -40,17 +41,17 @@ export const ScheduleComparation = ({ funcionFecth }) => {
         // Inicializa las horas asignadas a 0 para cada día de la semana para cada instructor
         const initialHorasPorDia = {};
 
-        globalStoreBoxes.forEach(box => {
-            const dia = diaSemana[box.boxIndex % 7];
-            initialHorasPorDia[dia] = 0;
-        });
-
-        // dataSchedule.forEach(infoSchedule => {
-        //     const dia = diaSemana[infoSchedule.boxIndex % 7];
-        //     initialHorasPorDia[dia] = (initialHorasPorDia[dia] || 0) + 1;
+        // globalStoreBoxes.forEach(box => {
+        //     const dia = diaSemana[box.boxIndex % 7];
+        //     initialHorasPorDia[dia] = 0;
         // });
 
-        setNewHorasAsignadasPorDia(initialHorasPorDia);
+        scheduleData.forEach(infoSchedule => {
+            const dia = diaSemana[infoSchedule.boxIndex % 7];
+            initialHorasPorDia[dia] = (initialHorasPorDia[dia] || 0) + 1;
+        });
+
+        // setNewHorasAsignadasPorDia(initialHorasPorDia);
 
 
         // Actualiza el registro de horas asignadas por día
@@ -59,12 +60,11 @@ export const ScheduleComparation = ({ funcionFecth }) => {
             const dia = diaSemana[box.boxIndex % 7];
             if (!newHorasAsignadasPorDia[dia]) {
                 newHorasAsignadasPorDia[dia] = 0;
-                console.log("condicional")
             }
-            setNewHorasAsignadasPorDia[dia] += 1;
+            newHorasAsignadasPorDia[dia] += 1;
         });
 
-        //console.log(newHorasAsignadasPorDia)
+        console.log(newHorasAsignadasPorDia)
 
         // Verifica si se excede el límite diario de 10 horas
         const idInstructorExcedido = Object.keys(newHorasAsignadasPorDia).find(idInstructor => {
@@ -77,7 +77,7 @@ export const ScheduleComparation = ({ funcionFecth }) => {
             setAlertShowModal(true);
         }
         setNewHorasAsignadasPorDia(newHorasAsignadasPorDia);
-    }, [globalStoreBoxes, newHorasAsignadasPorDia]);
+    }, [globalStoreBoxes, scheduleData,]);
 
     return (
         <>

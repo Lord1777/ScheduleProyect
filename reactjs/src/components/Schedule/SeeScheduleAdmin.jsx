@@ -12,7 +12,7 @@ export const SeeScheduleAdmin = () => {
 
     const { idFicha, idHorario } = useParams();
     const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
-    const [newHorasAsignadasPorDia, setNewHorasAsignadasPorDia] = useState([]);
+    const [newHorasAsignadasPorDia, setNewHorasAsignadasPorDia] = useState({});
     const diaSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
     const { setHorasAsignadasValue, setTotalSeleccionadoValue, setInstructorColorValue, setHorasAsignadasPorDiaValue } = useContext(FilterScheduleFichaContext);
@@ -60,24 +60,20 @@ export const SeeScheduleAdmin = () => {
         setTotalSeleccionadoValue(totalSeleccionado);
 
         setHorasAsignadasValue(totalSeleccionado);
-    }, [dataSchedule, setTotalSeleccionadoValue, setHorasAsignadasValue, isInitialized, setHorasAsignadasPorDiaValue]);
 
-
-    useEffect(() => {
-        // Inicializa las horas asignadas a 0 para cada día de la semana para cada instructor
         const initialHorasPorDia = {};
 
-        globalStoreBoxes.forEach(box => {
-            const dia = diaSemana[box.boxIndex % 7];
-            initialHorasPorDia[dia] = 0;
-        });
+        // globalStoreBoxes.forEach(box => {
+        //     const dia = diaSemana[box.boxIndex % 7];
+        //     initialHorasPorDia[dia] = 0;
+        // });
 
         dataSchedule.forEach(infoSchedule => {
             const dia = diaSemana[infoSchedule.boxIndex % 7];
             initialHorasPorDia[dia] = (initialHorasPorDia[dia] || 0) + 1;
         });
 
-        setNewHorasAsignadasPorDia(initialHorasPorDia);
+        // setNewHorasAsignadasPorDia(initialHorasPorDia);
 
 
         // Actualiza el registro de horas asignadas por día
@@ -86,12 +82,11 @@ export const SeeScheduleAdmin = () => {
             const dia = diaSemana[box.boxIndex % 7];
             if (!newHorasAsignadasPorDia[dia]) {
                 newHorasAsignadasPorDia[dia] = 0;
-                console.log("condicional")
             }
-            setNewHorasAsignadasPorDia[dia] += 1;
-        }, [dataSchedule, setTotalSeleccionadoValue, setHorasAsignadasValue, setHorasAsignadasPorDiaValue, newHorasAsignadasPorDia]);
+            newHorasAsignadasPorDia[dia] += 1;
+        });
 
-        //console.log(newHorasAsignadasPorDia)
+        //console.log("Hola" + newHorasAsignadasPorDia)
 
         // Verifica si se excede el límite diario de 10 horas
         const idInstructorExcedido = Object.keys(newHorasAsignadasPorDia).find(idInstructor => {
@@ -104,7 +99,14 @@ export const SeeScheduleAdmin = () => {
             setAlertShowModal(true);
         }
         setNewHorasAsignadasPorDia(newHorasAsignadasPorDia);
-    }, [globalStoreBoxes, newHorasAsignadasPorDia]);
+    }, [dataSchedule, setTotalSeleccionadoValue, setHorasAsignadasValue, isInitialized, setHorasAsignadasPorDiaValue, globalStoreBoxes]);
+
+
+    // useEffect(() => {
+    //     // Inicializa las horas asignadas a 0 para cada día de la semana para cada instructor
+        
+
+    // }, [globalStoreBoxes, newHorasAsignadasPorDia]);
 
     if (loading) {
         return <Loading />

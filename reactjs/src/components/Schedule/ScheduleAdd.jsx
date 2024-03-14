@@ -47,8 +47,6 @@ export const ScheduleAdd = () => {
     const [newHorasAsignadasPorDia, setNewHorasAsignadasPorDia] = useState({});
     const diaSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
-
-
     //Funcion que retorna el id del trimestre
     const getQuarterId = (dataTrimestre) => {
         const quarter = dataQuarters.find((quarter) => `${quarter.trimestre} ${quarter.fechaInicio} - ${quarter.fechaFinal}` === dataTrimestre);

@@ -32,50 +32,24 @@ class CoordinatorSedeer extends Seeder
         $coordinador1->idRol = 1;
         $coordinador1->sesion = 1;
         $coordinador1->save();
-    }
 
-    // 'tipoDocumento' => $this->faker->randomElement([
-    //     'cedula ciudadania',
-    //     'cedula extranjeria',
-    //     'tarjeta identidad',
-    // ]),
-    // 'documento' => $this->faker->unique()->numberBetween(100000000, 199999999),
-    // 'nombreCompleto' => $this->faker->name,
-    // 'ciudad' => $this->faker->randomElement([
-    //     'palmira',
-    //     'cali',
-    //     'pradera',
-    //     'candelaria',
-    //     'villagorgona',
-    //     'el bolo',
-    //     'amaime',
-    //     'poblado campestre',
-    // ]),
-    // 'telefono' => preg_replace('/[^0-9]/', '', $phoneNumber),
-    // 'profesion' => $this->faker->randomElement([
-    //     'Diseñador grafico',
-    //     'ingeniero',
-    //     'desarrollador de software',
-    //     'ingeniero de software',
-    //     'ingeniero en computaciones',
-    //     'ingeniero en sistemas',
-    //     'programador',
-    //     'mecanico automotriz',
-    //     'mecatronica',
-    //     'electronica',
-    //     'emprendimiento',
-    //     'ciencias',
-    //     'tecnologias de la informacion',
-    //     'gestion empresarial'
-    // ]),
-    // 'email' => $this->faker->safeEmail,
-    // 'experiencia' => $this->faker->paragraph,
-    // 'password' => Hash::make($this->faker->password),
-    // 'limiteHoras' => $this->faker->randomElement([35, 40]),
-    // 'horasAsignadas' => 0,
-    // 'estado' => $this->faker->randomElement(['habilitado', 'inhabilitado']),
-    // 'idContrato' => $this->faker->numberBetween(1,2),
-    // 'idSede' => $this->faker->numberBetween(1,3),
-    // 'idRol' => $this->faker->numberBetween(1,2),
-    // 'sesion' => 0,
+        $coordinador2 = new Usuario;
+        $coordinador2->tipoDocumento = 'cedula ciudadania';
+        $coordinador2->documento = 1127625427;
+        $coordinador2->nombreCompleto = 'césar negrón adrián vente';
+        $coordinador2->ciudad = 'palmira';
+        $coordinador2->telefono = 3165697101;
+        $coordinador2->profesion = 'desarrollador de software';
+        $coordinador2->email = 'cesarnegron16@gmail.com';
+        $coordinador2->experiencia = 'Tecnologo en analisis y desarrollo de software. Aprendiz que en su momento a desarrollado el presente aplicativo';
+        $coordinador2->password = Hash::make(123456789);
+        $coordinador2->limiteHoras = 999;
+        $coordinador2->horasAsignadas = 0;
+        $coordinador2->estado = 'habilitado';
+        $coordinador2->idContrato = 1;
+        $coordinador2->idSede = 3;
+        $coordinador2->idRol = 1;
+        $coordinador2->sesion = 1;
+        $coordinador2->save();
+    }
 }

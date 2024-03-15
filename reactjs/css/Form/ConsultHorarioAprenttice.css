@@ -215,13 +215,19 @@
     }
 }
 
+@media (max-width:853px) {
+    #sena {
+        width: 21rem;
+    }
+}
+
 @media(max-width:540px) {
     .select-ficha {
-        margin-left: 19rem;
+        margin-left: 0.3rem;
     }
 
     .container-consult-form form button {
-        margin-left: 18.9rem;
+        margin-left: 0.1rem;
     }
 }
 
@@ -356,15 +362,19 @@
 @media(max-width:430px) {
 
     .select-ficha {
-        margin-left: 18.5rem;
+        margin-left: 1rem;
     }
 
     .container-consult-form form button {
-        margin-left: 19rem;
+        margin-left: 0.8rem;
     }
 
     .Volver{
         margin-left: 1rem;
+    }
+
+    #sena {
+        width: 17rem;
     }
 }
 
@@ -380,30 +390,38 @@
 
 @media (max-width:414px) {
     .select-ficha{
-        margin-right: 17rem;
+        margin-right: 0.5rem;
     }
 
     .container-consult-form form button {
-        margin-right: 17.5rem;
+        margin-right: 0.3rem;
     }
 
     .Volver {
         margin-right: 0.5rem;
+    }
+
+    #sena {
+        width: 18rem;
     }
 }
 
 @media(max-width:412px) {
 
     .select-ficha{
-        margin-right: 17rem;
+        margin-right: 1rem;
     }
 
     .container-consult-form form button {
-        margin-left: 1.1rem;
+        margin-left: 0.3rem;
     }
 
     .Volver{
-        margin-left: 0.4rem;
+        margin-left: 0.6rem;
+    }
+
+    #sena {
+        width: 16rem;
     }
 }
 
@@ -423,9 +441,43 @@
     }
 }
 
+@media (max-width:390px) {
+    .select-ficha {
+        margin-left: 1.5rem;
+    }
+
+    .container-consult-form form button {
+        margin-right: 18.5rem;
+    }
+}
+
 @media(max-width:380px) {
     .Volver {
         margin-left: 1rem;
+    }
+}
+
+@media(max-width:375px) {
+    .container-consult-form form button {
+        margin-left: 18.8rem;
+    }
+
+    .Volver {
+        margin-left: 0.5rem;
+    }
+
+    .select-ficha {
+        margin-right: 1.2rem;
+    }
+}
+
+@media (max-width:360px) {
+    .container-consult-form form button {
+        margin-left: 18.6rem;
+    }
+
+    .select-ficha {
+        margin-right: 1.5rem;
     }
 }
 
@@ -542,12 +594,12 @@
 @media(max-width:280px) {
     .select-ficha {
         margin-top: -1rem;
-        margin-right: 19rem;
+        margin-right: 1.5rem;
     }
 
     .container-consult-form form button {
         margin-top: 2rem;
-        margin-right: 1.5rem;
+        margin-right: 18.5rem;
     }
 
     .Volver {
@@ -563,5 +615,9 @@
         font-size: 0.8rem;
         font-weight: 600;
         letter-spacing: 1px;
+    }
+
+    #sena {
+        width: 12rem;
     }
 }

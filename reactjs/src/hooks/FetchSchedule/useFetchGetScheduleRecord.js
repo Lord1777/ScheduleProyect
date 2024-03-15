@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { API_URL } from '../../const/api';
 import { useNavigate } from 'react-router-dom';
 
-const useFetchGetScheduleRecord = (route, idFicha, idHorario) => {
+const useFetchGetScheduleRecord = (route, idFicha) => {
 
     const userToken = localStorage.getItem('access_token');
 
@@ -17,7 +17,7 @@ const useFetchGetScheduleRecord = (route, idFicha, idHorario) => {
         const fetchData = async () => {
 
             try {
-                const response = await fetch(`${API_URL}${route}/${idFicha}/${idHorario}`, {
+                const response = await fetch(`${API_URL}${route}/${idFicha}`, {
                     method: "GET",
                     headers: {
                         'Content-Type': 'application/json',

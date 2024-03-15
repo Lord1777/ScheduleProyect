@@ -19,6 +19,7 @@ import FilterScheduleFichaContext from '../../context/FilterScheduleFichaContext
 import useFetchGetInfoBarRecord from '../../hooks/FetchSchedule/useFetchGetInfoBarRecord';
 import { Modal } from '../Modals/Modal';
 import { useFetchGetCreateAndUpdateSchedule } from '../../hooks/FetchGET/useFetchGetCreateAndUpdateSchedule';
+import useFetchGetScheduleAdminRecord from '../../hooks/FetchSchedule/useFetchGetScheduleAdminRecord';
 
 
 export const ScheduleUpdateFicha = () => {
@@ -38,12 +39,12 @@ export const ScheduleUpdateFicha = () => {
 
     const { dataQuarter } = useFetchGetOneQuarter(`/GetTrimestre/${idTrimestre}`);
     const { dataInfoRecord } = useFetchGetInfoBarRecord('/getInfoBarRecord', idFicha);
- 
+
     // Almacena todos los índices, id-instructor, id-ambiente asignados,
     const [globalStoreBoxes, setGlobalStoreBoxes] = useState(new Set());
     const [point, setPoint] = useState(false);
 
-    const { dataSchedule, loading } = useFetchGetScheduleRecord('/getScheduleAdminApprentice', idFicha, idHorario);
+    const { dataSchedule, loading } = useFetchGetScheduleAdminRecord('/getScheduleAdminApprentice', idFicha, idHorario);
     const { dataCoordinator } = useFetchGetCreateAndUpdateSchedule('/createAndUpdateBy', idHorario);
 
     //bandera
@@ -194,14 +195,14 @@ export const ScheduleUpdateFicha = () => {
         // setNewHorasAsignadasPorDia(initialHorasPorDia);
 
 
-            const newHorasAsignadasPorDia = { ...initialHorasPorDia };
-            globalStoreBoxes.forEach(box => {
-                const dia = diaSemana[box.boxIndex % 7];
-                if (!newHorasAsignadasPorDia[dia]) {
-                    newHorasAsignadasPorDia[dia] = 0;
-                }
-                newHorasAsignadasPorDia[dia] += 1;
-            });
+        const newHorasAsignadasPorDia = { ...initialHorasPorDia };
+        globalStoreBoxes.forEach(box => {
+            const dia = diaSemana[box.boxIndex % 7];
+            if (!newHorasAsignadasPorDia[dia]) {
+                newHorasAsignadasPorDia[dia] = 0;
+            }
+            newHorasAsignadasPorDia[dia] += 1;
+        });
 
 
         //console.log(newHorasAsignadasPorDia)
@@ -236,9 +237,21 @@ export const ScheduleUpdateFicha = () => {
                 return newHoras;
             });
 
+            console.log(globalStoreBoxes)
+
             // Elimina la asignación de la casilla
             setGlobalStoreBoxes((prevStoreBoxes) => {
-                const newStoreBoxes = prevStoreBoxes.filter((box) => box.boxIndex !== boxIndex);
+                // Crea un nuevo conjunto a partir del conjunto anterior
+                const newStoreBoxes = new Set(prevStoreBoxes);
+
+                // Itera sobre los elementos del conjunto para encontrar y eliminar el elemento con el boxIndex dado
+                newStoreBoxes.forEach(box => {
+                    if (box.boxIndex === boxIndex) {
+                        newStoreBoxes.delete(box);
+                    }
+                });
+
+                // Devuelve el nuevo conjunto sin el elemento eliminado
                 return newStoreBoxes;
             });
 

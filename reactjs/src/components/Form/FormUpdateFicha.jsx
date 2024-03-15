@@ -199,10 +199,8 @@ export const FormUpdateFicha = () => {
                                         </div>
                                     </div>
                                     {errors.Jornada && <p className='errors_forms'>{errors.Jornada.message}</p>}
-
                                 </div>
                             </div>
-
                             <div className="btns-crear">
                                 <div className="container-btns-ficha">
                                     <button className='guardar' type="submit">Guardar</button>
@@ -211,13 +209,7 @@ export const FormUpdateFicha = () => {
                                             Cancelar
                                         </button>
                                     </Link>
-
                                 </div>
-                                {/* <Link to={`/AddHorario/${id}`} >
-                                    <button className="horario" >
-                                        Crear horario
-                                    </button>
-                                </Link> */}
                             </div>
                         </form>
                     </div>

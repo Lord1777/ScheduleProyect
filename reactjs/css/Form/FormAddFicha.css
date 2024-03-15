@@ -150,6 +150,37 @@
     color: var(--color-text-btn);
 }
 
+.container-btns-ficha {
+    position: relative;
+    bottom: -3rem;
+    right: 0rem;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.container-btns-ficha button{
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0.8rem 2rem;
+    margin: 0.5rem;
+    border-radius: 0.2rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+.container-btns-ficha .guardar{
+    background-color: var(--color-btn-guardar);
+    color: var(--color-text-btn);
+}
+
+.container-btns-ficha .cancelar{
+    background-color: var(--color-btn-cancelar);
+    color: var(--color-text-btn);
+}
+
 .container_all_form h2{
     display: flex;
     justify-content: center;
@@ -368,6 +399,16 @@
         align-items: flex-end;
         justify-content: flex-end;
     }
+
+    .container-btns-ficha {
+        position: relative;
+        bottom: -2rem;
+        right: 0rem;
+        width: 100%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
 }
 
 @media(max-width:550px){
@@ -379,6 +420,12 @@
     }
 
     .container-btns {
+        position: relative;
+        bottom: -2rem;
+        right: 0rem;
+    }
+
+    .container-btns-ficha {
         position: relative;
         bottom: -2rem;
         right: 0rem;
@@ -406,6 +453,27 @@
     }
 
     .container-btns {
+        position: relative;
+        bottom: -2rem;
+        right: 0rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .container-btns-ficha button {
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 0.6rem 1.2rem;
+        margin: 0.5rem;
+        border-radius: 0.2rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        font-size: 0.7rem;
+    }
+
+    .container-btns-ficha {
         position: relative;
         bottom: -2rem;
         right: 0rem;

@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Mail\ResetPasswordMail;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use stdClass;
 
 
@@ -203,21 +206,41 @@ class AuthController extends Controller
                 "message" => "Error al actualizar la contraseña.",
             ], Response::HTTP_INTERNAL_SERVER_ERROR); //500
         }
-}
+    }
 
 
 
     public function forgotPassword(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email',
-        ]);
-
-        $status = Password::sendResetLink($request->only('email'));
-
-        return $status === Password::RESET_LINK_SENT
-            ? response()->json(['message' => __($status)])
-            : response()->json(['error' => __($status)], 400);
+        try {
+            $request->validate([
+                'email' => 'required|email',
+            ]);
+    
+            // Generar una contraseña temporal
+            $passwordTemporal = Str::random(10);
+    
+            $usuario = Usuario::where('email', $request->email)->first();
+    
+            if (!$usuario) {
+                return response()->json(['error' => 'El usuario con el correo electrónico proporcionado no existe.'], 404);
+            }
+    
+            $nombreUsuario = $usuario->nombreCompleto;
+            
+            $usuario->update([
+                'password' => bcrypt($passwordTemporal),
+                'sesion' => 0,
+            ]);
+    
+            Mail::to($request->email)->send(new ResetPasswordMail($passwordTemporal, $nombreUsuario));
+    
+            return response()->json(['message' => 'Se ha enviado una contraseña temporal por correo electrónico.']);
+        } catch (\Exception $e) {
+            Log::error('Error al enviar correo electrónico de restablecimiento de contraseña: ' . $e->getMessage());
+            return response()->json(['error' => 'Ha ocurrido un error al enviar el correo electrónico. Por favor, inténtelo de nuevo más tarde.'], 500);
+        }
+    
     }
 
     public function showResetForm(Request $request, $token)

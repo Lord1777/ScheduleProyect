@@ -64,6 +64,11 @@ export const FormPassword = () => {
                         </div>
 
                         <button type="submit">Enviar correo</button>
+                        <Link to={'/'}>
+                        <button className='volver'>
+                            Volver
+                        </button>
+                    </Link>
                     </form>
                 </div>
             </main>

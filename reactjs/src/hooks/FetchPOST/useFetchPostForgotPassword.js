@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { API_URL, csrf_token } from '../../const/api';
+import { useNavigate } from 'react-router-dom';
+import useModal from '../useModal';
 
 export const useFetchPostForgotPassword = (route) => {
+
+    const Navigate = useNavigate();
+    const { isModal: successModalOpen, ShowOpenModal: openSuccessModal, ShowCloseModal: closeSuccessModal } = useModal();
+    const { isModal: errorModalOpen, ShowOpenModal: openErrorModal, ShowCloseModal: closeErrorModal } = useModal();
+    const [alertMessage, setAlertMessage] = useState('');
+    const [ruta, setRuta] = useState('');
 
     const handleForgotPassword = async (email) => {
 
@@ -15,13 +23,26 @@ export const useFetchPostForgotPassword = (route) => {
                 body: JSON.stringify({ email }),
             });
 
-            if (!response.ok) {
+            if (response.ok) {
+                const data = await response.json();
+                setAlertMessage("Hemos enviado una contraseña temporal de acceso al correo electrónico proporcionado.");
+                setRuta("/")
+                openSuccessModal();
+                //console.log(data);
+                //throw new Error('Error al solicitar restablecimiento de contraseña');
+            }
+            else if (response.status === 404) {
+                setAlertMessage("El correo electrónico ingresado es incorrecto o no existe.");
+                openErrorModal();
+            }
+            else if(response.status === 500){
+                setAlertMessage("No hemos podido atender la solicitud para el restablecimiento de contraseña, por favor inténtelo más tarde.");
+                openErrorModal();
+            }
+            else {
                 throw new Error('Error al solicitar restablecimiento de contraseña');
             }
 
-            const data = await response.json();
-            console.log(data);
-            
         } catch (error) {
             console.error(error.message);
         }
@@ -30,6 +51,12 @@ export const useFetchPostForgotPassword = (route) => {
     return (
         {
             handleForgotPassword,
+            successModalOpen,
+            closeSuccessModal,
+            errorModalOpen,
+            closeErrorModal,
+            alertMessage,
+            ruta
         }
     )
 }

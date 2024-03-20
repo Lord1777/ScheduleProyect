@@ -2,7 +2,7 @@ import React from 'react'
 import '../../../css/Modals/Modal.css'
 import { useNavigate } from 'react-router-dom';
 
-export const ContinuoModal = ({ tittle, imagen, message, open, close, route }) => {
+export const ContinuoModal = ({ tittle, imagen, message, open, close, route, refresh }) => {
     if (!open) return null;
 
     const Navigate = useNavigate();
@@ -11,6 +11,10 @@ export const ContinuoModal = ({ tittle, imagen, message, open, close, route }) =
         close(); // Cierra el modal
         if (route) {
             Navigate(route)
+        }
+
+        if(refresh){
+            refresh();
         }
     };
 

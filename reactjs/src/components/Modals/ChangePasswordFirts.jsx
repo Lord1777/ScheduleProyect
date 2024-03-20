@@ -45,6 +45,10 @@ export const ChangePasswordFirts = ({ IdUser, open, close }) => {
         setLoading(false);
     }
 
+    const freshPage = () => {
+        window.location.reload();
+    }
+
     if (loading) {
         return <Loading />
     }
@@ -99,13 +103,8 @@ export const ChangePasswordFirts = ({ IdUser, open, close }) => {
                 imagen={error}
                 message={alertMessage}
                 open={errorModalOpen}
-                close={ closeErrorModal
-                //     () => {
-                //     closeErrorModal();
-                //     close(); // Cerrar el modal principal
-                // }
-            }
-            ruta={rutaPanel}
+                close={closeErrorModal}
+                ruta={rutaPanel}
             />
             <ContinuoModal
                 tittle="Actualización Exitosa"
@@ -116,6 +115,7 @@ export const ChangePasswordFirts = ({ IdUser, open, close }) => {
                     closeSuccessModal();
                     close(); // Cerrar el modal principal
                 }}
+                refresh={freshPage}
             />
         </>
     )

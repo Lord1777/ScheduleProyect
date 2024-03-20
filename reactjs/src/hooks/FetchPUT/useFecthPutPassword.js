@@ -12,7 +12,7 @@ const useFecthPutPassword = () => {
     const { isModal: modalChangePasword, ShowOpenModal: openPasswordModal, ShowCloseModal: closePasswordModal } = useModal();
     const [alertMessage, setAlertMessage] = useState('');
     const [ruta, setRuta] = useState('');
-    const [ rutaPanel, setRutaPanel ] = ('');
+    const [rutaPanel, setRutaPanel] = ('');
 
     const fetchPutPassword = async (idUsuario, password) => {
 
@@ -38,9 +38,8 @@ const useFecthPutPassword = () => {
                 closePasswordModal();
 
                 // Modificar el valor de la propiedad 'sesion' a 1 en los datos del usuario
-                let userData = localStorage.getItem('user_data');
+                let userData = JSON.parse(localStorage.getItem('user_data'));
                 if (userData) {
-                    userData = JSON.parse(userData);
                     userData.sesion = 1;
                     localStorage.setItem('user_data', JSON.stringify(userData));
                 }

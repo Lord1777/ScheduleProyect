@@ -121,6 +121,14 @@ export const NavBar = () => {
                             </Link>
                         </>
                     )}
+
+                    {(userRole === null) && (
+                        <>
+                            <Link to={'/'}>
+                                <li><img src={Logout} alt="logout" />Regresar</li>
+                            </Link>
+                        </>
+                    )}
                 </ul>
             </div>
             <ModalConfirmLogout

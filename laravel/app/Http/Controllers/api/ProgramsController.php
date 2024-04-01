@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Programa;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ProgramsController extends Controller
@@ -103,9 +104,11 @@ class ProgramsController extends Controller
     public function update(Request $request, string $idPrograma)
     {
 
+        $nombre = $request->nombre;
+
         $validator = Validator::make($request->all(), [
             'duracion' => 'required|numeric',
-            'nombre' => 'required|string|unique:programas',
+            'nombre' => 'required|string|unique:programas,nombre,' . $nombre . ',nombre',
             'idNivelFormacion' => 'required|numeric'
         ]);
 

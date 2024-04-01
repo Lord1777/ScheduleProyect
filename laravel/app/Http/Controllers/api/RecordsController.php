@@ -182,9 +182,10 @@ class RecordsController extends Controller
 
     public function update(Request $request, string $idFicha)
     {
+        $ficha = $request->ficha;
 
         $validator = Validator::make($request->all(), [
-            'ficha' => 'required|unique:fichas|numeric',
+            'ficha' => 'required|numeric|unique:fichas,ficha,' . $ficha . ',ficha',
             'idModalidad' => 'required|integer', 
             'idJornada' => 'required|integer', 
         ]);

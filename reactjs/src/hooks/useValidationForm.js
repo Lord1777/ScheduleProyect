@@ -15,6 +15,10 @@ const useValidationForm = () => {
             value: 30,
             message: "El Nombre no puede tener más de 30 caracteres",
         },
+        pattern: {
+            value: /^[A-Za-z\s]+$/,
+            message: "El Nombre solo puede contener letras",
+        }
     }
 
     const INSTRUCTOR ={
@@ -107,7 +111,7 @@ const useValidationForm = () => {
             value: /^[A-Za-z\s]+$/,
             message: "Solo se permiten letras en el nombre",
         },
-    }
+    };
 
     const MODALIDAD = {
         required: {
@@ -321,6 +325,10 @@ const useValidationForm = () => {
             value: 500,
             message: "No puede tener más de 500 caracteres",
         },
+        pattern: {
+            value: /^[a-zA-Z0-9\s,.()]+$/,
+            message: "Solo letras, números, comas, paréntesis, espacios y puntos",
+        }
     };    
 
 

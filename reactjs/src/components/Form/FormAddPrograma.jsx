@@ -57,7 +57,7 @@ export const FormAddPrograma = () => {
                                         autoComplete='off'
                                         {...register("programa", PROGRAMA)}
                                     />
-                                    {errors.Programa && <p className='errors_forms'>{errors.Programa.message}</p>}
+                                    {errors.programa && <p className='errors_forms'>{errors.programa.message}</p>}
                                 </div>
 
                                 <div>
@@ -67,7 +67,7 @@ export const FormAddPrograma = () => {
                                         placeholder='Horas de duración'
                                         {...register("duracion", DURACION)}
                                     />
-                                    {errors.Duracion && <p className='errors_forms'>{errors.Duracion.message}</p>}
+                                    {errors.duracion && <p className='errors_forms'>{errors.duracion.message}</p>}
                                 </div>
 
                                 <div>
@@ -87,7 +87,7 @@ export const FormAddPrograma = () => {
                                             <div onClick={() => dropdown1.handleOptionClick('Tecnologo')}>Tecnólogo</div>
                                         </div>
                                     </div>
-                                    {errors.NivelFormacion && <p className='errors_forms'>{errors.NivelFormacion.message}</p>}
+                                    {errors.nivelDeFormacion && <p className='errors_forms'>{errors.nivelDeFormacion.message}</p>}
                                 </div>
                             </div>
                             <div className="container-btns">

@@ -21,7 +21,7 @@ export const FormAddFicha = () => {
     const dropdown1 = useDropdown(setValue, 'modalidad');
     const dropdown2 = useDropdown(setValue, 'programa');
     const dropdown3 = useDropdown(setValue, 'jornada');
-    const { PROGRAMA, NFICHA, MODALIDAD, JORNADA_ACADEMICA } = useValidationForm();
+    const { PROGRAMA, PROGRAMA2, NFICHA, MODALIDAD, JORNADA_ACADEMICA } = useValidationForm();
     const [searchProgram, setSearchPogram] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -98,7 +98,7 @@ export const FormAddFicha = () => {
                                             readOnly
                                             onClick={dropdown2.handleDropdown}
                                             value={dropdown2.selectedOption}
-                                            {...register("programa", PROGRAMA)}
+                                            {...register("programa", PROGRAMA2)}
                                         />
                                         <div className={`desplegable-options-form ${dropdown2.isDropdown ? 'open' : ''}`}>
                                             <div className="search-bar">

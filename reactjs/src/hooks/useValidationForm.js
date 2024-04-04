@@ -113,6 +113,13 @@ const useValidationForm = () => {
         },
     };
 
+    const PROGRAMA2 = {
+        required: {
+            value: true,
+            message: "Es requerido este campo"
+        },
+    }
+
     const MODALIDAD = {
         required: {
             value: true,
@@ -342,6 +349,7 @@ const useValidationForm = () => {
         NFICHA,
         DURACION,
         PROGRAMA,
+        PROGRAMA2,
         MODALIDAD,
         NIVEL_FORMACION,
         JORNADA_ACADEMICA,

@@ -13,6 +13,7 @@ import { useUser } from '../context/UserContext';
 import { ChangePasswordFirts } from '../components/Modals/ChangePasswordFirts';
 import useFecthPutPassword from '../hooks/FetchPUT/useFecthPutPassword';
 import { Loading } from '../components/Loading/Loading';
+import { TooltipManual } from '../components/Tooltips/TooltipManual';
 
 
 export const ControlPanel = () => {
@@ -98,6 +99,7 @@ export const ControlPanel = () => {
 
                 </div>
             </div>
+            <TooltipManual/>
             <ChangePasswordFirts
                 IdUser={userData.idUsuario}
                 open={modalChangePasword}

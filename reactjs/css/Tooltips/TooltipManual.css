@@ -1,0 +1,32 @@
+.C-tooltipManual{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 5rem;
+    height: 5rem;
+    background-color: var(--primary-color);
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    border-radius: 50% 50% 10% 50%;
+    cursor: pointer;
+    z-index: 20;
+
+    span{
+        color: white;
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 440px){
+    .C-tooltipManual{
+        width: 3.5rem;
+        height: 3.5rem; 
+
+        span{
+            font-size: 1.5rem;
+        }
+    }
+    
+}
